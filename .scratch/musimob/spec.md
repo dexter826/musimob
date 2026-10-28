@@ -49,6 +49,7 @@ Mục tiêu: mở app, thấy danh sách, thêm được một bài trong dướ
 
 - PWA chạy trên web. Vite + React + TypeScript.
 - Tailwind CSS v4 qua `@tailwindcss/vite`.
+- shadcn/ui (Radix) cho component nền; token semantic trong `src/index.css`.
 - TanStack Query cho lớp gọi iTunes.
 - `vite-plugin-pwa` cho manifest và service worker.
 - Không Zustand, không Redux. State UI dùng `useState`; danh sách bài đến từ Firestore qua `onSnapshot`.
@@ -128,7 +129,7 @@ Hai adapter: Firebase thật, và adapter iTunes đứng sau `search`.
 Chốt từ prototype, variant D.
 
 - Header: wordmark `musimob`, dòng `{n} bài`, nút đổi kiểu xem, avatar.
-- Khung danh sách tràn viewport: desktop dùng toàn bộ chiều ngang; mobile một cột. Màn đăng nhập đặt form căn giữa, tối đa 440px.
+- Khung danh sách tràn viewport: desktop dùng toàn bộ chiều ngang; mobile một cột. Màn đăng nhập là khung vuông tối đa 560px, căn giữa; form nằm ở đáy khung.
 - Ô tìm kiếm full-width dưới header, lọc phía client trên danh sách đã tải.
 - Kiểu danh sách: row cao 50px ảnh, tên đậm 14.5px, ca sĩ 12.5px màu muted.
 - Kiểu lưới: hai cột, ảnh vuông, gradient đen dưới đáy, tên chồng trên ảnh.

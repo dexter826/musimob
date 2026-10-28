@@ -1,63 +1,135 @@
 /* Hallmark · shape: app screen · genre: atmospheric · theme: incumbent musimob
- * paper: #050506/#0a0a0b · accent: #ff6a4d · display: system sans · body: system sans
- * nav: wordmark + avatar menu · signature: centered sign-in card · states: loading, signed-out, signing-in, error, signed-in
+ * paper: #050506/#0a0a0b · accent: #ff6a4d · display: Be Vietnam Pro · body: Be Vietnam Pro
+ * nav: wordmark + avatar menu · signature: sleeve sign-in with record label · states: loading, signed-out, signing-in, error, signed-in
  * axes: dark/grotesk-sans/warm · posture: restrained · contrast: pass · v2.0.0 */
 /* Hallmark · pre-emit critique: P4 H5 E4 S4 R5 V3 · weakest: V, kept one familiar Google action because familiarity is the job */
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-page: #050506;
-  --color-canvas: #0a0a0b;
-  --color-surface: #131316;
-  --color-surface-2: #1c1c20;
-  --color-line: #2a2a30;
-  --color-ink: #f4f4f5;
-  --color-muted: #8f8f9a;
-  --color-accent: #ff6a4d;
-  --color-accent-ink: #1a0a06;
-  --color-danger: #ff9a8a;
-  --color-focus: #ff6a4d;
-  --shadow-menu: 0 16px 40px rgb(0 0 0 / 0.5);
+  --font-sans: "Be Vietnam Pro", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+
+  --color-background: #050506;
+  --color-foreground: #f4f4f5;
+  --color-card: #131316;
+  --color-card-foreground: #f4f4f5;
+  --color-popover: #131316;
+  --color-popover-foreground: #f4f4f5;
+  --color-primary: #ff6a4d;
+  --color-primary-foreground: #1a0a06;
+  --color-secondary: #1c1c20;
+  --color-secondary-foreground: #f4f4f5;
+  --color-muted: #1c1c20;
+  --color-muted-foreground: #8f8f9a;
+  --color-accent: #1c1c20;
+  --color-accent-foreground: #f4f4f5;
+  --color-destructive: #ff8a75;
+  --color-destructive-foreground: #1a0a06;
+  --color-border: #2a2a30;
+  --color-input: #2a2a30;
+  --color-ring: #ff6a4d;
+  --color-chart-1: #ff6a4d;
+  --color-chart-2: #f5b544;
+  --color-chart-3: #5eead4;
+  --color-chart-4: #a78bfa;
+  --color-chart-5: #60a5fa;
+  --color-sidebar: #0a0a0b;
+  --color-sidebar-foreground: #f4f4f5;
+  --color-sidebar-primary: #ff6a4d;
+  --color-sidebar-primary-foreground: #1a0a06;
+  --color-sidebar-accent: #1c1c20;
+  --color-sidebar-accent-foreground: #f4f4f5;
+  --color-sidebar-border: #2a2a30;
+  --color-sidebar-ring: #ff6a4d;
+
+  --radius: 0.5rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-html {
+:root,
+.dark {
   color-scheme: dark;
-  overflow-x: clip;
-  scrollbar-color: var(--color-line) var(--color-page);
-}
 
-body {
-  background: var(--color-page);
-  color: var(--color-ink);
-  overflow-x: clip;
-  caret-color: var(--color-accent);
-  -webkit-font-smoothing: antialiased;
-}
-
-::selection {
-  background: var(--color-accent);
-  color: var(--color-accent-ink);
-}
-
-.auth-stage {
-  background-image: radial-gradient(
-    120% 80% at 50% -10%,
-    color-mix(in oklab, var(--color-accent) 12%, transparent),
-    transparent 62%
-  );
+  --background: var(--color-background);
+  --foreground: var(--color-foreground);
+  --card: var(--color-card);
+  --card-foreground: var(--color-card-foreground);
+  --popover: var(--color-popover);
+  --popover-foreground: var(--color-popover-foreground);
+  --primary: var(--color-primary);
+  --primary-foreground: var(--color-primary-foreground);
+  --secondary: var(--color-secondary);
+  --secondary-foreground: var(--color-secondary-foreground);
+  --muted: var(--color-muted);
+  --muted-foreground: var(--color-muted-foreground);
+  --accent: var(--color-accent);
+  --accent-foreground: var(--color-accent-foreground);
+  --destructive: var(--color-destructive);
+  --destructive-foreground: var(--color-destructive-foreground);
+  --border: var(--color-border);
+  --input: var(--color-input);
+  --ring: var(--color-ring);
+  --chart-1: var(--color-chart-1);
+  --chart-2: var(--color-chart-2);
+  --chart-3: var(--color-chart-3);
+  --chart-4: var(--color-chart-4);
+  --chart-5: var(--color-chart-5);
+  --sidebar: var(--color-sidebar);
+  --sidebar-foreground: var(--color-sidebar-foreground);
+  --sidebar-primary: var(--color-sidebar-primary);
+  --sidebar-primary-foreground: var(--color-sidebar-primary-foreground);
+  --sidebar-accent: var(--color-sidebar-accent);
+  --sidebar-accent-foreground: var(--color-sidebar-accent-foreground);
+  --sidebar-border: var(--color-sidebar-border);
+  --sidebar-ring: var(--color-sidebar-ring);
 }
 
 @layer base {
-  :where(button, a, [role='button']) {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    overflow-x: clip;
+    scrollbar-color: var(--border) var(--background);
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    overflow-x: clip;
+    caret-color: var(--primary);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+
+  :where(button, a, [role="button"]) {
     touch-action: manipulation;
   }
 
   :where(button, a, input, textarea, select, [tabindex]):focus-visible {
-    outline: 2px solid var(--color-focus);
+    outline: 2px solid var(--ring);
     outline-offset: 2px;
   }
 
   p {
     text-wrap: pretty;
   }
+}
+
+.auth-stage {
+  background-image: radial-gradient(
+    120% 80% at 50% -10%,
+    color-mix(in oklab, var(--primary) 12%, transparent),
+    transparent 62%
+  );
 }

@@ -31,8 +31,8 @@ Người dùng thêm bài từ điện thoại hoặc laptop, tra lại danh sá
 - Xem dạng danh sách dày hoặc lưới ảnh bìa; nhớ kiểu xem trong `localStorage`.
 - Firestore là nguồn sự thật, `users/{uid}/songs/{songId}`, đồng bộ realtime, offline persistence, last-write-wins.
 - PWA cài được lên màn hình chính; vẫn xem được khi mất mạng.
-- Khung app dùng toàn bộ chiều ngang trên desktop; mobile một cột. Màn đăng nhập đặt form căn giữa, tối đa 440px.
-- Stack: Vite 8, React 19, TypeScript 5.9, Tailwind CSS v4, TanStack Query, `vite-plugin-pwa`.
+- Khung app dùng toàn bộ chiều ngang trên desktop; mobile một cột. Màn đăng nhập là khung vuông tối đa 560px, căn giữa; form nằm ở đáy khung.
+- Stack: Vite 8, React 19, TypeScript 5.9, Tailwind CSS v4, shadcn/ui (Radix), TanStack Query, `vite-plugin-pwa`.
 - Không viết test tự động; kiểm tra bằng tay.
 - Không App Check.
 - Ngoài phạm vi: phát nhạc, chia sẻ, lời bài hát, tag, nhập hàng loạt, preview channel, tên miền riêng.

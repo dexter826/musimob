@@ -8,7 +8,7 @@
   "hero": "none; app screen",
   "nav": "top bar: wordmark + avatar menu",
   "footer": "none",
-  "imagery": "none; type and controls carry the surface",
+  "imagery": "record-label geometry: coral disc and hairline groove rings, no photos",
   "photos": [],
   "entry": "sign-in, loading, signed-in empty list",
   "fingerprint": "app-shell/full-bleed-empty",
@@ -17,7 +17,7 @@
    "sign-in",
    "signed-in empty state"
   ],
-  "signature": "centered sign-in card",
+  "signature": "sleeve sign-in with record label",
   "waived": [],
   "prompt": "Ticket 02 — đăng nhập Google cho Musimob",
   "date": "2026-10-28"

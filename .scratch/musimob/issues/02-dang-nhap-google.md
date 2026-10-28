@@ -12,8 +12,8 @@ Mở app, đăng nhập bằng tài khoản Google thật, thấy app shell có 
 - `lib/api/types.ts`: `Song`, `SearchResult`, `User`; interface `MusimobApi` với namespace `auth`. Namespace `songs` thêm ở ticket 03, `search` ở ticket 04. Hình dạng cuối theo [spec](../spec.md).
 - `lib/api/firebase.ts`: init Firebase app. Ticket 01 đã dựng file này, giờ thêm `getAuth`.
 - `lib/api/auth.ts`: adapter `signInWithGoogle`, `signOut`, `onUserChanged`. Map Firebase user thành `{ uid, displayName }`, `displayName` rỗng thì dùng phần trước `@` của email.
-- `features/auth/components/SignInScreen.tsx`: wordmark, một câu giải thích, nút `Tiếp tục với Google`.
-- Màn đăng nhập: form căn giữa, tối đa 440px; nền tràn viewport. Không đặt khung max-width kiểu điện thoại cho toàn trang.
+- `features/auth/components/SignInScreen.tsx`: wordmark lớn, tiêu đề `Đăng nhập`, nút `Tiếp tục với Google`.
+- Màn đăng nhập: khung vuông tối đa 560px, căn giữa; form nằm ở đáy khung, nền tràn viewport. Không đặt khung max-width kiểu điện thoại cho toàn trang.
 - `features/auth/hooks/useAuth.ts`: subscribe `onUserChanged`, trả user và trạng thái đang tải.
 - `features/auth/components/AvatarMenu.tsx`: avatar chữ cái đầu của tên, bấm mở menu có `Đăng xuất`.
 - `app/provider.tsx`: bọc auth state. `app/app.tsx`: chưa có user thì render `SignInScreen`, có user thì render shell.
