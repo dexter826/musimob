@@ -1,12 +1,15 @@
 import { SongCover } from '@/components/song-cover'
 import type { Song } from '@/lib/api/types'
+import { SongActionsMenu } from './song-actions-menu'
 
 type SongRowProps = {
   song: Song
   isFirst: boolean
+  onEdit: (song: Song) => void
+  onDelete: (song: Song) => void
 }
 
-export function SongRow({ song, isFirst }: SongRowProps) {
+export function SongRow({ song, isFirst, onEdit, onDelete }: SongRowProps) {
   return (
     <li className="flex items-center gap-3 px-3 py-2.5">
       <SongCover
@@ -23,6 +26,12 @@ export function SongRow({ song, isFirst }: SongRowProps) {
           {song.artist}
         </p>
       </div>
+      <SongActionsMenu
+        songTitle={song.title}
+        onEdit={() => onEdit(song)}
+        onDelete={() => onDelete(song)}
+        className="shrink-0"
+      />
     </li>
   )
 }

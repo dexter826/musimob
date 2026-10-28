@@ -1,6 +1,6 @@
 # 06 — Sửa và xoá
 
-Status: ready-for-agent
+Status: done
 Blocked by: 03
 
 ## Mục tiêu
@@ -27,3 +27,8 @@ Sửa được lỗi gõ, thay ảnh hỏng, và bỏ bài không còn dùng. Xo
 - Xoá bài cuối cùng thì trạng thái rỗng hiện lại.
 
 Không viết test.
+
+## Comments
+
+- 2026-10-29: Đã implement `songsApi.update`/`remove` (patch trim, `updatedAt` bằng `serverTimestamp()`), type `SongPatch`, hook `updateSong`/`removeSong` với thông báo lỗi tiếng Việt. Tách form dùng chung `src/components/song-form.tsx`; `ManualForm` giờ chỉ còn wrapper nên luồng nhập tay không đổi. Thêm `SongActionsMenu` (cuối row / góc trên phải ảnh lưới), `EditSheet` điền sẵn dữ liệu, `DeleteConfirm` nêu tên bài và chặn đóng khi đang xoá; lỗi lưu hiện trong sheet, lỗi xoá hiện trong hộp thoại. Menu dùng Radix nên hỗ trợ bàn phím; nút `⋯` có `aria-label` theo tên bài. `tsc`, `lint`, `build`, `sloplint` sạch; Impeccable detector quét file không báo lỗi (rule cần DOM chỉ chạy được trên trang đã đăng nhập). Chờ test tay trước khi commit/deploy.
+- 2026-10-29: Test tay pass, chuyển `done`.

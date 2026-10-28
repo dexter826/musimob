@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { songsApi } from '@/lib/api/songs'
-import type { NewSong, Song } from '@/lib/api/types'
+import type { NewSong, Song, SongPatch } from '@/lib/api/types'
 import { getErrorCode } from '@/lib/errors'
 
 function getSongsErrorMessage(error: unknown): string {
@@ -26,6 +26,32 @@ function getAddSongErrorMessage(error: unknown): string {
       return 'Dữ liệu bài hát không hợp lệ.'
     default:
       return 'Không lưu được bài. Thử lại.'
+  }
+}
+
+function getUpdateSongErrorMessage(error: unknown): string {
+  switch (getErrorCode(error)) {
+    case 'permission-denied':
+      return 'Bạn không có quyền sửa bài.'
+    case 'unavailable':
+      return 'Mất kết nối. Kiểm tra mạng rồi thử lại.'
+    case 'invalid-argument':
+      return 'Dữ liệu bài hát không hợp lệ.'
+    case 'not-found':
+      return 'Bài này không còn trong danh sách.'
+    default:
+      return 'Không lưu được thay đổi. Thử lại.'
+  }
+}
+
+function getRemoveSongErrorMessage(error: unknown): string {
+  switch (getErrorCode(error)) {
+    case 'permission-denied':
+      return 'Bạn không có quyền xoá bài.'
+    case 'unavailable':
+      return 'Mất kết nối. Kiểm tra mạng rồi thử lại.'
+    default:
+      return 'Không xoá được bài. Thử lại.'
   }
 }
 
@@ -89,5 +115,41 @@ export function useSongs(uid: string) {
     [uid],
   )
 
-  return { songs, isLoading, error, retry, addSong }
+  const updateSong = useCallback(
+    async (id: string, patch: SongPatch) => {
+      try {
+        await songsApi.update(uid, id, patch)
+      } catch (updateError) {
+        console.error('Không lưu được thay đổi.', updateError)
+        throw new Error(getUpdateSongErrorMessage(updateError), {
+          cause: updateError,
+        })
+      }
+    },
+    [uid],
+  )
+
+  const removeSong = useCallback(
+    async (id: string) => {
+      try {
+        await songsApi.remove(uid, id)
+      } catch (removeError) {
+        console.error('Không xoá được bài.', removeError)
+        throw new Error(getRemoveSongErrorMessage(removeError), {
+          cause: removeError,
+        })
+      }
+    },
+    [uid],
+  )
+
+  return {
+    songs,
+    isLoading,
+    error,
+    retry,
+    addSong,
+    updateSong,
+    removeSong,
+  }
 }

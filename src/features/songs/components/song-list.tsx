@@ -1,8 +1,11 @@
+import { useState } from 'react'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import type { Song } from '@/lib/api/types'
+import type { Song, SongPatch } from '@/lib/api/types'
 import type { ViewMode } from '../hooks/use-view-mode'
+import { DeleteConfirm } from './delete-confirm'
+import { EditSheet } from './edit-sheet'
 import { EmptyState } from './empty-state'
 import { SongGrid } from './song-grid'
 import { SongRow } from './song-row'
@@ -16,6 +19,8 @@ type SongListProps = {
   onAdd: () => void
   onRetry: () => void
   onClearFilter: () => void
+  onUpdate: (id: string, patch: SongPatch) => Promise<void>
+  onRemove: (id: string) => Promise<void>
 }
 
 const SKELETON_ROWS = [0, 1, 2, 3, 4]
@@ -120,7 +125,24 @@ export function SongList({
   onAdd,
   onRetry,
   onClearFilter,
+  onUpdate,
+  onRemove,
 }: SongListProps) {
+  const [editTarget, setEditTarget] = useState<Song | null>(null)
+  const [isEditOpen, setIsEditOpen] = useState(false)
+  const [deleteTarget, setDeleteTarget] = useState<Song | null>(null)
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false)
+
+  function openEdit(song: Song) {
+    setEditTarget(song)
+    setIsEditOpen(true)
+  }
+
+  function openDelete(song: Song) {
+    setDeleteTarget(song)
+    setIsDeleteOpen(true)
+  }
+
   if (isLoading && totalSongCount === 0) {
     return <SongListSkeleton viewMode={viewMode} />
   }
@@ -149,14 +171,33 @@ export function SongList({
       {songs.length === 0 ? (
         <FilterEmptyState onClear={onClearFilter} />
       ) : viewMode === 'grid' ? (
-        <SongGrid songs={songs} />
+        <SongGrid songs={songs} onEdit={openEdit} onDelete={openDelete} />
       ) : (
         <ul className="flex flex-col">
           {songs.map((song, index) => (
-            <SongRow key={song.id} song={song} isFirst={index === 0} />
+            <SongRow
+              key={song.id}
+              song={song}
+              isFirst={index === 0}
+              onEdit={openEdit}
+              onDelete={openDelete}
+            />
           ))}
         </ul>
       )}
+
+      <EditSheet
+        song={editTarget}
+        open={isEditOpen}
+        onOpenChange={setIsEditOpen}
+        onSave={onUpdate}
+      />
+      <DeleteConfirm
+        song={deleteTarget}
+        open={isDeleteOpen}
+        onOpenChange={setIsDeleteOpen}
+        onConfirm={onRemove}
+      />
     </div>
   )
 }

@@ -1,11 +1,14 @@
 import { SongCover } from '@/components/song-cover'
 import type { Song } from '@/lib/api/types'
+import { SongActionsMenu } from './song-actions-menu'
 
 type SongGridProps = {
   songs: Song[]
+  onEdit: (song: Song) => void
+  onDelete: (song: Song) => void
 }
 
-export function SongGrid({ songs }: SongGridProps) {
+export function SongGrid({ songs, onEdit, onDelete }: SongGridProps) {
   return (
     <ul className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4 lg:gap-4 xl:grid-cols-5">
       {songs.map((song, index) => (
@@ -31,6 +34,14 @@ export function SongGrid({ songs }: SongGridProps) {
             <p className="truncate text-[11px] leading-[1.4] text-white/60">
               {song.artist}
             </p>
+          </div>
+          <div className="absolute top-1.5 right-1.5">
+            <SongActionsMenu
+              songTitle={song.title}
+              onEdit={() => onEdit(song)}
+              onDelete={() => onDelete(song)}
+              className="bg-black/65 text-white hover:bg-black/80 hover:text-white"
+            />
           </div>
         </li>
       ))}

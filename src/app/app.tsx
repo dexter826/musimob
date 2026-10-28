@@ -24,7 +24,8 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
   const [isAddOpen, setIsAddOpen] = useState(false)
   const [filterQuery, setFilterQuery] = useState('')
   const { viewMode, toggleViewMode } = useViewMode()
-  const { songs, isLoading, error, retry, addSong } = useSongs(user.uid)
+  const { songs, isLoading, error, retry, addSong, updateSong, removeSong } =
+    useSongs(user.uid)
 
   const filteredSongs = useMemo(() => {
     const query = filterQuery.trim().toLowerCase()
@@ -72,6 +73,8 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
           onAdd={() => setIsAddOpen(true)}
           onRetry={retry}
           onClearFilter={() => setFilterQuery('')}
+          onUpdate={updateSong}
+          onRemove={removeSong}
         />
       </main>
 

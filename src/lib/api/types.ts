@@ -16,6 +16,8 @@ export type Song = {
 
 export type NewSong = Omit<Song, 'id' | 'createdAt' | 'updatedAt'>
 
+export type SongPatch = Partial<Pick<Song, 'title' | 'artist' | 'coverUrl'>>
+
 export type SearchResult = {
   title: string
   artist: string
@@ -36,6 +38,8 @@ export type MusimobApi = {
       onError?: (error: unknown) => void,
     ): () => void
     add(uid: string, song: NewSong): Promise<void>
+    update(uid: string, id: string, patch: SongPatch): Promise<void>
+    remove(uid: string, id: string): Promise<void>
   }
   search: {
     query(term: string): Promise<SearchResult[]>

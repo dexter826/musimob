@@ -2,11 +2,15 @@ import {
   Timestamp,
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   onSnapshot,
   orderBy,
   query,
   serverTimestamp,
+  updateDoc,
   type DocumentData,
+  type UpdateData,
 } from 'firebase/firestore'
 import { firebaseFirestore } from './firebase'
 import type { MusimobApi, Song } from './types'
@@ -55,5 +59,19 @@ export const songsApi: MusimobApi['songs'] = {
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
     })
+  },
+
+  async update(uid, id, patch) {
+    const data: UpdateData<DocumentData> = { updatedAt: serverTimestamp() }
+
+    if (patch.title !== undefined) data.title = patch.title.trim()
+    if (patch.artist !== undefined) data.artist = patch.artist.trim()
+    if (patch.coverUrl !== undefined) data.coverUrl = patch.coverUrl.trim()
+
+    await updateDoc(doc(firebaseFirestore, 'users', uid, 'songs', id), data)
+  },
+
+  async remove(uid, id) {
+    await deleteDoc(doc(firebaseFirestore, 'users', uid, 'songs', id))
   },
 }
