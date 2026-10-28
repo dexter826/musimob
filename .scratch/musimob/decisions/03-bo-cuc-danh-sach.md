@@ -24,7 +24,7 @@ Chờ ticket 01 xong vì bố cục phụ thuộc nền tảng.
 
 Chốt bố cục **D — trộn A và B**.
 
-Prototype: [03-bo-cuc.html](prototype/03-bo-cuc.html), mở `?variant=D`. Bốn variant đã dựng: A danh sách dày, B lưới ảnh, C chữ là chính, D bản trộn.
+Prototype: [03-bo-cuc.html](../prototype/03-bo-cuc.html), mở `?variant=D`. Bốn variant đã dựng: A danh sách dày, B lưới ảnh, C chữ là chính, D bản trộn.
 
 ### Header
 

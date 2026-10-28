@@ -55,6 +55,18 @@ Mục tiêu của v1: mở app, thấy danh sách, thêm được một bài tro
 - `vite-plugin-pwa` cho manifest và service worker.
 - Không Zustand, không Redux. State UI dùng `useState`; danh sách bài đến từ Firestore qua `onSnapshot`.
 
+### Cấu trúc source
+
+Bulletproof React, ghi ở ADR-0001.
+
+- `src/app/` — composition và provider.
+- `src/features/` — `auth`, `songs`, `add-song`, `search-song`. Mỗi feature tự chứa `api/`, `components/`, `hooks/`, `types/` khi cần.
+- `src/components/`, `src/hooks/`, `src/types/`, `src/utils/` — dùng chung.
+- `src/lib/api/` — `MusimobApi`, adapter Firebase, adapter iTunes.
+- Không barrel `index.ts`. Import thẳng file.
+- Không router, không store toàn cục. Compose ở `app/app.tsx`.
+- ESLint `import/no-restricted-paths`: cấm import chéo feature, cấm phụ thuộc ngược từ shared lên feature hoặc app.
+
 ### Seam
 
 Một interface duy nhất giữa UI và thế giới ngoài:
@@ -93,7 +105,7 @@ interface MusimobApi {
 }
 ```
 
-Ba adapter: Firebase thật, fake in-memory cho test, và adapter iTunes đứng sau `search`.
+Hai adapter: Firebase thật, và adapter iTunes đứng sau `search`.
 
 ### Đăng nhập và dữ liệu
 
@@ -132,30 +144,6 @@ Chốt từ prototype, variant D.
 - Deploy lên Firebase Hosting tại `musimob.web.app`.
 - GitHub Actions chạy khi push `main`: cài, build, deploy Hosting, deploy Firestore rules.
 - App Check bật từ lần deploy đầu, provider reCAPTCHA Enterprise. Localhost dùng debug token.
-
-## Testing Decisions
-
-Test hướng ngoại vi: chạy UI trên `MusimobApi` giả, không chạm Firebase hay iTunes thật.
-
-- **Seam duy nhất**: `MusimobApi`. Fake in-memory giữ một mảng bài và trả danh sách tìm kiếm cố định.
-- **Hàm thuần test riêng**: `normalizeItunesTrack`. Kiểm tra map field, nâng độ phân giải ảnh, và dữ liệu thiếu ảnh.
-- **Test hành vi, không test implementation**: tìm theo chữ hiển thị và hành động người dùng, không assert vào tên state hay cấu trúc component.
-
-Hành vi cần phủ:
-
-1. Trạng thái rỗng hiện đúng và nút thêm mở sheet.
-2. Thêm bài từ kết quả iTunes thì bài xuất hiện trong danh sách.
-3. Bài đã có hiện `Đã lưu` và không thêm trùng.
-4. Thêm tay với tên và ca sĩ thì bài xuất hiện.
-5. Lọc theo tên và theo ca sĩ trả đúng tập con.
-6. Đổi kiểu xem đổi cách render và được nhớ sau khi render lại.
-7. Sửa tên bài thì danh sách cập nhật.
-8. Xoá cần xác nhận; huỷ thì bài còn, đồng ý thì bài mất.
-9. Lỗi tìm kiếm hiện thông báo và nút thử lại.
-10. Không có kết quả hiện thông báo và đường sang nhập tay.
-11. Danh sách cập nhật khi fake phát một thay đổi mới qua `subscribe`.
-
-Prior art: không có. Repo chưa có source, đây là bộ test đầu tiên.
 
 ## Out of Scope
 
