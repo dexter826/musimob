@@ -16,10 +16,6 @@ Cần chốt:
 - **Sửa và xoá**: vào bằng cách nào? Swipe, menu, hay mở chi tiết?
 - **Trạng thái rỗng**: lần đầu mở app thấy gì?
 
-Cách làm: dựng prototype thô để nhìn, không phải code thật. Trả lời bằng cách phản ứng với hình, không phải tranh luận bằng lời.
-
-Chờ ticket 01 xong vì bố cục phụ thuộc nền tảng.
-
 ## Answer
 
 Chốt bố cục **D — trộn A và B**.
@@ -29,7 +25,7 @@ Prototype: [03-bo-cuc.html](../prototype/03-bo-cuc.html), mở `?variant=D`. B�
 ### Header
 
 - Wordmark `musimob`, chữ "mob" màu accent.
-- Dòng phụ: `{n} bài · đồng bộ qua Google`.
+- Dòng phụ: `{n} bài`.
 - Bên phải: nút đổi kiểu xem, avatar Google.
 
 ### Tìm kiếm

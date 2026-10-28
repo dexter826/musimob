@@ -16,7 +16,7 @@ Cần chốt:
 - **Chọn kết quả**: lấy thẳng từ kết quả iTunes, hay lọc trùng theo tên + ca sĩ trước khi hiện?
 - **Nhập tay**: khi API không tìm ra bài, luồng nhập tay mở từ đâu?
 
-Ràng buộc: 20 req/phút, tối đa 200 kết quả mỗi query. Một người dùng nên hiếm khi chạm trần, nhưng search-as-you-type thì dễ chạm.
+Ràng buộc: 20 req/phút, tối đa 200 kết quả mỗi query. Lưu lượng v1 thấp nên hiếm khi chạm trần, nhưng search-as-you-type thì dễ chạm.
 
 Không phụ thuộc nền tảng hay stack.
 

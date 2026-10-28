@@ -2,13 +2,14 @@ import { Wordmark } from '@/components/wordmark'
 
 export function AppLoading() {
   return (
-    <div className="mx-auto grid min-h-dvh w-full max-w-[1120px] place-items-center bg-canvas">
-      <div className="text-center">
-        <Wordmark />
-        <p role="status" className="mt-2 text-[12px] text-muted">
-          Đang kiểm tra tài khoản…
-        </p>
-      </div>
+    <div className="flex min-h-dvh w-full flex-col bg-canvas px-6 pt-6 pb-8 sm:px-8 lg:px-12 lg:pt-8 xl:px-16">
+      <Wordmark />
+      <p
+        role="status"
+        className="flex flex-1 items-center justify-center pb-16 text-[12px] text-muted"
+      >
+        Đang kiểm tra tài khoản…
+      </p>
     </div>
   )
 }

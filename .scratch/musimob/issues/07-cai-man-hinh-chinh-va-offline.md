@@ -5,7 +5,7 @@ Blocked by: 04
 
 ## Mục tiêu
 
-Cài lên màn hình chính như app thật. Vào quán sóng yếu vẫn mở được danh sách và ảnh đã xem. Thêm bài khi mất mạng, có mạng thì tự đồng bộ.
+Cài lên màn hình chính như app thật. Mạng yếu hoặc offline vẫn mở được danh sách và ảnh đã xem. Thêm bài khi mất mạng, có mạng thì tự đồng bộ.
 
 ## Việc
 

@@ -16,7 +16,6 @@ Cần chốt trong một phiên:
 
 Ràng buộc đã biết:
 
-- Một người dùng, một mình làm, không deadline.
 - Phải gọi được iTunes Search API từ browser. CORS mở nên không cần proxy.
 - `.gitignore` gợi ý Vite + React + TS + Firebase, nhưng đó là gợi ý, không phải quyết định.
 

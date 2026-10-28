@@ -2,20 +2,18 @@
 
 ## Destination
 
-Một spec v1 build được cho Musimob: app web cá nhân lưu danh sách bài hát để chọn khi đi karaoke. Xong khi spec đủ rõ để `/to-spec` rồi `/to-tickets` cắt thành ticket build.
+Một spec v1 build được cho Musimob: app web cá nhân lưu danh sách bài hát và đồng bộ nhiều thiết bị. Xong khi spec đủ rõ để `/to-spec` rồi `/to-tickets` cắt thành ticket build.
 
 ## Notes
 
-- Người dùng: nhiều người, đăng ký mở bằng tài khoản Google. Mỗi người một danh sách riêng. Thực tế chủ yếu một người dùng, nhưng app phải hoàn chỉnh như sản phẩm thật.
+- Người dùng: đăng ký mở bằng tài khoản Google. Mỗi người một danh sách riêng.
 - v1: danh sách phẳng. Thêm, sửa, xoá, tìm trong danh sách.
 - Mỗi bài: tên bài, ca sĩ, ảnh bìa.
 - Nguồn bài: nhập tay, và tìm qua iTunes Search API.
 - iTunes Search API: `country=vn`, không key, `Access-Control-Allow-Origin: *` nên gọi được từ browser, 20 req/phút, tối đa 200 kết quả mỗi query.
 - Đồng bộ nhiều thiết bị: **bắt buộc trong v1**, qua Firestore.
-- Không có: random "hát gì giờ", trạng thái bài, tag, chia sẻ, phát nhạc.
+- Không có: trạng thái bài, tag, chia sẻ, phát nhạc.
 - UI tiếng Việt.
-- Repo hiện trống. Chưa có source.
-- Skills nên đọc: `grilling`, `domain-modeling`, `prototype`, `frontend-design`.
 
 ## Decisions so far
 
@@ -28,17 +26,14 @@ Một spec v1 build được cho Musimob: app web cá nhân lưu danh sách bài
 
 ## Not yet specified
 
-- Nút "hát gì giờ" bốc ngẫu nhiên một bài
-- Chia sẻ danh sách cho bạn
-- Lời bài hát
-- Tag và lọc theo tag
-- Nhập hàng loạt từ danh sách có sẵn
-- Xử lý bài trùng khi thêm
-- Ảnh bìa dự phòng khi API không trả về
+- Chia sẻ danh sách.
+- Lời bài hát.
+- Tag và lọc theo tag.
+- Nhập hàng loạt từ danh sách có sẵn.
+- Xử lý bài trùng khi thêm.
+- Ảnh bìa dự phòng khi API không trả về.
 
 ## Out of scope
 
 - Phát nhạc, streaming
-- Soạn nhạc, hiển thị sheet music
-- Chấm điểm, luyện giọng
 - Mạng xã hội, bình luận, feed

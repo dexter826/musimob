@@ -5,7 +5,7 @@ Blocked by: 03
 
 ## Mục tiêu
 
-Sửa được lỗi gõ, thay ảnh hỏng, và bỏ bài không còn hát. Xoá phải hỏi lại.
+Sửa được lỗi gõ, thay ảnh hỏng, và bỏ bài không còn dùng. Xoá phải hỏi lại.
 
 ## Việc
 

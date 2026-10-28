@@ -16,9 +16,7 @@ Cần chốt:
 - **Cài đặt PWA**: có cần manifest + service worker ngay từ v1 không?
 - **Dữ liệu**: nếu lưu trữ cần backend thì deploy phải đi kèm backend đó.
 
-Ràng buộc: một người dùng. Hosting tĩnh là đủ cho mọi lựa chọn ở ticket lưu trữ trừ Firestore.
-
-Chờ ticket 01 và 04 xong vì nơi deploy phụ thuộc nền tảng và cách lưu dữ liệu.
+Ràng buộc: v1 chỉ dùng hosting tĩnh nếu không cần Firestore.
 
 ## Answer
 

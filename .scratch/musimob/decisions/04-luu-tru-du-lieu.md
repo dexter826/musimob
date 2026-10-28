@@ -16,9 +16,7 @@ Cần chốt:
 - **Đồng bộ nhiều thiết bị**: có nằm trong v1 không, hay để sau?
 - **Giới hạn dung lượng**: ảnh bìa lưu URL hay lưu blob? Nếu URL thì không tốn dung lượng.
 
-Ràng buộc: một người dùng, một thiết bị là đủ cho v1. Firestore kéo theo Firebase, cần mạng, cần cấu hình — chỉ đáng nếu đồng bộ là mục tiêu thật.
-
-Chờ ticket 01 xong vì lựa chọn này phụ thuộc nền tảng.
+Ràng buộc: v1 cần chốt giữa lưu cục bộ và đồng bộ nhiều thiết bị. Firestore kéo theo Firebase, cần mạng, cần cấu hình — chỉ đáng nếu đồng bộ là mục tiêu thật.
 
 ## Answer
 
@@ -31,7 +29,7 @@ Chờ ticket 01 xong vì lựa chọn này phụ thuộc nền tảng.
 
 Lý do:
 
-- **Đồng bộ là yêu cầu, không phải tính năng phụ.** Một danh sách chỉ sống trong cache trình duyệt là danh sách sẽ mất. Người dùng muốn mở trên điện thoại và laptop thấy cùng dữ liệu.
+- **Đồng bộ là yêu cầu, không phải tính năng phụ.** Một danh sách chỉ sống trong cache trình duyệt là danh sách sẽ mất. Danh sách phải giống nhau trên điện thoại và laptop.
 - **Không làm JSON backup.** Firestore đã là bản lưu nằm ngoài máy. Thêm xuất/nhập chỉ là đường thứ hai để làm cùng một việc.
 - **Ảnh lưu URL.** Blob trong `localStorage` đốt 5MB rất nhanh. Workbox cache ảnh ở runtime, vẫn xem được offline.
 

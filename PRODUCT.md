@@ -8,19 +8,19 @@ web
 
 ## Users
 
-Người hát karaoke, thường mở điện thoại trong quán hoặc laptop ở nhà. Mỗi người có một danh sách riêng; v1 chủ yếu phục vụ một người dùng chính nhưng mở cho mọi tài khoản Google.
+Người dùng quản lý danh sách bài hát trên nhiều thiết bị. Mỗi tài khoản Google có một danh sách riêng.
 
 ## Product Purpose
 
-Musimob lưu danh sách bài hát để chọn khi đi karaoke. Mục tiêu: mở app, thấy danh sách, thêm được một bài trong dưới ba mươi giây. Thành công là lần sau vào quán vẫn có sẵn danh sách.
+Musimob lưu danh sách bài hát và đồng bộ bằng tài khoản Google. Mục tiêu: mở app, thấy danh sách, thêm một bài trong dưới ba mươi giây. Thành công là danh sách còn nguyên khi đổi thiết bị.
 
 ## Positioning
 
-Một danh sách bài hát cá nhân, đồng bộ qua Google, tìm bài bằng iTunes và vẫn xem được khi mất mạng. Không phải mạng xã hội, không phải app phát nhạc.
+Một danh sách bài hát cá nhân: tìm bài bằng iTunes, xem được khi mất mạng. Không phải mạng xã hội, không phải app phát nhạc.
 
 ## Operating Context
 
-Người dùng chọn bài trước khi đi, tra lại trong quán nơi sóng yếu, và thêm bài từ điện thoại hoặc laptop. Giao diện tiếng Việt, không có bộ chuyển ngôn ngữ.
+Người dùng thêm bài từ điện thoại hoặc laptop, tra lại danh sách khi cần, kể cả khi mạng yếu. Giao diện tiếng Việt, không có bộ chuyển ngôn ngữ.
 
 ## Capabilities and Constraints
 
@@ -31,10 +31,11 @@ Người dùng chọn bài trước khi đi, tra lại trong quán nơi sóng y�
 - Xem dạng danh sách dày hoặc lưới ảnh bìa; nhớ kiểu xem trong `localStorage`.
 - Firestore là nguồn sự thật, `users/{uid}/songs/{songId}`, đồng bộ realtime, offline persistence, last-write-wins.
 - PWA cài được lên màn hình chính; vẫn xem được khi mất mạng.
+- Bố cục dùng toàn bộ chiều ngang trên desktop; mobile một cột. Hai nền tảng ngang nhau, không coi desktop là bản phóng to của điện thoại.
 - Stack: Vite 8, React 19, TypeScript 5.9, Tailwind CSS v4, TanStack Query, `vite-plugin-pwa`.
 - Không viết test tự động; kiểm tra bằng tay.
 - Không App Check.
-- Ngoài phạm vi: phát nhạc, random "hát gì giờ", chia sẻ, lời bài hát, tag, nhập hàng loạt, preview channel, tên miền riêng.
+- Ngoài phạm vi: phát nhạc, chia sẻ, lời bài hát, tag, nhập hàng loạt, preview channel, tên miền riêng.
 
 ## Brand Commitments
 
@@ -46,11 +47,11 @@ Không có testimonial, số liệu người dùng, logo khách hàng hay benchm
 
 ## Product Principles
 
-1. Danh sách là trung tâm; mọi thứ khác phục vụ việc chọn bài nhanh.
+1. Danh sách là trung tâm; mọi thứ khác phục vụ việc thêm và tra bài.
 2. Thêm bài phải xong trong dưới ba mươi giây.
 3. Dữ liệu thuộc về một người; không có nhánh đọc công khai.
 4. Mất mạng không được chặn việc xem và thêm bài.
-5. Quen thuộc thắng mới lạ: người dùng đang đứng trong quán, không có thời gian học giao diện.
+5. Quen thuộc thắng mới lạ: người dùng không có thời gian học giao diện.
 
 ## Accessibility & Inclusion
 

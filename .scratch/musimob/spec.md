@@ -4,9 +4,7 @@ Status: ready-for-agent
 
 ## Problem Statement
 
-Đi karaoke mà không nhớ mình hát được bài nào. Danh sách trong đầu thưa dần, mỗi lần vào quán lại loay hoay chọn, cuối cùng hát lại hai ba bài quen.
-
-Ghi vào ghi chú điện thoại thì lộn xộn: không ảnh bìa, không tìm lại được, đổi máy là mất, và không ai nhớ bài nào hát tone nào.
+Danh sách bài hát cá nhân thường nằm rải rác trong ghi chú: không ảnh bìa, khó tìm lại, và mất khi đổi máy. Không có một nơi cố định để lưu và tra cứu.
 
 ## Solution
 
@@ -16,8 +14,8 @@ Mục tiêu của v1: mở app, thấy danh sách, thêm được một bài tro
 
 ## User Stories
 
-1. As a người hát karaoke, I want đăng nhập bằng tài khoản Google, so that tôi không phải nhớ thêm một mật khẩu nữa.
-2. As a người hát karaoke, I want đăng xuất khỏi thiết bị dùng chung, so that người khác không xem được danh sách của tôi.
+1. As a người dùng, I want đăng nhập bằng tài khoản Google, so that tôi không phải nhớ thêm một mật khẩu nữa.
+2. As a người dùng, I want đăng xuất khỏi thiết bị dùng chung, so that người khác không xem được danh sách của tôi.
 3. As a người dùng mới, I want thấy trạng thái rỗng có hướng dẫn, so that tôi biết phải làm gì tiếp.
 4. As a người dùng mới, I want thêm bài đầu tiên ngay từ trạng thái rỗng, so that tôi không phải đi tìm nút.
 5. As a người dùng, I want tìm bài trên iTunes bằng tên hoặc ca sĩ, so that tôi không phải gõ tay từng field.
@@ -28,21 +26,21 @@ Mục tiêu của v1: mở app, thấy danh sách, thêm được một bài tro
 10. As a người dùng, I want nhập tên, ca sĩ và URL ảnh bìa khi tự nhập, so that bài tự thêm vẫn hiện đẹp như bài từ iTunes.
 11. As a người dùng, I want xem danh sách dạng dòng dày, so that tôi quét được nhiều bài trên một màn hình.
 12. As a người dùng, I want xem danh sách dạng lưới ảnh bìa, so that tôi nhận ra bài theo hình.
-13. As a người dùng, I want đổi kiểu xem bằng một nút, so that tôi chọn kiểu hợp với lúc đang đứng trong quán.
+13. As a người dùng, I want đổi kiểu xem bằng một nút, so that tôi chọn được kiểu xem phù hợp.
 14. As a người dùng, I want kiểu xem được nhớ lại, so that tôi không phải bấm lại mỗi lần mở.
 15. As a người dùng, I want lọc danh sách theo tên bài hoặc ca sĩ, so that tìm một bài trong danh sách dài không tốn thời gian.
 16. As a người dùng, I want sửa tên, ca sĩ hoặc ảnh bìa của một bài, so that sửa được lỗi gõ hoặc ảnh hỏng.
-17. As a người dùng, I want xoá một bài, so that danh sách không giữ bài tôi không còn hát.
+17. As a người dùng, I want xoá một bài, so that danh sách không giữ bài tôi không còn dùng.
 18. As a người dùng, I want được hỏi xác nhận trước khi xoá, so that không mất bài vì chạm nhầm.
 19. As a người dùng, I want danh sách tự cập nhật khi tôi thêm bài trên máy khác, so that hai thiết bị luôn giống nhau.
-20. As a người dùng, I want vẫn xem được danh sách khi mất mạng, so that trong phòng karaoke sóng yếu vẫn dùng được.
-21. As a người dùng, I want thêm bài khi mất mạng và thấy nó đồng bộ lại sau, so that không bị chặn giữa lúc đang dùng.
+20. As a người dùng, I want vẫn xem được danh sách khi mất mạng, so that vẫn dùng được khi mạng yếu hoặc không có mạng.
+21. As a người dùng, I want thêm bài khi mất mạng và thấy nó đồng bộ lại sau, so that không bị chặn khi đang dùng.
 22. As a người dùng, I want cài app lên màn hình chính, so that mở nhanh như app thật.
 23. As a người dùng, I want thấy thông báo rõ khi iTunes tạm chặn vì quá nhiều request, so that tôi biết chờ chứ không tưởng app hỏng.
 24. As a người dùng, I want thấy thông báo khi tìm không ra kết quả, so that tôi biết chuyển sang nhập tay.
-25. As a người dùng, I want giao diện tiếng Việt, so that không phải đọc tiếng Anh trong lúc đang vội.
+25. As a người dùng, I want giao diện tiếng Việt, so that không phải đọc tiếng Anh.
 26. As a người dùng, I want ảnh bìa hỏng được thay bằng ô trống gọn gàng, so that danh sách không bị vỡ bố cục.
-27. As a người dùng, I want dùng được cả trên điện thoại lẫn laptop, so that thêm bài ở nhà và tra ở quán đều tiện.
+27. As a người dùng, I want dùng được cả trên điện thoại lẫn laptop, so that tôi dùng được ở cả hai nơi.
 28. As a người dùng, I want dữ liệu của tôi tách khỏi người khác, so that không ai đọc hay sửa được danh sách của tôi.
 
 ## Implementation Decisions
@@ -129,7 +127,8 @@ Hai adapter: Firebase thật, và adapter iTunes đứng sau `search`.
 
 Chốt từ prototype, variant D.
 
-- Header: wordmark `musimob`, dòng `{n} bài · đồng bộ qua Google`, nút đổi kiểu xem, avatar.
+- Header: wordmark `musimob`, dòng `{n} bài`, nút đổi kiểu xem, avatar.
+- Bố cục tràn viewport: desktop dùng toàn bộ chiều ngang với hai vùng nội dung; mobile một cột. Không đặt khung max-width kiểu điện thoại giữa màn hình desktop.
 - Ô tìm kiếm full-width dưới header, lọc phía client trên danh sách đã tải.
 - Kiểu danh sách: row cao 50px ảnh, tên đậm 14.5px, ca sĩ 12.5px màu muted.
 - Kiểu lưới: hai cột, ảnh vuông, gradient đen dưới đáy, tên chồng trên ảnh.
@@ -146,14 +145,12 @@ Chốt từ prototype, variant D.
 
 ## Out of Scope
 
-- Nút "hát gì giờ" bốc ngẫu nhiên.
+- Chọn bài ngẫu nhiên.
 - Chia sẻ danh sách cho người khác.
 - Lời bài hát.
 - Tag và lọc theo tag.
 - Nhập hàng loạt từ danh sách có sẵn.
 - Phát nhạc, preview, hay bất kỳ audio nào.
-- Soạn nhạc, sheet music.
-- Chấm điểm, luyện giọng.
 - Mạng xã hội, bình luận, feed.
 - Preview channel khi deploy.
 - Tên miền riêng.

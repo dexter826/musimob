@@ -11,20 +11,20 @@ Dữ liệu đồng bộ giữa các thiết bị thế nào, và ai được gh
 Cần chốt:
 
 - **Đăng nhập**: Google, email + mật khẩu, magic link, hay anonymous?
-- **Ai được dùng app**: chỉ một mình bạn, hay mở cho người khác?
+- **Ai được dùng app**: chỉ danh sách cá nhân, hay mở đăng ký cho mọi tài khoản Google?
 - **Schema Firestore**: `users/{uid}/songs/{songId}` hay cách khác?
 - **Nguồn sự thật**: Firestore là chính, hay local-first rồi đẩy lên?
 - **Offline**: bật offline persistence của Firestore, hay tự quản cache?
 - **Zustand**: còn dùng cho UI state không, hay bỏ hẳn?
 - **Xung đột**: hai thiết bị sửa cùng một bài thì lấy bản nào?
 - **Rules**: chặn đọc/ghi chéo giữa các user.
-- **Chi phí**: free tier của Firestore có đủ cho một người dùng không?
+- **Chi phí**: free tier của Firestore có đủ cho quy mô v1 không?
 
 Ràng buộc:
 
 - Stack đã chốt: React + TypeScript + Vite, TanStack Query, `vite-plugin-pwa`.
 - Đồng bộ là yêu cầu của v1, không cắt được.
-- Một người dùng chính, nhưng nhiều thiết bị.
+- Mỗi danh sách thuộc một tài khoản; đồng bộ nhiều thiết bị.
 
 Đích: đủ rõ để viết spec mà không phải đoán chỗ nào giữ dữ liệu.
 
@@ -69,7 +69,7 @@ Không có nhánh đọc công khai. Người chưa đăng nhập không đọc 
 - **Google**: không form đăng ký, không quên mật khẩu, không gửi mail xác thực. Firebase Auth lo toàn bộ.
 - **`onSnapshot` + offline persistence**: SDK tự lưu IndexedDB, tự xếp hàng write khi mất mạng, tự merge khi có mạng. Tự viết lại phần này là tự tạo bug mất dữ liệu.
 - **Bỏ Zustand**: danh sách có một nguồn sự thật. Hai nguồn là nguồn gốc của lệch dữ liệu. State UI nhỏ dùng `useState`.
-- **Last-write-wins**: một người, nhiều thiết bị. Sửa cùng một bài trong cùng vài giây gần như không xảy ra; xử lý theo field là code phức tạp cho tình huống không có thật.
+- **Last-write-wins**: mỗi danh sách thuộc một tài khoản, dùng trên nhiều thiết bị. Sửa cùng một bài trong cùng vài giây gần như không xảy ra; xử lý theo field là code phức tạp cho tình huống không có thật.
 
 ### Cảnh báo đi kèm quyết định mở đăng ký
 

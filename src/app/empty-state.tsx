@@ -1,18 +1,12 @@
 export function EmptyState() {
   return (
-    <div className="px-6 pt-16 pb-14 text-center sm:pt-24 lg:pt-32">
-      <h1 className="text-[22px] font-semibold tracking-[-0.02em] lg:text-[30px]">
+    <div className="flex flex-1 flex-col items-center justify-center px-6 py-16 text-center lg:mt-2 lg:rounded-[28px] lg:border lg:border-line lg:bg-surface lg:px-10 lg:py-20">
+      <h1 className="text-[22px] font-semibold tracking-[-0.02em] lg:text-[34px]">
         Chưa có bài nào
       </h1>
-      <p className="mx-auto mt-2.5 max-w-[260px] text-[13.5px] leading-[1.55] text-muted lg:max-w-[340px] lg:text-[14.5px]">
-        Thêm bài đầu tiên để lần sau vào quán karaoke là có sẵn danh sách.
+      <p className="mx-auto mt-2.5 max-w-[280px] text-[13.5px] leading-[1.55] text-muted lg:mt-3 lg:max-w-[380px] lg:text-[15px]">
+        Thêm bài đầu tiên để bắt đầu danh sách của bạn.
       </p>
-      <button
-        type="button"
-        className="mt-6 rounded-full bg-accent px-5 py-3 text-[13px] font-semibold text-accent-ink hover:bg-accent/90 active:bg-accent/80"
-      >
-        Thêm bài đầu tiên
-      </button>
     </div>
   )
 }

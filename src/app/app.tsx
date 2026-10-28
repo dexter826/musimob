@@ -23,17 +23,17 @@ export function App() {
   }
 
   return (
-    <div className="mx-auto min-h-dvh w-full max-w-[1120px] bg-canvas">
+    <div className="flex min-h-dvh w-full flex-col bg-canvas">
       <AppHeader
         songCount={0}
         displayName={user.displayName}
         onSignOut={signOut}
       />
-      <main>
+      <main className="flex flex-1 flex-col px-6 pb-6 sm:px-8 lg:px-12 lg:pb-10 xl:px-16">
         {error ? (
           <p
             role="alert"
-            className="mx-5 mb-2 rounded-xl border border-danger/30 bg-danger/10 px-3.5 py-2.5 text-[12.5px] leading-[1.5] text-danger"
+            className="mb-3 rounded-xl border border-danger/30 bg-danger/10 px-3.5 py-2.5 text-[12.5px] leading-[1.5] text-danger"
           >
             {error}
           </p>
