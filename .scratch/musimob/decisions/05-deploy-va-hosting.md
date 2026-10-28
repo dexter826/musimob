@@ -25,7 +25,7 @@ Chờ ticket 01 và 04 xong vì nơi deploy phụ thuộc nền tảng và cách
 | Mục | Quyết định |
 | --- | --- |
 | Nơi deploy | Firebase Hosting |
-| Tên miền | `musimob.web.app` |
+| Tên miền | `musi-mob.web.app` |
 | Cách deploy | GitHub Actions, tự chạy khi push `main` |
 | Preview channel | Không dùng ở v1 |
 | Chi phí | Gói Spark (miễn phí) |
@@ -53,8 +53,8 @@ Workflow chạy khi push `main`:
 
 1. `npm ci`
 2. `npm run build`
-3. `FirebaseExtended/action-hosting-deploy` với `FIREBASE_SERVICE_ACCOUNT_<PROJECT_ID>` lưu trong GitHub Secrets
-4. `firebase deploy --only firestore:rules` cùng lượt, để rules không lệch với code
+3. `google-github-actions/auth@v2` với `credentials_json` lấy từ GitHub Secret `FIREBASE_SERVICE_ACCOUNT_MUSI_MOB`
+4. `firebase deploy --project musi-mob --only hosting,firestore:rules`, để rules không lệch với code
 
 ### App Check
 

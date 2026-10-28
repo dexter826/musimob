@@ -39,6 +39,9 @@ Thumbs.db
 
 # Cấu hình Firebase
 .firebase/
+.secrets/
+*-firebase-adminsdk-*.json
+gha-creds-*.json
 
 # Thư mục tạm Gemini
 .gemini/

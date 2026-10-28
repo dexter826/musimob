@@ -141,7 +141,7 @@ Chốt từ prototype, variant D.
 
 - Manifest: tên `Musimob`, icon 192 và 512, `theme_color`, `display: standalone`.
 - `registerType: 'autoUpdate'`.
-- Deploy lên Firebase Hosting tại `musimob.web.app`.
+- Deploy lên Firebase Hosting tại `musi-mob.web.app`.
 - GitHub Actions chạy khi push `main`: cài, build, deploy Hosting, deploy Firestore rules.
 
 ## Out of Scope

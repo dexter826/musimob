@@ -5,7 +5,7 @@ Blocked by: none
 
 ## Mục tiêu
 
-Dựng source từ số 0, đưa app shell rỗng lên `musimob.web.app`. Cuối ticket có URL thật và CI thật. Chưa có đăng nhập, chưa có dữ liệu.
+Dựng source từ số 0, đưa app shell rỗng lên `musi-mob.web.app`. Cuối ticket có URL thật và CI thật. Chưa có đăng nhập, chưa có dữ liệu.
 
 ## Việc
 
@@ -14,22 +14,25 @@ Dựng source từ số 0, đưa app shell rỗng lên `musimob.web.app`. Cuối
 - Alias `@/` → `src/`.
 - ESLint `import/no-restricted-paths`: chặn import chéo feature, chặn `features` import `app`, chặn shared (`components`, `hooks`, `lib`, `types`, `utils`) import ngược lên.
 - App shell: header wordmark `musimob`, dòng `0 bài · đồng bộ qua Google`, trạng thái rỗng `Chưa có bài nào` và nút `Thêm bài đầu tiên` (chưa mở gì).
-- Firebase: `firebase.json`, `.firebaserc`, hosting trỏ `dist`. Rules placeholder `allow read, write: if false`.
+- Firebase: `firebase.json`, `.firebaserc` với `projects.default = musi-mob`, hosting trỏ `dist`. Rules placeholder `allow read, write: if false`.
 - `.env.example`: `VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`, `VITE_FIREBASE_APP_ID`.
-- GitHub Actions khi push `main`: `npm ci`, `npm run lint`, `npm run build`, deploy Hosting và Firestore rules bằng `firebase-tools`, xác thực bằng service account trong GitHub Secrets.
+- GitHub Actions khi push `main`: `npm ci`, `npm run lint`, `npm run build`, xác thực bằng `google-github-actions/auth@v2` với `credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MUSI_MOB }}`, rồi `firebase deploy --project musi-mob --only hosting,firestore:rules`.
 - Không thêm `vite-plugin-pwa`, manifest hay service worker. Việc đó ở ticket 07.
+
+## Đã có
+
+- Firebase project id `musi-mob`.
+- Google provider đã bật trong Authentication.
 
 ## Cần từ người dùng
 
-- Firebase project id `musimob`, hoặc id khác nếu đã bị chiếm. Nếu khác thì đổi domain trong ticket này và trong spec.
-- Tạo service account, lưu JSON vào GitHub Secret `FIREBASE_SERVICE_ACCOUNT_MUSIMOB`.
-- Bật Google provider trong Authentication. Ticket 02 dùng.
+- Service account JSON, dán vào GitHub Secret `FIREBASE_SERVICE_ACCOUNT_MUSI_MOB`. Không đặt file trong repo.
 
 ## Xong khi
 
 - `npm run dev` render shell, console sạch.
 - `npm run lint` và `npm run build` pass.
 - Push `main` chạy workflow xanh, deploy thành công.
-- `https://musimob.web.app` trả app shell.
+- `https://musi-mob.web.app` trả app shell.
 
 Không viết test.
