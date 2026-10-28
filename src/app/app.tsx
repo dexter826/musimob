@@ -4,6 +4,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { AddSheet } from '@/features/add-song/components/add-sheet'
 import { SignInScreen } from '@/features/auth/components/sign-in-screen'
+import { SongSearch } from '@/features/search-song/components/song-search'
 import { SongList } from '@/features/songs/components/song-list'
 import { useSongs } from '@/features/songs/hooks/use-songs'
 import type { User } from '@/lib/api/types'
@@ -65,6 +66,13 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
         open={isAddOpen}
         onOpenChange={setIsAddOpen}
         onAdd={addSong}
+        renderSearchTab={(onSwitchToManual) => (
+          <SongSearch
+            songs={songs}
+            onAdd={addSong}
+            onSwitchToManual={onSwitchToManual}
+          />
+        )}
       />
     </div>
   )

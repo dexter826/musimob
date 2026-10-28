@@ -1,6 +1,6 @@
 # 04 — Tìm iTunes và lưu
 
-Status: ready-for-agent
+Status: done
 Blocked by: 03
 
 ## Mục tiêu
@@ -34,3 +34,8 @@ Gõ tên bài hoặc ca sĩ, thấy kết quả từ iTunes có ảnh bìa, lưu
 - Lưu cùng một bài hai lần không tạo bản ghi thứ hai.
 
 Không viết test.
+
+## Comments
+
+- 2026-10-29: Đã implement `MusimobApi.search`, adapter iTunes (`country=vn`, `entity=song`, `limit=25`), chuẩn hoá track và đổi ảnh bìa lên 600×600, `RateLimitError`/`SearchError`, hook debounce 400ms với TanStack Query (≥ 2 ký tự, `staleTime` 10 phút, `gcTime` 30 phút, `retry: false`), hai tab iTunes/Nhập tay, lưu một chạm, nhãn `Đã lưu` theo title + artist, và `SongCover` dùng chung. Đã tách `SongSearch` khỏi `AddSheet` bằng render prop để không import chéo feature. `tsc`, `lint`, `build`, `sloplint` sạch; Impeccable detector quét file không báo lỗi (rule cần DOM chỉ chạy được trên trang đã đăng nhập). Chờ test tay trước khi commit/deploy.
+- 2026-10-29: Test tay pass, chuyển `done`.

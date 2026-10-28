@@ -16,6 +16,12 @@ export type Song = {
 
 export type NewSong = Omit<Song, 'id' | 'createdAt' | 'updatedAt'>
 
+export type SearchResult = {
+  title: string
+  artist: string
+  coverUrl: string
+}
+
 export type MusimobApi = {
   auth: {
     signInWithGoogle(): Promise<void>
@@ -30,5 +36,8 @@ export type MusimobApi = {
       onError?: (error: unknown) => void,
     ): () => void
     add(uid: string, song: NewSong): Promise<void>
+  }
+  search: {
+    query(term: string): Promise<SearchResult[]>
   }
 }
