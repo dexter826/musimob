@@ -17,7 +17,7 @@
    "sign-in",
    "signed-in empty state"
   ],
-  "signature": "split sign-in: statement + auth panel",
+  "signature": "centered sign-in card",
   "waived": [],
   "prompt": "Ticket 02 — đăng nhập Google cho Musimob",
   "date": "2026-10-28"

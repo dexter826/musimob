@@ -128,7 +128,7 @@ Hai adapter: Firebase thật, và adapter iTunes đứng sau `search`.
 Chốt từ prototype, variant D.
 
 - Header: wordmark `musimob`, dòng `{n} bài`, nút đổi kiểu xem, avatar.
-- Bố cục tràn viewport: desktop dùng toàn bộ chiều ngang với hai vùng nội dung; mobile một cột. Không đặt khung max-width kiểu điện thoại giữa màn hình desktop.
+- Khung danh sách tràn viewport: desktop dùng toàn bộ chiều ngang; mobile một cột. Màn đăng nhập đặt form căn giữa, tối đa 440px.
 - Ô tìm kiếm full-width dưới header, lọc phía client trên danh sách đã tải.
 - Kiểu danh sách: row cao 50px ảnh, tên đậm 14.5px, ca sĩ 12.5px màu muted.
 - Kiểu lưới: hai cột, ảnh vuông, gradient đen dưới đáy, tên chồng trên ảnh.

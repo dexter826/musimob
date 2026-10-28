@@ -13,7 +13,7 @@ Mở app, đăng nhập bằng tài khoản Google thật, thấy app shell có 
 - `lib/api/firebase.ts`: init Firebase app. Ticket 01 đã dựng file này, giờ thêm `getAuth`.
 - `lib/api/auth.ts`: adapter `signInWithGoogle`, `signOut`, `onUserChanged`. Map Firebase user thành `{ uid, displayName }`, `displayName` rỗng thì dùng phần trước `@` của email.
 - `features/auth/components/SignInScreen.tsx`: wordmark, một câu giải thích, nút `Tiếp tục với Google`.
-- Bố cục tràn viewport: desktop dùng toàn bộ chiều ngang với hai vùng nội dung; mobile một cột. Không đặt khung max-width kiểu điện thoại.
+- Màn đăng nhập: form căn giữa, tối đa 440px; nền tràn viewport. Không đặt khung max-width kiểu điện thoại cho toàn trang.
 - `features/auth/hooks/useAuth.ts`: subscribe `onUserChanged`, trả user và trạng thái đang tải.
 - `features/auth/components/AvatarMenu.tsx`: avatar chữ cái đầu của tên, bấm mở menu có `Đăng xuất`.
 - `app/provider.tsx`: bọc auth state. `app/app.tsx`: chưa có user thì render `SignInScreen`, có user thì render shell.
@@ -27,6 +27,6 @@ Mở app, đăng nhập bằng tài khoản Google thật, thấy app shell có 
 - Bấm avatar, chọn `Đăng xuất`, quay lại màn đăng nhập.
 - Đăng nhập lại bằng tài khoản thứ hai được, không kẹt phiên cũ.
 - Popup bị chặn vẫn đăng nhập được bằng redirect.
-- Bố cục đúng ở 375, 768, 1024, 1440 và 1920: không tràn ngang, desktop dùng toàn bộ chiều ngang, mobile một cột.
+- Form đăng nhập căn giữa, không tràn ngang ở 375, 768, 1024, 1440 và 1920; nền phủ viewport.
 
 Không viết test.
