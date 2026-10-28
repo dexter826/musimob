@@ -1,12 +1,14 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Plus } from 'lucide-react'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { AddSheet } from '@/features/add-song/components/add-sheet'
 import { SignInScreen } from '@/features/auth/components/sign-in-screen'
 import { SongSearch } from '@/features/search-song/components/song-search'
+import { FilterInput } from '@/features/songs/components/filter-input'
 import { SongList } from '@/features/songs/components/song-list'
 import { useSongs } from '@/features/songs/hooks/use-songs'
+import { useViewMode } from '@/features/songs/hooks/use-view-mode'
 import type { User } from '@/lib/api/types'
 import { useAuthContext } from './auth-context'
 import { AppHeader } from './app-header'
@@ -20,9 +22,23 @@ type SignedInAppProps = {
 
 function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
   const [isAddOpen, setIsAddOpen] = useState(false)
+  const [filterQuery, setFilterQuery] = useState('')
+  const { viewMode, toggleViewMode } = useViewMode()
   const { songs, isLoading, error, retry, addSong } = useSongs(user.uid)
 
-  const songCount = isLoading && songs.length === 0 ? null : songs.length
+  const filteredSongs = useMemo(() => {
+    const query = filterQuery.trim().toLowerCase()
+    if (!query) return songs
+
+    return songs.filter(
+      (song) =>
+        song.title.toLowerCase().includes(query) ||
+        song.artist.toLowerCase().includes(query),
+    )
+  }, [songs, filterQuery])
+
+  const songCount =
+    isLoading && songs.length === 0 ? null : filteredSongs.length
   const hasError = error !== null && songs.length === 0
 
   return (
@@ -31,9 +47,12 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
         songCount={songCount}
         hasError={hasError}
         displayName={user.displayName}
+        viewMode={viewMode}
+        onToggleView={toggleViewMode}
         onSignOut={onSignOut}
       />
       <main className="flex flex-1 flex-col px-6 pb-24 sm:px-8 lg:px-12 lg:pb-28 xl:px-16">
+        <FilterInput value={filterQuery} onChange={setFilterQuery} />
         {authError ? (
           <Alert
             variant="destructive"
@@ -45,11 +64,14 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
           </Alert>
         ) : null}
         <SongList
-          songs={songs}
+          songs={filteredSongs}
+          totalSongCount={songs.length}
+          viewMode={viewMode}
           isLoading={isLoading}
           error={error}
           onAdd={() => setIsAddOpen(true)}
           onRetry={retry}
+          onClearFilter={() => setFilterQuery('')}
         />
       </main>
 

@@ -2,20 +2,45 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import type { Song } from '@/lib/api/types'
+import type { ViewMode } from '../hooks/use-view-mode'
 import { EmptyState } from './empty-state'
+import { SongGrid } from './song-grid'
 import { SongRow } from './song-row'
 
 type SongListProps = {
   songs: Song[]
+  totalSongCount: number
+  viewMode: ViewMode
   isLoading: boolean
   error: string | null
   onAdd: () => void
   onRetry: () => void
+  onClearFilter: () => void
 }
 
 const SKELETON_ROWS = [0, 1, 2, 3, 4]
+const SKELETON_GRID = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-function SongListSkeleton() {
+function SongListSkeleton({ viewMode }: { viewMode: ViewMode }) {
+  if (viewMode === 'grid') {
+    return (
+      <div role="status">
+        <span className="sr-only">Đang tải danh sách…</span>
+        <div
+          aria-hidden="true"
+          className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4 lg:gap-4 xl:grid-cols-5"
+        >
+          {SKELETON_GRID.map((item) => (
+            <div
+              key={item}
+              className="aspect-square rounded-xl bg-muted motion-safe:animate-pulse"
+            />
+          ))}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div role="status" className="flex flex-1 flex-col">
       <span className="sr-only">Đang tải danh sách…</span>
@@ -65,27 +90,51 @@ function SongListError({
   )
 }
 
+function FilterEmptyState({ onClear }: { onClear: () => void }) {
+  return (
+    <div className="flex flex-1 flex-col items-center justify-center gap-3 px-6 py-16 text-center">
+      <p
+        role="status"
+        className="text-[13.5px] leading-[1.55] text-muted-foreground"
+      >
+        Không có bài nào khớp.
+      </p>
+      <Button
+        type="button"
+        variant="outline"
+        onClick={onClear}
+        className="h-9 px-3 text-[12.5px] font-semibold"
+      >
+        Xoá bộ lọc
+      </Button>
+    </div>
+  )
+}
+
 export function SongList({
   songs,
+  totalSongCount,
+  viewMode,
   isLoading,
   error,
   onAdd,
   onRetry,
+  onClearFilter,
 }: SongListProps) {
-  if (isLoading && songs.length === 0) {
-    return <SongListSkeleton />
+  if (isLoading && totalSongCount === 0) {
+    return <SongListSkeleton viewMode={viewMode} />
   }
 
-  if (error && songs.length === 0) {
+  if (error && totalSongCount === 0) {
     return <SongListError message={error} onRetry={onRetry} />
   }
 
-  if (songs.length === 0) {
+  if (totalSongCount === 0) {
     return <EmptyState onAdd={onAdd} />
   }
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-1 flex-col gap-3">
       {error ? (
         <Alert
           variant="destructive"
@@ -97,11 +146,17 @@ export function SongList({
         </Alert>
       ) : null}
 
-      <ul className="flex flex-col">
-        {songs.map((song, index) => (
-          <SongRow key={song.id} song={song} isFirst={index === 0} />
-        ))}
-      </ul>
+      {songs.length === 0 ? (
+        <FilterEmptyState onClear={onClearFilter} />
+      ) : viewMode === 'grid' ? (
+        <SongGrid songs={songs} />
+      ) : (
+        <ul className="flex flex-col">
+          {songs.map((song, index) => (
+            <SongRow key={song.id} song={song} isFirst={index === 0} />
+          ))}
+        </ul>
+      )}
     </div>
   )
 }

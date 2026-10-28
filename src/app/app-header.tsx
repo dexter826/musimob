@@ -1,10 +1,14 @@
 import { Wordmark } from '@/components/wordmark'
 import { AvatarMenu } from '@/features/auth/components/avatar-menu'
+import { ViewToggle } from '@/features/songs/components/view-toggle'
+import type { ViewMode } from '@/features/songs/hooks/use-view-mode'
 
 type AppHeaderProps = {
   songCount: number | null
   hasError: boolean
   displayName: string
+  viewMode: ViewMode
+  onToggleView: () => void
   onSignOut: () => Promise<void>
 }
 
@@ -12,6 +16,8 @@ export function AppHeader({
   songCount,
   hasError,
   displayName,
+  viewMode,
+  onToggleView,
   onSignOut,
 }: AppHeaderProps) {
   const countLabel = hasError
@@ -26,7 +32,10 @@ export function AppHeader({
         <Wordmark />
         <p className="mt-1 text-[12px] text-muted-foreground">{countLabel}</p>
       </div>
-      <AvatarMenu displayName={displayName} onSignOut={onSignOut} />
+      <div className="flex shrink-0 items-center gap-2">
+        <ViewToggle viewMode={viewMode} onToggle={onToggleView} />
+        <AvatarMenu displayName={displayName} onSignOut={onSignOut} />
+      </div>
     </header>
   )
 }

@@ -1,6 +1,6 @@
 # 05 — Đổi kiểu xem và lọc
 
-Status: ready-for-agent
+Status: done
 Blocked by: 03
 
 ## Mục tiêu
@@ -27,3 +27,8 @@ Hai cách nhìn cùng một danh sách: dòng dày để quét nhanh, lưới �
 - Đổi kiểu xem khi đang lọc, bộ lọc vẫn giữ nguyên.
 
 Không viết test.
+
+## Comments
+
+- 2026-10-29: Đã implement `useViewMode` (localStorage `musimob:view-mode`, mặc định `list`), `ViewToggle` cạnh avatar, `SongGrid` responsive (2 cột mobile, 3/4/5 cột desktop), `FilterInput` lọc client theo title hoặc artist, số bài trên header theo danh sách đã lọc, trạng thái không khớp kèm nút `Xoá bộ lọc`, skeleton đổi theo kiểu xem. Không ghi Firestore. `tsc`, `lint`, `build`, `sloplint` sạch; Impeccable detector quét file không báo lỗi (rule cần DOM chỉ chạy được trên trang đã đăng nhập). Chờ test tay trước khi commit/deploy.
+- 2026-10-29: Test tay pass, chuyển `done`.
