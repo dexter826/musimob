@@ -21,5 +21,30 @@
   "waived": [],
   "prompt": "Ticket 02 — đăng nhập Google cho Musimob",
   "date": "2026-10-28"
+ },
+ {
+  "mode": "build",
+  "scope": "app",
+  "theme": "custom — incumbent musimob (dark, coral accent)",
+  "shape": "app screen",
+  "axes": "dark/grotesk-sans/warm",
+  "hero": "none; app screen",
+  "nav": "top bar: wordmark + avatar menu",
+  "footer": "none",
+  "imagery": "50px cover thumbnails; music-note placeholder, no photos",
+  "photos": [],
+  "entry": "loading, sign-in, empty list, song list, add sheet",
+  "fingerprint": "flat-list/bottom-sheet",
+  "sections": [
+   "loading",
+   "sign-in",
+   "signed-in empty state",
+   "song list",
+   "add sheet"
+  ],
+  "signature": "flat song list + bottom add sheet",
+  "waived": [],
+  "prompt": "Ticket 03 — thêm tay và danh sách Firestore",
+  "date": "2026-10-29"
  }
 ]

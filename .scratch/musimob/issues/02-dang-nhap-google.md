@@ -1,6 +1,6 @@
 # 02 — Đăng nhập Google
 
-Status: ready-for-agent
+Status: done
 Blocked by: 01
 
 ## Mục tiêu

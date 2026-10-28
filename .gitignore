@@ -54,3 +54,4 @@ gha-creds-*.json
 
 # Agent local
 /.agents/
+.hallmark

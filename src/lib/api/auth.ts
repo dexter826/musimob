@@ -7,20 +7,12 @@ import {
   signOut as firebaseSignOut,
   type User as FirebaseUser,
 } from 'firebase/auth'
+import { getErrorCode } from '../errors'
 import { firebaseAuth } from './firebase'
 import type { MusimobApi, User } from './types'
 
 const googleProvider = new GoogleAuthProvider()
 googleProvider.setCustomParameters({ prompt: 'select_account' })
-
-function getErrorCode(error: unknown): string {
-  if (typeof error !== 'object' || error === null || !('code' in error)) {
-    return ''
-  }
-
-  const code = (error as { code?: unknown }).code
-  return typeof code === 'string' ? code : ''
-}
 
 function getAuthErrorMessage(error: unknown): string {
   switch (getErrorCode(error)) {

@@ -1,6 +1,6 @@
 /* Hallmark · shape: app screen · genre: atmospheric · theme: incumbent musimob
  * paper: #050506/#0a0a0b · accent: #ff6a4d · display: Be Vietnam Pro · body: Be Vietnam Pro
- * nav: wordmark + avatar menu · signature: sleeve sign-in with record label · states: loading, signed-out, signing-in, error, signed-in
+ * nav: wordmark + avatar menu · signature: sleeve sign-in + flat song list · states: loading, signed-out, signing-in, error, empty, list, add sheet
  * axes: dark/grotesk-sans/warm · posture: restrained · contrast: pass · v2.0.0 */
 /* Hallmark · pre-emit critique: P4 H5 E4 S4 R5 V3 · weakest: V, kept one familiar Google action because familiarity is the job */
 @import "tailwindcss";

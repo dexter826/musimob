@@ -1,6 +1,6 @@
 # 03 — Thêm tay và danh sách Firestore
 
-Status: ready-for-agent
+Status: done
 Blocked by: 02
 
 ## Mục tiêu
@@ -32,3 +32,9 @@ Bài đầu tiên được lưu thật vào Firestore, hiện trong danh sách, 
 - Bài không có ảnh bìa hiện placeholder gọn gàng.
 
 Không viết test.
+
+## Comments
+
+- 2026-10-29: Đã implement data layer, rules, danh sách, empty state, bottom sheet và form nhập tay. `lint`, `build`, `sloplint`, Impeccable detector sạch. Chờ test tay trước khi commit/deploy.
+- 2026-10-29: Review `/code-refactor` mode C: bỏ sort client để giữ thứ tự Firestore, header báo `Không tải được` thay vì `0 bài`, Enter chuyển field, input 16px trên mobile, validate URL ảnh bìa, gom `getErrorCode`, bật `strict`. `lint`, `build`, `sloplint`, detector file pass sạch. Chờ test tay.
+- 2026-10-29: Test tay pass, chuyển `done`.
