@@ -39,6 +39,14 @@ body {
   color: var(--color-accent-ink);
 }
 
+.auth-stage {
+  background-image: radial-gradient(
+    120% 80% at 50% -10%,
+    color-mix(in oklab, var(--color-accent) 12%, transparent),
+    transparent 62%
+  );
+}
+
 @layer base {
   :where(button, a, [role='button']) {
     touch-action: manipulation;
