@@ -26,14 +26,13 @@ Chờ ticket 01 và 04 xong vì nơi deploy phụ thuộc nền tảng và cách
 | --- | --- |
 | Nơi deploy | Firebase Hosting |
 | Tên miền | `musimob.web.app` |
-| App Check | Bật từ lần deploy đầu, reCAPTCHA Enterprise |
 | Cách deploy | GitHub Actions, tự chạy khi push `main` |
 | Preview channel | Không dùng ở v1 |
 | Chi phí | Gói Spark (miễn phí) |
 
 ### Vì sao Firebase Hosting
 
-Auth, Firestore, rules và App Check đều ở Firebase. Một console, một chỗ xem log, một lệnh deploy. Vercel và Netlify chạy được nhưng phải nhảy giữa hai dashboard, và rules vẫn phải deploy qua Firebase CLI.
+Auth, Firestore và rules đều ở Firebase. Một console, một chỗ xem log, một lệnh deploy. Vercel và Netlify chạy được nhưng phải nhảy giữa hai dashboard, và rules vẫn phải deploy qua Firebase CLI.
 
 ### PWA
 
@@ -59,9 +58,7 @@ Workflow chạy khi push `main`:
 
 ### App Check
 
-- Provider: reCAPTCHA Enterprise, 10.000 lượt/tháng miễn phí.
-- Localhost dùng debug token qua biến môi trường, không chặn dev.
-- Bật ngay từ deploy đầu vì dễ quên về sau, và vì mở đăng ký nghĩa là ai cũng tạo được dữ liệu.
+Đã cân nhắc bật reCAPTCHA Enterprise từ deploy đầu, sau đó bỏ khỏi v1. Rules chỉ chủ sở hữu vẫn giữ nguyên; rủi ro script đốt quota được chấp nhận, theo dõi qua hạn mức Spark.
 
 ### Chưa làm ở v1
 

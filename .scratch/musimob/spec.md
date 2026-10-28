@@ -143,7 +143,6 @@ Chốt từ prototype, variant D.
 - `registerType: 'autoUpdate'`.
 - Deploy lên Firebase Hosting tại `musimob.web.app`.
 - GitHub Actions chạy khi push `main`: cài, build, deploy Hosting, deploy Firestore rules.
-- App Check bật từ lần deploy đầu, provider reCAPTCHA Enterprise. Localhost dùng debug token.
 
 ## Out of Scope
 

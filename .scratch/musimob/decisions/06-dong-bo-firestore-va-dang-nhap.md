@@ -75,6 +75,5 @@ Không có nhánh đọc công khai. Người chưa đăng nhập không đọc 
 
 Đăng ký mở nghĩa là bất kỳ tài khoản Google nào cũng ghi được vào Firestore. Không có lớp chặn thì một script có thể đốt hết quota miễn phí.
 
-- Bật **Firebase App Check** (reCAPTCHA Enterprise trên web) trước khi deploy công khai.
+- App Check đã cân nhắc và bỏ khỏi v1. Rủi ro script đốt quota được chấp nhận.
 - Theo dõi hạn mức Spark: 50.000 lượt đọc/ngày, 20.000 lượt ghi/ngày, 1 GiB lưu trữ.
-- App Check là việc của ticket [Deploy và hosting](05-deploy-va-hosting.md), không phải v1 feature.
