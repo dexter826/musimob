@@ -1,0 +1,53 @@
+# Thư viện ngoài
+node_modules/
+.pnp
+.pnp.js
+
+# Thư mục build
+dist/
+dist-ssr/
+build/
+dev-dist/
+*.tsbuildinfo
+
+# Biến môi trường bảo mật
+.env
+.env.local
+.env.*.local
+*.pem
+
+# File log hệ thống
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Cấu hình IDE hoặc Editor
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# File hệ điều hành
+.DS_Store
+Thumbs.db
+
+# Cấu hình Firebase
+.firebase/
+
+# Thư mục tạm Gemini
+.gemini/
+
+# Cache cục bộ tạo bởi npm khi kiểm tra lockfile
+.npm-cache/
+.zcodeignore
+.worktrees/
+.superpowers/
+
+# Agent local
+/.agents/
