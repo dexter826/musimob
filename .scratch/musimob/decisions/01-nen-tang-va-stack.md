@@ -37,7 +37,7 @@ Stack chốt:
 
 Đã loại:
 
-- **Next.js** — SSR, routing, server không cần cho v1.
+- **Next.js** — SSR, routing, server không cần cho sản phẩm này.
 - **Redux Toolkit** — boilerplate lớn hơn cả app.
 - **Native** — cần store, cần Apple Developer 99 USD/năm, chậm vòng lặp.
 

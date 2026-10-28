@@ -13,10 +13,10 @@ Cần chốt:
 - **Nơi deploy**: Firebase Hosting, Vercel, Netlify, GitHub Pages, hay chạy local?
 - **Chi phí**: chỉ dùng gói free, hay chấp nhận trả tiền?
 - **Tên miền**: dùng domain mặc định của nền tảng, hay mua riêng?
-- **Cài đặt PWA**: có cần manifest + service worker ngay từ v1 không?
+- **Cài đặt PWA**: có cần manifest + service worker ngay từ đầu không?
 - **Dữ liệu**: nếu lưu trữ cần backend thì deploy phải đi kèm backend đó.
 
-Ràng buộc: v1 chỉ dùng hosting tĩnh nếu không cần Firestore.
+Ràng buộc: chỉ dùng hosting tĩnh nếu không cần Firestore.
 
 ## Answer
 
@@ -25,7 +25,7 @@ Ràng buộc: v1 chỉ dùng hosting tĩnh nếu không cần Firestore.
 | Nơi deploy | Firebase Hosting |
 | Tên miền | `musi-mob.web.app` |
 | Cách deploy | GitHub Actions, tự chạy khi push `main` |
-| Preview channel | Không dùng ở v1 |
+| Preview channel | Không dùng |
 | Chi phí | Gói Spark (miễn phí) |
 
 ### Vì sao Firebase Hosting
@@ -56,9 +56,9 @@ Workflow chạy khi push `main`:
 
 ### App Check
 
-Đã cân nhắc bật reCAPTCHA Enterprise từ deploy đầu, sau đó bỏ khỏi v1. Rules chỉ chủ sở hữu vẫn giữ nguyên; rủi ro script đốt quota được chấp nhận, theo dõi qua hạn mức Spark.
+Đã cân nhắc bật reCAPTCHA Enterprise từ deploy đầu, sau đó bỏ. Rules chỉ chủ sở hữu vẫn giữ nguyên; rủi ro script đốt quota được chấp nhận, theo dõi qua hạn mức Spark.
 
-### Chưa làm ở v1
+### Chưa làm
 
 - Preview channel cho bản thử. Thêm sau bằng một job phụ, không đụng cấu trúc.
 - Tên miền riêng. Đổi sau chỉ là bản ghi DNS.

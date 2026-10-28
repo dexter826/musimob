@@ -13,17 +13,17 @@ Cần chốt:
 - **Cơ chế**: `localStorage`, IndexedDB, hay Firestore?
 - **Mất dữ liệu**: chấp nhận mất khi xoá cache trình duyệt, hay cần backup?
 - **Xuất/nhập**: có cần file JSON để sao lưu và chuyển máy không?
-- **Đồng bộ nhiều thiết bị**: có nằm trong v1 không, hay để sau?
+- **Đồng bộ nhiều thiết bị**: có làm ngay không, hay để sau?
 - **Giới hạn dung lượng**: ảnh bìa lưu URL hay lưu blob? Nếu URL thì không tốn dung lượng.
 
-Ràng buộc: v1 cần chốt giữa lưu cục bộ và đồng bộ nhiều thiết bị. Firestore kéo theo Firebase, cần mạng, cần cấu hình — chỉ đáng nếu đồng bộ là mục tiêu thật.
+Ràng buộc: cần chốt giữa lưu cục bộ và đồng bộ nhiều thiết bị. Firestore kéo theo Firebase, cần mạng, cần cấu hình — chỉ đáng nếu đồng bộ là mục tiêu thật.
 
 ## Answer
 
 | Mục | Quyết định |
 | --- | --- |
 | Nguồn sự thật | **Firestore** |
-| Đồng bộ nhiều thiết bị | **Có, trong v1** |
+| Đồng bộ nhiều thiết bị | **Có** |
 | Xuất/nhập JSON | Không làm |
 | Ảnh bìa | Lưu URL, Workbox cache `is1-ssl.mzstatic.com` ở runtime |
 

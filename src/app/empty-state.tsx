@@ -5,7 +5,7 @@ export function EmptyState() {
         Chưa có bài nào
       </h1>
       <p className="mx-auto mt-2.5 max-w-[280px] text-[13.5px] leading-[1.55] text-muted lg:mt-3 lg:max-w-[380px] lg:text-[15px]">
-        Thêm bài đầu tiên để bắt đầu danh sách của bạn.
+        Bài hát bạn thêm sẽ xuất hiện ở đây.
       </p>
     </div>
   )

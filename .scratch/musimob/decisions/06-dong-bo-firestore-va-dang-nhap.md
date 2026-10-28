@@ -18,12 +18,12 @@ Cần chốt:
 - **Zustand**: còn dùng cho UI state không, hay bỏ hẳn?
 - **Xung đột**: hai thiết bị sửa cùng một bài thì lấy bản nào?
 - **Rules**: chặn đọc/ghi chéo giữa các user.
-- **Chi phí**: free tier của Firestore có đủ cho quy mô v1 không?
+- **Chi phí**: free tier của Firestore có đủ cho quy mô nhỏ không?
 
 Ràng buộc:
 
 - Stack đã chốt: React + TypeScript + Vite, TanStack Query, `vite-plugin-pwa`.
-- Đồng bộ là yêu cầu của v1, không cắt được.
+- Đồng bộ là yêu cầu bắt buộc, không cắt được.
 - Mỗi danh sách thuộc một tài khoản; đồng bộ nhiều thiết bị.
 
 Đích: đủ rõ để viết spec mà không phải đoán chỗ nào giữ dữ liệu.
@@ -75,5 +75,5 @@ Không có nhánh đọc công khai. Người chưa đăng nhập không đọc 
 
 Đăng ký mở nghĩa là bất kỳ tài khoản Google nào cũng ghi được vào Firestore. Không có lớp chặn thì một script có thể đốt hết quota miễn phí.
 
-- App Check đã cân nhắc và bỏ khỏi v1. Rủi ro script đốt quota được chấp nhận.
+- App Check đã cân nhắc và bỏ. Rủi ro script đốt quota được chấp nhận.
 - Theo dõi hạn mức Spark: 50.000 lượt đọc/ngày, 20.000 lượt ghi/ngày, 1 GiB lưu trữ.

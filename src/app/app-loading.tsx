@@ -8,7 +8,7 @@ export function AppLoading() {
         role="status"
         className="flex flex-1 items-center justify-center pb-16 text-[12px] text-muted"
       >
-        Đang kiểm tra tài khoản…
+        Đang tải…
       </p>
     </div>
   )

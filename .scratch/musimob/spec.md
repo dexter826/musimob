@@ -1,4 +1,4 @@
-# Musimob v1
+# Musimob
 
 Status: ready-for-agent
 
@@ -10,7 +10,7 @@ Danh sách bài hát cá nhân thường nằm rải rác trong ghi chú: không
 
 Musimob là một PWA nhỏ: đăng nhập bằng Google, tìm bài qua iTunes, lưu vào danh sách của riêng mình. Xem dạng danh sách dày hoặc lưới ảnh bìa. Đồng bộ giữa các thiết bị qua Firestore. Vẫn xem được khi mất mạng.
 
-Mục tiêu của v1: mở app, thấy danh sách, thêm được một bài trong dưới ba mươi giây.
+Mục tiêu: mở app, thấy danh sách, thêm được một bài trong dưới ba mươi giây.
 
 ## User Stories
 
