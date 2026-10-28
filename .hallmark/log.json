@@ -1,0 +1,25 @@
+[
+ {
+  "mode": "build",
+  "scope": "app",
+  "theme": "custom — incumbent musimob (vibe: \"đêm quán karaoke, coral ấm\")",
+  "shape": "app screen",
+  "axes": "dark/grotesk-sans/warm",
+  "hero": "none; app screen",
+  "nav": "top bar: wordmark + avatar menu",
+  "footer": "none",
+  "imagery": "none; type and controls carry the surface",
+  "photos": [],
+  "entry": "sign-in, loading, signed-in empty list",
+  "fingerprint": "app-shell/top-bar/centered-empty",
+  "sections": [
+   "loading",
+   "sign-in",
+   "signed-in empty state"
+  ],
+  "signature": "two-line sign-in promise",
+  "waived": [],
+  "prompt": "Ticket 02 — đăng nhập Google cho Musimob",
+  "date": "2026-10-28"
+ }
+]
