@@ -1,6 +1,6 @@
 # 01 — Khung app deploy được
 
-Status: ready-for-agent
+Status: done
 Blocked by: none
 
 ## Mục tiêu
