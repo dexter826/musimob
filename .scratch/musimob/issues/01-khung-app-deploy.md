@@ -27,6 +27,7 @@ Dựng source từ số 0, đưa app shell rỗng lên `musi-mob.web.app`. Cuố
 ## Cần từ người dùng
 
 - Service account JSON, dán vào GitHub Secret `FIREBASE_SERVICE_ACCOUNT_MUSI_MOB`. Không đặt file trong repo.
+- Service account cần hai role trên project `musi-mob`: `Firebase Admin` (`roles/firebase.admin`) và `Service Usage Viewer` (`roles/serviceusage.serviceUsageViewer`). Thiếu role thứ hai thì CLI báo 403 ở `serviceusage.googleapis.com`.
 
 ## Xong khi
 
