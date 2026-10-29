@@ -104,7 +104,7 @@ musimob là một kệ đĩa than trong phòng tối: bìa đĩa là vật thể
 
 Sự ấm áp đến từ đúng một nguồn: Ember Coral, dùng như ngọn đèn nhỏ trong phòng — một hành động chính, một focus ring, chữ "mob" trong wordmark, chiếc đĩa coral trên màn đăng nhập. Mọi thứ còn lại là Vinyl Charcoal nhiều tầng với Soft White và Ash. Bề mặt phẳng, viền sáng 1px thay bóng đổ; chỉ nút thêm bài được phép nổi.
 
-Mật độ cao, chữ nhỏ, nhịp đều: hàng danh sách 50px cover, type 11–14.5px, khoảng cách 10/12px. Cảm giác component là điềm tĩnh và chạm được — vật thể thật, phản hồi nhẹ, không trang trí thừa. Anti-reference đã chốt: không giống UI trình phát streaming, không giống dashboard SaaS.
+Mật độ cao, chữ nhỏ, nhịp đều: hàng danh sách 50px cover, type 11–14.5px, khoảng cách 10/12px. Cảm giác component là điềm tĩnh và chạm được — vật thể thật, phản hồi nhẹ, không trang trí thừa. Anti-reference: không giống UI trình phát streaming, không giống dashboard SaaS.
 
 **Key Characteristics:**
 
@@ -158,11 +158,17 @@ Bảng màu là một căn phòng tối có đúng một ngọn đèn: than nhi�
 
 ### Named Rules
 
-**The Small-Type Rule.** Type UI sống ở 11–14.5px, kể cả số lẻ .5px — đó là mật độ có chủ đích. Chỉ heading mới vượt 18px; đừng "phóng to cho dễ đọc", hãy tăng weight hoặc đổi sang Soft White.
+**The Small-Type Rule.** Type UI sống ở 11–14.5px, kể cả số lẻ .5px — đó là mật độ có chủ đích. Chỉ heading mới vượt 18px. Tăng weight hoặc đổi sang Soft White thay vì tăng cỡ chữ.
 
 ## Layout
 
-Mobile-first, một cột, mọi thứ neo vào cạnh màn hình. Gutter trang 24px → 32px (sm) → 48px (lg) → 64px (xl); header padding-top 20px → 28px (lg). Danh sách phẳng, hàng padding 12px ngang / 10px dọc. Lưới cover 2 cột (gap 10px) → 3 (12px) → 4 (16px) → 5. Drawer rộng tối đa 560px, cao tối đa 85dvh, bo góc trên, chừa safe-area đáy 20px. FAB đặt cố định phải 24/32/48/64px, đáy 20px + safe-area. Ô lọc cách danh sách 16px. Màn đăng nhập: lề ngoài 20px, một tấm tối đa 560px, padding trong 24px → 36px → 44px (lg), cao tối thiểu 520px → 560px, vuông ở lg. Nội dung co giãn theo chiều dọc; trạng thái rỗng/lỗi chiếm trọn phần còn lại.
+- **Khung trang:** mobile-first, một cột, mọi thứ neo vào cạnh màn hình; gutter 24px → 32px (sm) → 48px (lg) → 64px (xl); header padding-top 20px → 28px (lg).
+- **Danh sách:** phẳng, hàng padding 12px ngang / 10px dọc; ô lọc cách danh sách 16px.
+- **Lưới cover:** 2 cột (gap 10px) → 3 (12px) → 4 (16px) → 5.
+- **Drawer:** rộng tối đa 560px, cao tối đa 85dvh, bo góc trên, chừa safe-area đáy 20px.
+- **FAB:** cố định phải 24/32/48/64px, đáy 20px + safe-area.
+- **Màn đăng nhập:** lề ngoài 20px, một tấm tối đa 560px, padding trong 24px → 36px → 44px (lg), cao tối thiểu 520px → 560px, vuông ở lg.
+- **Trục dọc:** nội dung co giãn; trạng thái rỗng/lỗi chiếm trọn phần còn lại.
 
 ## Elevation & Depth
 
@@ -179,7 +185,7 @@ Hệ phẳng mặc định. Card không đổ bóng: độ nổi đến từ ba 
 
 ## Shapes
 
-Bo góc theo vai trò, không theo một thang duy nhất: artwork 6px, control và button 8px, surface (card, tile, drawer) 12px, pill cho ô tìm kiếm và nút "Lưu", hình tròn cho avatar và FAB. Viền luôn 1px. Drawer chỉ bo hai góc trên. Ảnh bìa là hình vuông bo nhẹ, không đeo khung; tile lưới cắt vuông tuyệt đối và phủ scrim đen ở đáy.
+Bo góc theo vai trò, không theo một thang duy nhất: artwork 6px, control và button 8px, surface (card, tile, drawer) 12px, pill cho ô tìm kiếm và nút lưu, hình tròn cho avatar và FAB. Viền luôn 1px. Drawer chỉ bo hai góc trên. Ảnh bìa là hình vuông bo nhẹ, không đeo khung; tile lưới cắt vuông tuyệt đối và phủ scrim đen ở đáy.
 
 ### Named Rules
 
@@ -192,11 +198,11 @@ Bo góc theo vai trò, không theo một thang duy nhất: artwork 6px, control 
 - **Shape:** bo 8px; hành động chính cao 44px, nút mặc định 32px, nút đăng nhập 48px.
 - **Primary:** nền Ember Coral, chữ Ember Ink, semibold 13–14px, padding ngang 16px; hover giảm còn 80% opacity; active dịch xuống 1px; focus viền coral + ring 3px coral/50.
 - **Secondary / Ghost:** outline dùng nền canvas + viền seam, hover Vinyl Raised; ghost không viền, icon Ash, hover Vinyl Raised. Nút icon 36px.
-- **Loading:** giữ nguyên kích thước, thay nhãn bằng spinner 16px + chữ "Đang…"; không đổi layout.
+- **Loading:** giữ nguyên kích thước, thay nhãn bằng spinner 16px + nhãn trạng thái tải (COPY.md); không đổi layout.
 
 ### Chips
 
-- **Style:** badge "Đã lưu" nền Vinyl Raised, chữ Ash, cao 28px, bo 6px, type 11.5px medium, icon check 12px. Không dùng badge cho trang trí.
+- **Style:** badge trạng thái đã lưu nền Vinyl Raised, chữ Ash, cao 28px, bo 6px, type 11.5px medium, icon check 12px. Không dùng badge cho trang trí.
 
 ### Cards / Containers
 
@@ -235,8 +241,8 @@ Nút tròn 56px Ember Coral, icon plus 24px Ember Ink, bóng "Floating action"; 
 
 ### Add/edit panel
 
-Mobile: drawer tối đa 560px, bo 12px hai góc trên, nền popover, viền seam trên; tay nắm 100×4px Vinyl Raised; cao theo nội dung, tối đa 85dvh. Header: tiêu đề trái, hành động phụ (Nhập tay) và nút đóng phải.
-Web ≥768px: dialog giữa màn hình rộng 560px, cùng nội dung, cao tối đa 85dvh. Thêm bài dùng ô tìm là nội dung chính; nhập tay thay nội dung trong cùng khung với nút quay lại. Không còn segmented tabs.
+Mobile: drawer tối đa 560px, bo 12px hai góc trên, nền popover, viền seam trên; tay nắm 100×4px Vinyl Raised; cao theo nội dung, tối đa 85dvh. Header: tiêu đề trái, hành động phụ nhập tay và nút đóng phải.
+Web ≥768px: dialog giữa màn hình rộng 560px, cùng nội dung, cao tối đa 85dvh. Thêm bài dùng ô tìm là nội dung chính; nhập tay thay nội dung trong cùng khung với nút quay lại. Không dùng segmented tabs.
 
 ### Sign-in sleeve (signature)
 
@@ -251,7 +257,7 @@ Một tấm Vinyl Card bo 8px (ngoại lệ có chủ đích của surface 12px)
 - **Do** giữ type UI trong khoảng 11–14.5px và tạo thứ bậc bằng weight/sắc độ.
 - **Do** dùng viền 1px (seam hoặc ring trắng 10%) để tách surface thay vì đổ bóng.
 - **Do** giữ vùng chạm tối thiểu 36px, hành động chính 44px, FAB 56px.
-- **Do** viết copy tiếng Việt ngắn, lỗi nói rõ việc cần làm ("Mất kết nối. Kiểm tra mạng rồi thử lại.").
+- **Do** viết copy tiếng Việt ngắn, lỗi nói rõ việc cần làm tiếp theo.
 
 ### Don't:
 

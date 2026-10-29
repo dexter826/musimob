@@ -169,7 +169,7 @@
   ],
   "narrative": {
     "northStar": "The Night Sleeve",
-    "overview": "Musimob là một kệ đĩa than trong phòng tối: bìa đĩa là vật thể duy nhất bắt sáng, còn giá đỡ, nhãn và nút bấm lùi về màu than. Giao diện không gợi không khí \"đang nghe nhạc\" — không player, không sóng nhạc, không hàng chờ — mà gợi cảm giác sở hữu: mở app ra là thấy đúng những bìa mình đã chọn, xếp trên một mặt phẳng yên tĩnh. Sự ấm áp đến từ đúng một nguồn: Ember Coral, dùng như ngọn đèn nhỏ trong phòng — một hành động chính, một focus ring, chữ \"mob\" trong wordmark, chiếc đĩa coral trên màn đăng nhập. Mọi thứ còn lại là Vinyl Charcoal nhiều tầng với Soft White và Ash. Bề mặt phẳng, viền sáng 1px thay bóng đổ; chỉ nút thêm bài được phép nổi. Mật độ cao, chữ nhỏ, nhịp đều: hàng danh sách 50px cover, type 11–14.5px, khoảng cách 10/12px. Cảm giác component là điềm tĩnh và chạm được — vật thể thật, phản hồi nhẹ, không trang trí thừa. Anti-reference đã chốt: không giống UI trình phát streaming, không giống dashboard SaaS.",
+    "overview": "musimob là một kệ đĩa than trong phòng tối: bìa đĩa là vật thể duy nhất bắt sáng, còn giá đỡ, nhãn và nút bấm lùi về màu than. Giao diện không gợi không khí \"đang nghe nhạc\" — không player, không sóng nhạc, không hàng chờ, chỉ một nút nghe thử 30 giây trên ảnh bìa — mà gợi cảm giác sở hữu: mở app ra là thấy đúng những bìa mình đã chọn, xếp trên một mặt phẳng yên tĩnh. Sự ấm áp đến từ đúng một nguồn: Ember Coral, dùng như ngọn đèn nhỏ trong phòng — một hành động chính, một focus ring, chữ \"mob\" trong wordmark, chiếc đĩa coral trên màn đăng nhập. Mọi thứ còn lại là Vinyl Charcoal nhiều tầng với Soft White và Ash. Bề mặt phẳng, viền sáng 1px thay bóng đổ; chỉ nút thêm bài được phép nổi. Mật độ cao, chữ nhỏ, nhịp đều: hàng danh sách 50px cover, type 11–14.5px, khoảng cách 10/12px. Cảm giác component là điềm tĩnh và chạm được — vật thể thật, phản hồi nhẹ, không trang trí thừa. Anti-reference: không giống UI trình phát streaming, không giống dashboard SaaS.",
     "keyCharacteristics": [
       "Nền than gần đen, đúng một accent coral",
       "Ảnh bìa dẫn dắt màu sắc; chrome trung tính",
@@ -181,7 +181,7 @@
     "rules": [
       { "name": "The One Ember Rule", "body": "Coral chiếm ≤10% diện tích mỗi màn hình. Sự hiếm là điểm nhấn; thêm accent thứ hai là phá hệ.", "section": "colors" },
       { "name": "The Artwork Leads Rule", "body": "Khi trên màn hình có ảnh bìa, màu của ảnh là màu chủ đạo; chrome không được cạnh tranh với nó.", "section": "colors" },
-      { "name": "The Small-Type Rule", "body": "Type UI sống ở 11–14.5px, kể cả số lẻ .5px — đó là mật độ có chủ đích. Chỉ heading mới vượt 18px; đừng \"phóng to cho dễ đọc\", hãy tăng weight hoặc đổi sang Soft White.", "section": "typography" },
+      { "name": "The Small-Type Rule", "body": "Type UI sống ở 11–14.5px, kể cả số lẻ .5px — đó là mật độ có chủ đích. Chỉ heading mới vượt 18px. Tăng weight hoặc đổi sang Soft White thay vì tăng cỡ chữ.", "section": "typography" },
       { "name": "The One Floating Object Rule", "body": "Chỉ nút thêm bài được đổ bóng ở trạng thái nghỉ. Mọi surface khác phẳng; nếu cần tách khỏi nền, dùng seam hoặc ring, không dùng shadow.", "section": "elevation" },
       { "name": "Round by Role", "body": "Pill chỉ dành cho ô tìm kiếm và hành động lưu. Đừng bo tròn mọi thứ; surface giữ 12px, artwork giữ 6px.", "section": "shapes" }
     ],
@@ -191,7 +191,7 @@
       "Do giữ type UI trong khoảng 11–14.5px và tạo thứ bậc bằng weight/sắc độ.",
       "Do dùng viền 1px (seam hoặc ring trắng 10%) để tách surface thay vì đổ bóng.",
       "Do giữ vùng chạm tối thiểu 36px, hành động chính 44px, FAB 56px.",
-      "Do viết copy tiếng Việt ngắn, lỗi nói rõ việc cần làm (\"Mất kết nối. Kiểm tra mạng rồi thử lại.\")."
+      "Do viết copy tiếng Việt ngắn, lỗi nói rõ việc cần làm tiếp theo."
     ],
     "donts": [
       "Don't thêm player, nút play, progress bar, hàng chờ hay bất kỳ affordance phát nhạc nào.",
