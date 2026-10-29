@@ -38,14 +38,14 @@ export function SongActionsMenu({
         align="end"
         className="min-w-40 rounded-lg border border-rule bg-popover p-1"
       >
-        <DropdownMenuItem onSelect={onEdit} className="gap-2 px-2 py-2 text-sm">
+        <DropdownMenuItem onSelect={onEdit} className="min-h-11 gap-2 px-2 py-2 text-sm">
           <Pencil aria-hidden="true" className="size-4" />
           Sửa
         </DropdownMenuItem>
         <DropdownMenuItem
           variant="destructive"
           onSelect={onDelete}
-          className="gap-2 px-2 py-2 text-sm"
+          className="min-h-11 gap-2 px-2 py-2 text-sm"
         >
           <Trash2 aria-hidden="true" className="size-4" />
           Xóa

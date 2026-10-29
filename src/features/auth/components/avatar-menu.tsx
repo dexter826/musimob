@@ -94,13 +94,13 @@ export function AvatarMenu({
             value={theme ?? 'system'}
             onValueChange={setTheme}
           >
-            <DropdownMenuRadioItem value="system" className="py-2 text-sm">
+            <DropdownMenuRadioItem value="system" className="min-h-11 py-2 text-sm">
               Theo hệ thống
             </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="light" className="py-2 text-sm">
+            <DropdownMenuRadioItem value="light" className="min-h-11 py-2 text-sm">
               Sáng
             </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="dark" className="py-2 text-sm">
+            <DropdownMenuRadioItem value="dark" className="min-h-11 py-2 text-sm">
               Tối
             </DropdownMenuRadioItem>
           </DropdownMenuRadioGroup>

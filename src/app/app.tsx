@@ -134,7 +134,7 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
         Chuyển đến nội dung
       </a>
       <div className="px-5 sm:px-8 lg:px-12 xl:px-16">
-        <div className="mx-auto flex min-h-dvh w-full max-w-[1120px] flex-col">
+        <div className="mx-auto flex min-h-dvh w-full max-w-[var(--page-max)] flex-col">
           <AppHeader
             displayName={user.displayName}
             photoURL={user.photoURL}

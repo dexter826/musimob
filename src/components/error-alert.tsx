@@ -1,5 +1,4 @@
 import { cn } from 'cn'
-import { Alert, AlertDescription } from '@/components/ui/alert'
 
 type ErrorAlertProps = {
   message: string
@@ -8,13 +7,14 @@ type ErrorAlertProps = {
 
 export function ErrorAlert({ message, className }: ErrorAlertProps) {
   return (
-    <Alert
-      variant="destructive"
-      className={cn('border-destructive/30 bg-destructive/10', className)}
+    <div
+      role="alert"
+      className={cn(
+        'border-l-[3px] border-danger bg-surface-2 px-3 py-2.5 text-sm leading-[1.6] text-danger',
+        className,
+      )}
     >
-      <AlertDescription className="text-[12.5px] leading-[1.5]">
-        {message}
-      </AlertDescription>
-    </Alert>
+      {message}
+    </div>
   )
 }
