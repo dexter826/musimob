@@ -84,7 +84,7 @@ export function AddSheet({
       description={
         mode === 'manual'
           ? 'Nhập tên bài, ca sĩ và URL ảnh bìa.'
-          : 'Tìm bài trên iTunes hoặc nhập tay.'
+          : 'Tìm bài có sẵn hoặc nhập tay.'
       }
       onBack={mode === 'manual' ? backToSearch : undefined}
       headerAction={

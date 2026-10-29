@@ -1,8 +1,8 @@
 import type { MusimobApi, SearchResult } from './types'
 
-const ITUNES_SEARCH_URL = 'https://itunes.apple.com/search'
+const CATALOG_SEARCH_URL = 'https://itunes.apple.com/search'
 
-type ItunesTrack = {
+type CatalogTrack = {
   trackId?: unknown
   trackName?: unknown
   artistName?: unknown
@@ -10,13 +10,13 @@ type ItunesTrack = {
   previewUrl?: unknown
 }
 
-type ItunesResponse = {
+type CatalogResponse = {
   results?: unknown
 }
 
 export class RateLimitError extends Error {
   constructor() {
-    super('iTunes đang giới hạn tìm kiếm.')
+    super('Nguồn nhạc đang giới hạn tìm kiếm.')
     this.name = 'RateLimitError'
   }
 }
@@ -28,7 +28,9 @@ export class SearchError extends Error {
   }
 }
 
-export function normalizeItunesTrack(track: ItunesTrack): SearchResult | null {
+export function normalizeCatalogTrack(
+  track: CatalogTrack,
+): SearchResult | null {
   if (typeof track.trackId !== 'number') return null
 
   const artworkUrl =
@@ -44,7 +46,7 @@ export function normalizeItunesTrack(track: ItunesTrack): SearchResult | null {
   }
 }
 
-function isItunesTrack(value: unknown): value is ItunesTrack {
+function isCatalogTrack(value: unknown): value is CatalogTrack {
   return typeof value === 'object' && value !== null
 }
 
@@ -59,9 +61,9 @@ export const searchApi: MusimobApi['search'] = {
 
     let response: Response
     try {
-      response = await fetch(`${ITUNES_SEARCH_URL}?${params.toString()}`)
+      response = await fetch(`${CATALOG_SEARCH_URL}?${params.toString()}`)
     } catch (error) {
-      throw new SearchError('Không kết nối được iTunes.', { cause: error })
+      throw new SearchError('Không kết nối được nguồn nhạc.', { cause: error })
     }
 
     if (response.status === 429) {
@@ -69,14 +71,14 @@ export const searchApi: MusimobApi['search'] = {
     }
 
     if (!response.ok) {
-      throw new SearchError(`iTunes trả lỗi ${response.status}.`)
+      throw new SearchError(`Nguồn nhạc trả lỗi ${response.status}.`)
     }
 
-    let payload: ItunesResponse
+    let payload: CatalogResponse
     try {
-      payload = (await response.json()) as ItunesResponse
+      payload = (await response.json()) as CatalogResponse
     } catch (error) {
-      throw new SearchError('iTunes trả dữ liệu không hợp lệ.', {
+      throw new SearchError('Nguồn nhạc trả dữ liệu không hợp lệ.', {
         cause: error,
       })
     }
@@ -86,8 +88,8 @@ export const searchApi: MusimobApi['search'] = {
     }
 
     return payload.results
-      .filter(isItunesTrack)
-      .map(normalizeItunesTrack)
+      .filter(isCatalogTrack)
+      .map(normalizeCatalogTrack)
       .filter((result): result is SearchResult => result !== null)
       .filter((result) => Boolean(result.title && result.artist))
   },

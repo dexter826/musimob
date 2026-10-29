@@ -1,5 +1,5 @@
-export function itunesPreviewKey(trackId: number) {
-  return `itunes:${trackId}`
+export function catalogPreviewKey(trackId: number) {
+  return `catalog:${trackId}`
 }
 
 export function songPreviewKey(songId: string) {

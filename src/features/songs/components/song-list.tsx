@@ -18,7 +18,7 @@ type SongListProps = {
   error: string | null
   flashId: string | null
   onAdd: () => void
-  onSearchItunes: () => void
+  onSearchCatalog: () => void
   onRetry: () => void
   onClearFilter: () => void
   onUpdate: (id: string, patch: SongPatch) => Promise<void>
@@ -99,10 +99,10 @@ function SongListError({
 
 function FilterEmptyState({
   onClear,
-  onSearchItunes,
+  onSearchCatalog,
 }: {
   onClear: () => void
-  onSearchItunes: () => void
+  onSearchCatalog: () => void
 }) {
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-3 px-6 py-16 text-center">
@@ -115,10 +115,10 @@ function FilterEmptyState({
       <div className="flex flex-wrap items-center justify-center gap-2">
         <Button
           type="button"
-          onClick={onSearchItunes}
+          onClick={onSearchCatalog}
           className="h-9 px-3 text-[12.5px] font-semibold"
         >
-          Tìm trên iTunes
+          Tìm bài này
         </Button>
         <Button
           type="button"
@@ -141,7 +141,7 @@ export function SongList({
   error,
   flashId,
   onAdd,
-  onSearchItunes,
+  onSearchCatalog,
   onRetry,
   onClearFilter,
   onUpdate,
@@ -190,7 +190,7 @@ export function SongList({
       {songs.length === 0 ? (
         <FilterEmptyState
           onClear={onClearFilter}
-          onSearchItunes={onSearchItunes}
+          onSearchCatalog={onSearchCatalog}
         />
       ) : viewMode === 'grid' ? (
         <SongGrid

@@ -159,7 +159,7 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
           error={error}
           flashId={flashId}
           onAdd={() => openAdd()}
-          onSearchItunes={() => openAdd(filterQuery.trim())}
+          onSearchCatalog={() => openAdd(filterQuery.trim())}
           onRetry={retry}
           onClearFilter={() => setFilterQuery('')}
           onUpdate={updateSong}

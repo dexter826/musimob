@@ -31,7 +31,7 @@ export function SearchInput({
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder="Tìm bài hát hoặc ca sĩ"
-        aria-label="Tìm bài trên iTunes"
+        aria-label="Tìm bài hát hoặc ca sĩ"
         aria-busy={isSearching}
         autoComplete="off"
         enterKeyHint="search"

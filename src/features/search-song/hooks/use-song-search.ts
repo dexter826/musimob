@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { searchApi } from '@/lib/api/itunes'
+import { searchApi } from '@/lib/api/catalog'
 
 const DEBOUNCE_MS = 400
 const MIN_TERM_LENGTH = 2
@@ -20,7 +20,7 @@ export function useSongSearch(term: string) {
   }, [trimmedTerm])
 
   const query = useQuery({
-    queryKey: ['itunes', debouncedTerm],
+    queryKey: ['catalog', debouncedTerm],
     queryFn: () => searchApi.query(debouncedTerm),
     enabled: debouncedTerm.length >= MIN_TERM_LENGTH,
     staleTime: STALE_TIME_MS,

@@ -3,7 +3,7 @@ import { SongCover } from '@/components/song-cover'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 import type { SearchResult } from '@/lib/api/types'
-import { itunesPreviewKey } from '@/lib/preview-key'
+import { catalogPreviewKey } from '@/lib/preview-key'
 import { AlreadySavedBadge } from './already-saved-badge'
 
 type SearchResultRowProps = {
@@ -25,7 +25,7 @@ export function SearchResultRow({
         <SongCover src={result.coverUrl} className="size-[50px]" />
         <PreviewButton
           previewUrl={result.previewUrl}
-          playKey={itunesPreviewKey(result.trackId)}
+          playKey={catalogPreviewKey(result.trackId)}
           title={result.title}
           artist={result.artist}
           className="absolute inset-0 m-auto"

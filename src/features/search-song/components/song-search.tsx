@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card'
 import { Spinner } from '@/components/ui/spinner'
 import { useAudioPreview } from '@/lib/audio-preview-context'
 import type { NewSong, SearchResult, Song } from '@/lib/api/types'
-import { RateLimitError } from '@/lib/api/itunes'
+import { RateLimitError } from '@/lib/api/catalog'
 import { getSongKey } from '@/lib/song-key'
 import { useSongSearch } from '../hooks/use-song-search'
 import { SearchInput } from './search-input'
@@ -24,7 +24,7 @@ type SongSearchProps = {
 function SearchHint() {
   return (
     <p className="py-10 text-center text-[13px] leading-[1.5] text-muted-foreground">
-      Nhập tên bài hoặc ca sĩ để tìm trên iTunes.
+      Nhập tên bài hoặc ca sĩ để tìm.
     </p>
   )
 }
@@ -198,7 +198,7 @@ export function SongSearch({
 
   const errorMessage =
     error instanceof RateLimitError
-      ? 'iTunes đang giới hạn tìm kiếm. Đợi vài giây rồi thử lại.'
+      ? 'Tìm kiếm đang bị giới hạn. Đợi vài giây rồi thử lại.'
       : 'Không tìm được. Kiểm tra mạng rồi thử lại.'
 
   return (
