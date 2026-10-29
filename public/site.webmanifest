@@ -1,7 +1,7 @@
 {
   "id": "/",
-  "name": "Musimob",
-  "short_name": "Musimob",
+  "name": "musimob",
+  "short_name": "musimob",
   "lang": "vi",
   "start_url": "/",
   "scope": "/",
@@ -25,6 +25,18 @@
       "src": "/icon-maskable-512.png",
       "sizes": "512x512",
       "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
       "purpose": "maskable"
     }
   ]

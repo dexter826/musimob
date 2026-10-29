@@ -1,4 +1,4 @@
-# Musimob
+# musimob
 
 Ứng dụng lưu trữ bộ sưu tập bài hát cá nhân: mỗi người dùng tự đánh dấu những bài mình yêu thích, tìm từ một nguồn nhạc bên ngoài và lưu lại. Không phát nhạc, không xếp thứ tự, không chia sẻ.
 

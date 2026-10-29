@@ -1,4 +1,4 @@
-# Bộ logo Musimob
+# Bộ logo musimob
 
 Hướng A đã chốt: chữ **m** trên bìa coral, đĩa trắng lệch góc. Chữ và đĩa đã tách nhau để không dính nét khi thu nhỏ.
 
