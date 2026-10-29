@@ -83,7 +83,7 @@ export function AddSheet({
       title={mode === 'manual' ? 'Nhập tay' : 'Thêm bài'}
       description={
         mode === 'manual'
-          ? 'Nhập tên bài, ca sĩ và URL ảnh bìa.'
+          ? 'Nhập tên bài, nghệ sĩ và URL ảnh bìa.'
           : 'Tìm bài có sẵn hoặc nhập tay.'
       }
       onBack={mode === 'manual' ? backToSearch : undefined}
@@ -92,7 +92,7 @@ export function AddSheet({
           <Button
             type="button"
             variant="ghost"
-            className="h-9 px-2.5 text-[12.5px] font-semibold text-muted-foreground hover:text-foreground"
+            className="h-11 px-3 text-[13px] font-semibold text-muted-foreground hover:text-foreground"
             onClick={() => openManualWithTerm(searchTerm)}
           >
             Nhập tay
