@@ -1,5 +1,4 @@
 import { useEffect, useState, type MouseEvent } from 'react'
-import { ErrorAlert } from '@/components/error-alert'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -66,25 +65,39 @@ export function DeleteConfirm({
         onOpenChange(nextOpen)
       }}
     >
-      <AlertDialogContent>
+      <AlertDialogContent className="rounded-xl border border-rule bg-surface shadow-none">
         <AlertDialogHeader>
-          <AlertDialogTitle>Xóa bài này?</AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogTitle className="font-serif text-[18px] leading-[1.2] font-medium">
+            Xóa bài này?
+          </AlertDialogTitle>
+          <AlertDialogDescription className="text-sm leading-[1.6] text-muted-foreground">
             {song
               ? `“${song.title}” sẽ bị xóa khỏi thư viện. Bạn có thể hoàn tác ngay sau đó.`
               : ''}
           </AlertDialogDescription>
         </AlertDialogHeader>
 
-        {error ? <ErrorAlert message={error} /> : null}
+        {error ? (
+          <div
+            role="alert"
+            className="border-l-[3px] border-danger bg-surface-2 px-3 py-2.5 text-sm leading-[1.6] text-danger"
+          >
+            {error}
+          </div>
+        ) : null}
 
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isDeleting}>Huỷ</AlertDialogCancel>
+          <AlertDialogCancel
+            disabled={isDeleting}
+            className="h-11 rounded-lg border-0 bg-transparent px-4 text-[13px] font-semibold text-muted-foreground hover:bg-secondary hover:text-foreground"
+          >
+            Huỷ
+          </AlertDialogCancel>
           <AlertDialogAction
             variant="destructive"
             disabled={isDeleting || !song}
             onClick={handleConfirm}
-            className="gap-2"
+            className="h-11 gap-2 rounded-lg px-4 text-[13px] font-semibold"
           >
             {isDeleting ? (
               <>

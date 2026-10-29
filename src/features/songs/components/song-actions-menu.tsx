@@ -29,18 +29,25 @@ export function SongActionsMenu({
           variant="ghost"
           size="icon"
           aria-label={`Tuỳ chọn cho ${songTitle}`}
-          className={cn('size-9 text-muted-foreground', className)}
+          className={cn('size-11 rounded-lg text-muted-foreground', className)}
         >
-          <Ellipsis aria-hidden="true" />
+          <Ellipsis aria-hidden="true" className="size-[18px]" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="min-w-36">
-        <DropdownMenuItem onSelect={onEdit}>
-          <Pencil aria-hidden="true" />
+      <DropdownMenuContent
+        align="end"
+        className="min-w-40 rounded-lg border border-rule bg-popover p-1"
+      >
+        <DropdownMenuItem onSelect={onEdit} className="gap-2 px-2 py-2 text-sm">
+          <Pencil aria-hidden="true" className="size-4" />
           Sửa
         </DropdownMenuItem>
-        <DropdownMenuItem variant="destructive" onSelect={onDelete}>
-          <Trash2 aria-hidden="true" />
+        <DropdownMenuItem
+          variant="destructive"
+          onSelect={onDelete}
+          className="gap-2 px-2 py-2 text-sm"
+        >
+          <Trash2 aria-hidden="true" className="size-4" />
           Xóa
         </DropdownMenuItem>
       </DropdownMenuContent>

@@ -20,7 +20,7 @@ export function EditSheet({
       open={open}
       onOpenChange={onOpenChange}
       title="Sửa bài"
-      description="Sửa tên bài, ca sĩ hoặc URL ảnh bìa."
+      description="Sửa tên bài, nghệ sĩ hoặc URL ảnh bìa."
     >
       <div className="min-h-0 flex-1 overflow-y-auto px-5 pt-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))]">
         {song ? (
