@@ -1,6 +1,7 @@
 import type { MusimobApi, SearchResult } from './types'
 
 const CATALOG_SEARCH_URL = 'https://itunes.apple.com/search'
+const REQUEST_TIMEOUT_MS = 10_000
 
 type CatalogTrack = {
   trackId?: unknown
@@ -28,6 +29,13 @@ export class SearchError extends Error {
   }
 }
 
+export class SearchTimeoutError extends SearchError {
+  constructor(options?: ErrorOptions) {
+    super('Nguồn nhạc phản hồi chậm. Kiểm tra mạng rồi thử lại.', options)
+    this.name = 'SearchTimeoutError'
+  }
+}
+
 export function normalizeCatalogTrack(
   track: CatalogTrack,
 ): SearchResult | null {
@@ -50,6 +58,13 @@ function isCatalogTrack(value: unknown): value is CatalogTrack {
   return typeof value === 'object' && value !== null
 }
 
+function isTimeout(error: unknown): boolean {
+  return (
+    error instanceof DOMException &&
+    (error.name === 'TimeoutError' || error.name === 'AbortError')
+  )
+}
+
 export const searchApi: MusimobApi['search'] = {
   async query(term) {
     const params = new URLSearchParams({
@@ -61,8 +76,12 @@ export const searchApi: MusimobApi['search'] = {
 
     let response: Response
     try {
-      response = await fetch(`${CATALOG_SEARCH_URL}?${params.toString()}`)
+      response = await fetch(`${CATALOG_SEARCH_URL}?${params.toString()}`, {
+        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+      })
     } catch (error) {
+      if (isTimeout(error)) throw new SearchTimeoutError({ cause: error })
+
       throw new SearchError('Không kết nối được nguồn nhạc.', { cause: error })
     }
 

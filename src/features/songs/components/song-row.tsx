@@ -1,7 +1,7 @@
-import { useEffect, useRef } from 'react'
 import { cn } from 'cn'
 import { PreviewButton } from '@/components/preview-button'
 import { SongCover } from '@/components/song-cover'
+import { useScrollIntoViewWhenActive } from '@/hooks/use-scroll-into-view'
 import type { Song } from '@/lib/api/types'
 import { songPreviewKey } from '@/lib/preview-key'
 import { SongActionsMenu } from './song-actions-menu'
@@ -21,18 +21,7 @@ export function SongRow({
   onEdit,
   onDelete,
 }: SongRowProps) {
-  const rowRef = useRef<HTMLLIElement>(null)
-
-  useEffect(() => {
-    if (!isFlashing) return
-
-    rowRef.current?.scrollIntoView({
-      block: 'nearest',
-      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
-        ? 'auto'
-        : 'smooth',
-    })
-  }, [isFlashing])
+  const rowRef = useScrollIntoViewWhenActive<HTMLLIElement>(isFlashing)
 
   return (
     <li ref={rowRef} className="flex items-center gap-3 px-3 py-2.5">

@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { Alert, AlertDescription } from '@/components/ui/alert'
+import { ErrorAlert } from '@/components/error-alert'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import type { Song, SongPatch } from '@/lib/api/types'
+import type { SongsStatus } from '../hooks/use-songs'
 import type { ViewMode } from '../hooks/use-view-mode'
 import { DeleteConfirm } from './delete-confirm'
 import { EditSheet } from './edit-sheet'
@@ -14,8 +15,7 @@ type SongListProps = {
   songs: Song[]
   totalSongCount: number
   viewMode: ViewMode
-  isLoading: boolean
-  error: string | null
+  status: SongsStatus
   flashId: string | null
   onAdd: () => void
   onSearchCatalog: () => void
@@ -77,14 +77,7 @@ function SongListError({
 }) {
   return (
     <Card className="flex flex-1 flex-col items-center justify-center gap-0 px-6 py-16 text-center">
-      <Alert
-        variant="destructive"
-        className="max-w-[360px] border-destructive/30 bg-destructive/10 text-left"
-      >
-        <AlertDescription className="text-[12.5px] leading-[1.5]">
-          {message}
-        </AlertDescription>
-      </Alert>
+      <ErrorAlert message={message} className="max-w-[360px] text-left" />
       <Button
         type="button"
         variant="outline"
@@ -137,8 +130,7 @@ export function SongList({
   songs,
   totalSongCount,
   viewMode,
-  isLoading,
-  error,
+  status,
   flashId,
   onAdd,
   onSearchCatalog,
@@ -162,12 +154,12 @@ export function SongList({
     setIsDeleteOpen(true)
   }
 
-  if (isLoading && totalSongCount === 0) {
+  if (status.state === 'loading') {
     return <SongListSkeleton viewMode={viewMode} />
   }
 
-  if (error && totalSongCount === 0) {
-    return <SongListError message={error} onRetry={onRetry} />
+  if (status.state === 'failed') {
+    return <SongListError message={status.message} onRetry={onRetry} />
   }
 
   if (totalSongCount === 0) {
@@ -176,16 +168,7 @@ export function SongList({
 
   return (
     <div className="flex flex-1 flex-col gap-3">
-      {error ? (
-        <Alert
-          variant="destructive"
-          className="border-destructive/30 bg-destructive/10"
-        >
-          <AlertDescription className="text-[12.5px] leading-[1.5]">
-            {error}
-          </AlertDescription>
-        </Alert>
-      ) : null}
+      {status.warning ? <ErrorAlert message={status.warning} /> : null}
 
       {songs.length === 0 ? (
         <FilterEmptyState

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Plus } from 'lucide-react'
 import { toast } from 'sonner'
-import { Alert, AlertDescription } from '@/components/ui/alert'
+import { ErrorAlert } from '@/components/error-alert'
 import { Button } from '@/components/ui/button'
 import { AddSheet } from '@/features/add-song/components/add-sheet'
 import { SignInScreen } from '@/features/auth/components/sign-in-screen'
@@ -33,16 +33,8 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
   const [flashId, setFlashId] = useState<string | null>(null)
   const { viewMode, toggleViewMode } = useViewMode()
   const { activeKey, stop } = useAudioPreview()
-  const {
-    songs,
-    isLoading,
-    error,
-    retry,
-    addSong,
-    restoreSong,
-    updateSong,
-    removeSong,
-  } = useSongs(user.uid)
+  const { songs, status, retry, addSong, restoreSong, updateSong, removeSong } =
+    useSongs(user.uid)
 
   useEffect(() => {
     if (!flashId) return
@@ -124,15 +116,11 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
     )
   }, [songs, filterQuery])
 
-  const songCount =
-    isLoading && songs.length === 0 ? null : filteredSongs.length
-  const hasError = error !== null && songs.length === 0
-
   return (
     <div className="flex min-h-dvh w-full flex-col bg-background">
       <AppHeader
-        songCount={songCount}
-        hasError={hasError}
+        status={status}
+        songCount={filteredSongs.length}
         displayName={user.displayName}
         photoURL={user.photoURL}
         viewMode={viewMode}
@@ -141,22 +129,12 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
       />
       <main className="flex flex-1 flex-col px-6 pb-24 sm:px-8 lg:px-12 lg:pb-28 xl:px-16">
         <FilterInput value={filterQuery} onChange={setFilterQuery} />
-        {authError ? (
-          <Alert
-            variant="destructive"
-            className="mb-3 border-destructive/30 bg-destructive/10"
-          >
-            <AlertDescription className="text-[12.5px] leading-[1.5]">
-              {authError}
-            </AlertDescription>
-          </Alert>
-        ) : null}
+        {authError ? <ErrorAlert message={authError} className="mb-3" /> : null}
         <SongList
           songs={filteredSongs}
           totalSongCount={songs.length}
           viewMode={viewMode}
-          isLoading={isLoading}
-          error={error}
+          status={status}
           flashId={flashId}
           onAdd={() => openAdd()}
           onSearchCatalog={() => openAdd(filterQuery.trim())}

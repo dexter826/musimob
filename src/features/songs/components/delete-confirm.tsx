@@ -1,5 +1,5 @@
 import { useEffect, useState, type MouseEvent } from 'react'
-import { Alert, AlertDescription } from '@/components/ui/alert'
+import { ErrorAlert } from '@/components/error-alert'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -76,16 +76,7 @@ export function DeleteConfirm({
           </AlertDialogDescription>
         </AlertDialogHeader>
 
-        {error ? (
-          <Alert
-            variant="destructive"
-            className="border-destructive/30 bg-destructive/10"
-          >
-            <AlertDescription className="text-[12.5px] leading-[1.5]">
-              {error}
-            </AlertDescription>
-          </Alert>
-        ) : null}
+        {error ? <ErrorAlert message={error} /> : null}
 
         <AlertDialogFooter>
           <AlertDialogCancel disabled={isDeleting}>Huỷ</AlertDialogCancel>

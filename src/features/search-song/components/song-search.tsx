@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { Alert, AlertDescription } from '@/components/ui/alert'
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { ErrorAlert } from '@/components/error-alert'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Spinner } from '@/components/ui/spinner'
 import { useAudioPreview } from '@/lib/audio-preview-context'
 import type { NewSong, SearchResult, Song } from '@/lib/api/types'
-import { RateLimitError } from '@/lib/api/catalog'
+import { RateLimitError, SearchTimeoutError } from '@/lib/api/catalog'
 import { getSongKey } from '@/lib/song-key'
 import { useSongSearch } from '../hooks/use-song-search'
 import { SearchInput } from './search-input'
@@ -50,14 +50,7 @@ function SearchErrorState({
 }) {
   return (
     <Card className="flex flex-col items-center gap-0 px-4 py-8 text-center">
-      <Alert
-        variant="destructive"
-        className="max-w-[320px] border-destructive/30 bg-destructive/10 text-left"
-      >
-        <AlertDescription className="text-[12.5px] leading-[1.5]">
-          {message}
-        </AlertDescription>
-      </Alert>
+      <ErrorAlert message={message} className="max-w-[320px] text-left" />
       <Button
         type="button"
         variant="outline"
@@ -143,7 +136,7 @@ export function SongSearch({
     () =>
       new Set(
         songs
-          .filter((song) => !song.sourceId)
+          .filter((song) => song.sourceId === undefined)
           .map((song) => getSongKey(song.title, song.artist)),
       ),
     [songs],
@@ -196,10 +189,41 @@ export function SongSearch({
     }
   }
 
-  const errorMessage =
-    error instanceof RateLimitError
-      ? 'Tìm kiếm đang bị giới hạn. Đợi vài giây rồi thử lại.'
-      : 'Không tìm được. Kiểm tra mạng rồi thử lại.'
+  let errorMessage = 'Không tìm được. Kiểm tra mạng rồi thử lại.'
+  if (error instanceof RateLimitError) {
+    errorMessage = 'Tìm kiếm đang bị giới hạn. Đợi vài giây rồi thử lại.'
+  } else if (error instanceof SearchTimeoutError) {
+    errorMessage = error.message
+  }
+
+  let resultsBody: ReactNode
+  if (trimmedTerm.length < 2) {
+    resultsBody = <SearchHint />
+  } else if (error && hasQuery && !isDebouncing && !isFetching) {
+    resultsBody = (
+      <SearchErrorState message={errorMessage} onRetry={() => void refetch()} />
+    )
+  } else if (!hasQuery || isPending || !data) {
+    resultsBody = <SearchLoading />
+  } else if (data.length === 0) {
+    resultsBody = (
+      <NoResults onSwitchToManual={() => onSwitchToManual(trimmedTerm)} />
+    )
+  } else {
+    resultsBody = (
+      <ul className="flex flex-col">
+        {data.map((result) => (
+          <SearchResultRow
+            key={result.trackId}
+            result={result}
+            isSaved={isResultSaved(result)}
+            isSaving={savingIds.has(result.trackId)}
+            onSave={() => void handleSave(result)}
+          />
+        ))}
+      </ul>
+    )
+  }
 
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-3">
@@ -210,43 +234,9 @@ export function SongSearch({
         isSearching={isSearching}
       />
 
-      {saveError ? (
-        <Alert
-          variant="destructive"
-          className="border-destructive/30 bg-destructive/10"
-        >
-          <AlertDescription className="text-[12.5px] leading-[1.5]">
-            {saveError}
-          </AlertDescription>
-        </Alert>
-      ) : null}
+      {saveError ? <ErrorAlert message={saveError} /> : null}
 
-      <div className="min-h-0 flex-1 overflow-y-auto">
-        {trimmedTerm.length < 2 ? (
-          <SearchHint />
-        ) : error && hasQuery && !isDebouncing && !isFetching ? (
-          <SearchErrorState
-            message={errorMessage}
-            onRetry={() => void refetch()}
-          />
-        ) : !hasQuery || isPending || !data ? (
-          <SearchLoading />
-        ) : data.length === 0 ? (
-          <NoResults onSwitchToManual={() => onSwitchToManual(trimmedTerm)} />
-        ) : (
-          <ul className="flex flex-col">
-            {data.map((result) => (
-              <SearchResultRow
-                key={result.trackId}
-                result={result}
-                isSaved={isResultSaved(result)}
-                isSaving={savingIds.has(result.trackId)}
-                onSave={() => void handleSave(result)}
-              />
-            ))}
-          </ul>
-        )}
-      </div>
+      <div className="min-h-0 flex-1 overflow-y-auto">{resultsBody}</div>
     </div>
   )
 }

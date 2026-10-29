@@ -64,11 +64,13 @@ export const authApi: MusimobApi['auth'] = {
           await signInWithRedirect(firebaseAuth, googleProvider)
           return
         } catch (redirectError) {
-          throw new Error(getAuthErrorMessage(redirectError))
+          throw new Error(getAuthErrorMessage(redirectError), {
+            cause: redirectError,
+          })
         }
       }
 
-      throw new Error(getAuthErrorMessage(error))
+      throw new Error(getAuthErrorMessage(error), { cause: error })
     }
   },
 
@@ -86,7 +88,7 @@ export const authApi: MusimobApi['auth'] = {
     try {
       await getRedirectResult(firebaseAuth)
     } catch (error) {
-      throw new Error(getAuthErrorMessage(error))
+      throw new Error(getAuthErrorMessage(error), { cause: error })
     }
   },
 }

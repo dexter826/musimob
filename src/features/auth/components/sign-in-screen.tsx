@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react'
-import { Alert, AlertDescription } from '@/components/ui/alert'
+import { ErrorAlert } from '@/components/error-alert'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Spinner } from '@/components/ui/spinner'
@@ -99,14 +99,7 @@ export function SignInScreen({
             </Button>
 
             {error ? (
-              <Alert
-                variant="destructive"
-                className="mt-3 border-destructive/30 bg-destructive/10 px-3.5 py-2.5"
-              >
-                <AlertDescription className="text-[12.5px] leading-[1.5]">
-                  {error}
-                </AlertDescription>
-              </Alert>
+              <ErrorAlert message={error} className="mt-3 px-3.5 py-2.5" />
             ) : null}
           </div>
         </div>

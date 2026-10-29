@@ -1,68 +1,76 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { songsApi } from '@/lib/api/songs'
 import type { NewSong, Song, SongPatch } from '@/lib/api/types'
 import { getErrorCode } from '@/lib/errors'
 
-function getSongsErrorMessage(error: unknown): string {
-  switch (getErrorCode(error)) {
-    case 'permission-denied':
-      return 'Bạn không có quyền xem danh sách này.'
-    case 'unavailable':
-      return 'Mất kết nối. Kiểm tra mạng rồi thử lại.'
-    case 'resource-exhausted':
-      return 'Danh sách đang quá tải. Thử lại sau.'
-    default:
-      return 'Không tải được danh sách. Thử lại.'
-  }
+export type SongsStatus =
+  | { state: 'loading' }
+  | { state: 'failed'; message: string }
+  | { state: 'ready'; warning: string | null }
+
+type SongOperation = 'load' | 'add' | 'update' | 'remove' | 'restore'
+
+const PERMISSION_MESSAGES: Record<SongOperation, string> = {
+  load: 'Bạn không có quyền xem danh sách này.',
+  add: 'Bạn không có quyền thêm bài.',
+  update: 'Bạn không có quyền sửa bài.',
+  remove: 'Bạn không có quyền xoá bài.',
+  restore: 'Bạn không có quyền khôi phục bài.',
 }
 
-function getAddSongErrorMessage(error: unknown): string {
-  switch (getErrorCode(error)) {
-    case 'permission-denied':
-      return 'Bạn không có quyền thêm bài.'
-    case 'unavailable':
-      return 'Mất kết nối. Kiểm tra mạng rồi thử lại.'
-    case 'invalid-argument':
-      return 'Dữ liệu bài hát không hợp lệ.'
-    default:
-      return 'Không lưu được bài. Thử lại.'
-  }
+const FALLBACK_MESSAGES: Record<SongOperation, string> = {
+  load: 'Không tải được danh sách. Thử lại.',
+  add: 'Không lưu được bài. Thử lại.',
+  update: 'Không lưu được thay đổi. Thử lại.',
+  remove: 'Không xoá được bài. Thử lại.',
+  restore: 'Không khôi phục được bài. Thử lại.',
 }
 
-function getUpdateSongErrorMessage(error: unknown): string {
-  switch (getErrorCode(error)) {
-    case 'permission-denied':
-      return 'Bạn không có quyền sửa bài.'
-    case 'unavailable':
-      return 'Mất kết nối. Kiểm tra mạng rồi thử lại.'
-    case 'invalid-argument':
-      return 'Dữ liệu bài hát không hợp lệ.'
-    case 'not-found':
-      return 'Bài này không còn trong danh sách.'
-    default:
-      return 'Không lưu được thay đổi. Thử lại.'
-  }
+const LOG_LABELS: Record<SongOperation, string> = {
+  load: 'Không tải được danh sách.',
+  add: 'Không lưu được bài.',
+  update: 'Không lưu được thay đổi.',
+  remove: 'Không xoá được bài.',
+  restore: 'Không khôi phục được bài.',
 }
 
-function getRemoveSongErrorMessage(error: unknown): string {
-  switch (getErrorCode(error)) {
-    case 'permission-denied':
-      return 'Bạn không có quyền xoá bài.'
-    case 'unavailable':
-      return 'Mất kết nối. Kiểm tra mạng rồi thử lại.'
-    default:
-      return 'Không xoá được bài. Thử lại.'
+const OFFLINE_MESSAGE = 'Mất kết nối. Kiểm tra mạng rồi thử lại.'
+
+function songErrorMessage(operation: SongOperation, error: unknown): string {
+  const code = getErrorCode(error)
+
+  if (code === 'permission-denied') return PERMISSION_MESSAGES[operation]
+  if (code === 'unavailable') return OFFLINE_MESSAGE
+
+  const isDataError =
+    code === 'invalid-argument' &&
+    (operation === 'add' || operation === 'update')
+  if (isDataError) return 'Dữ liệu bài hát không hợp lệ.'
+
+  if (code === 'resource-exhausted' && operation === 'load') {
+    return 'Danh sách đang quá tải. Thử lại sau.'
   }
+
+  if (code === 'not-found' && operation === 'update') {
+    return 'Bài này không còn trong danh sách.'
+  }
+
+  return FALLBACK_MESSAGES[operation]
 }
 
-function getRestoreSongErrorMessage(error: unknown): string {
-  switch (getErrorCode(error)) {
-    case 'permission-denied':
-      return 'Bạn không có quyền khôi phục bài.'
-    case 'unavailable':
-      return 'Mất kết nối. Kiểm tra mạng rồi thử lại.'
-    default:
-      return 'Không khôi phục được bài. Thử lại.'
+function logAndWrap(operation: SongOperation, error: unknown): Error {
+  console.error(LOG_LABELS[operation], error)
+  return new Error(songErrorMessage(operation, error), { cause: error })
+}
+
+async function runSongOperation<T>(
+  operation: SongOperation,
+  work: () => Promise<T>,
+): Promise<T> {
+  try {
+    return await work()
+  } catch (operationError) {
+    throw logAndWrap(operation, operationError)
   }
 }
 
@@ -71,12 +79,6 @@ export function useSongs(uid: string) {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [reloadKey, setReloadKey] = useState(0)
-
-  useEffect(() => {
-    setSongs([])
-    setIsLoading(true)
-    setError(null)
-  }, [uid])
 
   useEffect(() => {
     let isActive = true
@@ -96,8 +98,7 @@ export function useSongs(uid: string) {
       (subscribeError) => {
         if (!isActive) return
 
-        console.error('Không tải được danh sách.', subscribeError)
-        setError(getSongsErrorMessage(subscribeError))
+        setError(logAndWrap('load', subscribeError).message)
         setIsLoading(false)
       },
     )
@@ -108,6 +109,13 @@ export function useSongs(uid: string) {
     }
   }, [uid, reloadKey])
 
+  const status = useMemo<SongsStatus>(() => {
+    if (isLoading && songs.length === 0) return { state: 'loading' }
+    if (error && songs.length === 0) return { state: 'failed', message: error }
+
+    return { state: 'ready', warning: error }
+  }, [error, isLoading, songs.length])
+
   const retry = useCallback(() => {
     setError(null)
     setIsLoading(true)
@@ -115,63 +123,30 @@ export function useSongs(uid: string) {
   }, [])
 
   const addSong = useCallback(
-    async (song: NewSong) => {
-      try {
-        return await songsApi.add(uid, song)
-      } catch (addError) {
-        console.error('Không lưu được bài.', addError)
-        throw new Error(getAddSongErrorMessage(addError), { cause: addError })
-      }
-    },
+    (song: NewSong) => runSongOperation('add', () => songsApi.add(uid, song)),
     [uid],
   )
 
   const updateSong = useCallback(
-    async (id: string, patch: SongPatch) => {
-      try {
-        await songsApi.update(uid, id, patch)
-      } catch (updateError) {
-        console.error('Không lưu được thay đổi.', updateError)
-        throw new Error(getUpdateSongErrorMessage(updateError), {
-          cause: updateError,
-        })
-      }
-    },
+    (id: string, patch: SongPatch) =>
+      runSongOperation('update', () => songsApi.update(uid, id, patch)),
     [uid],
   )
 
   const restoreSong = useCallback(
-    async (song: Song) => {
-      try {
-        await songsApi.restore(uid, song)
-      } catch (restoreError) {
-        console.error('Không khôi phục được bài.', restoreError)
-        throw new Error(getRestoreSongErrorMessage(restoreError), {
-          cause: restoreError,
-        })
-      }
-    },
+    (song: Song) =>
+      runSongOperation('restore', () => songsApi.restore(uid, song)),
     [uid],
   )
 
   const removeSong = useCallback(
-    async (id: string) => {
-      try {
-        await songsApi.remove(uid, id)
-      } catch (removeError) {
-        console.error('Không xoá được bài.', removeError)
-        throw new Error(getRemoveSongErrorMessage(removeError), {
-          cause: removeError,
-        })
-      }
-    },
+    (id: string) => runSongOperation('remove', () => songsApi.remove(uid, id)),
     [uid],
   )
 
   return {
     songs,
-    isLoading,
-    error,
+    status,
     retry,
     addSong,
     restoreSong,

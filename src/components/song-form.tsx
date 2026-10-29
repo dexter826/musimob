@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from 'react'
+import { ErrorAlert } from '@/components/error-alert'
 import { SongCover } from '@/components/song-cover'
-import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import {
   Field,
@@ -140,6 +140,12 @@ export function SongForm({
   const previewUrl = coverUrl.trim()
   const canPreview = previewUrl !== '' && isValidCoverUrl(previewUrl)
 
+  function clearFieldError(field: keyof FormErrors) {
+    setErrors((current) => ({ ...current, [field]: undefined }))
+    setSubmitError(null)
+    setFormError(null)
+  }
+
   return (
     <form onSubmit={handleSubmit} noValidate>
       <FieldGroup className="gap-4">
@@ -153,9 +159,7 @@ export function SongForm({
             value={title}
             onChange={(event) => {
               setTitle(event.target.value)
-              setErrors((current) => ({ ...current, title: undefined }))
-              setSubmitError(null)
-              setFormError(null)
+              clearFieldError('title')
             }}
             required
             autoComplete="off"
@@ -188,9 +192,7 @@ export function SongForm({
             value={artist}
             onChange={(event) => {
               setArtist(event.target.value)
-              setErrors((current) => ({ ...current, artist: undefined }))
-              setSubmitError(null)
-              setFormError(null)
+              clearFieldError('artist')
             }}
             required
             autoComplete="off"
@@ -224,10 +226,8 @@ export function SongForm({
             value={coverUrl}
             onChange={(event) => {
               setCoverUrl(event.target.value)
-              setErrors((current) => ({ ...current, coverUrl: undefined }))
-              setSubmitError(null)
-              setFormError(null)
               setCoverFailed(false)
+              clearFieldError('coverUrl')
             }}
             autoComplete="off"
             enterKeyHint="done"
@@ -275,14 +275,7 @@ export function SongForm({
       ) : null}
 
       {submitError ? (
-        <Alert
-          variant="destructive"
-          className="mt-4 border-destructive/30 bg-destructive/10"
-        >
-          <AlertDescription className="text-[12.5px] leading-[1.5]">
-            {submitError}
-          </AlertDescription>
-        </Alert>
+        <ErrorAlert message={submitError} className="mt-4" />
       ) : null}
 
       <Button
