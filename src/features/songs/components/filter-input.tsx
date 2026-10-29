@@ -35,7 +35,7 @@ export function FilterInput({ value, onChange }: FilterInputProps) {
         <InputGroupAddon align="inline-end">
           <InputGroupButton
             size="icon-xs"
-            aria-label="Xoá bộ lọc"
+            aria-label="Xóa bộ lọc"
             onClick={() => {
               onChange('')
               inputRef.current?.focus()

@@ -93,7 +93,7 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
   async function handleRemove(song: Song) {
     if (activeKey === songPreviewKey(song.id)) stop()
     await removeSong(song.id)
-    toast('Đã xoá bài', {
+    toast('Đã xóa bài', {
       description: song.title,
       duration: 10000,
       action: {

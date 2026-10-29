@@ -51,7 +51,7 @@ export function DeleteConfirm({
       setError(
         deleteError instanceof Error
           ? deleteError.message
-          : 'Không xoá được bài. Thử lại.',
+          : 'Không xóa được bài. Thử lại.',
       )
     } finally {
       setIsDeleting(false)
@@ -68,10 +68,10 @@ export function DeleteConfirm({
     >
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Xoá bài này?</AlertDialogTitle>
+          <AlertDialogTitle>Xóa bài này?</AlertDialogTitle>
           <AlertDialogDescription>
             {song
-              ? `“${song.title}” sẽ bị xoá khỏi thư viện. Bạn có thể hoàn tác ngay sau đó.`
+              ? `“${song.title}” sẽ bị xóa khỏi thư viện. Bạn có thể hoàn tác ngay sau đó.`
               : ''}
           </AlertDialogDescription>
         </AlertDialogHeader>
@@ -89,10 +89,10 @@ export function DeleteConfirm({
             {isDeleting ? (
               <>
                 <Spinner aria-hidden="true" className="size-4" />
-                Đang xoá…
+                Đang xóa…
               </>
             ) : (
-              'Xoá'
+              'Xóa'
             )}
           </AlertDialogAction>
         </AlertDialogFooter>

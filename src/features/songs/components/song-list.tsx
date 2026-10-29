@@ -119,7 +119,7 @@ function FilterEmptyState({
           onClick={onClear}
           className="h-9 px-3 text-[12.5px] font-semibold text-muted-foreground hover:text-foreground"
         >
-          Xoá bộ lọc
+          Xóa bộ lọc
         </Button>
       </div>
     </div>

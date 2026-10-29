@@ -14,7 +14,7 @@ const PERMISSION_MESSAGES: Record<SongOperation, string> = {
   load: 'Bạn không có quyền xem danh sách này.',
   add: 'Bạn không có quyền thêm bài.',
   update: 'Bạn không có quyền sửa bài.',
-  remove: 'Bạn không có quyền xoá bài.',
+  remove: 'Bạn không có quyền xóa bài.',
   restore: 'Bạn không có quyền khôi phục bài.',
 }
 
@@ -22,7 +22,7 @@ const FALLBACK_MESSAGES: Record<SongOperation, string> = {
   load: 'Không tải được danh sách. Thử lại.',
   add: 'Không lưu được bài. Thử lại.',
   update: 'Không lưu được thay đổi. Thử lại.',
-  remove: 'Không xoá được bài. Thử lại.',
+  remove: 'Không xóa được bài. Thử lại.',
   restore: 'Không khôi phục được bài. Thử lại.',
 }
 
@@ -30,7 +30,7 @@ const LOG_LABELS: Record<SongOperation, string> = {
   load: 'Không tải được danh sách.',
   add: 'Không lưu được bài.',
   update: 'Không lưu được thay đổi.',
-  remove: 'Không xoá được bài.',
+  remove: 'Không xóa được bài.',
   restore: 'Không khôi phục được bài.',
 }
 

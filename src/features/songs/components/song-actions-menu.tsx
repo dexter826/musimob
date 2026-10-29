@@ -41,7 +41,7 @@ export function SongActionsMenu({
         </DropdownMenuItem>
         <DropdownMenuItem variant="destructive" onSelect={onDelete}>
           <Trash2 aria-hidden="true" />
-          Xoá
+          Xóa
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
