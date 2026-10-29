@@ -1,20 +1,47 @@
+import { useEffect, useRef } from 'react'
+import { cn } from 'cn'
 import { SongCover } from '@/components/song-cover'
 import type { Song } from '@/lib/api/types'
 import { SongActionsMenu } from './song-actions-menu'
 
 type SongGridProps = {
   songs: Song[]
+  flashId: string | null
   onEdit: (song: Song) => void
   onDelete: (song: Song) => void
 }
 
-export function SongGrid({ songs, onEdit, onDelete }: SongGridProps) {
+export function SongGrid({ songs, flashId, onEdit, onDelete }: SongGridProps) {
+  const listRef = useRef<HTMLUListElement>(null)
+
+  useEffect(() => {
+    if (!flashId) return
+    if (!songs.some((song) => song.id === flashId)) return
+
+    listRef.current
+      ?.querySelector<HTMLElement>('[data-flash="true"]')
+      ?.scrollIntoView({
+        block: 'nearest',
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          ? 'auto'
+          : 'smooth',
+      })
+  }, [flashId, songs])
+
   return (
-    <ul className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4 lg:gap-4 xl:grid-cols-5">
+    <ul
+      ref={listRef}
+      className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4 lg:gap-4 xl:grid-cols-5"
+    >
       {songs.map((song, index) => (
         <li
           key={song.id}
-          className="relative aspect-square overflow-hidden rounded-xl bg-muted"
+          data-flash={song.id === flashId ? 'true' : undefined}
+          className={cn(
+            'relative aspect-square overflow-hidden rounded-xl bg-muted',
+            song.id === flashId &&
+              'outline-2 outline-offset-2 outline-primary',
+          )}
         >
           <SongCover
             src={song.coverUrl}

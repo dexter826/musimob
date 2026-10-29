@@ -8,6 +8,7 @@ import {
   orderBy,
   query,
   serverTimestamp,
+  setDoc,
   updateDoc,
   type DocumentData,
   type UpdateData,
@@ -62,7 +63,24 @@ export const songsApi: MusimobApi['songs'] = {
     }
     if (song.sourceId !== undefined) data.sourceId = song.sourceId
 
-    await addDoc(collection(firebaseFirestore, 'users', uid, 'songs'), data)
+    const songRef = await addDoc(
+      collection(firebaseFirestore, 'users', uid, 'songs'),
+      data,
+    )
+    return songRef.id
+  },
+
+  async restore(uid, song) {
+    const data: DocumentData = {
+      title: song.title,
+      artist: song.artist,
+      coverUrl: song.coverUrl,
+      createdAt: song.createdAt,
+      updatedAt: serverTimestamp(),
+    }
+    if (song.sourceId !== undefined) data.sourceId = song.sourceId
+
+    await setDoc(doc(firebaseFirestore, 'users', uid, 'songs', song.id), data)
   },
 
   async update(uid, id, patch) {

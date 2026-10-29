@@ -1,3 +1,4 @@
+import type { Ref } from 'react'
 import { Search } from 'lucide-react'
 import {
   InputGroup,
@@ -10,12 +11,14 @@ type SearchInputProps = {
   value: string
   onChange: (value: string) => void
   isSearching: boolean
+  inputRef?: Ref<HTMLInputElement>
 }
 
 export function SearchInput({
   value,
   onChange,
   isSearching,
+  inputRef,
 }: SearchInputProps) {
   return (
     <InputGroup className="h-11 rounded-full bg-secondary/60">
@@ -23,6 +26,7 @@ export function SearchInput({
         <Search aria-hidden="true" />
       </InputGroupAddon>
       <InputGroupInput
+        ref={inputRef}
         type="search"
         value={value}
         onChange={(event) => onChange(event.target.value)}

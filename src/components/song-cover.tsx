@@ -8,6 +8,7 @@ type SongCoverProps = {
   iconClassName?: string
   loading?: 'eager' | 'lazy'
   fetchPriority?: 'high' | 'low' | 'auto'
+  onError?: () => void
 }
 
 export function SongCover({
@@ -16,6 +17,7 @@ export function SongCover({
   iconClassName,
   loading = 'lazy',
   fetchPriority = 'auto',
+  onError,
 }: SongCoverProps) {
   const [failedSrc, setFailedSrc] = useState<string | null>(null)
 
@@ -40,7 +42,10 @@ export function SongCover({
       loading={loading}
       fetchPriority={fetchPriority}
       decoding="async"
-      onError={() => setFailedSrc(src)}
+      onError={() => {
+        setFailedSrc(src)
+        onError?.()
+      }}
       className={cn('shrink-0 rounded-md bg-muted object-cover', className)}
     />
   )

@@ -1,4 +1,5 @@
-import { useId, useRef, useState, type FormEvent } from 'react'
+import { useEffect, useId, useRef, useState, type FormEvent } from 'react'
+import { SongCover } from '@/components/song-cover'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import {
@@ -21,6 +22,9 @@ type SongFormProps = {
   submitLabel: string
   pendingLabel: string
   resetOnSuccess?: boolean
+  focusArtistOnMount?: boolean
+  focusSignal?: number
+  validate?: (values: SongFormValues) => string | null
   onSubmit: (values: SongFormValues) => Promise<void>
   onSuccess: () => void
 }
@@ -45,6 +49,9 @@ export function SongForm({
   submitLabel,
   pendingLabel,
   resetOnSuccess = true,
+  focusArtistOnMount = false,
+  focusSignal,
+  validate,
   onSubmit,
   onSuccess,
 }: SongFormProps) {
@@ -52,8 +59,11 @@ export function SongForm({
   const [artist, setArtist] = useState(initialValues?.artist ?? '')
   const [coverUrl, setCoverUrl] = useState(initialValues?.coverUrl ?? '')
   const [errors, setErrors] = useState<FormErrors>({})
+  const [formError, setFormError] = useState<string | null>(null)
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [isSaving, setIsSaving] = useState(false)
+  const [coverFailed, setCoverFailed] = useState(false)
+  const titleRef = useRef<HTMLInputElement>(null)
   const artistRef = useRef<HTMLInputElement>(null)
   const coverRef = useRef<HTMLInputElement>(null)
   const fieldId = useId()
@@ -64,6 +74,16 @@ export function SongForm({
   const artistErrorId = `${fieldId}-artist-error`
   const coverErrorId = `${fieldId}-cover-error`
   const coverDescriptionId = `${fieldId}-cover-description`
+  const lastFocusSignal = useRef(focusSignal)
+
+  useEffect(() => {
+    if (focusSignal === undefined || focusSignal === lastFocusSignal.current) {
+      return
+    }
+    lastFocusSignal.current = focusSignal
+    const target = focusArtistOnMount ? artistRef.current : titleRef.current
+    target?.focus()
+  }, [focusSignal, focusArtistOnMount])
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -80,8 +100,19 @@ export function SongForm({
 
     setErrors(nextErrors)
     setSubmitError(null)
+    setFormError(null)
 
     if (nextErrors.title || nextErrors.artist || nextErrors.coverUrl) return
+
+    const validationError = validate?.({
+      title: title.trim(),
+      artist: artist.trim(),
+      coverUrl: trimmedCoverUrl,
+    })
+    if (validationError) {
+      setFormError(validationError)
+      return
+    }
 
     setIsSaving(true)
 
@@ -106,6 +137,9 @@ export function SongForm({
     }
   }
 
+  const previewUrl = coverUrl.trim()
+  const canPreview = previewUrl !== '' && isValidCoverUrl(previewUrl)
+
   return (
     <form onSubmit={handleSubmit} noValidate>
       <FieldGroup className="gap-4">
@@ -115,11 +149,13 @@ export function SongForm({
           </FieldLabel>
           <Input
             id={titleId}
+            ref={titleRef}
             value={title}
             onChange={(event) => {
               setTitle(event.target.value)
               setErrors((current) => ({ ...current, title: undefined }))
               setSubmitError(null)
+              setFormError(null)
             }}
             required
             autoComplete="off"
@@ -148,11 +184,13 @@ export function SongForm({
           <Input
             id={artistId}
             ref={artistRef}
+            autoFocus={focusArtistOnMount}
             value={artist}
             onChange={(event) => {
               setArtist(event.target.value)
               setErrors((current) => ({ ...current, artist: undefined }))
               setSubmitError(null)
+              setFormError(null)
             }}
             required
             autoComplete="off"
@@ -188,6 +226,8 @@ export function SongForm({
               setCoverUrl(event.target.value)
               setErrors((current) => ({ ...current, coverUrl: undefined }))
               setSubmitError(null)
+              setFormError(null)
+              setCoverFailed(false)
             }}
             autoComplete="off"
             enterKeyHint="done"
@@ -204,14 +244,35 @@ export function SongForm({
               {errors.coverUrl}
             </FieldError>
           ) : null}
-          <p
-            id={coverDescriptionId}
-            className="text-[12px] leading-[1.4] text-muted-foreground"
-          >
-            Không bắt buộc.
-          </p>
+          <div className="flex items-center gap-2.5">
+            {canPreview ? (
+              <SongCover
+                key={previewUrl}
+                src={previewUrl}
+                onError={() => setCoverFailed(true)}
+                className="size-11"
+              />
+            ) : null}
+            <p
+              id={coverDescriptionId}
+              className="text-[12px] leading-[1.4] text-muted-foreground"
+            >
+              {coverFailed && canPreview
+                ? 'Không tải được ảnh bìa.'
+                : 'Không bắt buộc.'}
+            </p>
+          </div>
         </Field>
       </FieldGroup>
+
+      {formError ? (
+        <p
+          role="alert"
+          className="mt-3 text-[12px] leading-[1.4] text-destructive"
+        >
+          {formError}
+        </p>
+      ) : null}
 
       {submitError ? (
         <Alert

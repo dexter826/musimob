@@ -16,11 +16,13 @@ type SongListProps = {
   viewMode: ViewMode
   isLoading: boolean
   error: string | null
+  flashId: string | null
   onAdd: () => void
+  onSearchItunes: () => void
   onRetry: () => void
   onClearFilter: () => void
   onUpdate: (id: string, patch: SongPatch) => Promise<void>
-  onRemove: (id: string) => Promise<void>
+  onRemove: (song: Song) => Promise<void>
 }
 
 const SKELETON_ROWS = [0, 1, 2, 3, 4]
@@ -95,7 +97,13 @@ function SongListError({
   )
 }
 
-function FilterEmptyState({ onClear }: { onClear: () => void }) {
+function FilterEmptyState({
+  onClear,
+  onSearchItunes,
+}: {
+  onClear: () => void
+  onSearchItunes: () => void
+}) {
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-3 px-6 py-16 text-center">
       <p
@@ -104,14 +112,23 @@ function FilterEmptyState({ onClear }: { onClear: () => void }) {
       >
         Không có bài nào khớp.
       </p>
-      <Button
-        type="button"
-        variant="outline"
-        onClick={onClear}
-        className="h-9 px-3 text-[12.5px] font-semibold"
-      >
-        Xoá bộ lọc
-      </Button>
+      <div className="flex flex-wrap items-center justify-center gap-2">
+        <Button
+          type="button"
+          onClick={onSearchItunes}
+          className="h-9 px-3 text-[12.5px] font-semibold"
+        >
+          Tìm trên iTunes
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          onClick={onClear}
+          className="h-9 px-3 text-[12.5px] font-semibold text-muted-foreground hover:text-foreground"
+        >
+          Xoá bộ lọc
+        </Button>
+      </div>
     </div>
   )
 }
@@ -122,7 +139,9 @@ export function SongList({
   viewMode,
   isLoading,
   error,
+  flashId,
   onAdd,
+  onSearchItunes,
   onRetry,
   onClearFilter,
   onUpdate,
@@ -169,9 +188,17 @@ export function SongList({
       ) : null}
 
       {songs.length === 0 ? (
-        <FilterEmptyState onClear={onClearFilter} />
+        <FilterEmptyState
+          onClear={onClearFilter}
+          onSearchItunes={onSearchItunes}
+        />
       ) : viewMode === 'grid' ? (
-        <SongGrid songs={songs} onEdit={openEdit} onDelete={openDelete} />
+        <SongGrid
+          songs={songs}
+          flashId={flashId}
+          onEdit={openEdit}
+          onDelete={openDelete}
+        />
       ) : (
         <ul className="flex flex-col">
           {songs.map((song, index) => (
@@ -179,6 +206,7 @@ export function SongList({
               key={song.id}
               song={song}
               isFirst={index === 0}
+              isFlashing={song.id === flashId}
               onEdit={openEdit}
               onDelete={openDelete}
             />

@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-29T10:06:40+07:00",
+  "title": "Design System: Musimob",
+  "extensions": {
+    "colorMeta": {
+      "ember-coral": {
+        "role": "primary",
+        "displayName": "Ember Coral",
+        "canonical": "#ff6a4d",
+        "tonalRamp": ["#210000", "#4d0600", "#801702", "#b92502", "#e45135", "#ff866d", "#fec5b8", "#ffe9e4"]
+      },
+      "ember-ink": {
+        "role": "primary",
+        "displayName": "Ember Ink",
+        "canonical": "#1a0a06",
+        "tonalRamp": ["#110907", "#30231f", "#54403a", "#76605a", "#9a837d", "#c0a8a1", "#e0d0cb", "#f6ece9"]
+      },
+      "ember-warn": {
+        "role": "primary",
+        "displayName": "Ember Warn",
+        "canonical": "#ff8a75",
+        "tonalRamp": ["#210000", "#4e0400", "#811304", "#aa3d2c", "#d3624f", "#fc8873", "#ffc4b8", "#ffe9e4"]
+      },
+      "vinyl-black": {
+        "role": "neutral",
+        "displayName": "Vinyl Black",
+        "canonical": "#050506",
+        "tonalRamp": ["#0b0b0c", "#262628", "#454547", "#666668", "#89898b", "#aeaeb0", "#d4d4d5", "#eeeeef"]
+      },
+      "vinyl-card": {
+        "role": "neutral",
+        "displayName": "Vinyl Card",
+        "canonical": "#131316",
+        "tonalRamp": ["#0b0b0c", "#262629", "#454548", "#666669", "#89898d", "#adadb2", "#d4d4d7", "#eeeef0"]
+      },
+      "vinyl-raised": {
+        "role": "neutral",
+        "displayName": "Vinyl Raised",
+        "canonical": "#1c1c20",
+        "tonalRamp": ["#0b0b0d", "#262629", "#444449", "#65656a", "#88888e", "#adadb3", "#d4d4d7", "#eeeef0"]
+      },
+      "soft-white": {
+        "role": "neutral",
+        "displayName": "Soft White",
+        "canonical": "#f4f4f5",
+        "tonalRamp": ["#0b0b0b", "#262627", "#454546", "#666667", "#89898a", "#aeaeaf", "#d4d4d5", "#eeeeef"]
+      },
+      "ash": {
+        "role": "neutral",
+        "displayName": "Ash",
+        "canonical": "#8f8f9a",
+        "tonalRamp": ["#0b0b0e", "#26262c", "#44444e", "#65656f", "#888893", "#adadb8", "#d3d3db", "#eeeef3"]
+      },
+      "seam": {
+        "role": "neutral",
+        "displayName": "Seam",
+        "canonical": "#2a2a30",
+        "tonalRamp": ["#0b0b0d", "#26262a", "#44444b", "#65656c", "#888890", "#adadb5", "#d3d4d9", "#eeeef1"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Wordmark màn đăng nhập; không dùng cho nội dung." },
+      "headline": { "displayName": "Headline", "purpose": "Tiêu đề empty state và drawer (18–34px)." },
+      "title": { "displayName": "Title", "purpose": "Tên bài trong danh sách và tile." },
+      "body": { "displayName": "Body", "purpose": "Copy phụ, mô tả trạng thái, nội dung alert." },
+      "label": { "displayName": "Label", "purpose": "Đếm bài, badge, trạng thái, meta." }
+    },
+    "shadows": [
+      {
+        "name": "fab-lift",
+        "value": "0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4)",
+        "purpose": "Chỉ nút thêm bài — vật thể nổi duy nhất ở trạng thái nghỉ."
+      },
+      {
+        "name": "segmented-active",
+        "value": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+        "purpose": "Tab đang chọn trong segmented control."
+      }
+    ],
+    "motion": [
+      {
+        "name": "state-transition",
+        "value": "150ms cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "Chuyển màu nền, màu chữ và opacity cho hover/focus."
+      },
+      {
+        "name": "skeleton-pulse",
+        "value": "2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "purpose": "Nhịp thở của skeleton khi tải danh sách, chỉ chạy với motion-safe."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Hành động chính của màn hình; nền Ember Coral, chữ Ember Ink.",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\">Thêm bài đầu tiên</button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 16px;border:1px solid transparent;border-radius:8px;background:var(--color-primary,#ff6a4d);color:var(--color-primary-foreground,#1a0a06);font-family:\"Be Vietnam Pro\",ui-sans-serif,system-ui,-apple-system,\"Segoe UI\",sans-serif;font-size:13px;font-weight:600;line-height:1;white-space:nowrap;cursor:pointer;transition:background-color 150ms cubic-bezier(.4,0,.2,1),transform 150ms cubic-bezier(.4,0,.2,1)}.ds-btn-primary:hover{background:color-mix(in srgb,var(--color-primary,#ff6a4d) 80%,transparent)}.ds-btn-primary:active{transform:translateY(1px)}.ds-btn-primary:focus-visible{outline:none;border-color:var(--color-ring,#ff6a4d);box-shadow:0 0 0 3px color-mix(in srgb,var(--color-ring,#ff6a4d) 50%,transparent)}"
+    },
+    {
+      "name": "Outline Icon Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Nút icon viền seam dùng cho toggle xem và hành động phụ.",
+      "html": "<button class=\"ds-btn-outline-icon\" type=\"button\" aria-label=\"Chuyển sang lưới\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect width=\"7\" height=\"7\" x=\"3\" y=\"3\" rx=\"1\"/><rect width=\"7\" height=\"7\" x=\"14\" y=\"3\" rx=\"1\"/><rect width=\"7\" height=\"7\" x=\"14\" y=\"14\" rx=\"1\"/><rect width=\"7\" height=\"7\" x=\"3\" y=\"14\" rx=\"1\"/></svg></button>",
+      "css": ".ds-btn-outline-icon{display:inline-grid;place-items:center;width:36px;height:36px;border:1px solid var(--color-input,#2a2a30);border-radius:8px;background:var(--color-background,#050506);color:var(--color-foreground,#f4f4f5);cursor:pointer;transition:background-color 150ms cubic-bezier(.4,0,.2,1)}.ds-btn-outline-icon:hover{background:var(--color-muted,#1c1c20)}.ds-btn-outline-icon:focus-visible{outline:2px solid var(--color-ring,#ff6a4d);outline-offset:2px}"
+    },
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "refersTo": "input-search",
+      "description": "Ô tìm kiếm dạng pill trong drawer, nền Vinyl Raised 60%.",
+      "html": "<div class=\"ds-input-search\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg><input type=\"search\" placeholder=\"Tìm bài hát hoặc ca sĩ\" aria-label=\"Tìm bài trên iTunes\"/></div>",
+      "css": ".ds-input-search{display:flex;align-items:center;gap:8px;height:44px;padding:0 12px;border:1px solid var(--color-input,#2a2a30);border-radius:999px;background:color-mix(in srgb,var(--color-secondary,#1c1c20) 60%,transparent);color:var(--color-muted-foreground,#8f8f9a);box-sizing:border-box}.ds-input-search input{flex:1;min-width:0;height:100%;border:0;background:transparent;color:var(--color-foreground,#f4f4f5);font-family:\"Be Vietnam Pro\",ui-sans-serif,system-ui,-apple-system,\"Segoe UI\",sans-serif;font-size:16px;outline:none}.ds-input-search input::placeholder{color:var(--color-muted-foreground,#8f8f9a)}.ds-input-search:focus-within{border-color:var(--color-ring,#ff6a4d);box-shadow:0 0 0 3px color-mix(in srgb,var(--color-ring,#ff6a4d) 50%,transparent)}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "description": "Input dạng form trong drawer thêm/sửa bài; label 13px, cao 44px.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">Tên bài</span><input class=\"ds-input-text\" type=\"text\" value=\"Mưa trên phố\" /></label>",
+      "css": ".ds-field{display:flex;flex-direction:column;gap:6px;font-family:\"Be Vietnam Pro\",ui-sans-serif,system-ui,-apple-system,\"Segoe UI\",sans-serif}.ds-field-label{font-size:13px;font-weight:500;color:var(--color-foreground,#f4f4f5)}.ds-input-text{height:44px;padding:0 12px;border:1px solid var(--color-input,#2a2a30);border-radius:8px;background:color-mix(in srgb,var(--color-input,#2a2a30) 30%,transparent);color:var(--color-foreground,#f4f4f5);font-family:inherit;font-size:16px;outline:none;box-sizing:border-box;transition:border-color 150ms cubic-bezier(.4,0,.2,1),box-shadow 150ms cubic-bezier(.4,0,.2,1)}.ds-input-text:focus-visible{border-color:var(--color-ring,#ff6a4d);box-shadow:0 0 0 3px color-mix(in srgb,var(--color-ring,#ff6a4d) 50%,transparent)}"
+    },
+    {
+      "name": "Song Row",
+      "kind": "custom",
+      "description": "Hàng phẳng của danh sách: cover 50px, tên 14.5px, ca sĩ Ash, menu ellipsis.",
+      "html": "<ul class=\"ds-song-list\" role=\"list\"><li class=\"ds-song-row\"><div class=\"ds-song-cover\" aria-hidden=\"true\"></div><div class=\"ds-song-text\"><p class=\"ds-song-title\">Mưa trên phố</p><p class=\"ds-song-artist\">Vũ.</p></div><button class=\"ds-song-menu\" type=\"button\" aria-label=\"Tuỳ chọn cho Mưa trên phố\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><circle cx=\"5\" cy=\"12\" r=\"1\"/><circle cx=\"12\" cy=\"12\" r=\"1\"/><circle cx=\"19\" cy=\"12\" r=\"1\"/></svg></button></li></ul>",
+      "css": ".ds-song-list{list-style:none;margin:0;padding:0;background:var(--color-background,#050506);font-family:\"Be Vietnam Pro\",ui-sans-serif,system-ui,-apple-system,\"Segoe UI\",sans-serif}.ds-song-row{display:flex;align-items:center;gap:12px;padding:10px 12px}.ds-song-cover{width:50px;height:50px;flex-shrink:0;border-radius:6px;background:linear-gradient(135deg,#2a2a30,#131316)}.ds-song-text{min-width:0;flex:1}.ds-song-title{margin:0;font-size:14.5px;font-weight:600;line-height:1.35;color:var(--color-foreground,#f4f4f5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ds-song-artist{margin:0;font-size:12.5px;line-height:1.4;color:var(--color-muted-foreground,#8f8f9a);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ds-song-menu{display:grid;place-items:center;width:36px;height:36px;flex-shrink:0;border:0;border-radius:8px;background:transparent;color:var(--color-muted-foreground,#8f8f9a);cursor:pointer;transition:background-color 150ms cubic-bezier(.4,0,.2,1),color 150ms cubic-bezier(.4,0,.2,1)}.ds-song-menu:hover{background:var(--color-muted,#1c1c20);color:var(--color-foreground,#f4f4f5)}.ds-song-menu:focus-visible{outline:2px solid var(--color-ring,#ff6a4d);outline-offset:2px}"
+    },
+    {
+      "name": "Song Tile",
+      "kind": "card",
+      "description": "Ô lưới vuông: cover phủ kín, scrim đen ở đáy, menu nổi góc trên phải.",
+      "html": "<ul class=\"ds-tile-list\" role=\"list\"><li class=\"ds-song-tile\"><div class=\"ds-song-tile-cover\" aria-hidden=\"true\"></div><div class=\"ds-song-tile-scrim\" aria-hidden=\"true\"></div><div class=\"ds-song-tile-text\"><p class=\"ds-song-tile-title\">Mưa trên phố</p><p class=\"ds-song-tile-artist\">Vũ.</p></div><button class=\"ds-song-tile-menu\" type=\"button\" aria-label=\"Tuỳ chọn cho Mưa trên phố\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><circle cx=\"5\" cy=\"12\" r=\"1\"/><circle cx=\"12\" cy=\"12\" r=\"1\"/><circle cx=\"19\" cy=\"12\" r=\"1\"/></svg></button></li></ul>",
+      "css": ".ds-tile-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:10px;font-family:\"Be Vietnam Pro\",ui-sans-serif,system-ui,-apple-system,\"Segoe UI\",sans-serif}.ds-song-tile{position:relative;aspect-ratio:1;overflow:hidden;border-radius:12px;background:var(--color-muted,#1c1c20)}.ds-song-tile-cover{position:absolute;inset:0;background:linear-gradient(135deg,#2a2a30,#131316)}.ds-song-tile-scrim{position:absolute;inset:0;background:linear-gradient(to top,rgb(0 0 0 / 0.9),rgb(0 0 0 / 0.4),transparent)}.ds-song-tile-text{position:absolute;inset-inline:0;bottom:0;padding:10px}.ds-song-tile-title{margin:0;font-size:12.5px;font-weight:600;line-height:1.3;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ds-song-tile-artist{margin:0;font-size:11px;line-height:1.4;color:rgb(255 255 255 / 0.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ds-song-tile-menu{position:absolute;top:6px;right:6px;display:grid;place-items:center;width:36px;height:36px;border:0;border-radius:8px;background:rgb(0 0 0 / 0.65);color:#fff;cursor:pointer;transition:background-color 150ms cubic-bezier(.4,0,.2,1)}.ds-song-tile-menu:hover{background:rgb(0 0 0 / 0.8)}.ds-song-tile-menu:focus-visible{outline:2px solid var(--color-ring,#ff6a4d);outline-offset:2px}"
+    },
+    {
+      "name": "Floating Add Button",
+      "kind": "button",
+      "refersTo": "fab-add",
+      "description": "Vật thể nổi duy nhất: nút tròn 56px Ember Coral ở đáy phải.",
+      "html": "<button class=\"ds-fab\" type=\"button\" aria-label=\"Thêm bài\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"M12 5v14\"/></svg></button>",
+      "css": ".ds-fab{display:inline-grid;place-items:center;width:56px;height:56px;border:0;border-radius:999px;background:var(--color-primary,#ff6a4d);color:var(--color-primary-foreground,#1a0a06);box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.4),0 4px 6px -4px rgb(0 0 0 / 0.4);cursor:pointer;transition:background-color 150ms cubic-bezier(.4,0,.2,1),transform 150ms cubic-bezier(.4,0,.2,1)}.ds-fab:hover{background:color-mix(in srgb,var(--color-primary,#ff6a4d) 80%,transparent)}.ds-fab:active{transform:translateY(1px)}.ds-fab:focus-visible{outline:2px solid var(--color-ring,#ff6a4d);outline-offset:2px}"
+    },
+    {
+      "name": "Bottom Sheet",
+      "kind": "custom",
+      "description": "Drawer thêm/sửa bài: rộng tối đa 560px, bo 12px góc trên, segmented tabs.",
+      "html": "<div class=\"ds-sheet\"><div class=\"ds-sheet-handle\" aria-hidden=\"true\"></div><h3 class=\"ds-sheet-title\">Thêm bài</h3><div class=\"ds-tabs\" role=\"tablist\" aria-label=\"Cách thêm bài\"><button class=\"ds-tab ds-tab-active\" type=\"button\" role=\"tab\" aria-selected=\"true\">iTunes</button><button class=\"ds-tab\" type=\"button\" role=\"tab\" aria-selected=\"false\">Nhập tay</button></div></div>",
+      "css": ".ds-sheet{width:100%;max-width:560px;margin:0 auto;box-sizing:border-box;background:var(--color-popover,#131316);border-top:1px solid var(--color-border,#2a2a30);border-radius:12px 12px 0 0;padding:0 20px 20px;font-family:\"Be Vietnam Pro\",ui-sans-serif,system-ui,-apple-system,\"Segoe UI\",sans-serif;color:var(--color-foreground,#f4f4f5)}.ds-sheet-handle{width:100px;height:4px;margin:16px auto 12px;border-radius:999px;background:var(--color-muted,#1c1c20)}.ds-sheet-title{margin:0 0 16px;font-size:18px;font-weight:600;letter-spacing:-0.02em}.ds-tabs{display:flex;gap:2px;height:40px;padding:4px;box-sizing:border-box;background:var(--color-muted,#1c1c20);border-radius:8px}.ds-tab{flex:1;height:32px;border:0;border-radius:6px;background:transparent;color:var(--color-muted-foreground,#8f8f9a);font-family:inherit;font-size:13px;font-weight:500;cursor:pointer;transition:background-color 150ms cubic-bezier(.4,0,.2,1),color 150ms cubic-bezier(.4,0,.2,1)}.ds-tab:hover{color:var(--color-foreground,#f4f4f5)}.ds-tab:focus-visible{outline:2px solid var(--color-ring,#ff6a4d);outline-offset:2px}.ds-tab-active{background:var(--color-background,#050506);color:var(--color-foreground,#f4f4f5);box-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05)}"
+    },
+    {
+      "name": "Saved Badge",
+      "kind": "chip",
+      "refersTo": "badge-saved",
+      "description": "Trạng thái \"Đã lưu\" trong kết quả tìm kiếm: nền Vinyl Raised, chữ Ash.",
+      "html": "<span class=\"ds-badge-saved\"><svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 6 9 17l-5-5\"/></svg>Đã lưu</span>",
+      "css": ".ds-badge-saved{display:inline-flex;align-items:center;justify-content:center;gap:4px;height:28px;padding:0 10px;border-radius:6px;background:var(--color-secondary,#1c1c20);color:var(--color-muted-foreground,#8f8f9a);font-family:\"Be Vietnam Pro\",ui-sans-serif,system-ui,-apple-system,\"Segoe UI\",sans-serif;font-size:11.5px;font-weight:500;white-space:nowrap}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Night Sleeve",
+    "overview": "Musimob là một kệ đĩa than trong phòng tối: bìa đĩa là vật thể duy nhất bắt sáng, còn giá đỡ, nhãn và nút bấm lùi về màu than. Giao diện không gợi không khí \"đang nghe nhạc\" — không player, không sóng nhạc, không hàng chờ — mà gợi cảm giác sở hữu: mở app ra là thấy đúng những bìa mình đã chọn, xếp trên một mặt phẳng yên tĩnh. Sự ấm áp đến từ đúng một nguồn: Ember Coral, dùng như ngọn đèn nhỏ trong phòng — một hành động chính, một focus ring, chữ \"mob\" trong wordmark, chiếc đĩa coral trên màn đăng nhập. Mọi thứ còn lại là Vinyl Charcoal nhiều tầng với Soft White và Ash. Bề mặt phẳng, viền sáng 1px thay bóng đổ; chỉ nút thêm bài được phép nổi. Mật độ cao, chữ nhỏ, nhịp đều: hàng danh sách 50px cover, type 11–14.5px, khoảng cách 10/12px. Cảm giác component là điềm tĩnh và chạm được — vật thể thật, phản hồi nhẹ, không trang trí thừa. Anti-reference đã chốt: không giống UI trình phát streaming, không giống dashboard SaaS.",
+    "keyCharacteristics": [
+      "Nền than gần đen, đúng một accent coral",
+      "Ảnh bìa dẫn dắt màu sắc; chrome trung tính",
+      "Bề mặt phẳng + viền sáng 1px; chỉ FAB đổ bóng",
+      "Type UI nhỏ (11–14.5px), hierarchy bằng weight và sắc độ",
+      "Bo góc theo vai trò: 6px artwork, 8px control, 12px surface, pill cho tìm kiếm và hành động",
+      "Mobile-first một cột; drawer tối đa 560px"
+    ],
+    "rules": [
+      { "name": "The One Ember Rule", "body": "Coral chiếm ≤10% diện tích mỗi màn hình. Sự hiếm là điểm nhấn; thêm accent thứ hai là phá hệ.", "section": "colors" },
+      { "name": "The Artwork Leads Rule", "body": "Khi trên màn hình có ảnh bìa, màu của ảnh là màu chủ đạo; chrome không được cạnh tranh với nó.", "section": "colors" },
+      { "name": "The Small-Type Rule", "body": "Type UI sống ở 11–14.5px, kể cả số lẻ .5px — đó là mật độ có chủ đích. Chỉ heading mới vượt 18px; đừng \"phóng to cho dễ đọc\", hãy tăng weight hoặc đổi sang Soft White.", "section": "typography" },
+      { "name": "The One Floating Object Rule", "body": "Chỉ nút thêm bài được đổ bóng ở trạng thái nghỉ. Mọi surface khác phẳng; nếu cần tách khỏi nền, dùng seam hoặc ring, không dùng shadow.", "section": "elevation" },
+      { "name": "Round by Role", "body": "Pill chỉ dành cho ô tìm kiếm và hành động lưu. Đừng bo tròn mọi thứ; surface giữ 12px, artwork giữ 6px.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do giữ coral ≤10% mỗi màn hình và chỉ dùng cho hành động, focus, dấu trạng thái.",
+      "Do để ảnh bìa mang màu; nếu cover thiếu, dùng Vinyl Raised + icon nhạc Ash.",
+      "Do giữ type UI trong khoảng 11–14.5px và tạo thứ bậc bằng weight/sắc độ.",
+      "Do dùng viền 1px (seam hoặc ring trắng 10%) để tách surface thay vì đổ bóng.",
+      "Do giữ vùng chạm tối thiểu 36px, hành động chính 44px, FAB 56px.",
+      "Do viết copy tiếng Việt ngắn, lỗi nói rõ việc cần làm (\"Mất kết nối. Kiểm tra mạng rồi thử lại.\")."
+    ],
+    "donts": [
+      "Don't thêm player, nút play, progress bar, hàng chờ hay bất kỳ affordance phát nhạc nào.",
+      "Don't thêm thẻ số liệu, chart, hay chrome dashboard nhiều khu vực.",
+      "Don't thêm accent hue thứ hai; gradient chỉ được dùng cho scrim của tile và quầng đăng nhập.",
+      "Don't bo tròn mọi thứ thành pill; pill chỉ cho tìm kiếm và hành động lưu.",
+      "Don't đổ bóng cho card hoặc hàng danh sách.",
+      "Don't dùng trắng tinh khiết cho chữ; body là Soft White, phụ là Ash."
+    ]
+  }
+}

@@ -1,19 +1,23 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Spinner } from '@/components/ui/spinner'
 import type { NewSong, SearchResult, Song } from '@/lib/api/types'
 import { RateLimitError } from '@/lib/api/itunes'
+import { getSongKey } from '@/lib/song-key'
 import { useSongSearch } from '../hooks/use-song-search'
-import { getSongKey } from '../song-key'
 import { SearchInput } from './search-input'
 import { SearchResultRow } from './search-result-row'
 
 type SongSearchProps = {
+  term: string
+  onTermChange: (term: string) => void
   songs: Song[]
   onAdd: (song: NewSong) => Promise<void>
-  onSwitchToManual: () => void
+  onSwitchToManual: (term: string) => void
+  autoFocus?: boolean
+  focusToken?: number
 }
 
 function SearchHint() {
@@ -84,14 +88,34 @@ function NoResults({ onSwitchToManual }: { onSwitchToManual: () => void }) {
 }
 
 export function SongSearch({
+  term,
+  onTermChange,
   songs,
   onAdd,
   onSwitchToManual,
+  autoFocus = false,
+  focusToken,
 }: SongSearchProps) {
-  const [term, setTerm] = useState('')
+  const inputRef = useRef<HTMLInputElement>(null)
+  const lastFocusToken = useRef(focusToken)
   const [savedIds, setSavedIds] = useState<Set<number>>(() => new Set())
   const [savingIds, setSavingIds] = useState<Set<number>>(() => new Set())
   const [saveError, setSaveError] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!autoFocus) return
+
+    const frame = requestAnimationFrame(() => inputRef.current?.focus())
+    return () => cancelAnimationFrame(frame)
+  }, [autoFocus])
+
+  useEffect(() => {
+    if (focusToken === undefined || focusToken === lastFocusToken.current) {
+      return
+    }
+    lastFocusToken.current = focusToken
+    inputRef.current?.focus()
+  }, [focusToken])
 
   const {
     data,
@@ -133,7 +157,7 @@ export function SongSearch({
     existingKeys.has(getSongKey(result.title, result.artist))
 
   function handleTermChange(value: string) {
-    setTerm(value)
+    onTermChange(value)
     setSaveError(null)
   }
 
@@ -177,6 +201,7 @@ export function SongSearch({
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-3">
       <SearchInput
+        inputRef={inputRef}
         value={term}
         onChange={handleTermChange}
         isSearching={isSearching}
@@ -204,7 +229,7 @@ export function SongSearch({
         ) : !hasQuery || isPending || !data ? (
           <SearchLoading />
         ) : data.length === 0 ? (
-          <NoResults onSwitchToManual={onSwitchToManual} />
+          <NoResults onSwitchToManual={() => onSwitchToManual(trimmedTerm)} />
         ) : (
           <ul className="flex flex-col">
             {data.map((result) => (

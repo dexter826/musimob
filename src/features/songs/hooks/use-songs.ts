@@ -55,6 +55,17 @@ function getRemoveSongErrorMessage(error: unknown): string {
   }
 }
 
+function getRestoreSongErrorMessage(error: unknown): string {
+  switch (getErrorCode(error)) {
+    case 'permission-denied':
+      return 'Bạn không có quyền khôi phục bài.'
+    case 'unavailable':
+      return 'Mất kết nối. Kiểm tra mạng rồi thử lại.'
+    default:
+      return 'Không khôi phục được bài. Thử lại.'
+  }
+}
+
 export function useSongs(uid: string) {
   const [songs, setSongs] = useState<Song[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -106,7 +117,7 @@ export function useSongs(uid: string) {
   const addSong = useCallback(
     async (song: NewSong) => {
       try {
-        await songsApi.add(uid, song)
+        return await songsApi.add(uid, song)
       } catch (addError) {
         console.error('Không lưu được bài.', addError)
         throw new Error(getAddSongErrorMessage(addError), { cause: addError })
@@ -123,6 +134,20 @@ export function useSongs(uid: string) {
         console.error('Không lưu được thay đổi.', updateError)
         throw new Error(getUpdateSongErrorMessage(updateError), {
           cause: updateError,
+        })
+      }
+    },
+    [uid],
+  )
+
+  const restoreSong = useCallback(
+    async (song: Song) => {
+      try {
+        await songsApi.restore(uid, song)
+      } catch (restoreError) {
+        console.error('Không khôi phục được bài.', restoreError)
+        throw new Error(getRestoreSongErrorMessage(restoreError), {
+          cause: restoreError,
         })
       }
     },
@@ -149,6 +174,7 @@ export function useSongs(uid: string) {
     error,
     retry,
     addSong,
+    restoreSong,
     updateSong,
     removeSong,
   }

@@ -39,7 +39,8 @@ export type MusimobApi = {
       callback: (songs: Song[]) => void,
       onError?: (error: unknown) => void,
     ): () => void
-    add(uid: string, song: NewSong): Promise<void>
+    add(uid: string, song: NewSong): Promise<string>
+    restore(uid: string, song: Song): Promise<void>
     update(uid: string, id: string, patch: SongPatch): Promise<void>
     remove(uid: string, id: string): Promise<void>
   }

@@ -17,7 +17,7 @@ type DeleteConfirmProps = {
   song: Song | null
   open: boolean
   onOpenChange: (open: boolean) => void
-  onConfirm: (id: string) => Promise<void>
+  onConfirm: (song: Song) => Promise<void>
 }
 
 export function DeleteConfirm({
@@ -45,7 +45,7 @@ export function DeleteConfirm({
     setError(null)
 
     try {
-      await onConfirm(song.id)
+      await onConfirm(song)
       onOpenChange(false)
     } catch (deleteError) {
       setError(
@@ -71,7 +71,7 @@ export function DeleteConfirm({
           <AlertDialogTitle>Xoá bài này?</AlertDialogTitle>
           <AlertDialogDescription>
             {song
-              ? `“${song.title}” sẽ bị xoá khỏi danh sách. Không thể hoàn tác.`
+              ? `“${song.title}” sẽ bị xoá khỏi thư viện. Bạn có thể hoàn tác ngay sau đó.`
               : ''}
           </AlertDialogDescription>
         </AlertDialogHeader>

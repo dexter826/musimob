@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Plus } from 'lucide-react'
+import { toast } from 'sonner'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { AddSheet } from '@/features/add-song/components/add-sheet'
@@ -9,10 +10,13 @@ import { FilterInput } from '@/features/songs/components/filter-input'
 import { SongList } from '@/features/songs/components/song-list'
 import { useSongs } from '@/features/songs/hooks/use-songs'
 import { useViewMode } from '@/features/songs/hooks/use-view-mode'
-import type { User } from '@/lib/api/types'
+import type { NewSong, Song, User } from '@/lib/api/types'
 import { useAuthContext } from './auth-context'
 import { AppHeader } from './app-header'
 import { AppLoading } from './app-loading'
+
+const APP_TITLE = 'musimob — Lưu và đồng bộ danh sách bài hát trên mọi thiết bị'
+const SONGS_TITLE = 'musimob — Danh sách bài hát'
 
 type SignedInAppProps = {
   user: User
@@ -22,10 +26,86 @@ type SignedInAppProps = {
 
 function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
   const [isAddOpen, setIsAddOpen] = useState(false)
+  const [addSeed, setAddSeed] = useState('')
   const [filterQuery, setFilterQuery] = useState('')
+  const [flashId, setFlashId] = useState<string | null>(null)
   const { viewMode, toggleViewMode } = useViewMode()
-  const { songs, isLoading, error, retry, addSong, updateSong, removeSong } =
-    useSongs(user.uid)
+  const {
+    songs,
+    isLoading,
+    error,
+    retry,
+    addSong,
+    restoreSong,
+    updateSong,
+    removeSong,
+  } = useSongs(user.uid)
+
+  useEffect(() => {
+    if (!flashId) return
+
+    const timer = window.setTimeout(() => setFlashId(null), 2000)
+    return () => window.clearTimeout(timer)
+  }, [flashId])
+
+  function openAdd(term = '') {
+    setAddSeed(term)
+    setIsAddOpen(true)
+  }
+
+  async function handleManualAdd(song: NewSong) {
+    const id = await addSong(song)
+    toast.success('Đã lưu bài', { description: song.title })
+    setFlashId(id)
+  }
+
+  async function handleSearchAdd(song: NewSong) {
+    await addSong(song)
+  }
+
+  async function undoDelete(song: Song) {
+    const toastId = toast.loading('Đang khôi phục…', {
+      description: song.title,
+    })
+
+    try {
+      await restoreSong(song)
+      setFlashId(song.id)
+      toast.success('Đã khôi phục bài', {
+        id: toastId,
+        description: song.title,
+      })
+    } catch (restoreError) {
+      toast.error('Không khôi phục được bài', {
+        id: toastId,
+        description:
+          restoreError instanceof Error
+            ? `${song.title} — ${restoreError.message}`
+            : song.title,
+        duration: 10000,
+        action: {
+          label: 'Thử lại',
+          onClick: () => {
+            void undoDelete(song)
+          },
+        },
+      })
+    }
+  }
+
+  async function handleRemove(song: Song) {
+    await removeSong(song.id)
+    toast('Đã xoá bài', {
+      description: song.title,
+      duration: 10000,
+      action: {
+        label: 'Hoàn tác',
+        onClick: () => {
+          void undoDelete(song)
+        },
+      },
+    })
+  }
 
   const filteredSongs = useMemo(() => {
     const query = filterQuery.trim().toLowerCase()
@@ -70,18 +150,20 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
           viewMode={viewMode}
           isLoading={isLoading}
           error={error}
-          onAdd={() => setIsAddOpen(true)}
+          flashId={flashId}
+          onAdd={() => openAdd()}
+          onSearchItunes={() => openAdd(filterQuery.trim())}
           onRetry={retry}
           onClearFilter={() => setFilterQuery('')}
           onUpdate={updateSong}
-          onRemove={removeSong}
+          onRemove={handleRemove}
         />
       </main>
 
       <Button
         type="button"
         aria-label="Thêm bài"
-        onClick={() => setIsAddOpen(true)}
+        onClick={() => openAdd()}
         className="fixed right-6 bottom-[calc(1.25rem+env(safe-area-inset-bottom))] z-40 size-14 rounded-full p-0 shadow-lg shadow-black/40 sm:right-8 lg:right-12 lg:bottom-8 xl:right-16"
       >
         <Plus aria-hidden="true" className="size-6" />
@@ -90,12 +172,14 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
       <AddSheet
         open={isAddOpen}
         onOpenChange={setIsAddOpen}
-        onAdd={addSong}
-        renderSearchTab={(onSwitchToManual) => (
+        initialTerm={addSeed}
+        songs={songs}
+        onAddManual={handleManualAdd}
+        renderSearch={(search) => (
           <SongSearch
+            {...search}
             songs={songs}
-            onAdd={addSong}
-            onSwitchToManual={onSwitchToManual}
+            onAdd={handleSearchAdd}
           />
         )}
       />
@@ -106,6 +190,10 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
 export function App() {
   const { user, isAuthLoading, isSigningIn, error, signIn, signOut } =
     useAuthContext()
+
+  useEffect(() => {
+    document.title = user ? SONGS_TITLE : APP_TITLE
+  }, [user])
 
   if (isAuthLoading) {
     return <AppLoading />

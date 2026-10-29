@@ -1,94 +1,130 @@
-import { useEffect, useState, type ReactNode } from 'react'
-import {
-  Drawer,
-  DrawerContent,
-  DrawerDescription,
-  DrawerHeader,
-  DrawerTitle,
-} from '@/components/ui/drawer'
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/tabs'
-import type { NewSong } from '@/lib/api/types'
+import { useLayoutEffect, useState, type ReactNode } from 'react'
+import { ResponsivePanel } from '@/components/responsive-panel'
+import { Button } from '@/components/ui/button'
+import { useIsMobile } from '@/hooks/use-mobile'
+import type { NewSong, Song } from '@/lib/api/types'
 import { ManualForm } from './manual-form'
+
+type SearchPanelProps = {
+  term: string
+  onTermChange: (term: string) => void
+  onSwitchToManual: (term: string) => void
+  autoFocus: boolean
+  focusToken: number
+}
 
 type AddSheetProps = {
   open: boolean
   onOpenChange: (open: boolean) => void
-  onAdd: (song: NewSong) => Promise<void>
-  renderSearchTab: (onSwitchToManual: () => void) => ReactNode
+  initialTerm: string
+  songs: Song[]
+  onAddManual: (song: NewSong) => Promise<void>
+  renderSearch: (props: SearchPanelProps) => ReactNode
 }
 
-type AddTab = 'itunes' | 'manual'
+type AddMode = 'search' | 'manual'
+
+type ManualSeed = {
+  term: string
+  nonce: number
+}
 
 export function AddSheet({
   open,
   onOpenChange,
-  onAdd,
-  renderSearchTab,
+  initialTerm,
+  songs,
+  onAddManual,
+  renderSearch,
 }: AddSheetProps) {
-  const [tab, setTab] = useState<AddTab>('itunes')
+  const isMobile = useIsMobile()
+  const [mode, setMode] = useState<AddMode>('search')
+  const [searchTerm, setSearchTerm] = useState(initialTerm)
+  const [manualSeed, setManualSeed] = useState<ManualSeed | null>(null)
+  const [searchFocusToken, setSearchFocusToken] = useState(0)
+  const [manualFocusToken, setManualFocusToken] = useState(0)
 
-  useEffect(() => {
-    if (!open) {
-      setTab('itunes')
+  useLayoutEffect(() => {
+    if (!open) return
+
+    setMode('search')
+    setSearchTerm(initialTerm)
+    setManualSeed(null)
+  }, [open, initialTerm])
+
+  function openManualWithTerm(term: string) {
+    const nextTerm = term.trim()
+    setMode('manual')
+    if (nextTerm) {
+      setManualSeed((current) => ({
+        term: nextTerm,
+        nonce: (current?.nonce ?? 0) + 1,
+      }))
     }
-  }, [open])
+    setManualFocusToken((current) => current + 1)
+  }
+
+  function backToSearch() {
+    setMode('search')
+    setSearchFocusToken((current) => current + 1)
+  }
 
   return (
-    <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent className="mx-auto flex max-h-[85dvh] w-full max-w-[560px] flex-col">
-        <DrawerHeader className="px-5 pt-2 pb-0 text-left">
-          <DrawerTitle className="text-[18px] font-semibold tracking-[-0.02em]">
-            Thêm bài
-          </DrawerTitle>
-          <DrawerDescription className="sr-only">
-            Tìm bài trên iTunes hoặc nhập tay.
-          </DrawerDescription>
-        </DrawerHeader>
-
-        <Tabs
-          value={tab}
-          onValueChange={(value) => setTab(value as AddTab)}
-          className="min-h-0 flex-1 gap-0"
-        >
-          <div className="px-5 pt-4">
-            <TabsList className="group-data-horizontal/tabs:h-10 w-full p-1">
-              <TabsTrigger
-                value="itunes"
-                className="h-8 flex-1 text-[13px]"
-              >
-                iTunes
-              </TabsTrigger>
-              <TabsTrigger
-                value="manual"
-                className="h-8 flex-1 text-[13px]"
-              >
-                Nhập tay
-              </TabsTrigger>
-            </TabsList>
-          </div>
-
-          <TabsContent
-            value="itunes"
-            forceMount
-            className="mt-4 flex min-h-0 flex-1 flex-col px-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] data-[state=inactive]:hidden"
+    <ResponsivePanel
+      open={open}
+      onOpenChange={onOpenChange}
+      title={mode === 'manual' ? 'Nhập tay' : 'Thêm bài'}
+      description={
+        mode === 'manual'
+          ? 'Nhập tên bài, ca sĩ và URL ảnh bìa.'
+          : 'Tìm bài trên iTunes hoặc nhập tay.'
+      }
+      onBack={mode === 'manual' ? backToSearch : undefined}
+      headerAction={
+        mode === 'search' ? (
+          <Button
+            type="button"
+            variant="ghost"
+            className="h-9 px-2.5 text-[12.5px] font-semibold text-muted-foreground hover:text-foreground"
+            onClick={() => openManualWithTerm(searchTerm)}
           >
-            {renderSearchTab(() => setTab('manual'))}
-          </TabsContent>
+            Nhập tay
+          </Button>
+        ) : undefined
+      }
+    >
+      <div
+        className={
+          mode === 'search'
+            ? 'flex min-h-0 flex-1 flex-col px-5 pt-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))]'
+            : 'hidden'
+        }
+      >
+        {renderSearch({
+          term: searchTerm,
+          onTermChange: setSearchTerm,
+          onSwitchToManual: openManualWithTerm,
+          autoFocus: !isMobile,
+          focusToken: searchFocusToken,
+        })}
+      </div>
 
-          <TabsContent
-            value="manual"
-            forceMount
-            className="mt-4 min-h-0 flex-1 overflow-y-auto px-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] data-[state=inactive]:hidden"
-          >
-            <ManualForm onAdd={onAdd} onDone={() => onOpenChange(false)} />
-          </TabsContent>
-        </Tabs>
-      </DrawerContent>
-    </Drawer>
+      <div
+        className={
+          mode === 'manual'
+            ? 'min-h-0 flex-1 overflow-y-auto px-5 pt-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))]'
+            : 'hidden'
+        }
+      >
+        <ManualForm
+          key={manualSeed?.nonce ?? 0}
+          initialTitle={manualSeed?.term ?? ''}
+          focusSignal={manualFocusToken}
+          songs={songs}
+          onAdd={onAddManual}
+          onDone={() => onOpenChange(false)}
+        />
+      </div>
+    </ResponsivePanel>
   )
 }
