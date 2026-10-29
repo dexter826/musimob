@@ -73,7 +73,9 @@ export const searchApi: MusimobApi['search'] = {
     try {
       payload = (await response.json()) as ItunesResponse
     } catch (error) {
-      throw new SearchError('iTunes trả dữ liệu không hợp lệ.', { cause: error })
+      throw new SearchError('iTunes trả dữ liệu không hợp lệ.', {
+        cause: error,
+      })
     }
 
     if (!Array.isArray(payload.results)) {

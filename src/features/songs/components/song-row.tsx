@@ -40,7 +40,8 @@ export function SongRow({
         fetchPriority={isFirst ? 'high' : 'auto'}
         className={cn(
           'size-[50px]',
-          isFlashing && 'ring-2 ring-primary ring-offset-2 ring-offset-background',
+          isFlashing &&
+            'ring-2 ring-primary ring-offset-2 ring-offset-background',
         )}
       />
       <div className="min-w-0 flex-1">

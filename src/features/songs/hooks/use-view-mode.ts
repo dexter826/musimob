@@ -6,9 +6,7 @@ export type ViewMode = 'list' | 'grid'
 
 function readStoredViewMode(): ViewMode {
   try {
-    return window.localStorage.getItem(STORAGE_KEY) === 'grid'
-      ? 'grid'
-      : 'list'
+    return window.localStorage.getItem(STORAGE_KEY) === 'grid' ? 'grid' : 'list'
   } catch {
     return 'list'
   }

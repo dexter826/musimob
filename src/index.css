@@ -3,8 +3,8 @@
  * nav: wordmark + avatar menu · signature: sleeve sign-in + flat song list · states: loading, signed-out, signing-in, error, empty, list, add sheet
  * axes: dark/grotesk-sans/warm · posture: restrained · contrast: pass · v2.0.0 */
 /* Hallmark · pre-emit critique: P4 H5 E4 S4 R5 V3 · weakest: V, kept one familiar Google action because familiarity is the job */
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -15,8 +15,9 @@
 @custom-variant data-active (&:is([data-state="active"], [data-active]));
 
 @theme {
-  --font-sans: "Be Vietnam Pro", ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", sans-serif;
+  --font-sans:
+    'Be Vietnam Pro', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    sans-serif;
 
   --color-background: #050506;
   --color-foreground: #f4f4f5;
@@ -118,7 +119,7 @@
     color: var(--primary-foreground);
   }
 
-  :where(button, a, [role="button"]) {
+  :where(button, a, [role='button']) {
     touch-action: manipulation;
   }
 
@@ -142,15 +143,17 @@
 
 /* Sonner injects unlayered CSS after load; these overrides stay unlayered
  * and out-specify its selectors. */
-[data-sonner-toaster] [data-sonner-toast][data-styled="true"] {
+[data-sonner-toaster] [data-sonner-toast][data-styled='true'] {
   box-shadow: none;
 }
 
-[data-sonner-toaster] [data-sonner-toast][data-styled="true"] [data-description] {
+[data-sonner-toaster]
+  [data-sonner-toast][data-styled='true']
+  [data-description] {
   color: var(--muted-foreground);
 }
 
-[data-sonner-toaster] [data-sonner-toast][data-styled="true"] [data-button] {
+[data-sonner-toaster] [data-sonner-toast][data-styled='true'] [data-button] {
   height: 36px;
   padding-inline: 12px;
   border-radius: var(--radius-lg);
@@ -161,11 +164,15 @@
   transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-[data-sonner-toaster] [data-sonner-toast][data-styled="true"] [data-button]:hover {
+[data-sonner-toaster]
+  [data-sonner-toast][data-styled='true']
+  [data-button]:hover {
   background: color-mix(in oklab, var(--primary) 80%, transparent);
 }
 
-[data-sonner-toaster] [data-sonner-toast][data-styled="true"] [data-button]:focus-visible {
+[data-sonner-toaster]
+  [data-sonner-toast][data-styled='true']
+  [data-button]:focus-visible {
   box-shadow: none;
   outline: 2px solid var(--ring);
   outline-offset: 2px;

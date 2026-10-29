@@ -41,7 +41,7 @@ Một sổ lưu nhạc, không phải trình phát: bài hát được lưu nguy
 ## Brand Commitments
 
 - Tên **musimob**; wordmark đang có trong giao diện không đổi.
-- Bộ logo đã chốt "Hướng A": chữ *m* trên bìa coral, đĩa trắng lệch góc; nguồn tại `assets/brand/` và `public/`.
+- Bộ logo đã chốt "Hướng A": chữ _m_ trên bìa coral, đĩa trắng lệch góc; nguồn tại `assets/brand/` và `public/`.
 - Màu thương hiệu: coral `#ff6a4d`, than `#0a0a0b`, trắng dịu `#f4f4f5`.
 - Font gốc Be Vietnam Pro (SIL OFL 1.1). Không kéo méo, xoay riêng phần, thêm bóng/gradient, đổi font, hoặc đặt bản màu trực tiếp trên nền nhiều chi tiết.
 - Giọng điệu: tiếng Việt, ngắn, trực tiếp; copy lỗi nói việc cần làm ("Mất kết nối. Kiểm tra mạng rồi thử lại.").

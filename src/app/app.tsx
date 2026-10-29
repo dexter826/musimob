@@ -176,11 +176,7 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
         songs={songs}
         onAddManual={handleManualAdd}
         renderSearch={(search) => (
-          <SongSearch
-            {...search}
-            songs={songs}
-            onAdd={handleSearchAdd}
-          />
+          <SongSearch {...search} songs={songs} onAdd={handleSearchAdd} />
         )}
       />
     </div>
@@ -201,11 +197,7 @@ export function App() {
 
   if (!user) {
     return (
-      <SignInScreen
-        isSigningIn={isSigningIn}
-        error={error}
-        onSignIn={signIn}
-      />
+      <SignInScreen isSigningIn={isSigningIn} error={error} onSignIn={signIn} />
     )
   }
 

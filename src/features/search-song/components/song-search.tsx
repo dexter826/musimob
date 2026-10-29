@@ -149,8 +149,7 @@ export function SongSearch({
 
   const trimmedTerm = term.trim()
   const hasQuery = debouncedTerm.length >= 2
-  const isSearching =
-    trimmedTerm.length >= 2 && (isFetching || isDebouncing)
+  const isSearching = trimmedTerm.length >= 2 && (isFetching || isDebouncing)
   const isResultSaved = (result: SearchResult) =>
     existingIds.has(result.trackId) ||
     savedIds.has(result.trackId) ||

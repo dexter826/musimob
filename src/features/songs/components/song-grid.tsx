@@ -39,8 +39,7 @@ export function SongGrid({ songs, flashId, onEdit, onDelete }: SongGridProps) {
           data-flash={song.id === flashId ? 'true' : undefined}
           className={cn(
             'relative aspect-square overflow-hidden rounded-xl bg-muted',
-            song.id === flashId &&
-              'outline-2 outline-offset-2 outline-primary',
+            song.id === flashId && 'outline-2 outline-offset-2 outline-primary',
           )}
         >
           <SongCover
