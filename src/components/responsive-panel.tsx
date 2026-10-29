@@ -1,6 +1,5 @@
 import { useRef, type ReactNode } from 'react'
 import { ArrowLeft, X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -33,7 +32,11 @@ type PanelHeaderProps = {
   onClose: () => void
 }
 
-const titleClassName = 'text-[18px] font-semibold tracking-[-0.02em]'
+const titleClassName =
+  'font-serif text-[18px] leading-[1.2] font-medium tracking-[-0.01em]'
+
+const headerIconClass =
+  'grid size-11 shrink-0 place-items-center rounded-lg text-muted-foreground transition-colors duration-[160ms] hover:bg-secondary hover:text-foreground'
 
 function PanelHeader({
   title,
@@ -45,15 +48,14 @@ function PanelHeader({
   return (
     <div className="flex items-center gap-2 px-5 pt-3">
       {onBack ? (
-        <Button
+        <button
           type="button"
-          variant="ghost"
-          size="icon-lg"
           aria-label="Quay lại tìm kiếm"
           onClick={onBack}
+          className={headerIconClass}
         >
-          <ArrowLeft aria-hidden="true" />
-        </Button>
+          <ArrowLeft aria-hidden="true" className="size-[18px]" />
+        </button>
       ) : null}
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         {title}
@@ -62,15 +64,14 @@ function PanelHeader({
       {headerAction ? (
         <div className="flex shrink-0 items-center gap-1">{headerAction}</div>
       ) : null}
-      <Button
+      <button
         type="button"
-        variant="ghost"
-        size="icon-lg"
         aria-label="Đóng"
         onClick={onClose}
+        className={headerIconClass}
       >
-        <X aria-hidden="true" />
-      </Button>
+        <X aria-hidden="true" className="size-[18px]" />
+      </button>
     </div>
   )
 }
@@ -125,7 +126,7 @@ export function ResponsivePanel({
     return (
       <Drawer open={open} onOpenChange={onOpenChange}>
         <DrawerContent
-          className="mx-auto flex h-auto max-h-[85dvh] w-full max-w-[560px] flex-col data-[vaul-drawer-direction=bottom]:max-h-[85dvh]"
+          className="mx-auto flex h-auto max-h-[85dvh] w-full max-w-[560px] flex-col overscroll-contain rounded-t-xl border-t border-rule bg-surface shadow-none data-[vaul-drawer-direction=bottom]:max-h-[85dvh]"
           onOpenAutoFocus={handleOpenAutoFocus}
         >
           {body}
@@ -138,7 +139,7 @@ export function ResponsivePanel({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         showCloseButton={false}
-        className="flex max-h-[85dvh] w-[calc(100%-2rem)] max-w-[560px] flex-col gap-0 overflow-hidden p-0 sm:max-w-[560px]"
+        className="flex max-h-[85dvh] w-[calc(100%-2rem)] max-w-[560px] flex-col gap-0 overflow-hidden overscroll-contain rounded-xl border border-rule bg-surface p-0 shadow-none sm:max-w-[560px]"
         onOpenAutoFocus={handleOpenAutoFocus}
       >
         {body}

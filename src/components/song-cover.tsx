@@ -26,7 +26,7 @@ export function SongCover({
       <div
         aria-hidden="true"
         className={cn(
-          'grid shrink-0 place-items-center rounded-md bg-muted text-muted-foreground',
+          'grid shrink-0 place-items-center rounded-sm bg-muted text-muted-foreground',
           className,
         )}
       >
@@ -46,7 +46,7 @@ export function SongCover({
         setFailedSrc(src)
         onError?.()
       }}
-      className={cn('shrink-0 rounded-md bg-muted object-cover', className)}
+      className={cn('shrink-0 rounded-sm bg-muted object-cover', className)}
     />
   )
 }

@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react'
+import symbol from '../../../../assets/brand/symbol.svg'
 import { ErrorAlert } from '@/components/error-alert'
 import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
 import { Spinner } from '@/components/ui/spinner'
 import { Wordmark } from '@/components/wordmark'
 
@@ -40,70 +40,59 @@ export function SignInScreen({
   onSignIn,
 }: SignInScreenProps) {
   return (
-    <main className="auth-stage flex min-h-dvh w-full items-center justify-center bg-background px-5 py-6 sm:px-6 sm:py-10">
-      <section className="relative flex min-h-[520px] w-full max-w-[560px] flex-col justify-between gap-12 overflow-clip rounded-lg border border-border bg-card p-6 sm:min-h-[560px] sm:p-9 lg:aspect-square lg:min-h-0 lg:p-11">
+    <main className="flex min-h-dvh w-full items-center justify-center bg-background px-5 py-10 sm:px-8">
+      <div className="relative w-full max-w-[560px]">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -top-24 -right-24 size-[320px] sm:-top-28 sm:-right-28 sm:size-[400px] lg:-top-32 lg:-right-32 lg:size-[460px]"
+          className="absolute top-0 right-0 aspect-square w-[180px] rounded-sm bg-[var(--night-900)] sm:w-[320px]"
         >
-          <svg viewBox="0 0 480 480" className="size-full">
-            <g fill="none" stroke="var(--border)" strokeWidth="1">
-              <circle cx="240" cy="240" r="236" opacity="0.55" />
-              <circle cx="240" cy="240" r="206" opacity="0.45" />
-              <circle cx="240" cy="240" r="176" opacity="0.38" />
-              <circle cx="240" cy="240" r="146" opacity="0.32" />
-              <circle cx="240" cy="240" r="118" opacity="0.28" />
-            </g>
-            <circle cx="240" cy="240" r="96" fill="var(--primary)" />
-            <circle
-              cx="240"
-              cy="240"
-              r="34"
-              fill="none"
-              stroke="var(--primary-foreground)"
-              strokeOpacity="0.35"
-            />
-            <circle cx="240" cy="240" r="6" fill="var(--background)" />
-          </svg>
+          <img
+            src={symbol}
+            alt=""
+            width={96}
+            height={96}
+            className="absolute top-1/2 left-1/2 w-20 -translate-x-1/2 -translate-y-1/2 sm:w-24"
+          />
+          <span className="absolute -top-2 right-8 h-12 w-4 bg-primary [clip-path:polygon(0_0,100%_0,100%_100%,50%_82%,0_100%)]" />
         </div>
 
-        <Wordmark className="relative text-[40px] leading-none tracking-[-0.04em] sm:text-[52px] lg:text-[64px]" />
+        <section className="relative z-10 mx-auto mt-24 w-full max-w-[350px] rounded-sm border border-rule bg-surface p-6 shadow-[6px_6px_0_0_var(--surface-2),6px_6px_0_1px_var(--rule)] sm:mx-0 sm:mt-[120px] sm:max-w-[360px] sm:p-8">
+          <Wordmark className="h-7" />
 
-        <div className="relative">
-          <Separator />
-          <div className="pt-6 lg:pt-7">
-            <h1 className="text-[24px] leading-[1.15] font-semibold tracking-[-0.03em] sm:text-[28px]">
-              Đăng nhập
-            </h1>
+          <h1 className="mt-10 font-serif text-[38px] leading-[1.08] font-medium tracking-[-0.02em] text-foreground max-md:text-[30px]">
+            Thư viện riêng của bạn
+          </h1>
+          <p className="mt-3 max-w-[28ch] text-[15px] leading-[1.6] text-muted-foreground max-md:text-sm">
+            Lưu và đồng bộ danh sách bài hát trên mọi thiết bị.
+          </p>
 
-            <Button
-              type="button"
-              onClick={() => void onSignIn()}
-              disabled={isSigningIn}
-              aria-busy={isSigningIn}
-              className="mt-5 h-12 w-full gap-2.5 text-[14px] font-semibold"
-            >
-              {isSigningIn ? (
-                <>
-                  <Spinner aria-hidden="true" className="size-4" />
-                  Đang đăng nhập…
-                </>
-              ) : (
-                <>
-                  <span className="grid size-6 place-items-center rounded-full bg-white">
-                    <GoogleIcon className="size-3.5" />
-                  </span>
-                  Tiếp tục với Google
-                </>
-              )}
-            </Button>
+          <Button
+            type="button"
+            onClick={() => void onSignIn()}
+            disabled={isSigningIn}
+            aria-busy={isSigningIn}
+            className="mt-7 h-11 w-full gap-2 bg-ink-action text-[13px] font-semibold text-ink-action-foreground hover:bg-ink-action-hover"
+          >
+            {isSigningIn ? (
+              <>
+                <Spinner aria-hidden="true" className="size-4" />
+                Đang đăng nhập…
+              </>
+            ) : (
+              <>
+                <GoogleIcon className="size-[17px]" />
+                Đăng nhập bằng Google
+              </>
+            )}
+          </Button>
 
-            {error ? (
-              <ErrorAlert message={error} className="mt-3 px-3.5 py-2.5" />
-            ) : null}
-          </div>
-        </div>
-      </section>
+          {error ? <ErrorAlert message={error} className="mt-3" /> : null}
+
+          <p className="mt-3.5 text-xs leading-[1.5] text-muted-foreground">
+            Chỉ bạn thấy thư viện của mình.
+          </p>
+        </section>
+      </div>
     </main>
   )
 }

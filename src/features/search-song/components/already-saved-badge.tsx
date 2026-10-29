@@ -1,13 +1,11 @@
-import { Check } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 
 export function AlreadySavedBadge() {
   return (
     <Badge
       variant="secondary"
-      className="h-7 gap-1 rounded-md px-2.5 text-[11.5px] font-medium text-muted-foreground"
+      className="h-6 rounded-sm bg-surface-2 px-2 text-xs font-medium text-success"
     >
-      <Check aria-hidden="true" />
       Đã lưu
     </Badge>
   )

@@ -1,14 +1,13 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { ErrorAlert } from '@/components/error-alert'
+import { SearchField } from '@/components/search-field'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
 import { Spinner } from '@/components/ui/spinner'
 import { useAudioPreview } from '@/lib/audio-preview-context'
 import type { NewSong, SearchResult, Song } from '@/lib/api/types'
 import { RateLimitError, SearchTimeoutError } from '@/lib/api/catalog'
 import { getSongKey } from '@/lib/song-key'
 import { useSongSearch } from '../hooks/use-song-search'
-import { SearchInput } from './search-input'
 import { SearchResultRow } from './search-result-row'
 
 type SongSearchProps = {
@@ -23,8 +22,8 @@ type SongSearchProps = {
 
 function SearchHint() {
   return (
-    <p className="py-10 text-center text-[13px] leading-[1.5] text-muted-foreground">
-      Nhập tên bài hoặc ca sĩ để tìm.
+    <p className="py-10 text-center text-sm leading-[1.6] text-muted-foreground">
+      Nhập tên bài hoặc nghệ sĩ để tìm.
     </p>
   )
 }
@@ -33,7 +32,7 @@ function SearchLoading() {
   return (
     <div
       role="status"
-      className="flex items-center justify-center gap-2 py-10 text-[13px] text-muted-foreground"
+      className="flex items-center justify-center gap-2 py-10 text-sm text-muted-foreground"
     >
       <Spinner aria-hidden="true" className="size-4" />
       Đang tìm…
@@ -41,39 +40,17 @@ function SearchLoading() {
   )
 }
 
-function SearchErrorState({
-  message,
-  onRetry,
-}: {
-  message: string
-  onRetry: () => void
-}) {
-  return (
-    <Card className="flex flex-col items-center gap-0 px-4 py-8 text-center">
-      <ErrorAlert message={message} className="max-w-[320px] text-left" />
-      <Button
-        type="button"
-        variant="outline"
-        onClick={onRetry}
-        className="mt-4 h-9 px-3 text-[12.5px] font-semibold"
-      >
-        Thử lại
-      </Button>
-    </Card>
-  )
-}
-
 function NoResults({ onSwitchToManual }: { onSwitchToManual: () => void }) {
   return (
     <div className="flex flex-col items-center gap-3 py-10 text-center">
-      <p className="max-w-[300px] text-[13px] leading-[1.55] text-muted-foreground">
+      <p className="max-w-[300px] text-sm leading-[1.6] text-muted-foreground">
         Không tìm thấy bài nào. Thử từ khoá khác hoặc nhập tay.
       </p>
       <Button
         type="button"
         variant="outline"
         onClick={onSwitchToManual}
-        className="h-9 px-3 text-[12.5px] font-semibold"
+        className="h-11 px-4 text-[13px] font-semibold"
       >
         Nhập tay
       </Button>
@@ -201,7 +178,7 @@ export function SongSearch({
     resultsBody = <SearchHint />
   } else if (error && hasQuery && !isDebouncing && !isFetching) {
     resultsBody = (
-      <SearchErrorState message={errorMessage} onRetry={() => void refetch()} />
+      <ErrorAlert message={errorMessage} onRetry={() => void refetch()} />
     )
   } else if (!hasQuery || isPending || !data) {
     resultsBody = <SearchLoading />
@@ -211,7 +188,7 @@ export function SongSearch({
     )
   } else {
     resultsBody = (
-      <ul className="flex flex-col">
+      <ul className="flex flex-col gap-0.5">
         {data.map((result) => (
           <SearchResultRow
             key={result.trackId}
@@ -227,11 +204,13 @@ export function SongSearch({
 
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-3">
-      <SearchInput
+      <SearchField
+        id="song-search"
+        name="search"
         inputRef={inputRef}
         value={term}
         onChange={handleTermChange}
-        isSearching={isSearching}
+        isBusy={isSearching}
       />
 
       {saveError ? <ErrorAlert message={saveError} /> : null}

@@ -1,272 +1,457 @@
 ---
 name: musimob
-description: Sổ lưu bài hát riêng tư - tối, ấm, kín đáo.
+description: Sổ lưu bài hát riêng tư — sáng, giấy, mực, một dấu sách coral.
 colors:
-  ember-coral: '#ff6a4d'
-  ember-ink: '#1a0a06'
-  ember-warn: '#ff8a75'
-  vinyl-black: '#050506'
-  vinyl-card: '#131316'
-  vinyl-raised: '#1c1c20'
-  soft-white: '#f4f4f5'
-  ash: '#8f8f9a'
-  seam: '#2a2a30'
+  paper-50: '#FAF9F5'
+  paper-100: '#F4F3EE'
+  paper-200: '#ECEBE4'
+  paper-300: '#DFDED4'
+  ink-900: '#1A1B17'
+  ink-700: '#3A3C35'
+  ink-600: '#5B5E55'
+  ink-400: '#8A8D83'
+  coral-050: '#FCE8E2'
+  coral-500: '#FF6A4D'
+  coral-600: '#F25B3D'
+  coral-700: '#B23A27'
+  coral-300: '#FF8A75'
+  coral-200: '#FFB3A4'
+  moss-700: '#3F5D4E'
+  red-700: '#A02C22'
+  night-950: '#11130F'
+  night-900: '#161814'
+  night-800: '#1E201B'
+  night-700: '#282B24'
+  bone-100: '#EDEEE8'
+  bone-400: '#A6A99E'
 typography:
   display:
-    fontFamily: 'Be Vietnam Pro, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif'
-    fontSize: '64px'
-    fontWeight: 700
-    lineHeight: 1
-    letterSpacing: '-0.04em'
-  headline:
-    fontFamily: 'Be Vietnam Pro, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif'
-    fontSize: '34px'
-    fontWeight: 600
-    lineHeight: 1.15
+    fontFamily: 'Lora, Georgia, "Times New Roman", serif'
+    fontSize: '38px'
+    fontWeight: 500
+    lineHeight: '1.08'
     letterSpacing: '-0.02em'
+  page-title:
+    fontFamily: 'Lora, Georgia, "Times New Roman", serif'
+    fontSize: '34px'
+    fontWeight: 500
+    lineHeight: '1.08'
+    letterSpacing: '-0.015em'
   title:
-    fontFamily: 'Be Vietnam Pro, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif'
+    fontFamily: 'Be Vietnam Pro, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif'
     fontSize: '14.5px'
     fontWeight: 600
-    lineHeight: 1.35
-    letterSpacing: '0em'
+    lineHeight: '1.35'
+    letterSpacing: '0'
   body:
-    fontFamily: 'Be Vietnam Pro, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif'
-    fontSize: '13.5px'
+    fontFamily: 'Be Vietnam Pro, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif'
+    fontSize: '14px'
     fontWeight: 400
-    lineHeight: 1.55
-    letterSpacing: '0em'
+    lineHeight: '1.6'
+    letterSpacing: '0'
+  meta:
+    fontFamily: 'Be Vietnam Pro, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif'
+    fontSize: '12.5px'
+    fontWeight: 400
+    lineHeight: '1.4'
+    letterSpacing: '0'
   label:
-    fontFamily: 'Be Vietnam Pro, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif'
+    fontFamily: 'Be Vietnam Pro, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif'
     fontSize: '12px'
     fontWeight: 500
-    lineHeight: 1.4
-    letterSpacing: '0em'
+    lineHeight: '1.4'
+    letterSpacing: '0'
+  button:
+    fontFamily: 'Be Vietnam Pro, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif'
+    fontSize: '13px'
+    fontWeight: 600
+    lineHeight: '1'
+    letterSpacing: '0'
 rounded:
-  sm: '4px'
-  md: '6px'
-  lg: '8px'
-  xl: '12px'
+  cover: '2px'
+  control: '8px'
+  sheet: '12px'
 spacing:
-  step-2-5: '10px'
-  step-3: '12px'
-  step-4: '16px'
-  step-5: '20px'
-  step-6: '24px'
-  step-8: '32px'
-  step-10: '40px'
-  step-16: '64px'
+  '1': '4px'
+  '2': '8px'
+  '3': '12px'
+  '4': '16px'
+  '6': '24px'
+  '8': '32px'
+  '12': '48px'
+  '16': '64px'
 components:
   button-primary:
-    backgroundColor: '{colors.ember-coral}'
-    textColor: '{colors.ember-ink}'
-    typography: '{typography.label}'
-    rounded: '{rounded.lg}'
-    padding: '0 16px'
+    backgroundColor: '{colors.coral-500}'
+    textColor: '{colors.ink-900}'
+    typography: '{typography.button}'
+    rounded: '{rounded.control}'
     height: '44px'
-  button-outline:
-    backgroundColor: '{colors.vinyl-black}'
-    textColor: '{colors.soft-white}'
-    rounded: '{rounded.lg}'
-    height: '36px'
-    width: '36px'
-  button-ghost-icon:
-    textColor: '{colors.ash}'
-    rounded: '{rounded.lg}'
-    height: '36px'
-    width: '36px'
-  input-search:
-    backgroundColor: '{colors.vinyl-raised}'
-    textColor: '{colors.soft-white}'
-    rounded: '999px'
-    padding: '0 12px'
+  button-ink:
+    backgroundColor: '{colors.ink-900}'
+    textColor: '{colors.paper-50}'
+    typography: '{typography.button}'
+    rounded: '{rounded.control}'
     height: '44px'
   badge-saved:
-    backgroundColor: '{colors.vinyl-raised}'
-    textColor: '{colors.ash}'
-    rounded: '{rounded.md}'
-    padding: '0 10px'
-    height: '28px'
+    backgroundColor: '{colors.paper-200}'
+    textColor: '{colors.moss-700}'
+    typography: '{typography.label}'
+    rounded: '{rounded.cover}'
+    height: '24px'
+  sheet:
+    backgroundColor: '{colors.paper-50}'
+    borderColor: '{colors.paper-300}'
+    rounded: '{rounded.sheet}'
+  bookplate:
+    backgroundColor: '{colors.paper-50}'
+    borderColor: '{colors.paper-300}'
+    rounded: '{rounded.cover}'
+    offset: '6px'
   fab-add:
-    backgroundColor: '{colors.ember-coral}'
-    textColor: '{colors.ember-ink}'
-    rounded: '999px'
-    size: '56px'
+    backgroundColor: '{colors.coral-500}'
+    textColor: '{colors.ink-900}'
+    width: '56px'
+    height: '64px'
 ---
 
 # Design System: musimob
 
 ## Overview
 
-**Creative North Star: "The Night Sleeve"**
+**Creative North Star: "Sổ lưu"**
 
-musimob là một kệ đĩa than trong phòng tối: bìa đĩa là vật thể duy nhất bắt sáng, còn giá đỡ, nhãn và nút bấm lùi về màu than. Giao diện không gợi không khí "đang nghe nhạc" - không player, không sóng nhạc, không hàng chờ, chỉ một nút nghe thử 30 giây trên ảnh bìa - mà gợi cảm giác sở hữu: mở app ra là thấy đúng những bìa mình đã chọn, xếp trên một mặt phẳng yên tĩnh.
-
-Sự ấm áp đến từ đúng một nguồn: Ember Coral, dùng như ngọn đèn nhỏ trong phòng - một hành động chính, một focus ring, chữ "mob" trong wordmark, chiếc đĩa coral trên màn đăng nhập. Mọi thứ còn lại là Vinyl Charcoal nhiều tầng với Soft White và Ash. Bề mặt phẳng, viền sáng 1px thay bóng đổ; chỉ nút thêm bài được phép nổi.
-
-Mật độ cao, chữ nhỏ, nhịp đều: hàng danh sách 50px cover, type 11–14.5px, khoảng cách 10/12px. Cảm giác component là điềm tĩnh và chạm được - vật thể thật, phản hồi nhẹ, không trang trí thừa. Anti-reference: không giống UI trình phát streaming, không giống dashboard SaaS.
+musimob là một cuốn sổ lưu riêng, không phải trình phát nhạc. Trang giấy là nền; bìa đĩa là
+màu; mực là chữ; và đúng một dấu sách coral đánh dấu bài đang nghe thử. Cảm giác là sở hữu
+riêng tư, yên tĩnh, được sắp bằng tay — không phải dashboard, không phải landing page,
+không phải player.
 
 **Key Characteristics:**
 
-- Nền than gần đen, đúng một accent coral
-- Ảnh bìa dẫn dắt màu sắc; chrome trung tính
-- Bề mặt phẳng + viền sáng 1px; chỉ FAB đổ bóng
-- Type UI nhỏ (11–14.5px), hierarchy bằng weight và sắc độ
-- Bo góc theo vai trò: 6px artwork, 8px control, 12px surface, pill cho tìm kiếm và hành động
-- Mobile-first một cột; drawer tối đa 560px
+- Light-native: giấy ấm trung tính; dark là bộ đôi đầy đủ, không phải bản đảo màu.
+- Bìa đĩa dẫn màu; chrome chỉ dùng giấy, mực, và một coral.
+- Phẳng: surface tách bằng tông giấy và viền 1px; chỉ FAB đổ bóng.
+- Lora cho tiêu đề trang/đăng nhập; Be Vietnam Pro cho toàn bộ UI.
+- Mật độ cao: type UI 12–16px, hàng 64px, control 44px.
+- Một điểm đến, không sidebar; mobile một cột.
 
 ## Colors
 
-Bảng màu là một căn phòng tối có đúng một ngọn đèn: than nhiều tầng, một coral ấm, không màu nào khác chen vào.
+### Primitive palette
 
-### Primary
+| Token       | Value     | Token       | Value     |
+| ----------- | --------- | ----------- | --------- |
+| `paper-50`  | `#FAF9F5` | `ink-900`   | `#1A1B17` |
+| `paper-100` | `#F4F3EE` | `ink-700`   | `#3A3C35` |
+| `paper-200` | `#ECEBE4` | `ink-600`   | `#5B5E55` |
+| `paper-300` | `#DFDED4` | `ink-400`   | `#8A8D83` |
+| `coral-050` | `#FCE8E2` | `moss-700`  | `#3F5D4E` |
+| `coral-500` | `#FF6A4D` | `red-700`   | `#A02C22` |
+| `coral-600` | `#F25B3D` | `night-950` | `#11130F` |
+| `coral-700` | `#B23A27` | `night-900` | `#161814` |
+| `coral-300` | `#FF8A75` | `night-800` | `#1E201B` |
+| `coral-200` | `#FFB3A4` | `night-700` | `#282B24` |
+| `bone-100`  | `#EDEEE8` | `bone-400`  | `#A6A99E` |
 
-- **Ember Coral** (#ff6a4d): nút hành động chính, focus ring, chữ "mob" trong wordmark, avatar (nền chữ cái khi không có ảnh), FAB, đĩa coral ở màn đăng nhập, dấu check trạng thái. Không dùng cho khối nền lớn.
-- **Ember Ink** (#1a0a06): chữ và icon đặt trên nền coral.
-- **Ember Warn** (#ff8a75): chữ cảnh báo và hành động xoá. Là sắc coral nhạt hơn, không phải accent thứ hai.
+### Semantic tokens
 
-### Neutral
+| Token                      | Light       | Dark        | Use                          |
+| -------------------------- | ----------- | ----------- | ---------------------------- |
+| `--background`             | `paper-100` | `night-950` | Nền trang                    |
+| `--foreground`             | `ink-900`   | `bone-100`  | Chữ chính                    |
+| `--surface`                | `paper-50`  | `night-900` | Panel, sheet, popover, card  |
+| `--surface-2`              | `paper-200` | `night-800` | Hover, skeleton, nền control |
+| `--fg-muted`               | `ink-600`   | `bone-400`  | Chữ phụ, placeholder         |
+| `--fg-subtle`              | `ink-400`   | `#7C7F74`   | Icon phụ                     |
+| `--rule`                   | `#D8D7CD`   | `#2C2F27`   | Divider, viền trang trí      |
+| `--control-border`         | `#7A7D73`   | `#7C7F74`   | Viền input/control (≥3:1)    |
+| `--primary`                | `coral-500` | `coral-300` | Hành động chính, dấu sách    |
+| `--primary-hover`          | `coral-600` | `#FFA08E`   | Hover primary                |
+| `--primary-foreground`     | `ink-900`   | `night-950` | Chữ/icon trên coral          |
+| `--bookmark-text`          | `coral-700` | `coral-200` | Chữ nhỏ coral                |
+| `--bookmark-soft`          | `coral-050` | `#2A1A16`   | Wash hàng đang nghe          |
+| `--success`                | `moss-700`  | `#9DB8A6`   | Đã lưu                       |
+| `--danger`                 | `red-700`   | `#FF9B8A`   | Xóa, lỗi                     |
+| `--destructive-foreground` | `paper-50`  | `night-950` | Chữ trên danger              |
+| `--ink-action`             | `ink-900`   | `bone-100`  | Nút phụ đậm                  |
+| `--ink-action-foreground`  | `paper-50`  | `night-950` | Chữ nút phụ đậm              |
+| `--ink-action-hover`       | `ink-700`   | `#FFFFFF`   | Hover nút phụ đậm            |
+| `--focus`                  | `ink-900`   | `bone-100`  | Focus ring                   |
 
-- **Vinyl Black** (#050506): canvas toàn app, theme-color, nền của input outline.
-- **Vinyl Card** (#131316): card, popover, mặt drawer, tấm đăng nhập.
-- **Vinyl Raised** (#1c1c20): nền ô tìm kiếm (60% opacity), track của segmented tabs, hover surface, fallback của cover.
-- **Soft White** (#f4f4f5): chữ chính. Không dùng trắng tinh khiết cho body.
-- **Ash** (#8f8f9a): ca sĩ, đếm bài, placeholder, icon phụ, chữ mô tả.
-- **Seam** (#2a2a30): viền 1px của input, nút outline, divider. Card dùng ring trắng 10% thay vì seam.
+Tailwind v4 maps semantic tokens through `@theme inline`; `.dark` swaps the set. Shadcn
+aliases: `--primary` = coral; `--secondary`, `--muted`, `--accent` = `surface-2`;
+`--secondary-foreground`, `--accent-foreground` = `foreground`; `--muted-foreground` =
+`fg-muted`; `--border` = `rule`; `--input` = `control-border`; `--ring` = `focus`;
+`--destructive` = `danger`; `--destructive-foreground` = above; `--card` / `--popover` =
+`surface`. The shadcn `--accent` is a hover surface, never coral.
 
-### Named Rules
+### Contrast
 
-**The One Ember Rule.** Coral chiếm ≤10% diện tích mỗi màn hình. Sự hiếm là điểm nhấn; thêm accent thứ hai là phá hệ.
+| Pair                       | Ratio   |
+| -------------------------- | ------- |
+| Ink trên paper             | 15.58:1 |
+| Graphite trên paper        | 5.95:1  |
+| `bookmark-text` trên paper | 5.36:1  |
+| Ink trên coral             | 6.12:1  |
+| Control border trên paper  | 3.0:1+  |
+| Bone trên night            | 15.84:1 |
+| Coral-light trên night     | 6.31:1  |
 
-**The Artwork Leads Rule.** Khi trên màn hình có ảnh bìa, màu của ảnh là màu chủ đạo; chrome không được cạnh tranh với nó.
+**The One Bookmark Rule.** Coral là dấu sách: tab 3px, nút chính, preview đang phát, meta
+“Đang nghe thử”. Không dùng coral cho khối nền lớn, heading, hay trang trí. Trên giấy, coral
+chỉ làm mark hoặc chữ lớn; chữ nhỏ dùng `bookmark-text`.
+
+**The Artwork Rule.** Khi có bìa đĩa, màu của bìa là màu chủ đạo. Chrome không cạnh tranh
+với bìa, không thêm hue thứ hai.
+
+**The Paper Rule.** Không gradient, không glass, không texture. Surface tách bằng tông giấy
+và viền 1px; độ sâu chỉ đến từ tấm bookplate và FAB.
 
 ## Typography
 
-**Display Font:** Be Vietnam Pro (với ui-sans-serif, system-ui, Segoe UI)
-**Body Font:** Be Vietnam Pro (cùng stack)
-**Label/Mono Font:** không có; một family duy nhất cho toàn bộ giao diện
+- **Display — Lora 500.** Tiêu đề trang 34/1.08 (−0.015em); sign-in 38/1.08 (−0.02em);
+  mobile 28/30.
+- **UI — Be Vietnam Pro 400/500/600.** Song title 14.5/1.35 (600); artist/meta 12.5/1.4;
+  body 14/1.6; label 12/1.4 (500); button 13/1 (600); input 16 mobile, 15 desktop.
+- **Section — Lora 500 24/1.2** cho empty/error; **panel — Lora 500 18/1.2** cho sheet header.
+- Sentence case cho heading, nút, nhãn. Không all-caps labels, không mono labels, không
+  middle-dot meta, không numbered markers.
+- `text-wrap: balance` cho heading; `pretty` cho đoạn; `tabular-nums` cho số đếm.
+- Line length dưới 80ch; serif chỉ dùng ở tiêu đề, không dùng cho body dài.
 
-**Character:** Một family duy nhất, dấu tiếng Việt dày và rõ. Cỡ lớn dùng tracking âm; ở UI nhỏ, hierarchy đến từ weight 600 và màu Ash/Soft White chứ không từ cỡ chữ.
-
-### Hierarchy
-
-- **Display** (700, 40–64px, line-height 1, tracking −0.04em): wordmark ở màn đăng nhập; không dùng cho nội dung.
-- **Headline** (600, 18–34px, line-height 1.15, tracking −0.02em): tiêu đề empty state, tiêu đề drawer 18px.
-- **Title** (600, 14.5px, line-height 1.35, tracking 0): tên bài trong danh sách.
-- **Body** (400, 13–13.5px, line-height 1.5–1.55): copy phụ, mô tả empty state, nội dung alert (12.5px).
-- **Label** (500, 11–12.5px, line-height 1.4): đếm bài, badge, trạng thái, meta.
-
-### Named Rules
-
-**The Small-Type Rule.** Type UI sống ở 11–14.5px, kể cả số lẻ .5px - đó là mật độ có chủ đích. Chỉ heading mới vượt 18px. Tăng weight hoặc đổi sang Soft White thay vì tăng cỡ chữ.
+**The Two-Voice Rule.** Lora chỉ xuất hiện ở tiêu đề trang/đăng nhập/section/panel. Mọi
+thứ khác là Be Vietnam Pro. Không trộn thêm family thứ ba.
 
 ## Layout
 
-- **Khung trang:** mobile-first, một cột, mọi thứ neo vào cạnh màn hình; gutter 24px → 32px (sm) → 48px (lg) → 64px (xl); header padding-top 20px → 28px (lg).
-- **Danh sách:** phẳng, hàng padding 12px ngang / 10px dọc; ô lọc cách danh sách 16px.
-- **Lưới cover:** 2 cột (gap 10px) → 3 (12px) → 4 (16px) → 5.
-- **Drawer:** rộng tối đa 560px, cao tối đa 85dvh, bo góc trên, chừa safe-area đáy 20px.
-- **FAB:** chỉ dùng dưới lg; cố định phải 24/32px, đáy 20px + safe-area. Từ lg thay bằng nút "Thêm bài" trong header, padding đáy trang còn 40px.
-- **Màn đăng nhập:** lề ngoài 20px, một tấm tối đa 560px, padding trong 24px → 36px → 44px (lg), cao tối thiểu 520px → 560px, vuông ở lg.
-- **Trục dọc:** nội dung co giãn; trạng thái rỗng/lỗi chiếm trọn phần còn lại.
+### Shell A — Trang sách (mặc định)
+
+```
+Desktop ≥768
+┌ logo                              [view] [avatar] ┐  64px
+│ Thư viện                        [tìm…] [+ Thêm bài] │
+│ 12 bài                                             │
+│ ▣  Tên bài                              ⋯          │
+│ ▣  Tên bài / Đang nghe thử              ⋯          │
+└────────────────────────────────────────────────────┘
+
+Mobile <768
+┌ logo                         [view] [avatar] ┐  60px
+│ Thư viện                                    │
+│ 12 bài                                      │
+│ [tìm…]                                      │
+│ ▣ Tên bài                              ⋯    │
+│                              [bookmark FAB] │
+└─────────────────────────────────────────────┘
+```
+
+- Content max 1120px; gutter `clamp(20px, 5vw, 64px)`; topbar 64/60.
+- Desktop: search 280×44; add primary 44; view toggle 36 visual/44 hit; avatar 32/44.
+- Mobile: search full width; add chỉ còn FAB 56×64; FAB cách đáy
+  `20px + env(safe-area-inset-bottom)`.
+- List là view mặc định. Grid là view thứ hai.
+- `main` landmark; h1 luôn hiện; skip link “Chuyển đến nội dung”.
+- Không sidebar; một điểm đến.
+
+### Lists and grid
+
+- List row 64px; cover 48px; gap 14px; 2px gap giữa hàng; không separator.
+- Grid: 2 cột <640; 3 cột 640–899; 4 cột 900–1199; 6 cột ≥1200. Gap 24×16 desktop,
+  20×12 mobile.
+- Sheet: mobile drawer <768; desktop dialog ≥768; rộng tối đa 560px; cao 85dvh.
+- Sign-in: composition 560px; bookplate 360px; sleeve 320px; mobile bookplate 350/100%,
+  sleeve 180px.
+- Breakpoints: 640, 768, 900, 1200. Không dùng fixed px container.
 
 ## Elevation & Depth
 
-Hệ phẳng mặc định. Card không đổ bóng: độ nổi đến từ ba tầng màu than (Vinyl Black → Vinyl Card → Vinyl Raised) và một viền sáng 1px (ring trắng 10% hoặc seam). Bóng chỉ xuất hiện ở vật thể nổi và lớp phủ tạm thời; màn đăng nhập thêm một quầng coral radial 12% ở mép trên để tạo không khí đèn phòng.
+Hệ phẳng. Ba tầng giấy: `background` → `surface` → `surface-2`; tách bằng viền 1px `rule`
+hoặc `control-border`.
 
-### Shadow Vocabulary
+- **Bookplate:** tấm giấy `surface` có một tấm `surface-2` lệch 6px phía sau (offset sheet,
+  không blur).
+- **FAB:** vật thể nổi duy nhất; `drop-shadow(0 8px 18px rgb(26 27 23 / 18%))` ở trạng thái
+  nghỉ.
+- **Không shadow** cho row, card, sheet, header, menu, toast.
 
-- **Floating action** (`0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4)`): chỉ dành cho FAB.
-- **Segmented active** (`0 1px 2px 0 rgb(0 0 0 / 0.05)`): tab đang chọn trong segmented control.
-
-### Named Rules
-
-**The One Floating Object Rule.** Chỉ nút thêm bài được đổ bóng ở trạng thái nghỉ. Mọi surface khác phẳng; nếu cần tách khỏi nền, dùng seam hoặc ring, không dùng shadow.
+**The One Floating Object Rule.** Chỉ FAB được đổ bóng. Bookplate dùng tấm giấy lệch, không
+dùng shadow mờ.
 
 ## Shapes
 
-Bo góc theo vai trò, không theo một thang duy nhất: artwork 6px, control và button 8px, surface (card, tile, drawer) 12px, pill cho ô tìm kiếm và nút lưu, hình tròn cho avatar và FAB. Viền luôn 1px. Drawer chỉ bo hai góc trên. Ảnh bìa là hình vuông bo nhẹ, không đeo khung; tile lưới cắt vuông tuyệt đối và phủ scrim đen ở đáy.
+- Cover: 2px. Control/button/input/menu: 8px. Sheet: 12px. Badge: 2px.
+- Avatar và preview: hình tròn. Dấu sách: ribbon/notch, không phải pill.
+- Không pill cho search/button; không bo một radius cho mọi thứ.
 
-### Named Rules
-
-**Round by Role.** Pill chỉ dành cho ô tìm kiếm và hành động lưu. Đừng bo tròn mọi thứ; surface giữ 12px, artwork giữ 6px.
+**The Round by Role Rule.** Bìa giữ 2px; control 8px; sheet 12px; chip 2px. Chỉ avatar và
+preview được tròn.
 
 ## Components
 
 ### Buttons
 
-- **Shape:** bo 8px; hành động chính cao 44px, nút mặc định 32px, nút đăng nhập 48px.
-- **Primary:** nền Ember Coral, chữ Ember Ink, semibold 13–14px, padding ngang 16px; hover giảm còn 80% opacity; active dịch xuống 1px; focus viền coral + ring 3px coral/50.
-- **Secondary / Ghost:** outline dùng nền canvas + viền seam, hover Vinyl Raised; ghost không viền, icon Ash, hover Vinyl Raised. Nút icon 36px.
-- **Loading:** giữ nguyên kích thước, thay nhãn bằng spinner 16px + nhãn trạng thái tải (COPY.md); không đổi layout.
-- **Con trỏ:** bàn tay cho `button`, `a[href]`, `[role='button']` không disabled, đặt ở một quy tắc `@layer base` duy nhất; không thêm `cursor-pointer` từng component. Giữ mũi tên cho item menu (dropdown/select/command), overlay của dialog/drawer, tay kéo drawer và label form. Nút disabled giữ opacity 50%, không dùng `not-allowed`.
+- **Primary:** coral/ink; cao 44; padding 0 14; radius 8; type button. Hover `primary-hover`;
+  focus ring 2px `focus` offset 2; active giữ nguyên layout; disabled opacity 50%.
+- **Ink:** nền `ink-action`, chữ `ink-action-foreground`; dùng cho Google sign-in và hành
+  động phụ đậm. Hover `ink-action-hover`.
+- **Ghost:** nền trong suốt, viền 1px `control-border`, chữ `foreground`; hover `surface-2`.
+- **Icon:** 36 visual / 44 hit; radius 8; màu `fg-muted`; hover `surface-2` + `foreground`;
+  luôn có `aria-label`. Icon-only không có nhãn chữ.
+- **Loading:** giữ kích thước; spinner 16px + nhãn trạng thái; `aria-busy`; disabled.
+- Không gradient, không shadow, không pill.
 
-### Chips
+### Search and view toggle
 
-- **Style:** badge trạng thái đã lưu nền Vinyl Raised, chữ Ash, cao 28px, bo 6px, type 11.5px medium, icon check 12px. Không dùng badge cho trang trí.
+- Search: cao 44; radius 8; nền `surface`; viền 1px `control-border`; icon search 16;
+  input 15/16; placeholder `fg-muted`; label sr-only; nút clear 44 hit, aria “Xóa bộ lọc”,
+  refocus input; focus ring 2px `focus`.
+- View toggle: một nút icon 36 visual / 44 hit; aria “Chuyển sang dạng lưới” hoặc
+  “Chuyển sang dạng danh sách”; trạng thái không chỉ bằng màu (icon + aria).
 
-### Cards / Containers
+### Chips and badges
 
-- **Corner Style:** 12px.
-- **Background:** Vinyl Card.
-- **Shadow Strategy:** không bóng; ring 1px trắng 10% (xem Elevation & Depth).
-- **Border:** ring thay border; divider bên trong dùng seam.
-- **Internal Padding:** 16px (trạng thái rỗng/lỗi dùng 24px ngang, 64px dọc).
+- **Đã lưu:** cao 24; radius 2; nền `surface-2`; chữ `success` 12/500; padding 0 8; không
+  icon trang trí. Badge chỉ xuất hiện ở trạng thái đã lưu, không dùng để trang trí.
 
-### Inputs / Fields
+### Navigation and account
 
-- **Style:** cao 44px; ô lọc bo 8px, ô tìm kiếm trong drawer bo pill; nền Vinyl Raised 60%; viền 1px seam; chữ 16px trên mobile, 14px từ md.
-- **Focus:** viền Ember Coral + ring 3px coral/50; không đổi nền.
-- **Error / Disabled:** viền Ember Warn, chữ lỗi 12px Ember Warn; disabled giảm opacity 50%.
-
-### Navigation
-
-- **Header:** wordmark 17–20px bold, phần "mob" màu coral; dưới là đếm bài 12px Ash; bên phải là toggle xem (outline icon 36px) và avatar 36px hình tròn, vùng chạm 44px. Từ lg có thêm nút "Thêm bài" cao 36px, nền coral, icon plus 16px, chữ 12.5px semibold, đặt trước toggle xem. Avatar dùng ảnh đại diện Google khi có, cắt `object-cover`; khi không có ảnh (hoặc ảnh lỗi) hiện chữ cái đầu của tên trên nền Ember Coral, chữ Ember Ink bold 12px.
-- **Menu:** dropdown nền popover, item 13px, mục xoá dùng Ember Warn; trigger là ghost icon 36px.
+- Topbar: logo ngang (asset brand) cao 26; h1 34/28; count 12 `fg-muted`; search/add;
+  view toggle; avatar 32 visual/44 hit.
+- Avatar: ảnh Google nếu có; fallback chữ cái đầu trên `surface-2`, chữ `foreground` 12/600;
+  viền 1px `control-border`; aria “Mở tài khoản của {name}”.
+- Account menu: surface, radius 8, border `rule`; name label; “Giao diện” radio
+  (Theo hệ thống / Sáng / Tối); separator; “Đăng xuất”. Trigger/focus/keyboard theo Radix.
 
 ### Song row (signature)
 
-Hàng phẳng cao ~70px: cover 50px bo 6px, cách chữ 12px; tên bài 14.5px semibold truncate; ca sĩ 12.5px Ash truncate; menu ellipsis 36px bên phải. Không separator giữa các hàng - khoảng trắng và nhịp 10px giữ danh sách.
+- Cao 64; cover 48/2; title 14.5/600 truncate; artist 12.5/400 `fg-muted` truncate;
+  actions ⋯ 32 visual/44 hit; preview 26 visual/44 hit.
+- Hover: `surface-2`. Active: tab coral 3px trái, wash `bookmark-soft`, meta
+  “Đang nghe thử” 12/500 `bookmark-text`, preview pause coral; chỉ một hàng active.
+- Flash add/undo: ring 2px `primary` 2s + scrollIntoView; khác active.
+- Không separator; khoảng trắng và nhịp giữ danh sách.
 
-### Song tile (signature)
+### Grid card (view thứ hai)
 
-Ô vuông bo 12px, cover phủ kín, scrim đen 90% → 40% → trong suốt từ đáy; tên bài trắng 12.5px semibold, ca sĩ trắng 60% 11px; menu ellipsis nổi góc trên phải trên nền đen 65%.
+- Cover fluid, radius 2; title 13.5/500 line-clamp 1; artist 12/400 `fg-muted` truncate;
+  preview 28 visual/44 hit.
+- Active: tab coral nhỏ trên cover, title `bookmark-text`, pause coral; không scrim,
+  không gradient, không card nền.
 
 ### Preview control
 
-Nút tròn 28px đặt giữa artwork, vùng chạm 36px: list dùng trên cover 50px, grid dùng giữa tile. Nền đen 65%, icon trắng 14px. Đang phát: nền Ember Coral, icon Ember Ink. Đang tải: spinner thay icon. Không có bản nghe thử: giữ nút với icon loa gạch, chữ mờ 70%, con trỏ `not-allowed`, kèm tooltip và toast nêu lý do - không ẩn nút. Không progress, không seek, không volume.
+- Nút tròn 26 visual/44 hit trên cover; nền `surface`, viền `rule`, icon play/pause
+  `foreground`; hover/active nền `primary`, icon `primary-foreground`.
+- Đang phát: pause; đang tải: spinner; không có preview: giữ nút với icon loa gạch,
+  `aria-disabled`, tooltip + toast lý do — không ẩn nút.
+- Không progress, không seek, không volume, không timer.
 
-### Floating add (signature, dưới lg)
+### Active listening state
 
-Nút tròn 56px Ember Coral, icon plus 24px Ember Ink, bóng "Floating action"; cố định đáy phải với safe-area. Chỉ dùng dưới lg; từ lg hành động này nằm ở header. Đây là vật thể nổi duy nhất của app.
+- Một bài tại một thời điểm. Row: tab + wash + meta + pause. Grid: tab + title + pause.
+- Trạng thái không chỉ bằng màu: có text “Đang nghe thử” và icon pause.
+- Dừng khi đóng sheet, đổi filter, xóa bài đang phát, đăng xuất/unmount.
 
-**The One Add CTA Rule.** Mỗi trạng thái chỉ có một lối thêm bài: thư viện rỗng dùng nút trong card empty state và ẩn cả nút header lẫn FAB; có bài thì dùng nút header từ lg và FAB dưới lg.
+### Floating add (mobile only)
+
+- Nút 56×64, hình dấu sách (clip-path notch), nền `primary`, icon plus 22
+  `primary-foreground`, drop-shadow.
+- Chỉ hiện <768 và khi thư viện có bài. Empty state dùng CTA riêng.
+- aria “Thêm bài”; focus ring trên bounding box; safe-area.
+
+**The One Add CTA Rule.** Mỗi trạng thái chỉ có một lối thêm bài: thư viện trống dùng CTA
+trong empty state và ẩn cả add ở title row lẫn FAB; có bài thì dùng add ở title row từ
+768px và FAB dưới 768px.
 
 ### Add/edit panel
 
-Mobile: drawer tối đa 560px, bo 12px hai góc trên, nền popover, viền seam trên; tay nắm 100×4px Vinyl Raised; cao theo nội dung, tối đa 85dvh. Header: tiêu đề trái, hành động phụ nhập tay và nút đóng phải.
-Web ≥768px: dialog giữa màn hình rộng 560px, cùng nội dung, cao tối đa 85dvh. Thêm bài dùng ô tìm là nội dung chính; nhập tay thay nội dung trong cùng khung với nút quay lại. Không dùng segmented tabs.
+- Mobile <768: drawer; desktop: dialog; max 560, 85dvh; nền `surface`; radius 12; viền
+  `rule`; header 18 Lora; close/back 44; focus trap/Escape/overscroll contain.
+- Search mode: input 44/16; result rows cover 48; save button 44; badge “Đã lưu”.
+- Manual/edit: fields 44; label; error cạnh field; cover hint; submit 44; pending
+  disabled + “Đang lưu…”.
+- Không segmented tabs; chuyển mode bằng header action/back.
 
-### Sign-in sleeve (signature)
+### Delete confirmation
 
-Một tấm Vinyl Card bo 8px (ngoại lệ có chủ đích của surface 12px) đặt trên canvas, có quầng coral radial 12% phía trên. Góc phải là hình đĩa than: các vòng tròn 1px seam mờ dần, đĩa coral đặc với lỗ tâm màu nền. Wordmark 40/52/64px. Đúng một hành động Google cao 48px - sự quen thuộc là nhiệm vụ, không phải chỗ để sáng tạo.
+- AlertDialog surface, radius 12; title “Xóa bài này?”; body nêu hậu quả + undo;
+  “Huỷ” ghost; “Xóa” danger; loading “Đang xóa…”; không đóng khi deleting; lỗi + thử lại.
+- Destructive có undo window 10s; không xóa ngầm.
+
+### Sign-in bookplate (signature)
+
+- Composition bookplate + brand sleeve. Sleeve nền `night-900`, symbol coral từ asset
+  brand, tab coral; không dùng bìa bên thứ ba.
+- Bookplate 360 desktop/100% mobile; nền `surface`; viền 1px `rule`; radius 2; tấm
+  `surface-2` lệch 6px; logo ngang light/dark; h1 38/30 Lora; lede 15/14; nút ink 44
+  “Đăng nhập bằng Google”; fine print 12 `fg-muted`.
+- Không radial gradient, không vinyl, không hero marketing. Loading/error theo COPY.md.
+
+### Toasts
+
+- Sonner bottom-center; nền ink/paper đảo theo theme; radius 8; chữ 13; action coral;
+  mobile offset trên FAB; aria-live.
+- Save/delete/undo/restore-error/preview-error; action “Hoàn tác”/“Thử lại”; không che
+  control.
+
+### Empty, loading, error
+
+- **Empty:** title 24 Lora “Chưa có bài nào”; body 14 `fg-muted`; một CTA primary
+  “Thêm bài đầu tiên”; ẩn add ở header/FAB.
+- **Filter-empty:** title 20 Lora “Không có bài nào khớp.”; body; “Xóa bộ lọc” + “Tìm bài này”.
+- **Loading:** skeleton list/grid dùng `surface-2`; `role="status"` + sr-only
+  “Đang tải danh sách…”; không shimmer.
+- **Error:** alert nền `surface-2`, viền trái 3px `danger`, text `danger`; action “Thử lại”;
+  không mã kỹ thuật.
+
+### Theme
+
+- Light-native; dark đầy đủ. Mặc định theo `prefers-color-scheme`; chọn trong account menu:
+  “Theo hệ thống / Sáng / Tối”; lưu `musimob:theme`.
+- `.dark` trên `<html>` + `color-scheme` + meta theme-color (`#F4F3EE` / `#11130F`);
+  no-flash; Toaster theo theme.
+- Không chỉ đổi màu accent; phải đổi toàn bộ semantic set.
+
+### Accessibility
+
+- Contrast: text ≥4.5:1; UI/border ≥3:1. Coral trên giấy không dùng làm text nhỏ.
+- Hit target ≥44×44; icon 36/32 visual được phép nếu hit 44.
+- `:focus-visible` 2px `focus`, offset 2; focus không bị sticky/overlay che.
+- `<label>` hoặc `aria-label` cho mọi control; icon-only có nhãn; decorative icon
+  `aria-hidden`; cover trong row/card `alt=""`; logo `alt="musimob"`.
+- Heading hierarchy: h1 “Thư viện” hoặc “Thư viện riêng của bạn”; section/panel dùng h2/h3.
+- `role="status"` cho loading; `role="alert"` cho lỗi; `aria-live` cho toast.
+- `prefers-reduced-motion` tắt transition/scroll mượt; `touch-action: manipulation`;
+  safe-area cho FAB; không khóa zoom.
+
+## Motion
+
+- Transition trạng thái 120–180ms, chỉ màu/viền/opacity.
+- Flash 2000ms; sheet/toast enter-exit; không scroll reveal, không parallax, không
+  entrance trang trí.
+- `prefers-reduced-motion: reduce` tắt tất cả; flash vẫn hiện trạng thái cuối.
+
+**The Answer-Only Rule.** Motion chỉ trả lời thao tác (mở, lưu, xóa, đổi theme). Không
+chuyển động để gây chú ý.
 
 ## Do's and Don'ts
 
-### Do:
+### Do
 
-- **Do** giữ coral ≤10% mỗi màn hình và chỉ dùng cho hành động, focus, dấu trạng thái.
-- **Do** để ảnh bìa mang màu; nếu cover thiếu, dùng Vinyl Raised + icon nhạc Ash.
-- **Do** giữ type UI trong khoảng 11–14.5px và tạo thứ bậc bằng weight/sắc độ.
-- **Do** dùng viền 1px (seam hoặc ring trắng 10%) để tách surface thay vì đổ bóng.
-- **Do** giữ vùng chạm tối thiểu 36px, hành động chính 44px, FAB 56px.
-- **Do** viết copy tiếng Việt ngắn, lỗi nói rõ việc cần làm tiếp theo.
+- Giữ coral như dấu sách: tab, primary, preview active, meta “Đang nghe thử”.
+- Để bìa đĩa mang màu; chrome giấy/mực.
+- Dùng Lora cho tiêu đề, Be Vietnam Pro cho UI.
+- Giữ mật độ: row 64, control 44, type 12–16.
+- Tách surface bằng tông giấy + viền 1px.
+- Viết tiếng Việt ngắn, lỗi nêu bước tiếp theo.
 
-### Don't:
+### Don't
 
-- **Don't** thêm player, progress bar, hàng chờ hay điều khiển phát toàn bài; chỉ có nút nghe thử 30 giây trên ảnh bìa.
-- **Don't** thêm thẻ số liệu, chart, hay chrome dashboard nhiều khu vực.
-- **Don't** thêm accent hue thứ hai; gradient chỉ được dùng cho scrim của tile và quầng đăng nhập.
-- **Don't** bo tròn mọi thứ thành pill; pill chỉ cho tìm kiếm và hành động lưu.
-- **Don't** đổ bóng cho card hoặc hàng danh sách.
-- **Don't** dùng trắng tinh khiết cho chữ; body là Soft White, phụ là Ash.
+- Không player, progress bar, queue, seek, volume, hay phát toàn bài.
+- Không dashboard, chart, landing page, hero marketing, card kit.
+- Không gradient, glass, texture, glow, hay accent hue thứ hai.
+- Không pill cho search/button; không bo một radius cho mọi thứ.
+- Không shadow cho row/card/sheet/menu/toast.
+- Không dùng trắng tinh khiết cho body text; dùng paper/bone.
+- Không all-caps labels, mono labels, middle-dot meta, numbered marker.
+- Không dùng bìa bên thứ ba ở sign-in.

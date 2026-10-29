@@ -1,6 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
 
 type ErrorBoundaryProps = {
   children: ReactNode
@@ -32,12 +31,12 @@ export class ErrorBoundary extends Component<
     if (!this.state.hasError) return this.props.children
 
     return (
-      <main className="flex min-h-dvh w-full items-center justify-center bg-background px-6 sm:px-8 lg:px-12 xl:px-16">
-        <Card className="flex w-full max-w-[560px] flex-col items-center px-6 py-16 text-center">
-          <h1 className="text-[22px] font-semibold tracking-[-0.02em] lg:text-[34px]">
+      <main className="flex min-h-dvh w-full items-center justify-center bg-background px-6 py-16 text-center">
+        <div className="w-full max-w-[420px]">
+          <h1 className="font-serif text-[28px] leading-[1.2] font-medium tracking-[-0.01em] text-foreground">
             Ứng dụng gặp sự cố
           </h1>
-          <p className="mx-auto mt-2.5 max-w-[280px] text-[13.5px] leading-[1.55] text-muted-foreground lg:mt-3 lg:max-w-[380px] lg:text-[15px]">
+          <p className="mx-auto mt-3 max-w-[320px] text-sm leading-[1.6] text-muted-foreground">
             Có lỗi khi hiển thị trang này. Tải lại để tiếp tục.
           </p>
           <Button
@@ -47,7 +46,7 @@ export class ErrorBoundary extends Component<
           >
             Tải lại trang
           </Button>
-        </Card>
+        </div>
       </main>
     )
   }

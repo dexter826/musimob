@@ -20,15 +20,15 @@ export function SearchResultRow({
   onSave,
 }: SearchResultRowProps) {
   return (
-    <li className="flex items-center gap-3 py-2.5">
-      <div className="relative size-[50px] shrink-0">
-        <SongCover src={result.coverUrl} className="size-[50px]" />
+    <li className="flex items-center gap-3 py-2">
+      <div className="relative size-12 shrink-0">
+        <SongCover src={result.coverUrl} className="size-12" />
         <PreviewButton
           previewUrl={result.previewUrl}
           playKey={catalogPreviewKey(result.trackId)}
           title={result.title}
           artist={result.artist}
-          className="absolute inset-0 m-auto"
+          className="absolute right-1 bottom-1"
         />
       </div>
       <div className="min-w-0 flex-1">
@@ -51,14 +51,14 @@ export function SearchResultRow({
           aria-label={
             isSaving
               ? `Đang lưu ${result.title}`
-              : `Lưu ${result.title} - ${result.artist}`
+              : `Lưu ${result.title}, ${result.artist}`
           }
-          className="h-8 min-w-[72px] gap-1.5 rounded-full px-3 text-[12px] font-semibold"
+          className="h-11 min-w-[72px] gap-1.5 px-3 text-[13px] font-semibold"
         >
           {isSaving ? (
             <Spinner aria-hidden="true" className="size-3.5" />
           ) : null}
-          {isSaving ? 'Đang lưu' : 'Lưu'}
+          {isSaving ? 'Đang lưu…' : 'Lưu'}
         </Button>
       )}
     </li>

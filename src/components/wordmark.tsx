@@ -1,4 +1,6 @@
 import { cn } from 'cn'
+import logoLight from '../../assets/brand/logo-horizontal-light.svg'
+import logoDark from '../../assets/brand/logo-horizontal.svg'
 
 type WordmarkProps = {
   className?: string
@@ -6,14 +8,24 @@ type WordmarkProps = {
 
 export function Wordmark({ className }: WordmarkProps) {
   return (
-    <p
+    <span
       translate="no"
-      className={cn(
-        'text-[17px] font-bold tracking-[-0.02em] sm:text-[18px] lg:text-[20px]',
-        className,
-      )}
+      className={cn('inline-flex h-[26px] items-center', className)}
     >
-      musi<span className="text-primary">mob</span>
-    </p>
+      <img
+        src={logoLight}
+        alt="musimob"
+        width={88}
+        height={26}
+        className="h-full w-auto dark:hidden"
+      />
+      <img
+        src={logoDark}
+        alt="musimob"
+        width={88}
+        height={26}
+        className="hidden h-full w-auto dark:block"
+      />
+    </span>
   )
 }

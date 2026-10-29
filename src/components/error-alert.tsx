@@ -1,20 +1,34 @@
 import { cn } from 'cn'
-import { Alert, AlertDescription } from '@/components/ui/alert'
 
 type ErrorAlertProps = {
   message: string
+  onRetry?: () => void
   className?: string
 }
 
-export function ErrorAlert({ message, className }: ErrorAlertProps) {
+export function ErrorAlert({ message, onRetry, className }: ErrorAlertProps) {
   return (
-    <Alert
-      variant="destructive"
-      className={cn('border-destructive/30 bg-destructive/10', className)}
+    <div
+      className={cn(
+        'flex items-center justify-between gap-3 border-l-[3px] border-danger bg-surface-2 px-3 py-1.5',
+        className,
+      )}
     >
-      <AlertDescription className="text-[12.5px] leading-[1.5]">
+      <p
+        role="alert"
+        className="min-w-0 py-1 text-sm leading-[1.6] text-danger"
+      >
         {message}
-      </AlertDescription>
-    </Alert>
+      </p>
+      {onRetry ? (
+        <button
+          type="button"
+          onClick={onRetry}
+          className="inline-flex h-11 shrink-0 items-center rounded-lg px-3 text-[13px] font-semibold text-danger underline underline-offset-2"
+        >
+          Thử lại
+        </button>
+      ) : null}
+    </div>
   )
 }

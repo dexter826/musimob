@@ -3,6 +3,7 @@ import { PreviewButton } from '@/components/preview-button'
 import { SongCover } from '@/components/song-cover'
 import { useScrollIntoViewWhenActive } from '@/hooks/use-scroll-into-view'
 import type { Song } from '@/lib/api/types'
+import { useAudioPreview } from '@/lib/audio-preview-context'
 import { songPreviewKey } from '@/lib/preview-key'
 import { SongActionsMenu } from './song-actions-menu'
 
@@ -29,56 +30,65 @@ function SongGridTile({
   onDelete,
 }: SongGridTileProps) {
   const tileRef = useScrollIntoViewWhenActive<HTMLLIElement>(isFlashing)
+  const { activeKey } = useAudioPreview()
+  const isActive = activeKey === songPreviewKey(song.id)
 
   return (
     <li
       ref={tileRef}
       className={cn(
-        'relative aspect-square overflow-hidden rounded-xl bg-muted',
+        'group relative',
         isFlashing && 'outline-2 outline-offset-2 outline-primary',
       )}
     >
-      <SongCover
-        src={song.coverUrl}
-        loading={index < 5 ? 'eager' : 'lazy'}
-        fetchPriority={index === 0 ? 'high' : 'auto'}
-        className="absolute inset-0 size-full rounded-xl"
-        iconClassName="size-8"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent"
-      />
-      <PreviewButton
-        previewUrl={song.previewUrl}
-        playKey={songPreviewKey(song.id)}
-        title={song.title}
-        artist={song.artist}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-      />
-      <div className="absolute inset-x-0 bottom-0 p-2.5">
-        <p className="truncate text-[12.5px] leading-[1.3] font-semibold text-white">
-          {song.title}
-        </p>
-        <p className="truncate text-[11px] leading-[1.4] text-white/60">
-          {song.artist}
-        </p>
-      </div>
-      <div className="absolute top-1.5 right-1.5">
-        <SongActionsMenu
-          songTitle={song.title}
-          onEdit={onEdit}
-          onDelete={onDelete}
-          className="bg-black/65 text-white hover:bg-black/80 hover:text-white"
+      <div className="relative aspect-square">
+        <SongCover
+          src={song.coverUrl}
+          loading={index < 6 ? 'eager' : 'lazy'}
+          fetchPriority={index === 0 ? 'high' : 'auto'}
+          className="absolute inset-0 size-full rounded-sm"
+          iconClassName="size-8"
         />
+        {isActive ? (
+          <span
+            aria-hidden="true"
+            className="absolute top-0 left-2.5 h-[26px] w-3.5 bg-primary [clip-path:polygon(0_0,100%_0,100%_100%,50%_78%,0_100%)]"
+          />
+        ) : null}
+        <PreviewButton
+          previewUrl={song.previewUrl}
+          playKey={songPreviewKey(song.id)}
+          title={song.title}
+          artist={song.artist}
+          className="absolute right-1.5 bottom-1.5 size-7"
+        />
+        <div className="absolute top-1 right-1">
+          <SongActionsMenu
+            songTitle={song.title}
+            onEdit={onEdit}
+            onDelete={onDelete}
+            className="bg-surface/90 text-foreground hover:bg-surface"
+          />
+        </div>
       </div>
+      <p
+        className={cn(
+          'mt-2 line-clamp-1 text-[13.5px] leading-[1.35] font-medium',
+          isActive ? 'text-bookmark-text' : 'text-foreground',
+        )}
+      >
+        {song.title}
+      </p>
+      <p className="mt-0.5 truncate text-xs leading-[1.4] text-muted-foreground">
+        {song.artist}
+      </p>
     </li>
   )
 }
 
 export function SongGrid({ songs, flashId, onEdit, onDelete }: SongGridProps) {
   return (
-    <ul className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4 lg:gap-4 xl:grid-cols-5">
+    <ul className="grid grid-cols-2 gap-x-3 gap-y-5 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 wide:grid-cols-4 widest:grid-cols-6">
       {songs.map((song, index) => (
         <SongGridTile
           key={song.id}

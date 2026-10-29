@@ -93,7 +93,7 @@ export function SongForm({
     const trimmedCoverUrl = coverUrl.trim()
     const nextErrors: FormErrors = {}
     if (!title.trim()) nextErrors.title = 'Nhập tên bài.'
-    if (!artist.trim()) nextErrors.artist = 'Nhập tên ca sĩ.'
+    if (!artist.trim()) nextErrors.artist = 'Nhập tên nghệ sĩ.'
     if (trimmedCoverUrl && !isValidCoverUrl(trimmedCoverUrl)) {
       nextErrors.coverUrl = 'URL ảnh bìa không hợp lệ.'
     }
@@ -150,7 +150,7 @@ export function SongForm({
     <form onSubmit={handleSubmit} noValidate>
       <FieldGroup className="gap-4">
         <Field data-invalid={Boolean(errors.title)}>
-          <FieldLabel htmlFor={titleId} className="text-[13px]">
+          <FieldLabel htmlFor={titleId} className="text-xs font-medium">
             Tên bài
           </FieldLabel>
           <Input
@@ -172,18 +172,18 @@ export function SongForm({
             }}
             aria-invalid={Boolean(errors.title)}
             aria-describedby={errors.title ? titleErrorId : undefined}
-            className="h-11 text-base md:text-sm"
+            className="h-11 bg-surface text-base md:text-[15px]"
           />
           {errors.title ? (
-            <FieldError id={titleErrorId} className="text-[12px]">
+            <FieldError id={titleErrorId} className="text-xs">
               {errors.title}
             </FieldError>
           ) : null}
         </Field>
 
         <Field data-invalid={Boolean(errors.artist)}>
-          <FieldLabel htmlFor={artistId} className="text-[13px]">
-            Ca sĩ
+          <FieldLabel htmlFor={artistId} className="text-xs font-medium">
+            Nghệ sĩ
           </FieldLabel>
           <Input
             id={artistId}
@@ -205,17 +205,17 @@ export function SongForm({
             }}
             aria-invalid={Boolean(errors.artist)}
             aria-describedby={errors.artist ? artistErrorId : undefined}
-            className="h-11 text-base md:text-sm"
+            className="h-11 bg-surface text-base md:text-[15px]"
           />
           {errors.artist ? (
-            <FieldError id={artistErrorId} className="text-[12px]">
+            <FieldError id={artistErrorId} className="text-xs">
               {errors.artist}
             </FieldError>
           ) : null}
         </Field>
 
         <Field data-invalid={Boolean(errors.coverUrl)}>
-          <FieldLabel htmlFor={coverId} className="text-[13px]">
+          <FieldLabel htmlFor={coverId} className="text-xs font-medium">
             URL ảnh bìa
           </FieldLabel>
           <Input
@@ -237,10 +237,10 @@ export function SongForm({
                 ? `${coverErrorId} ${coverDescriptionId}`
                 : coverDescriptionId
             }
-            className="h-11 text-base md:text-sm"
+            className="h-11 bg-surface text-base md:text-[15px]"
           />
           {errors.coverUrl ? (
-            <FieldError id={coverErrorId} className="text-[12px]">
+            <FieldError id={coverErrorId} className="text-xs">
               {errors.coverUrl}
             </FieldError>
           ) : null}
@@ -255,7 +255,7 @@ export function SongForm({
             ) : null}
             <p
               id={coverDescriptionId}
-              className="text-[12px] leading-[1.4] text-muted-foreground"
+              className="text-xs leading-[1.4] text-muted-foreground"
             >
               {coverFailed && canPreview
                 ? 'Không tải được ảnh bìa.'
@@ -266,10 +266,7 @@ export function SongForm({
       </FieldGroup>
 
       {formError ? (
-        <p
-          role="alert"
-          className="mt-3 text-[12px] leading-[1.4] text-destructive"
-        >
+        <p role="alert" className="mt-3 text-xs leading-[1.4] text-danger">
           {formError}
         </p>
       ) : null}
@@ -282,7 +279,7 @@ export function SongForm({
         type="submit"
         disabled={isSaving}
         aria-busy={isSaving}
-        className="mt-5 h-11 w-full gap-2 text-[13.5px] font-semibold"
+        className="mt-5 h-11 w-full gap-2 text-[13px] font-semibold"
       >
         {isSaving ? (
           <>

@@ -3,14 +3,15 @@ import { Plus } from 'lucide-react'
 import { toast } from 'sonner'
 import { cn } from 'cn'
 import { ErrorAlert } from '@/components/error-alert'
-import { Button } from '@/components/ui/button'
+import { PageShell } from '@/components/page-shell'
 import { AddSheet } from '@/features/add-song/components/add-sheet'
 import { SignInScreen } from '@/features/auth/components/sign-in-screen'
 import { SongSearch } from '@/features/search-song/components/song-search'
-import { FilterInput } from '@/features/songs/components/filter-input'
+import { LibraryToolbar } from '@/features/songs/components/library-toolbar'
 import { SongList } from '@/features/songs/components/song-list'
 import { useSongs } from '@/features/songs/hooks/use-songs'
 import { useViewMode } from '@/features/songs/hooks/use-view-mode'
+import { getCountLabel } from '@/features/songs/lib/count-label'
 import type { NewSong, Song, User } from '@/lib/api/types'
 import { useAudioPreview } from '@/lib/audio-preview-context'
 import { songPreviewKey } from '@/lib/preview-key'
@@ -49,6 +50,11 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
   function openAdd(term = '') {
     setAddSeed(term)
     setIsAddOpen(true)
+  }
+
+  function handleFilterChange(value: string) {
+    if (value !== filterQuery) stop()
+    setFilterQuery(value)
   }
 
   async function handleManualAdd(song: NewSong) {
@@ -118,52 +124,70 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
   }, [songs, filterQuery])
 
   const isLibraryEmpty = status.state === 'ready' && songs.length === 0
+  const isFiltering = filterQuery.trim().length > 0
+  const countLabel = getCountLabel({
+    status,
+    total: songs.length,
+    filtered: filteredSongs.length,
+    isFiltering,
+  })
 
   return (
-    <div className="flex min-h-dvh w-full flex-col bg-background">
-      <AppHeader
-        status={status}
-        songCount={filteredSongs.length}
-        displayName={user.displayName}
-        photoURL={user.photoURL}
-        viewMode={viewMode}
-        showAdd={!isLibraryEmpty}
-        onAdd={() => openAdd()}
-        onToggleView={toggleViewMode}
-        onSignOut={onSignOut}
-      />
-      <main
-        className={cn(
-          'flex flex-1 flex-col px-6 sm:px-8 lg:px-12 xl:px-16',
-          isLibraryEmpty ? 'pb-6' : 'pb-24 lg:pb-10',
-        )}
-      >
-        <FilterInput value={filterQuery} onChange={setFilterQuery} />
-        {authError ? <ErrorAlert message={authError} className="mb-3" /> : null}
-        <SongList
-          songs={filteredSongs}
-          totalSongCount={songs.length}
+    <>
+      <PageShell>
+        <a href="#library-main" className="skip-link">
+          Chuyển đến nội dung
+        </a>
+        <AppHeader
+          displayName={user.displayName}
+          photoURL={user.photoURL}
           viewMode={viewMode}
-          status={status}
-          flashId={flashId}
-          onAdd={() => openAdd()}
-          onSearchCatalog={() => openAdd(filterQuery.trim())}
-          onRetry={retry}
-          onClearFilter={() => setFilterQuery('')}
-          onUpdate={updateSong}
-          onRemove={handleRemove}
+          onToggleView={toggleViewMode}
+          onSignOut={onSignOut}
         />
-      </main>
+        <main
+          id="library-main"
+          tabIndex={-1}
+          className={cn(
+            'flex flex-1 flex-col',
+            isLibraryEmpty ? 'pb-6' : 'pb-24 md:pb-10',
+          )}
+        >
+          <LibraryToolbar
+            countLabel={countLabel}
+            filterQuery={filterQuery}
+            onFilterChange={handleFilterChange}
+            onAdd={() => openAdd(filterQuery.trim())}
+            isLibraryEmpty={isLibraryEmpty}
+          />
+          {authError ? (
+            <ErrorAlert message={authError} className="mb-3" />
+          ) : null}
+          <SongList
+            songs={filteredSongs}
+            allSongs={songs}
+            viewMode={viewMode}
+            status={status}
+            flashId={flashId}
+            onAdd={() => openAdd()}
+            onSearchCatalog={() => openAdd(filterQuery.trim())}
+            onRetry={retry}
+            onClearFilter={() => handleFilterChange('')}
+            onUpdate={updateSong}
+            onRemove={handleRemove}
+          />
+        </main>
+      </PageShell>
 
       {isLibraryEmpty ? null : (
-        <Button
+        <button
           type="button"
           aria-label="Thêm bài"
-          onClick={() => openAdd()}
-          className="fixed right-6 bottom-[calc(1.25rem+env(safe-area-inset-bottom))] z-40 size-14 rounded-full p-0 shadow-lg shadow-black/40 sm:right-8 lg:hidden"
+          onClick={() => openAdd(filterQuery.trim())}
+          className="bookmark-fab"
         >
-          <Plus aria-hidden="true" className="size-6" />
-        </Button>
+          <Plus aria-hidden="true" className="size-[22px]" />
+        </button>
       )}
 
       <AddSheet
@@ -176,7 +200,7 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
           <SongSearch {...search} songs={songs} onAdd={handleSearchAdd} />
         )}
       />
-    </div>
+    </>
   )
 }
 

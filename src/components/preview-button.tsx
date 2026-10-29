@@ -19,6 +19,9 @@ type PreviewButtonProps = {
 
 const NO_PREVIEW_LABEL = 'Bài này không có bản nghe thử'
 
+const buttonClass =
+  "grid size-[26px] place-items-center rounded-full border border-rule bg-surface text-foreground transition-colors duration-[160ms] after:absolute after:-inset-[9px] after:content-['']"
+
 export function PreviewButton({
   previewUrl,
   playKey,
@@ -41,13 +44,12 @@ export function PreviewButton({
             aria-label={NO_PREVIEW_LABEL}
             onClick={() => toast(NO_PREVIEW_LABEL)}
             className={cn(
-              'grid size-9 cursor-not-allowed place-items-center rounded-full',
+              buttonClass,
+              'cursor-not-allowed text-muted-foreground',
               className,
             )}
           >
-            <span className="grid size-7 place-items-center rounded-full bg-black/65 text-white/70">
-              <VolumeX aria-hidden="true" className="size-3.5" />
-            </span>
+            <VolumeX aria-hidden="true" className="size-3" />
           </button>
         </TooltipTrigger>
         <TooltipContent>{NO_PREVIEW_LABEL}</TooltipContent>
@@ -60,30 +62,26 @@ export function PreviewButton({
       type="button"
       onClick={() => toggle(playKey, previewUrl)}
       aria-label={
-        isActivePlaying ? 'Dừng nghe thử' : `Nghe thử ${title} - ${artist}`
+        isActivePlaying
+          ? `Dừng nghe thử ${title}`
+          : `Nghe thử ${title}, ${artist}`
       }
       aria-pressed={isActivePlaying}
       className={cn(
-        'group grid size-9 place-items-center rounded-full',
+        buttonClass,
+        isActive
+          ? 'border-transparent bg-primary text-primary-foreground hover:bg-primary-hover'
+          : 'hover:border-transparent hover:bg-primary hover:text-primary-foreground',
         className,
       )}
     >
-      <span
-        className={cn(
-          'grid size-7 place-items-center rounded-full transition-colors',
-          isActivePlaying
-            ? 'bg-primary text-primary-foreground group-hover:bg-primary/80'
-            : 'bg-black/65 text-white group-hover:bg-black/80',
-        )}
-      >
-        {isActiveBuffering ? (
-          <Spinner aria-hidden="true" className="size-3.5" />
-        ) : isActivePlaying ? (
-          <Pause aria-hidden="true" className="size-3.5 fill-current" />
-        ) : (
-          <Play aria-hidden="true" className="size-3.5 fill-current" />
-        )}
-      </span>
+      {isActiveBuffering ? (
+        <Spinner aria-hidden="true" className="size-3" />
+      ) : isActivePlaying ? (
+        <Pause aria-hidden="true" className="size-3 fill-current" />
+      ) : (
+        <Play aria-hidden="true" className="size-3 fill-current" />
+      )}
     </button>
   )
 }
