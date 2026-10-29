@@ -21,16 +21,16 @@ Phạm vi: mọi chuỗi người dùng đọc được — nhãn, nút, tiêu �
 
 Một khái niệm dùng một thuật ngữ thống nhất. Không đổi sang từ đồng nghĩa chỉ để tránh lặp.
 
-| Dùng | Nghĩa | Tránh dùng |
-| --- | --- | --- |
-| `musimob` | Tên sản phẩm | `CineMOB`, tên sản phẩm khác |
-| `bài hát` | Một mục nhạc trong thư viện | `track` trong câu hiển thị |
-| `bài` | Cách gọi ngắn của `bài hát` trong nút hoặc câu ngắn | Dùng khi có thể gây mơ hồ |
-| `ca sĩ` | Người thể hiện bài hát | `nghệ sĩ` nếu ngữ cảnh đang nói riêng về ca sĩ |
-| `thư viện` | Nơi lưu các bài hát của người dùng | `kho nhạc` nếu không có chủ ý khác |
-| `danh sách` | Nhóm bài hát do người dùng quản lý | `playlist` trong câu hiển thị |
-| `ảnh bìa` | Hình ảnh đại diện cho bài hát | `cover` trong câu hiển thị |
-| `iTunes` | Dịch vụ tìm kiếm và nguồn dữ liệu bài hát | Tên dịch vụ khác |
+| Dùng        | Nghĩa                                               | Tránh dùng                                     |
+| ----------- | --------------------------------------------------- | ---------------------------------------------- |
+| `musimob`   | Tên sản phẩm                                        | `CineMOB`, tên sản phẩm khác                   |
+| `bài hát`   | Một mục nhạc trong thư viện                         | `track` trong câu hiển thị                     |
+| `bài`       | Cách gọi ngắn của `bài hát` trong nút hoặc câu ngắn | Dùng khi có thể gây mơ hồ                      |
+| `ca sĩ`     | Người thể hiện bài hát                              | `nghệ sĩ` nếu ngữ cảnh đang nói riêng về ca sĩ |
+| `thư viện`  | Nơi lưu các bài hát của người dùng                  | `kho nhạc` nếu không có chủ ý khác             |
+| `danh sách` | Nhóm bài hát do người dùng quản lý                  | `playlist` trong câu hiển thị                  |
+| `ảnh bìa`   | Hình ảnh đại diện cho bài hát                       | `cover` trong câu hiển thị                     |
+| `iTunes`    | Dịch vụ tìm kiếm và nguồn dữ liệu bài hát           | Tên dịch vụ khác                               |
 
 - Giữ nguyên tên riêng và tên dịch vụ: `musimob`, `Google`, `iTunes`.
 - Giữ nguyên thuật ngữ kỹ thuật khi đó là tên tính năng, tên dịch vụ hoặc nhãn quen thuộc trong sản phẩm; Việt hóa phần diễn giải cho người dùng.
