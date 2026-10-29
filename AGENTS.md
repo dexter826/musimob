@@ -1,84 +1,95 @@
 # AGENTS.md
 
-Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
+Các hướng dẫn hành vi nhằm giảm những lỗi lập trình thường gặp của LLM. Kết hợp với các hướng dẫn riêng của dự án khi cần.
 
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+**Đánh đổi:** Các hướng dẫn này ưu tiên sự thận trọng hơn tốc độ. Với tác vụ đơn giản, hãy tự cân nhắc.
 
-## 1. Think Before Coding
+## 1. Suy nghĩ trước khi lập trình
 
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
+**Không tự giả định. Không che giấu điểm chưa rõ. Nêu rõ các đánh đổi.**
 
-Before implementing:
+Trước khi triển khai:
 
-- State your assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them - don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name what's confusing. Ask.
+- Nêu rõ các giả định của bạn. Nếu chưa chắc, hãy hỏi.
+- Nếu có nhiều cách diễn giải, hãy trình bày chúng — đừng âm thầm chọn một cách.
+- Nếu có cách tiếp cận đơn giản hơn, hãy nói rõ. Khi cần, hãy phản biện yêu cầu.
+- Nếu có điều gì chưa rõ, hãy dừng lại. Nêu rõ điểm gây nhầm lẫn và đặt câu hỏi.
 
-## 2. Simplicity First
+## 2. Ưu tiên sự đơn giản
 
-**Minimum code that solves the problem. Nothing speculative.**
+**Chỉ viết lượng mã tối thiểu để giải quyết vấn đề. Không làm thêm theo suy đoán.**
 
-- No features beyond what was asked.
-- No abstractions for single-use code.
-- No "flexibility" or "configurability" that wasn't requested.
-- No error handling for impossible scenarios.
-- If you write 200 lines and it could be 50, rewrite it.
+- Không thêm tính năng ngoài phạm vi được yêu cầu.
+- Không tạo abstraction cho đoạn mã chỉ dùng một lần.
+- Không thêm "tính linh hoạt" hoặc "khả năng cấu hình" khi chưa được yêu cầu.
+- Không xử lý lỗi cho những tình huống không thể xảy ra.
+- Nếu bạn viết 200 dòng trong khi có thể chỉ cần 50 dòng, hãy viết lại.
 
-Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+Hãy tự hỏi: "Một kỹ sư cấp cao có cho rằng cách này quá phức tạp không?" Nếu có, hãy đơn giản hóa.
 
-## 3. Surgical Changes
+## 3. Thay đổi có tính phẫu thuật
 
-**Touch only what you must. Clean up only your own mess.**
+**Chỉ chạm vào những gì bắt buộc. Chỉ dọn dẹp phần lộn xộn do chính bạn tạo ra.**
 
-When editing existing code:
+Khi chỉnh sửa mã hiện có:
 
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it - don't delete it.
+- Đừng "cải thiện" mã, chú thích hoặc định dạng xung quanh.
+- Đừng refactor những phần không bị lỗi.
+- Tuân theo phong cách hiện có, ngay cả khi bạn sẽ làm khác đi.
+- Nếu nhận thấy mã chết không liên quan, hãy đề cập — đừng xóa nó.
 
-When your changes create orphans:
+Khi thay đổi của bạn tạo ra phần mồ côi:
 
-- Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
+- Xóa các import/biến/hàm bị bỏ không dùng do chính thay đổi của bạn tạo ra.
+- Đừng xóa mã chết có sẵn nếu chưa được yêu cầu.
 
-The test: Every changed line should trace directly to the user's request.
+Tiêu chí kiểm tra: Mọi dòng được thay đổi đều phải truy nguyên trực tiếp về yêu cầu của người dùng.
 
-## 4. Goal-Driven Execution
+## 4. Thực hiện theo mục tiêu
 
-**Define success criteria. Loop until verified.**
+**Xác định tiêu chí thành công. Lặp lại cho đến khi kiểm chứng được.**
 
-Transform tasks into verifiable goals:
+Chuyển tác vụ thành các mục tiêu có thể kiểm chứng:
 
-- "Add validation" → "Write tests for invalid inputs, then make them pass"
-- "Fix the bug" → "Write a test that reproduces it, then make it pass"
-- "Refactor X" → "Ensure tests pass before and after"
+- "Thêm validation" → "Viết test cho đầu vào không hợp lệ, sau đó làm cho test đạt"
+- "Sửa lỗi" → "Viết test tái hiện lỗi, sau đó làm cho test đạt"
+- "Refactor X" → "Đảm bảo test đạt trước và sau khi refactor"
 
-For multi-step tasks, state a brief plan:
+Với tác vụ nhiều bước, hãy nêu kế hoạch ngắn gọn:
 
 ```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
+1. [Bước] → kiểm tra: [nội dung kiểm tra]
+2. [Bước] → kiểm tra: [nội dung kiểm tra]
+3. [Bước] → kiểm tra: [nội dung kiểm tra]
 ```
 
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+Tiêu chí thành công rõ ràng cho phép bạn tự lặp lại quy trình. Tiêu chí mơ hồ ("làm cho chạy được") sẽ khiến bạn phải liên tục hỏi lại.
 
 ---
 
-**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+**Các hướng dẫn này phát huy hiệu quả nếu:** diff có ít thay đổi không cần thiết hơn, ít phải viết lại do quá phức tạp hơn, và các câu hỏi làm rõ được đặt ra trước khi triển khai thay vì sau khi mắc lỗi.
 
-## Agent skills
+## Kỹ năng của agent
 
-### Issue tracker
+### Trình theo dõi issue
 
-Issues and specs live as markdown files under `.scratch/<feature>/`. See `docs/agents/issue-tracker.md`.
+Issue và spec được lưu dưới dạng tệp Markdown trong `.scratch/<feature>/`. Xem `docs/agents/issue-tracker.md`.
 
-### Triage labels
+### Nhãn phân loại
 
-The five canonical triage roles use their default label strings unchanged. See `docs/agents/triage-labels.md`.
+Năm vai trò phân loại chuẩn sử dụng nguyên trạng chuỗi nhãn mặc định. Xem `docs/agents/triage-labels.md`.
 
-### Domain docs
+### Tài liệu miền
 
-Single-context: one `GLOSSARY.md` and `docs/adr/` at the repo root. See `docs/agents/domain.md`.
+Mỗi ngữ cảnh chỉ có một `GLOSSARY.md` và một thư mục `docs/adr/` ở thư mục gốc của repo. Xem `docs/agents/domain.md`.
+
+## 5. Tài liệu trong repo
+
+**Đọc spec trước khi sửa UI. Spec là chuẩn; code theo spec.**
+
+- `DESIGN.md` — hợp đồng thị giác: màu, chữ, layout, elevation, shape, component.
+- `COPY.md` — hợp đồng copy: giọng, thuật ngữ, mẫu câu, định dạng.
+- Code lệch spec → sửa code, không sửa spec.
+- Đổi token → cập nhật `DESIGN.md` và `src/index.css` cùng lúc.
+- Đổi chữ hiển thị → đối chiếu glossary và pattern trong `COPY.md` trước.
+- Component spec trong `DESIGN.md` chỉ giữ slot; câu chữ nằm ở `COPY.md`.
