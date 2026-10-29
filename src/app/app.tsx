@@ -17,8 +17,8 @@ import { useAuthContext } from './auth-context'
 import { AppHeader } from './app-header'
 import { AppLoading } from './app-loading'
 
-const APP_TITLE = 'musimob — Lưu và đồng bộ danh sách bài hát trên mọi thiết bị'
-const SONGS_TITLE = 'musimob — Danh sách bài hát'
+const APP_TITLE = 'musimob - Lưu và đồng bộ danh sách bài hát trên mọi thiết bị'
+const SONGS_TITLE = 'musimob - Danh sách bài hát'
 
 type SignedInAppProps = {
   user: User
@@ -85,7 +85,7 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
         id: toastId,
         description:
           restoreError instanceof Error
-            ? `${song.title} — ${restoreError.message}`
+            ? `${song.title} - ${restoreError.message}`
             : song.title,
         duration: 10000,
         action: {

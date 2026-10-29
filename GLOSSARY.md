@@ -28,4 +28,4 @@ _Avoid_: Bài hát, Track
 Trạng thái của một Kết quả tìm kiếm khi trùng với một Bài hát đã lưu trong Thư viện của chính Người dùng đang xem. Không xét Thư viện của người khác.
 
 **Danh tính bài hát (Song identity)**:
-Bài lưu từ Nguồn nhạc được nhận diện bằng id của nguồn — cách viết tên hay tên nghệ sĩ có đổi cũng vẫn là một bài. Bài nhập tay nhận diện bằng tên bài và tên nghệ sĩ sau chuẩn hoá (trim, bỏ hoa/thường).
+Bài lưu từ Nguồn nhạc được nhận diện bằng id của nguồn - cách viết tên hay tên nghệ sĩ có đổi cũng vẫn là một bài. Bài nhập tay nhận diện bằng tên bài và tên nghệ sĩ sau chuẩn hoá (trim, bỏ hoa/thường).

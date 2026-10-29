@@ -51,7 +51,7 @@ export function SearchResultRow({
           aria-label={
             isSaving
               ? `Đang lưu ${result.title}`
-              : `Lưu ${result.title} — ${result.artist}`
+              : `Lưu ${result.title} - ${result.artist}`
           }
           className="h-8 min-w-[72px] gap-1.5 rounded-full px-3 text-[12px] font-semibold"
         >

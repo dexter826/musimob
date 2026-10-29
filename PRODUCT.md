@@ -8,7 +8,7 @@ web
 
 ## Users
 
-Bạn và một vài người quen dùng chung — nhóm nhỏ, không phải sản phẩm đại chúng. Mỗi người đăng nhập bằng Google và sở hữu đúng một Thư viện riêng tư. Không có onboarding cho người lạ, không có mời hay tham gia nhóm.
+Bạn và một vài người quen dùng chung - nhóm nhỏ, không phải sản phẩm đại chúng. Mỗi người đăng nhập bằng Google và sở hữu đúng một Thư viện riêng tư. Không có onboarding cho người lạ, không có mời hay tham gia nhóm.
 
 ## Product Purpose
 
@@ -35,7 +35,7 @@ Một sổ lưu nhạc, không phải trình phát: bài hát được lưu nguy
 - Bài lưu từ nguồn mang `sourceId` (trackId) và `previewUrl`; bài nhập tay không có bản nghe thử. Sửa tay chỉ đổi được title/artist/coverUrl.
 - Nền tảng: chỉ web/PWA (manifest và icon đã có), không có kế hoạch app native.
 - Ngôn ngữ UI: tiếng Việt là ràng buộc lâu dài, không làm i18n.
-- Chưa chốt: có làm offline app shell (service worker) lâu dài hay không — ticket 07 đã loại trừ khỏi phạm vi bàn giao hiện tại.
+- Chưa chốt: có làm offline app shell (service worker) lâu dài hay không - ticket 07 đã loại trừ khỏi phạm vi bàn giao hiện tại.
 - Stack hiện tại: React 19 + Vite + Tailwind v4, Firebase Auth + Firestore.
 
 ## Brand Commitments
@@ -49,7 +49,7 @@ Một sổ lưu nhạc, không phải trình phát: bài hát được lưu nguy
 ## Evidence on Hand
 
 - Bộ nhận diện đầy đủ: `assets/brand/` (SVG nguồn, PNG, preview.html) và icon/favicon/OG trong `public/`.
-- Không có testimonial, số liệu người dùng, press, pricing hay nội dung marketing nào — future work không được bịa.
+- Không có testimonial, số liệu người dùng, press, pricing hay nội dung marketing nào - future work không được bịa.
 
 ## Product Principles
 

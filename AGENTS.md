@@ -11,7 +11,7 @@ Các hướng dẫn hành vi nhằm giảm những lỗi lập trình thường 
 Trước khi triển khai:
 
 - Nêu rõ các giả định của bạn. Nếu chưa chắc, hãy hỏi.
-- Nếu có nhiều cách diễn giải, hãy trình bày chúng — đừng âm thầm chọn một cách.
+- Nếu có nhiều cách diễn giải, hãy trình bày chúng - đừng âm thầm chọn một cách.
 - Nếu có cách tiếp cận đơn giản hơn, hãy nói rõ. Khi cần, hãy phản biện yêu cầu.
 - Nếu có điều gì chưa rõ, hãy dừng lại. Nêu rõ điểm gây nhầm lẫn và đặt câu hỏi.
 
@@ -36,7 +36,7 @@ Khi chỉnh sửa mã hiện có:
 - Đừng "cải thiện" mã, chú thích hoặc định dạng xung quanh.
 - Đừng refactor những phần không bị lỗi.
 - Tuân theo phong cách hiện có, ngay cả khi bạn sẽ làm khác đi.
-- Nếu nhận thấy mã chết không liên quan, hãy đề cập — đừng xóa nó.
+- Nếu nhận thấy mã chết không liên quan, hãy đề cập - đừng xóa nó.
 
 Khi thay đổi của bạn tạo ra phần mồ côi:
 
@@ -87,8 +87,8 @@ Mỗi ngữ cảnh chỉ có một `GLOSSARY.md` và một thư mục `docs/adr/
 
 **Đọc spec trước khi sửa UI. Spec là chuẩn; code theo spec.**
 
-- `DESIGN.md` — hợp đồng thị giác: màu, chữ, layout, elevation, shape, component.
-- `COPY.md` — hợp đồng copy: giọng, thuật ngữ, mẫu câu, định dạng.
+- `DESIGN.md` - hợp đồng thị giác: màu, chữ, layout, elevation, shape, component.
+- `COPY.md` - hợp đồng copy: giọng, thuật ngữ, mẫu câu, định dạng.
 - Code lệch spec → sửa code, không sửa spec.
 - Đổi token → cập nhật `DESIGN.md` và `src/index.css` cùng lúc.
 - Đổi chữ hiển thị → đối chiếu glossary và pattern trong `COPY.md` trước.

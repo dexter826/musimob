@@ -1,6 +1,6 @@
 ---
 name: musimob
-description: Sổ lưu bài hát riêng tư — tối, ấm, kín đáo.
+description: Sổ lưu bài hát riêng tư - tối, ấm, kín đáo.
 colors:
   ember-coral: '#ff6a4d'
   ember-ink: '#1a0a06'
@@ -100,11 +100,11 @@ components:
 
 **Creative North Star: "The Night Sleeve"**
 
-musimob là một kệ đĩa than trong phòng tối: bìa đĩa là vật thể duy nhất bắt sáng, còn giá đỡ, nhãn và nút bấm lùi về màu than. Giao diện không gợi không khí "đang nghe nhạc" — không player, không sóng nhạc, không hàng chờ, chỉ một nút nghe thử 30 giây trên ảnh bìa — mà gợi cảm giác sở hữu: mở app ra là thấy đúng những bìa mình đã chọn, xếp trên một mặt phẳng yên tĩnh.
+musimob là một kệ đĩa than trong phòng tối: bìa đĩa là vật thể duy nhất bắt sáng, còn giá đỡ, nhãn và nút bấm lùi về màu than. Giao diện không gợi không khí "đang nghe nhạc" - không player, không sóng nhạc, không hàng chờ, chỉ một nút nghe thử 30 giây trên ảnh bìa - mà gợi cảm giác sở hữu: mở app ra là thấy đúng những bìa mình đã chọn, xếp trên một mặt phẳng yên tĩnh.
 
-Sự ấm áp đến từ đúng một nguồn: Ember Coral, dùng như ngọn đèn nhỏ trong phòng — một hành động chính, một focus ring, chữ "mob" trong wordmark, chiếc đĩa coral trên màn đăng nhập. Mọi thứ còn lại là Vinyl Charcoal nhiều tầng với Soft White và Ash. Bề mặt phẳng, viền sáng 1px thay bóng đổ; chỉ nút thêm bài được phép nổi.
+Sự ấm áp đến từ đúng một nguồn: Ember Coral, dùng như ngọn đèn nhỏ trong phòng - một hành động chính, một focus ring, chữ "mob" trong wordmark, chiếc đĩa coral trên màn đăng nhập. Mọi thứ còn lại là Vinyl Charcoal nhiều tầng với Soft White và Ash. Bề mặt phẳng, viền sáng 1px thay bóng đổ; chỉ nút thêm bài được phép nổi.
 
-Mật độ cao, chữ nhỏ, nhịp đều: hàng danh sách 50px cover, type 11–14.5px, khoảng cách 10/12px. Cảm giác component là điềm tĩnh và chạm được — vật thể thật, phản hồi nhẹ, không trang trí thừa. Anti-reference: không giống UI trình phát streaming, không giống dashboard SaaS.
+Mật độ cao, chữ nhỏ, nhịp đều: hàng danh sách 50px cover, type 11–14.5px, khoảng cách 10/12px. Cảm giác component là điềm tĩnh và chạm được - vật thể thật, phản hồi nhẹ, không trang trí thừa. Anti-reference: không giống UI trình phát streaming, không giống dashboard SaaS.
 
 **Key Characteristics:**
 
@@ -158,7 +158,7 @@ Bảng màu là một căn phòng tối có đúng một ngọn đèn: than nhi�
 
 ### Named Rules
 
-**The Small-Type Rule.** Type UI sống ở 11–14.5px, kể cả số lẻ .5px — đó là mật độ có chủ đích. Chỉ heading mới vượt 18px. Tăng weight hoặc đổi sang Soft White thay vì tăng cỡ chữ.
+**The Small-Type Rule.** Type UI sống ở 11–14.5px, kể cả số lẻ .5px - đó là mật độ có chủ đích. Chỉ heading mới vượt 18px. Tăng weight hoặc đổi sang Soft White thay vì tăng cỡ chữ.
 
 ## Layout
 
@@ -199,6 +199,7 @@ Bo góc theo vai trò, không theo một thang duy nhất: artwork 6px, control 
 - **Primary:** nền Ember Coral, chữ Ember Ink, semibold 13–14px, padding ngang 16px; hover giảm còn 80% opacity; active dịch xuống 1px; focus viền coral + ring 3px coral/50.
 - **Secondary / Ghost:** outline dùng nền canvas + viền seam, hover Vinyl Raised; ghost không viền, icon Ash, hover Vinyl Raised. Nút icon 36px.
 - **Loading:** giữ nguyên kích thước, thay nhãn bằng spinner 16px + nhãn trạng thái tải (COPY.md); không đổi layout.
+- **Con trỏ:** bàn tay cho `button`, `a[href]`, `[role='button']` không disabled, đặt ở một quy tắc `@layer base` duy nhất; không thêm `cursor-pointer` từng component. Giữ mũi tên cho item menu (dropdown/select/command), overlay của dialog/drawer, tay kéo drawer và label form. Nút disabled giữ opacity 50%, không dùng `not-allowed`.
 
 ### Chips
 
@@ -225,7 +226,7 @@ Bo góc theo vai trò, không theo một thang duy nhất: artwork 6px, control 
 
 ### Song row (signature)
 
-Hàng phẳng cao ~70px: cover 50px bo 6px, cách chữ 12px; tên bài 14.5px semibold truncate; ca sĩ 12.5px Ash truncate; menu ellipsis 36px bên phải. Không separator giữa các hàng — khoảng trắng và nhịp 10px giữ danh sách.
+Hàng phẳng cao ~70px: cover 50px bo 6px, cách chữ 12px; tên bài 14.5px semibold truncate; ca sĩ 12.5px Ash truncate; menu ellipsis 36px bên phải. Không separator giữa các hàng - khoảng trắng và nhịp 10px giữ danh sách.
 
 ### Song tile (signature)
 
@@ -233,7 +234,7 @@ Hàng phẳng cao ~70px: cover 50px bo 6px, cách chữ 12px; tên bài 14.5px s
 
 ### Preview control
 
-Nút tròn 28px đặt giữa artwork, vùng chạm 36px: list dùng trên cover 50px, grid dùng giữa tile. Nền đen 65%, icon trắng 14px. Đang phát: nền Ember Coral, icon Ember Ink. Đang tải: spinner thay icon. Không có bản nghe thử: giữ nút với icon loa gạch, chữ mờ 70%, kèm tooltip và toast nêu lý do — không ẩn nút. Không progress, không seek, không volume.
+Nút tròn 28px đặt giữa artwork, vùng chạm 36px: list dùng trên cover 50px, grid dùng giữa tile. Nền đen 65%, icon trắng 14px. Đang phát: nền Ember Coral, icon Ember Ink. Đang tải: spinner thay icon. Không có bản nghe thử: giữ nút với icon loa gạch, chữ mờ 70%, con trỏ `not-allowed`, kèm tooltip và toast nêu lý do - không ẩn nút. Không progress, không seek, không volume.
 
 ### Floating add (signature)
 
@@ -246,7 +247,7 @@ Web ≥768px: dialog giữa màn hình rộng 560px, cùng nội dung, cao tối
 
 ### Sign-in sleeve (signature)
 
-Một tấm Vinyl Card bo 8px (ngoại lệ có chủ đích của surface 12px) đặt trên canvas, có quầng coral radial 12% phía trên. Góc phải là hình đĩa than: các vòng tròn 1px seam mờ dần, đĩa coral đặc với lỗ tâm màu nền. Wordmark 40/52/64px. Đúng một hành động Google cao 48px — sự quen thuộc là nhiệm vụ, không phải chỗ để sáng tạo.
+Một tấm Vinyl Card bo 8px (ngoại lệ có chủ đích của surface 12px) đặt trên canvas, có quầng coral radial 12% phía trên. Góc phải là hình đĩa than: các vòng tròn 1px seam mờ dần, đĩa coral đặc với lỗ tâm màu nền. Wordmark 40/52/64px. Đúng một hành động Google cao 48px - sự quen thuộc là nhiệm vụ, không phải chỗ để sáng tạo.
 
 ## Do's and Don'ts
 

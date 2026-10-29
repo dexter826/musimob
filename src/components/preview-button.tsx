@@ -60,7 +60,7 @@ export function PreviewButton({
       type="button"
       onClick={() => toggle(playKey, previewUrl)}
       aria-label={
-        isActivePlaying ? 'Dừng nghe thử' : `Nghe thử ${title} — ${artist}`
+        isActivePlaying ? 'Dừng nghe thử' : `Nghe thử ${title} - ${artist}`
       }
       aria-pressed={isActivePlaying}
       className={cn(

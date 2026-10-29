@@ -2,7 +2,7 @@
 
 Hợp đồng cho chữ hiển thị trong UI. `DESIGN.md` quy định phần hình ảnh; file này quy định phần lời. Code lệch thì sửa code.
 
-Phạm vi: mọi chuỗi người dùng đọc được — nhãn, nút, tiêu đề, mô tả, lỗi, toast, trạng thái tải và trạng thái rỗng. Không áp dụng cho comment, log hoặc tài liệu nội bộ.
+Phạm vi: mọi chuỗi người dùng đọc được - nhãn, nút, tiêu đề, mô tả, lỗi, toast, trạng thái tải và trạng thái rỗng. Không áp dụng cho comment, log hoặc tài liệu nội bộ.
 
 ## 1. Giọng điệu
 
@@ -49,7 +49,7 @@ Cấu trúc: **điều gì xảy ra + bước tiếp theo**. Nêu nguyên nhân 
 
 Đúng: “Không thể tải ảnh bìa. Hãy thử lại.”
 
-Tránh: “iTunes trả lỗi 500.” — lộ mã kỹ thuật và thiếu bước tiếp theo.
+Tránh: “iTunes trả lỗi 500.” - lộ mã kỹ thuật và thiếu bước tiếp theo.
 
 ### Trạng thái rỗng
 
@@ -63,7 +63,7 @@ Cấu trúc: **trạng thái + giá trị + hành động phù hợp**.
 
 Đúng: “Chưa có bài hát nào” / “Thêm bài hát để bắt đầu xây dựng thư viện.” / “Thêm bài”
 
-Tránh: “Không có dữ liệu.” — quá chung chung và không hướng dẫn bước tiếp theo.
+Tránh: “Không có dữ liệu.” - quá chung chung và không hướng dẫn bước tiếp theo.
 
 ### Xác nhận
 

@@ -123,6 +123,12 @@
     touch-action: manipulation;
   }
 
+  /* Tailwind v4 preflight no longer sets this. Items that must keep the arrow
+   * (menu items, overlay, labels) opt out with `cursor-default`. */
+  :where(button, a[href], [role='button']):not(:disabled) {
+    cursor: pointer;
+  }
+
   :where(button, a, input, textarea, select, [tabindex]):focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 2px;
