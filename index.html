@@ -1,9 +1,26 @@
 <!doctype html>
-<html lang="vi">
+<html lang="vi" suppressHydrationWarning>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#F4F3EE" />
+    <script>
+      ;(() => {
+        try {
+          const stored = localStorage.getItem('musimob:theme')
+          const dark =
+            stored === 'dark' ||
+            ((!stored || stored === 'system') &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches)
+          document.documentElement.classList.toggle('dark', dark)
+          document
+            .querySelector('meta[name="theme-color"]')
+            ?.setAttribute('content', dark ? '#11130F' : '#F4F3EE')
+        } catch {
+          // localStorage bị chặn: giữ theme mặc định.
+        }
+      })()
+    </script>
     <meta name="apple-mobile-web-app-title" content="musimob" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
