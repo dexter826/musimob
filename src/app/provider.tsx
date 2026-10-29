@@ -35,7 +35,7 @@ export function AppProvider({ children }: AppProviderProps) {
         <Toaster
           position="bottom-center"
           offset={{ bottom: 24 }}
-          mobileOffset={{ bottom: 88 }}
+          mobileOffset={{ bottom: 96 }}
         />
       </QueryClientProvider>
     </ThemeProvider>

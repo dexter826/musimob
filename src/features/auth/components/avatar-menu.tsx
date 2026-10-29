@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, type MouseEvent } from 'react'
+import { useTheme } from 'next-themes'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,9 +16,12 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { Spinner } from '@/components/ui/spinner'
 
 type AvatarMenuProps = {
   displayName: string
@@ -30,8 +34,32 @@ export function AvatarMenu({
   photoURL,
   onSignOut,
 }: AvatarMenuProps) {
+  const { theme, setTheme } = useTheme()
   const [isConfirmOpen, setIsConfirmOpen] = useState(false)
+  const [isSigningOut, setIsSigningOut] = useState(false)
+  const [signOutError, setSignOutError] = useState<string | null>(null)
   const initial = displayName.trim().charAt(0).toUpperCase() || 'B'
+
+  async function handleSignOut(event: MouseEvent<HTMLButtonElement>) {
+    event.preventDefault()
+    if (isSigningOut) return
+
+    setIsSigningOut(true)
+    setSignOutError(null)
+
+    try {
+      await onSignOut()
+      setIsConfirmOpen(false)
+    } catch (error) {
+      setSignOutError(
+        error instanceof Error
+          ? error.message
+          : 'Không đăng xuất được. Thử lại.',
+      )
+    } finally {
+      setIsSigningOut(false)
+    }
+  }
 
   return (
     <>
@@ -51,32 +79,89 @@ export function AvatarMenu({
           </button>
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent align="end" className="w-56">
-          <DropdownMenuLabel className="truncate text-[12px] font-normal text-muted-foreground">
+        <DropdownMenuContent
+          align="end"
+          className="w-60 rounded-lg border border-rule bg-popover p-1"
+        >
+          <DropdownMenuLabel className="truncate text-xs font-normal text-muted-foreground">
             {displayName}
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
+          <DropdownMenuLabel className="text-xs font-normal text-muted-foreground">
+            Giao diện
+          </DropdownMenuLabel>
+          <DropdownMenuRadioGroup
+            value={theme ?? 'system'}
+            onValueChange={setTheme}
+          >
+            <DropdownMenuRadioItem value="system" className="py-2 text-sm">
+              Theo hệ thống
+            </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="light" className="py-2 text-sm">
+              Sáng
+            </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="dark" className="py-2 text-sm">
+              Tối
+            </DropdownMenuRadioItem>
+          </DropdownMenuRadioGroup>
+          <DropdownMenuSeparator />
           <DropdownMenuItem
             onSelect={() => setIsConfirmOpen(true)}
-            className="py-2.5 text-[13px] font-medium"
+            className="py-2 text-sm font-medium"
           >
             Đăng xuất
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <AlertDialog open={isConfirmOpen} onOpenChange={setIsConfirmOpen}>
-        <AlertDialogContent>
+      <AlertDialog
+        open={isConfirmOpen}
+        onOpenChange={(nextOpen) => {
+          if (isSigningOut) return
+          setIsConfirmOpen(nextOpen)
+        }}
+      >
+        <AlertDialogContent className="rounded-xl border border-rule bg-surface shadow-none">
           <AlertDialogHeader>
-            <AlertDialogTitle>Đăng xuất?</AlertDialogTitle>
-            <AlertDialogDescription>
+            <AlertDialogTitle className="font-serif text-[18px] leading-[1.2] font-medium">
+              Đăng xuất?
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-sm leading-[1.6] text-muted-foreground">
               Bạn sẽ rời khỏi tài khoản này. Thư viện bài hát vẫn được giữ.
             </AlertDialogDescription>
           </AlertDialogHeader>
+
+          {signOutError ? (
+            <div
+              role="alert"
+              className="border-l-[3px] border-danger bg-surface-2 px-3 py-2.5 text-sm leading-[1.6] text-danger"
+            >
+              {signOutError}
+            </div>
+          ) : null}
+
           <AlertDialogFooter>
-            <AlertDialogCancel>Huỷ</AlertDialogCancel>
-            <AlertDialogAction onClick={() => void onSignOut()}>
-              Đăng xuất
+            <AlertDialogCancel
+              disabled={isSigningOut}
+              className="h-11 rounded-lg border-0 bg-transparent px-4 text-[13px] font-semibold text-muted-foreground hover:bg-secondary hover:text-foreground"
+            >
+              Huỷ
+            </AlertDialogCancel>
+            <AlertDialogAction
+              variant="destructive"
+              disabled={isSigningOut}
+              aria-busy={isSigningOut}
+              onClick={handleSignOut}
+              className="h-11 gap-2 rounded-lg px-4 text-[13px] font-semibold"
+            >
+              {isSigningOut ? (
+                <>
+                  <Spinner aria-hidden="true" className="size-4" />
+                  Đăng xuất
+                </>
+              ) : (
+                'Đăng xuất'
+              )}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
