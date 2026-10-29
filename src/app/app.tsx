@@ -118,12 +118,15 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
   }, [songs, filterQuery])
 
   const isLibraryEmpty = status.state === 'ready' && songs.length === 0
+  const isFiltering = filterQuery.trim().length > 0
   const countLabel =
     status.state === 'loading'
       ? 'Đang tải…'
       : status.state === 'failed'
         ? 'Không tải được'
-        : `${filteredSongs.length} bài`
+        : isFiltering
+          ? `${filteredSongs.length} / ${songs.length} bài`
+          : `${songs.length} bài`
 
   return (
     <div className="min-h-dvh bg-background">
@@ -143,10 +146,10 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
           tabIndex={-1}
           className={cn(
             'flex flex-1 flex-col',
-            isLibraryEmpty ? 'pb-6' : 'pb-24 lg:pb-10',
+            isLibraryEmpty ? 'pb-6' : 'pb-24 md:pb-10',
           )}
         >
-          <div className="flex items-end justify-between gap-6 pt-7 pb-5">
+          <div className="flex items-end justify-between gap-6 pt-7 pb-5 max-md:flex-col max-md:items-stretch max-md:gap-3">
             <div className="min-w-0">
               <h1 className="font-serif text-[34px] leading-[1.08] font-medium tracking-[-0.015em] text-foreground max-md:text-[28px]">
                 Thư viện
@@ -155,8 +158,22 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
                 {countLabel}
               </p>
             </div>
+            <div className="flex shrink-0 items-center gap-2 max-md:w-full">
+              <div className="w-[280px] max-md:w-full">
+                <FilterInput value={filterQuery} onChange={setFilterQuery} />
+              </div>
+              {isLibraryEmpty ? null : (
+                <Button
+                  type="button"
+                  onClick={() => openAdd(filterQuery.trim())}
+                  className="hidden h-11 gap-1.5 px-3.5 text-[13px] font-semibold md:inline-flex"
+                >
+                  <Plus aria-hidden="true" className="size-4" />
+                  Thêm bài
+                </Button>
+              )}
+            </div>
           </div>
-          <FilterInput value={filterQuery} onChange={setFilterQuery} />
           {authError ? (
             <ErrorAlert message={authError} className="mb-3" />
           ) : null}
@@ -177,14 +194,14 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
       </div>
 
       {isLibraryEmpty ? null : (
-        <Button
+        <button
           type="button"
           aria-label="Thêm bài"
-          onClick={() => openAdd()}
-          className="fixed right-6 bottom-[calc(1.25rem+env(safe-area-inset-bottom))] z-40 size-14 rounded-full p-0 shadow-lg shadow-black/40 sm:right-8 lg:hidden"
+          onClick={() => openAdd(filterQuery.trim())}
+          className="bookmark-fab"
         >
-          <Plus aria-hidden="true" className="size-6" />
-        </Button>
+          <Plus aria-hidden="true" className="size-[22px]" />
+        </button>
       )}
 
       <AddSheet

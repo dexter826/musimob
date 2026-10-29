@@ -240,3 +240,43 @@
 .skip-link:focus-visible {
   transform: translateY(0);
 }
+
+.bookmark-fab {
+  position: fixed;
+  right: 24px;
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  width: var(--fab-w);
+  height: var(--fab-h);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--primary-foreground);
+}
+
+.bookmark-fab::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--primary);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 84%, 0 100%);
+  filter: drop-shadow(0 8px 18px rgb(26 27 23 / 18%));
+  transition: background-color var(--motion-fast) ease;
+}
+
+.bookmark-fab:hover::before {
+  background: var(--primary-hover);
+}
+
+.bookmark-fab svg {
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 768px) {
+  .bookmark-fab {
+    display: none;
+  }
+}
