@@ -1,5 +1,4 @@
 import { LayoutGrid, List } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import type { ViewMode } from '../hooks/use-view-mode'
 
 type ViewToggleProps = {
@@ -9,23 +8,21 @@ type ViewToggleProps = {
 
 export function ViewToggle({ viewMode, onToggle }: ViewToggleProps) {
   const label =
-    viewMode === 'list' ? 'Chuyển sang lưới' : 'Chuyển sang danh sách'
+    viewMode === 'list' ? 'Chuyển sang dạng lưới' : 'Chuyển sang dạng danh sách'
 
   return (
-    <Button
+    <button
       type="button"
-      variant="outline"
-      size="icon"
       aria-label={label}
       title={label}
       onClick={onToggle}
-      className="size-9 rounded-lg"
+      className="relative grid size-9 place-items-center rounded-lg text-muted-foreground transition-colors duration-[160ms] after:absolute after:-inset-1 after:content-[''] hover:bg-secondary hover:text-foreground"
     >
       {viewMode === 'list' ? (
-        <LayoutGrid aria-hidden="true" />
+        <LayoutGrid aria-hidden="true" className="size-[18px]" />
       ) : (
-        <List aria-hidden="true" />
+        <List aria-hidden="true" className="size-[18px]" />
       )}
-    </Button>
+    </button>
   )
 }

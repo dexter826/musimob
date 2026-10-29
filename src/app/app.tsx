@@ -118,42 +118,63 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
   }, [songs, filterQuery])
 
   const isLibraryEmpty = status.state === 'ready' && songs.length === 0
+  const countLabel =
+    status.state === 'loading'
+      ? 'Đang tải…'
+      : status.state === 'failed'
+        ? 'Không tải được'
+        : `${filteredSongs.length} bài`
 
   return (
-    <div className="flex min-h-dvh w-full flex-col bg-background">
-      <AppHeader
-        status={status}
-        songCount={filteredSongs.length}
-        displayName={user.displayName}
-        photoURL={user.photoURL}
-        viewMode={viewMode}
-        showAdd={!isLibraryEmpty}
-        onAdd={() => openAdd()}
-        onToggleView={toggleViewMode}
-        onSignOut={onSignOut}
-      />
-      <main
-        className={cn(
-          'flex flex-1 flex-col px-6 sm:px-8 lg:px-12 xl:px-16',
-          isLibraryEmpty ? 'pb-6' : 'pb-24 lg:pb-10',
-        )}
-      >
-        <FilterInput value={filterQuery} onChange={setFilterQuery} />
-        {authError ? <ErrorAlert message={authError} className="mb-3" /> : null}
-        <SongList
-          songs={filteredSongs}
-          totalSongCount={songs.length}
+    <div className="min-h-dvh bg-background">
+      <a href="#library-main" className="skip-link">
+        Chuyển đến nội dung
+      </a>
+      <div className="mx-auto flex min-h-dvh w-full max-w-[1120px] flex-col px-5 sm:px-8 lg:px-12 xl:px-16">
+        <AppHeader
+          displayName={user.displayName}
+          photoURL={user.photoURL}
           viewMode={viewMode}
-          status={status}
-          flashId={flashId}
-          onAdd={() => openAdd()}
-          onSearchCatalog={() => openAdd(filterQuery.trim())}
-          onRetry={retry}
-          onClearFilter={() => setFilterQuery('')}
-          onUpdate={updateSong}
-          onRemove={handleRemove}
+          onToggleView={toggleViewMode}
+          onSignOut={onSignOut}
         />
-      </main>
+        <main
+          id="library-main"
+          tabIndex={-1}
+          className={cn(
+            'flex flex-1 flex-col',
+            isLibraryEmpty ? 'pb-6' : 'pb-24 lg:pb-10',
+          )}
+        >
+          <div className="flex items-end justify-between gap-6 pt-7 pb-5">
+            <div className="min-w-0">
+              <h1 className="font-serif text-[34px] leading-[1.08] font-medium tracking-[-0.015em] text-foreground max-md:text-[28px]">
+                Thư viện
+              </h1>
+              <p className="mt-1.5 text-xs font-medium text-muted-foreground tabular-nums">
+                {countLabel}
+              </p>
+            </div>
+          </div>
+          <FilterInput value={filterQuery} onChange={setFilterQuery} />
+          {authError ? (
+            <ErrorAlert message={authError} className="mb-3" />
+          ) : null}
+          <SongList
+            songs={filteredSongs}
+            totalSongCount={songs.length}
+            viewMode={viewMode}
+            status={status}
+            flashId={flashId}
+            onAdd={() => openAdd()}
+            onSearchCatalog={() => openAdd(filterQuery.trim())}
+            onRetry={retry}
+            onClearFilter={() => setFilterQuery('')}
+            onUpdate={updateSong}
+            onRemove={handleRemove}
+          />
+        </main>
+      </div>
 
       {isLibraryEmpty ? null : (
         <Button
