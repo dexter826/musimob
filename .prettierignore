@@ -1,0 +1,25 @@
+# Build output
+dist
+dev-dist
+
+# Lockfile / generated
+package-lock.json
+skills-lock.json
+
+# Firebase local
+.firebase
+
+# Agent & tool state (local, gitignored)
+.scratch
+.agents
+.codex
+.impeccable
+.hallmark
+.gemini
+
+# Static & brand assets (binary/svg/fixed formatting)
+public
+assets
+
+# Agent instructions
+AGENTS.md
