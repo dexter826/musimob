@@ -57,6 +57,9 @@
   --radius-md: 8px;
   --radius-lg: 8px;
   --radius-xl: 12px;
+
+  --breakpoint-wide: 56.25rem;
+  --breakpoint-widest: 75rem;
 }
 
 :root {
@@ -128,20 +131,12 @@
   --focus: var(--ink-900);
 
   /* component */
-  --cover-row: 48px;
-  --radius-cover: 2px;
   --radius-control: 8px;
-  --radius-sheet: 12px;
-  --control-h: 44px;
   --page-max: 1120px;
   --gutter: clamp(20px, 5vw, 64px);
-  --topbar-h: 64px;
-  --topbar-h-mobile: 60px;
-  --bookmark-w: 3px;
   --fab-w: 56px;
   --fab-h: 64px;
   --motion-fast: 160ms;
-  --flash-duration: 2000ms;
 
   color-scheme: light;
 }

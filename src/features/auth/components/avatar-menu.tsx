@@ -37,7 +37,6 @@ export function AvatarMenu({
   const { theme, setTheme } = useTheme()
   const [isConfirmOpen, setIsConfirmOpen] = useState(false)
   const [isSigningOut, setIsSigningOut] = useState(false)
-  const [signOutError, setSignOutError] = useState<string | null>(null)
   const initial = displayName.trim().charAt(0).toUpperCase() || 'B'
 
   async function handleSignOut(event: MouseEvent<HTMLButtonElement>) {
@@ -45,17 +44,10 @@ export function AvatarMenu({
     if (isSigningOut) return
 
     setIsSigningOut(true)
-    setSignOutError(null)
 
     try {
       await onSignOut()
       setIsConfirmOpen(false)
-    } catch (error) {
-      setSignOutError(
-        error instanceof Error
-          ? error.message
-          : 'Không đăng xuất được. Thử lại.',
-      )
     } finally {
       setIsSigningOut(false)
     }
@@ -94,20 +86,29 @@ export function AvatarMenu({
             value={theme ?? 'system'}
             onValueChange={setTheme}
           >
-            <DropdownMenuRadioItem value="system" className="min-h-11 py-2 text-sm">
+            <DropdownMenuRadioItem
+              value="system"
+              className="min-h-11 py-2 text-sm"
+            >
               Theo hệ thống
             </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="light" className="min-h-11 py-2 text-sm">
+            <DropdownMenuRadioItem
+              value="light"
+              className="min-h-11 py-2 text-sm"
+            >
               Sáng
             </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="dark" className="min-h-11 py-2 text-sm">
+            <DropdownMenuRadioItem
+              value="dark"
+              className="min-h-11 py-2 text-sm"
+            >
               Tối
             </DropdownMenuRadioItem>
           </DropdownMenuRadioGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onSelect={() => setIsConfirmOpen(true)}
-            className="py-2 text-sm font-medium"
+            className="min-h-11 py-2 text-sm font-medium"
           >
             Đăng xuất
           </DropdownMenuItem>
@@ -131,15 +132,6 @@ export function AvatarMenu({
             </AlertDialogDescription>
           </AlertDialogHeader>
 
-          {signOutError ? (
-            <div
-              role="alert"
-              className="border-l-[3px] border-danger bg-surface-2 px-3 py-2.5 text-sm leading-[1.6] text-danger"
-            >
-              {signOutError}
-            </div>
-          ) : null}
-
           <AlertDialogFooter>
             <AlertDialogCancel
               disabled={isSigningOut}
@@ -157,7 +149,7 @@ export function AvatarMenu({
               {isSigningOut ? (
                 <>
                   <Spinner aria-hidden="true" className="size-4" />
-                  Đăng xuất
+                  Đang đăng xuất…
                 </>
               ) : (
                 'Đăng xuất'

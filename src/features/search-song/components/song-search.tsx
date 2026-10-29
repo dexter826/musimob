@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { ErrorAlert } from '@/components/error-alert'
+import { SearchField } from '@/components/search-field'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 import { useAudioPreview } from '@/lib/audio-preview-context'
@@ -6,7 +8,6 @@ import type { NewSong, SearchResult, Song } from '@/lib/api/types'
 import { RateLimitError, SearchTimeoutError } from '@/lib/api/catalog'
 import { getSongKey } from '@/lib/song-key'
 import { useSongSearch } from '../hooks/use-song-search'
-import { SearchInput } from './search-input'
 import { SearchResultRow } from './search-result-row'
 
 type SongSearchProps = {
@@ -35,30 +36,6 @@ function SearchLoading() {
     >
       <Spinner aria-hidden="true" className="size-4" />
       Đang tìm…
-    </div>
-  )
-}
-
-function SearchErrorState({
-  message,
-  onRetry,
-}: {
-  message: string
-  onRetry: () => void
-}) {
-  return (
-    <div
-      role="alert"
-      className="flex w-full items-center justify-between gap-3 border-l-[3px] border-danger bg-surface-2 px-3 py-2.5 text-left"
-    >
-      <span className="text-sm leading-[1.6] text-danger">{message}</span>
-      <button
-        type="button"
-        onClick={onRetry}
-        className="shrink-0 px-1 text-sm font-semibold text-danger underline underline-offset-2"
-      >
-        Thử lại
-      </button>
     </div>
   )
 }
@@ -201,7 +178,7 @@ export function SongSearch({
     resultsBody = <SearchHint />
   } else if (error && hasQuery && !isDebouncing && !isFetching) {
     resultsBody = (
-      <SearchErrorState message={errorMessage} onRetry={() => void refetch()} />
+      <ErrorAlert message={errorMessage} onRetry={() => void refetch()} />
     )
   } else if (!hasQuery || isPending || !data) {
     resultsBody = <SearchLoading />
@@ -227,21 +204,16 @@ export function SongSearch({
 
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-3">
-      <SearchInput
+      <SearchField
+        id="song-search"
+        name="search"
         inputRef={inputRef}
         value={term}
         onChange={handleTermChange}
-        isSearching={isSearching}
+        isBusy={isSearching}
       />
 
-      {saveError ? (
-        <div
-          role="alert"
-          className="border-l-[3px] border-danger bg-surface-2 px-3 py-2.5 text-sm leading-[1.6] text-danger"
-        >
-          {saveError}
-        </div>
-      ) : null}
+      {saveError ? <ErrorAlert message={saveError} /> : null}
 
       <div className="min-h-0 flex-1 overflow-y-auto">{resultsBody}</div>
     </div>

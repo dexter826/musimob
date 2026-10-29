@@ -1,5 +1,6 @@
 import type { ComponentProps } from 'react'
 import symbol from '../../../../assets/brand/symbol.svg'
+import { ErrorAlert } from '@/components/error-alert'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 import { Wordmark } from '@/components/wordmark'
@@ -55,7 +56,7 @@ export function SignInScreen({
           <span className="absolute -top-2 right-8 h-12 w-4 bg-primary [clip-path:polygon(0_0,100%_0,100%_100%,50%_82%,0_100%)]" />
         </div>
 
-        <section className="relative z-10 mx-auto mt-24 w-full max-w-[350px] border border-rule bg-surface p-6 shadow-[6px_6px_0_0_var(--surface-2),6px_6px_0_1px_var(--rule)] sm:mx-0 sm:mt-[120px] sm:max-w-[360px] sm:p-8">
+        <section className="relative z-10 mx-auto mt-24 w-full max-w-[350px] rounded-sm border border-rule bg-surface p-6 shadow-[6px_6px_0_0_var(--surface-2),6px_6px_0_1px_var(--rule)] sm:mx-0 sm:mt-[120px] sm:max-w-[360px] sm:p-8">
           <Wordmark className="h-7" />
 
           <h1 className="mt-10 font-serif text-[38px] leading-[1.08] font-medium tracking-[-0.02em] text-foreground max-md:text-[30px]">
@@ -85,14 +86,7 @@ export function SignInScreen({
             )}
           </Button>
 
-          {error ? (
-            <div
-              role="alert"
-              className="mt-3 border-l-[3px] border-danger bg-surface-2 px-3 py-2.5 text-sm leading-[1.6] text-danger"
-            >
-              {error}
-            </div>
-          ) : null}
+          {error ? <ErrorAlert message={error} className="mt-3" /> : null}
 
           <p className="mt-3.5 text-xs leading-[1.5] text-muted-foreground">
             Chỉ bạn thấy thư viện của mình.

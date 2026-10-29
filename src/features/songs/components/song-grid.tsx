@@ -37,7 +37,7 @@ function SongGridTile({
     <li
       ref={tileRef}
       className={cn(
-        'relative',
+        'group relative',
         isFlashing && 'outline-2 outline-offset-2 outline-primary',
       )}
     >
@@ -60,7 +60,7 @@ function SongGridTile({
           playKey={songPreviewKey(song.id)}
           title={song.title}
           artist={song.artist}
-          className="absolute right-1.5 bottom-1.5"
+          className="absolute right-1.5 bottom-1.5 size-7"
         />
         <div className="absolute top-1 right-1">
           <SongActionsMenu
@@ -88,7 +88,7 @@ function SongGridTile({
 
 export function SongGrid({ songs, flashId, onEdit, onDelete }: SongGridProps) {
   return (
-    <ul className="grid grid-cols-2 gap-x-3 gap-y-5 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 lg:grid-cols-4 xl:grid-cols-6">
+    <ul className="grid grid-cols-2 gap-x-3 gap-y-5 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 wide:grid-cols-4 widest:grid-cols-6">
       {songs.map((song, index) => (
         <SongGridTile
           key={song.id}

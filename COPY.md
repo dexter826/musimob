@@ -166,6 +166,7 @@ Một khái niệm dùng một thuật ngữ. Không đổi sang từ đồng ng
 | `Sáng`                                                          | Theme option       |
 | `Tối`                                                           | Theme option       |
 | `Đăng xuất`                                                     | Account menu item  |
+| `Đang đăng xuất…`                                               | Sign-out pending   |
 | `Đăng xuất?`                                                    | Confirm title      |
 | `Bạn sẽ rời khỏi tài khoản này. Thư viện bài hát vẫn được giữ.` | Confirm body       |
 | `Huỷ`                                                           | Confirm cancel     |

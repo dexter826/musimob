@@ -12,7 +12,7 @@ import { SongRow } from './song-row'
 
 type SongListProps = {
   songs: Song[]
-  totalSongCount: number
+  allSongs: Song[]
   viewMode: ViewMode
   status: SongsStatus
   flashId: string | null
@@ -34,7 +34,7 @@ function SongListSkeleton({ viewMode }: { viewMode: ViewMode }) {
         <span className="sr-only">Đang tải danh sách…</span>
         <div
           aria-hidden="true"
-          className="grid grid-cols-2 gap-x-3 gap-y-5 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 lg:grid-cols-4 xl:grid-cols-6"
+          className="grid grid-cols-2 gap-x-3 gap-y-5 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 wide:grid-cols-4 widest:grid-cols-6"
         >
           {SKELETON_GRID.map((item) => (
             <div key={item}>
@@ -64,32 +64,6 @@ function SongListSkeleton({ viewMode }: { viewMode: ViewMode }) {
           </div>
         </div>
       ))}
-    </div>
-  )
-}
-
-function SongListError({
-  message,
-  onRetry,
-}: {
-  message: string
-  onRetry: () => void
-}) {
-  return (
-    <div className="flex flex-1 flex-col items-center justify-center px-6 py-16 text-center">
-      <div
-        role="alert"
-        className="flex w-full max-w-[440px] items-center justify-between gap-3 border-l-[3px] border-danger bg-surface-2 px-3 py-2.5 text-left"
-      >
-        <span className="text-sm leading-[1.6] text-danger">{message}</span>
-        <button
-          type="button"
-          onClick={onRetry}
-          className="shrink-0 px-1 text-sm font-semibold text-danger underline underline-offset-2"
-        >
-          Thử lại
-        </button>
-      </div>
     </div>
   )
 }
@@ -129,7 +103,7 @@ function FilterEmptyState({
 
 export function SongList({
   songs,
-  totalSongCount,
+  allSongs,
   viewMode,
   status,
   flashId,
@@ -160,10 +134,18 @@ export function SongList({
   }
 
   if (status.state === 'failed') {
-    return <SongListError message={status.message} onRetry={onRetry} />
+    return (
+      <div className="flex flex-1 items-center justify-center px-6 py-16">
+        <ErrorAlert
+          message={status.message}
+          onRetry={onRetry}
+          className="w-full max-w-[440px]"
+        />
+      </div>
+    )
   }
 
-  if (totalSongCount === 0) {
+  if (allSongs.length === 0) {
     return <EmptyState onAdd={onAdd} />
   }
 
@@ -200,6 +182,7 @@ export function SongList({
 
       <EditSheet
         song={editTarget}
+        songs={allSongs}
         open={isEditOpen}
         onOpenChange={setIsEditOpen}
         onSave={onUpdate}

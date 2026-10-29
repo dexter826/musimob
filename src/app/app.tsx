@@ -3,14 +3,15 @@ import { Plus } from 'lucide-react'
 import { toast } from 'sonner'
 import { cn } from 'cn'
 import { ErrorAlert } from '@/components/error-alert'
-import { Button } from '@/components/ui/button'
+import { PageShell } from '@/components/page-shell'
 import { AddSheet } from '@/features/add-song/components/add-sheet'
 import { SignInScreen } from '@/features/auth/components/sign-in-screen'
 import { SongSearch } from '@/features/search-song/components/song-search'
-import { FilterInput } from '@/features/songs/components/filter-input'
+import { LibraryToolbar } from '@/features/songs/components/library-toolbar'
 import { SongList } from '@/features/songs/components/song-list'
 import { useSongs } from '@/features/songs/hooks/use-songs'
 import { useViewMode } from '@/features/songs/hooks/use-view-mode'
+import { getCountLabel } from '@/features/songs/lib/count-label'
 import type { NewSong, Song, User } from '@/lib/api/types'
 import { useAudioPreview } from '@/lib/audio-preview-context'
 import { songPreviewKey } from '@/lib/preview-key'
@@ -49,6 +50,11 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
   function openAdd(term = '') {
     setAddSeed(term)
     setIsAddOpen(true)
+  }
+
+  function handleFilterChange(value: string) {
+    if (value !== filterQuery) stop()
+    setFilterQuery(value)
   }
 
   async function handleManualAdd(song: NewSong) {
@@ -119,81 +125,59 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
 
   const isLibraryEmpty = status.state === 'ready' && songs.length === 0
   const isFiltering = filterQuery.trim().length > 0
-  const countLabel =
-    status.state === 'loading'
-      ? 'Đang tải…'
-      : status.state === 'failed'
-        ? 'Không tải được'
-        : isFiltering
-          ? `${filteredSongs.length} / ${songs.length} bài`
-          : `${songs.length} bài`
+  const countLabel = getCountLabel({
+    status,
+    total: songs.length,
+    filtered: filteredSongs.length,
+    isFiltering,
+  })
 
   return (
-    <div className="min-h-dvh bg-background">
-      <a href="#library-main" className="skip-link">
-        Chuyển đến nội dung
-      </a>
-      <div className="px-5 sm:px-8 lg:px-12 xl:px-16">
-        <div className="mx-auto flex min-h-dvh w-full max-w-[var(--page-max)] flex-col">
-          <AppHeader
-            displayName={user.displayName}
-            photoURL={user.photoURL}
-            viewMode={viewMode}
-            onToggleView={toggleViewMode}
-            onSignOut={onSignOut}
+    <>
+      <PageShell>
+        <a href="#library-main" className="skip-link">
+          Chuyển đến nội dung
+        </a>
+        <AppHeader
+          displayName={user.displayName}
+          photoURL={user.photoURL}
+          viewMode={viewMode}
+          onToggleView={toggleViewMode}
+          onSignOut={onSignOut}
+        />
+        <main
+          id="library-main"
+          tabIndex={-1}
+          className={cn(
+            'flex flex-1 flex-col',
+            isLibraryEmpty ? 'pb-6' : 'pb-24 md:pb-10',
+          )}
+        >
+          <LibraryToolbar
+            countLabel={countLabel}
+            filterQuery={filterQuery}
+            onFilterChange={handleFilterChange}
+            onAdd={() => openAdd(filterQuery.trim())}
+            isLibraryEmpty={isLibraryEmpty}
           />
-          <main
-            id="library-main"
-            tabIndex={-1}
-            className={cn(
-              'flex flex-1 flex-col',
-              isLibraryEmpty ? 'pb-6' : 'pb-24 md:pb-10',
-            )}
-          >
-            <div className="flex items-end justify-between gap-6 pt-7 pb-5 max-md:flex-col max-md:items-stretch max-md:gap-3">
-              <div className="min-w-0">
-                <h1 className="font-serif text-[34px] leading-[1.08] font-medium tracking-[-0.015em] text-foreground max-md:text-[28px]">
-                  Thư viện
-                </h1>
-                <p className="mt-1.5 text-xs font-medium text-muted-foreground tabular-nums">
-                  {countLabel}
-                </p>
-              </div>
-              <div className="flex shrink-0 items-center gap-2 max-md:w-full">
-                <div className="w-[280px] max-md:w-full">
-                  <FilterInput value={filterQuery} onChange={setFilterQuery} />
-                </div>
-                {isLibraryEmpty ? null : (
-                  <Button
-                    type="button"
-                    onClick={() => openAdd(filterQuery.trim())}
-                    className="hidden h-11 gap-1.5 px-3.5 text-[13px] font-semibold md:inline-flex"
-                  >
-                    <Plus aria-hidden="true" className="size-4" />
-                    Thêm bài
-                  </Button>
-                )}
-              </div>
-            </div>
-            {authError ? (
-              <ErrorAlert message={authError} className="mb-3" />
-            ) : null}
-            <SongList
-              songs={filteredSongs}
-              totalSongCount={songs.length}
-              viewMode={viewMode}
-              status={status}
-              flashId={flashId}
-              onAdd={() => openAdd()}
-              onSearchCatalog={() => openAdd(filterQuery.trim())}
-              onRetry={retry}
-              onClearFilter={() => setFilterQuery('')}
-              onUpdate={updateSong}
-              onRemove={handleRemove}
-            />
-          </main>
-        </div>
-      </div>
+          {authError ? (
+            <ErrorAlert message={authError} className="mb-3" />
+          ) : null}
+          <SongList
+            songs={filteredSongs}
+            allSongs={songs}
+            viewMode={viewMode}
+            status={status}
+            flashId={flashId}
+            onAdd={() => openAdd()}
+            onSearchCatalog={() => openAdd(filterQuery.trim())}
+            onRetry={retry}
+            onClearFilter={() => handleFilterChange('')}
+            onUpdate={updateSong}
+            onRemove={handleRemove}
+          />
+        </main>
+      </PageShell>
 
       {isLibraryEmpty ? null : (
         <button
@@ -216,7 +200,7 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
           <SongSearch {...search} songs={songs} onAdd={handleSearchAdd} />
         )}
       />
-    </div>
+    </>
   )
 }
 

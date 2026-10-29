@@ -35,7 +35,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
           toast: 'cn-toast text-[13px]',
           description: 'text-xs opacity-80',
           actionButton:
-            'rounded-md bg-primary px-2 py-1 text-xs font-semibold text-primary-foreground hover:bg-primary-hover',
+            'inline-flex min-h-11 items-center rounded-md bg-primary px-3 text-xs font-semibold text-primary-foreground hover:bg-primary-hover',
         },
       }}
       {...props}

@@ -30,7 +30,7 @@ export function SongRow({
     <li
       ref={rowRef}
       className={cn(
-        'relative grid min-h-16 grid-cols-[48px_minmax(0,1fr)_auto] items-center gap-3.5 rounded-lg py-2 pr-2 pl-3 transition-colors duration-[160ms]',
+        'group relative grid min-h-16 grid-cols-[48px_minmax(0,1fr)_auto] items-center gap-3.5 rounded-lg py-2 pr-2 pl-3 transition-colors duration-[160ms]',
         isActive ? 'bg-bookmark-soft' : 'hover:bg-secondary',
         isFlashing &&
           'ring-2 ring-primary ring-offset-2 ring-offset-background',

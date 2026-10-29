@@ -50,8 +50,20 @@ npm run lint    # pass
 - Sign-in loading/error and error boundary (A2/A3/A5): not triggered; code-checked.
 - Không có test harness; bundle chunk warning; dead deps/title flags.
 
+## Fix pass (review findings)
+
+- `sửa hết đi`: ErrorAlert retry 44, SearchField/PageShell/LibraryToolbar,
+  edit duplicate check, filter stops preview, actions 32/44 + reveal,
+  grid 900/1200, theme-color reads `--background`, unused tokens removed.
+- Build/lint/format: pass (2026-10-30).
+- Grid regression from user screenshot: arbitrary `min-[900px]` emitted before
+  `sm`, so 3 columns won on desktop. Replaced with theme breakpoints
+  `--breakpoint-wide` (900) / `--breakpoint-widest` (1200).
+- B2 grid re-run: pass (user-run, 2026-10-30).
+- Static: app-loading 1440 dark aligned; theme-color dark resolves `#11130f`.
+- Chưa commit.
+
 ## Next
 
-- Commit 12 + final report (done).
+- Commit fix pass; re-run remaining affected QA states; open PR when ready.
 - Non-blocking flags: dead deps, `components.json` alias, title/OG, no test harness, chunk warning.
-- Run `/code-review`; open PR when ready.

@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from 'react'
+import { ErrorAlert } from '@/components/error-alert'
 import { SongCover } from '@/components/song-cover'
 import { Button } from '@/components/ui/button'
 import {
@@ -271,12 +272,7 @@ export function SongForm({
       ) : null}
 
       {submitError ? (
-        <div
-          role="alert"
-          className="mt-4 border-l-[3px] border-danger bg-surface-2 px-3 py-2.5 text-sm leading-[1.6] text-danger"
-        >
-          {submitError}
-        </div>
+        <ErrorAlert message={submitError} className="mt-4" />
       ) : null}
 
       <Button
