@@ -166,7 +166,7 @@ Bảng màu là một căn phòng tối có đúng một ngọn đèn: than nhi�
 - **Danh sách:** phẳng, hàng padding 12px ngang / 10px dọc; ô lọc cách danh sách 16px.
 - **Lưới cover:** 2 cột (gap 10px) → 3 (12px) → 4 (16px) → 5.
 - **Drawer:** rộng tối đa 560px, cao tối đa 85dvh, bo góc trên, chừa safe-area đáy 20px.
-- **FAB:** cố định phải 24/32/48/64px, đáy 20px + safe-area.
+- **FAB:** chỉ dùng dưới lg; cố định phải 24/32px, đáy 20px + safe-area. Từ lg thay bằng nút "Thêm bài" trong header, padding đáy trang còn 40px.
 - **Màn đăng nhập:** lề ngoài 20px, một tấm tối đa 560px, padding trong 24px → 36px → 44px (lg), cao tối thiểu 520px → 560px, vuông ở lg.
 - **Trục dọc:** nội dung co giãn; trạng thái rỗng/lỗi chiếm trọn phần còn lại.
 
@@ -221,7 +221,7 @@ Bo góc theo vai trò, không theo một thang duy nhất: artwork 6px, control 
 
 ### Navigation
 
-- **Header:** wordmark 17–20px bold, phần "mob" màu coral; dưới là đếm bài 12px Ash; bên phải là toggle xem (outline icon 36px) và avatar 36px hình tròn, vùng chạm 44px. Avatar dùng ảnh đại diện Google khi có, cắt `object-cover`; khi không có ảnh (hoặc ảnh lỗi) hiện chữ cái đầu của tên trên nền Ember Coral, chữ Ember Ink bold 12px.
+- **Header:** wordmark 17–20px bold, phần "mob" màu coral; dưới là đếm bài 12px Ash; bên phải là toggle xem (outline icon 36px) và avatar 36px hình tròn, vùng chạm 44px. Từ lg có thêm nút "Thêm bài" cao 36px, nền coral, icon plus 16px, chữ 12.5px semibold, đặt trước toggle xem. Avatar dùng ảnh đại diện Google khi có, cắt `object-cover`; khi không có ảnh (hoặc ảnh lỗi) hiện chữ cái đầu của tên trên nền Ember Coral, chữ Ember Ink bold 12px.
 - **Menu:** dropdown nền popover, item 13px, mục xoá dùng Ember Warn; trigger là ghost icon 36px.
 
 ### Song row (signature)
@@ -236,9 +236,11 @@ Hàng phẳng cao ~70px: cover 50px bo 6px, cách chữ 12px; tên bài 14.5px s
 
 Nút tròn 28px đặt giữa artwork, vùng chạm 36px: list dùng trên cover 50px, grid dùng giữa tile. Nền đen 65%, icon trắng 14px. Đang phát: nền Ember Coral, icon Ember Ink. Đang tải: spinner thay icon. Không có bản nghe thử: giữ nút với icon loa gạch, chữ mờ 70%, con trỏ `not-allowed`, kèm tooltip và toast nêu lý do - không ẩn nút. Không progress, không seek, không volume.
 
-### Floating add (signature)
+### Floating add (signature, dưới lg)
 
-Nút tròn 56px Ember Coral, icon plus 24px Ember Ink, bóng "Floating action"; cố định đáy phải với safe-area. Đây là vật thể nổi duy nhất của app.
+Nút tròn 56px Ember Coral, icon plus 24px Ember Ink, bóng "Floating action"; cố định đáy phải với safe-area. Chỉ dùng dưới lg; từ lg hành động này nằm ở header. Đây là vật thể nổi duy nhất của app.
+
+**The One Add CTA Rule.** Mỗi trạng thái chỉ có một lối thêm bài: thư viện rỗng dùng nút trong card empty state và ẩn cả nút header lẫn FAB; có bài thì dùng nút header từ lg và FAB dưới lg.
 
 ### Add/edit panel
 

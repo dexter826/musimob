@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Plus } from 'lucide-react'
 import { toast } from 'sonner'
+import { cn } from 'cn'
 import { ErrorAlert } from '@/components/error-alert'
 import { Button } from '@/components/ui/button'
 import { AddSheet } from '@/features/add-song/components/add-sheet'
@@ -116,6 +117,8 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
     )
   }, [songs, filterQuery])
 
+  const isLibraryEmpty = status.state === 'ready' && songs.length === 0
+
   return (
     <div className="flex min-h-dvh w-full flex-col bg-background">
       <AppHeader
@@ -124,10 +127,17 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
         displayName={user.displayName}
         photoURL={user.photoURL}
         viewMode={viewMode}
+        showAdd={!isLibraryEmpty}
+        onAdd={() => openAdd()}
         onToggleView={toggleViewMode}
         onSignOut={onSignOut}
       />
-      <main className="flex flex-1 flex-col px-6 pb-24 sm:px-8 lg:px-12 lg:pb-28 xl:px-16">
+      <main
+        className={cn(
+          'flex flex-1 flex-col px-6 sm:px-8 lg:px-12 xl:px-16',
+          isLibraryEmpty ? 'pb-6' : 'pb-24 lg:pb-10',
+        )}
+      >
         <FilterInput value={filterQuery} onChange={setFilterQuery} />
         {authError ? <ErrorAlert message={authError} className="mb-3" /> : null}
         <SongList
@@ -145,14 +155,16 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
         />
       </main>
 
-      <Button
-        type="button"
-        aria-label="Thêm bài"
-        onClick={() => openAdd()}
-        className="fixed right-6 bottom-[calc(1.25rem+env(safe-area-inset-bottom))] z-40 size-14 rounded-full p-0 shadow-lg shadow-black/40 sm:right-8 lg:right-12 lg:bottom-8 xl:right-16"
-      >
-        <Plus aria-hidden="true" className="size-6" />
-      </Button>
+      {isLibraryEmpty ? null : (
+        <Button
+          type="button"
+          aria-label="Thêm bài"
+          onClick={() => openAdd()}
+          className="fixed right-6 bottom-[calc(1.25rem+env(safe-area-inset-bottom))] z-40 size-14 rounded-full p-0 shadow-lg shadow-black/40 sm:right-8 lg:hidden"
+        >
+          <Plus aria-hidden="true" className="size-6" />
+        </Button>
+      )}
 
       <AddSheet
         open={isAddOpen}

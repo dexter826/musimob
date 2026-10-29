@@ -1,3 +1,5 @@
+import { Plus } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import { Wordmark } from '@/components/wordmark'
 import { AvatarMenu } from '@/features/auth/components/avatar-menu'
 import { ViewToggle } from '@/features/songs/components/view-toggle'
@@ -10,6 +12,8 @@ type AppHeaderProps = {
   displayName: string
   photoURL: string | null
   viewMode: ViewMode
+  showAdd: boolean
+  onAdd: () => void
   onToggleView: () => void
   onSignOut: () => Promise<void>
 }
@@ -27,6 +31,8 @@ export function AppHeader({
   displayName,
   photoURL,
   viewMode,
+  showAdd,
+  onAdd,
   onToggleView,
   onSignOut,
 }: AppHeaderProps) {
@@ -39,6 +45,16 @@ export function AppHeader({
         </p>
       </div>
       <div className="flex shrink-0 items-center gap-2">
+        {showAdd ? (
+          <Button
+            type="button"
+            onClick={onAdd}
+            className="hidden h-9 gap-1.5 px-3 text-[12.5px] font-semibold lg:inline-flex"
+          >
+            <Plus aria-hidden="true" />
+            Thêm bài
+          </Button>
+        ) : null}
         <ViewToggle viewMode={viewMode} onToggle={onToggleView} />
         <AvatarMenu
           displayName={displayName}
