@@ -3,6 +3,7 @@ import type { Timestamp } from 'firebase/firestore'
 export type User = {
   uid: string
   displayName: string
+  photoURL: string | null
 }
 
 export type Song = {

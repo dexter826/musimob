@@ -134,6 +134,7 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
         songCount={songCount}
         hasError={hasError}
         displayName={user.displayName}
+        photoURL={user.photoURL}
         viewMode={viewMode}
         onToggleView={toggleViewMode}
         onSignOut={onSignOut}

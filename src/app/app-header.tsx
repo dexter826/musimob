@@ -7,6 +7,7 @@ type AppHeaderProps = {
   songCount: number | null
   hasError: boolean
   displayName: string
+  photoURL: string | null
   viewMode: ViewMode
   onToggleView: () => void
   onSignOut: () => Promise<void>
@@ -16,6 +17,7 @@ export function AppHeader({
   songCount,
   hasError,
   displayName,
+  photoURL,
   viewMode,
   onToggleView,
   onSignOut,
@@ -34,7 +36,11 @@ export function AppHeader({
       </div>
       <div className="flex shrink-0 items-center gap-2">
         <ViewToggle viewMode={viewMode} onToggle={onToggleView} />
-        <AvatarMenu displayName={displayName} onSignOut={onSignOut} />
+        <AvatarMenu
+          displayName={displayName}
+          photoURL={photoURL}
+          onSignOut={onSignOut}
+        />
       </div>
     </header>
   )

@@ -50,6 +50,7 @@ function toUser(user: FirebaseUser): User {
   return {
     uid: user.uid,
     displayName: user.displayName?.trim() || fallback,
+    photoURL: user.photoURL,
   }
 }
 

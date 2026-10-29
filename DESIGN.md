@@ -121,7 +121,7 @@ Bảng màu là một căn phòng tối có đúng một ngọn đèn: than nhi�
 
 ### Primary
 
-- **Ember Coral** (#ff6a4d): nút hành động chính, focus ring, chữ "mob" trong wordmark, avatar, FAB, đĩa coral ở màn đăng nhập, dấu check trạng thái. Không dùng cho khối nền lớn.
+- **Ember Coral** (#ff6a4d): nút hành động chính, focus ring, chữ "mob" trong wordmark, avatar (nền chữ cái khi không có ảnh), FAB, đĩa coral ở màn đăng nhập, dấu check trạng thái. Không dùng cho khối nền lớn.
 - **Ember Ink** (#1a0a06): chữ và icon đặt trên nền coral.
 - **Ember Warn** (#ff8a75): chữ cảnh báo và hành động xoá. Là sắc coral nhạt hơn, không phải accent thứ hai.
 
@@ -214,7 +214,7 @@ Bo góc theo vai trò, không theo một thang duy nhất: artwork 6px, control 
 
 ### Navigation
 
-- **Header:** wordmark 17–20px bold, phần "mob" màu coral; dưới là đếm bài 12px Ash; bên phải là toggle xem (outline icon 36px) và avatar 36px trong vòng coral, vùng chạm 44px.
+- **Header:** wordmark 17–20px bold, phần "mob" màu coral; dưới là đếm bài 12px Ash; bên phải là toggle xem (outline icon 36px) và avatar 36px hình tròn, vùng chạm 44px. Avatar dùng ảnh đại diện Google khi có, cắt `object-cover`; khi không có ảnh (hoặc ảnh lỗi) hiện chữ cái đầu của tên trên nền Ember Coral, chữ Ember Ink bold 12px.
 - **Menu:** dropdown nền popover, item 13px, mục xoá dùng Ember Warn; trigger là ghost icon 36px.
 
 ### Song row (signature)
