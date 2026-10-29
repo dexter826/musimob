@@ -1,4 +1,4 @@
-# Rebuild giao diện Musimob — “Sổ lưu”
+# Rebuild giao diện musimob — “Sổ lưu”
 
 Status: ready-for-agent (spec)
 Date: 2026-10-29
@@ -8,7 +8,7 @@ Ticket dir: `.scratch/rebuild-direction/issues/`
 
 ## 1. Mục tiêu
 
-Thay toàn bộ lớp trình bày và hệ token của Musimob bằng hướng “Sổ lưu”: light-native,
+Thay toàn bộ lớp trình bày và hệ token của musimob bằng hướng “Sổ lưu”: light-native,
 giấy + mực, bìa đĩa dẫn màu, coral là dấu sách. Giữ nguyên auth, Firestore, dữ liệu,
 preview 30 giây và mọi luồng hiện có. Không thêm tính năng.
 
@@ -268,7 +268,7 @@ persistence; title switching hiện có.
 3. **“Nghệ sĩ”** thay “Ca sĩ” trong label/aria; “bài hát” trong câu giải thích.
 4. **Sign-in sleeve** dùng brand art (night sleeve + symbol coral), không dùng bìa iTunes.
 5. **Title/OG/manifest branding**: không đổi trong rebuild; code hiện tại lowercase/gạch
-   ngang, memory ghi “Musimob — …” em dash — tách pass riêng nếu muốn.
+   ngang, memory ghi “musimob — …” em dash — tách pass riêng nếu muốn.
 6. **No test harness**: giữ verification build/lint/static + checklist tay.
 7. **Prototype branch**: chưa tạo; sẽ tạo `prototype/soloi` nếu user đồng ý, rồi trỏ
    spec/ticket 12 vào branch thay vì `.scratch`.
