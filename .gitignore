@@ -56,3 +56,4 @@ gha-creds-*.json
 /.agents/
 .hallmark
 .taste-skill
+.impeccable
