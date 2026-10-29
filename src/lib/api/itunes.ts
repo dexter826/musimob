@@ -3,6 +3,7 @@ import type { MusimobApi, SearchResult } from './types'
 const ITUNES_SEARCH_URL = 'https://itunes.apple.com/search'
 
 type ItunesTrack = {
+  trackId?: unknown
   trackName?: unknown
   artistName?: unknown
   artworkUrl100?: unknown
@@ -26,11 +27,14 @@ export class SearchError extends Error {
   }
 }
 
-export function normalizeItunesTrack(track: ItunesTrack): SearchResult {
+export function normalizeItunesTrack(track: ItunesTrack): SearchResult | null {
+  if (typeof track.trackId !== 'number') return null
+
   const artworkUrl =
     typeof track.artworkUrl100 === 'string' ? track.artworkUrl100 : ''
 
   return {
+    trackId: track.trackId,
     title: typeof track.trackName === 'string' ? track.trackName.trim() : '',
     artist: typeof track.artistName === 'string' ? track.artistName.trim() : '',
     coverUrl: artworkUrl.replace('100x100bb', '600x600bb'),
@@ -79,6 +83,7 @@ export const searchApi: MusimobApi['search'] = {
     return payload.results
       .filter(isItunesTrack)
       .map(normalizeItunesTrack)
+      .filter((result): result is SearchResult => result !== null)
       .filter((result) => Boolean(result.title && result.artist))
   },
 }

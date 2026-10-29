@@ -21,12 +21,11 @@ Hệ thống bên ngoài cung cấp kết quả tìm kiếm. Bài hát chỉ có
 _Avoid_: iTunes (tên riêng của nguồn hiện tại, không phải khái niệm)
 
 **Kết quả tìm kiếm (Search Result)**:
-Một bản ghi nhạc lấy từ Nguồn nhạc, chưa được lưu, chưa có danh tính trong hệ thống.
+Một bản ghi nhạc lấy từ Nguồn nhạc, chưa được lưu vào Thư viện.
 _Avoid_: Bài hát, Track
 
 **Đã lưu (Saved)**:
 Trạng thái của một Kết quả tìm kiếm khi trùng với một Bài hát đã lưu trong Thư viện của chính Người dùng đang xem. Không xét Thư viện của người khác.
 
 **Danh tính bài hát (Song identity)**:
-Hai bài được coi là cùng một bài khi tên bài và tên nghệ sĩ trùng nhau sau chuẩn hoá (trim, bỏ hoa/thường). Biến thể nghệ sĩ ("A & B" vs "A, B") được tính là hai bài khác nhau — hạn chế đã biết, chưa chốt hướng xử lý.
-_Avoid_: coi id nguồn nhạc là danh tính (hiện hệ thống không lưu id nguồn)
+Bài lưu từ Nguồn nhạc được nhận diện bằng id của nguồn — cách viết tên hay tên nghệ sĩ có đổi cũng vẫn là một bài. Bài nhập tay nhận diện bằng tên bài và tên nghệ sĩ sau chuẩn hoá (trim, bỏ hoa/thường).

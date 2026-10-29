@@ -89,8 +89,8 @@ export function SongSearch({
   onSwitchToManual,
 }: SongSearchProps) {
   const [term, setTerm] = useState('')
-  const [savedKeys, setSavedKeys] = useState<Set<string>>(() => new Set())
-  const [savingKeys, setSavingKeys] = useState<Set<string>>(() => new Set())
+  const [savedIds, setSavedIds] = useState<Set<number>>(() => new Set())
+  const [savingIds, setSavingIds] = useState<Set<number>>(() => new Set())
   const [saveError, setSaveError] = useState<string | null>(null)
 
   const {
@@ -103,8 +103,23 @@ export function SongSearch({
     refetch,
   } = useSongSearch(term)
 
+  const existingIds = useMemo(
+    () =>
+      new Set(
+        songs.flatMap((song) =>
+          song.sourceId === undefined ? [] : [song.sourceId],
+        ),
+      ),
+    [songs],
+  )
+
   const existingKeys = useMemo(
-    () => new Set(songs.map((song) => getSongKey(song.title, song.artist))),
+    () =>
+      new Set(
+        songs
+          .filter((song) => !song.sourceId)
+          .map((song) => getSongKey(song.title, song.artist)),
+      ),
     [songs],
   )
 
@@ -112,10 +127,10 @@ export function SongSearch({
   const hasQuery = debouncedTerm.length >= 2
   const isSearching =
     trimmedTerm.length >= 2 && (isFetching || isDebouncing)
-  const isResultSaved = (result: SearchResult) => {
-    const key = getSongKey(result.title, result.artist)
-    return existingKeys.has(key) || savedKeys.has(key)
-  }
+  const isResultSaved = (result: SearchResult) =>
+    existingIds.has(result.trackId) ||
+    savedIds.has(result.trackId) ||
+    existingKeys.has(getSongKey(result.title, result.artist))
 
   function handleTermChange(value: string) {
     setTerm(value)
@@ -123,12 +138,12 @@ export function SongSearch({
   }
 
   async function handleSave(result: SearchResult) {
-    const key = getSongKey(result.title, result.artist)
-    if (existingKeys.has(key) || savedKeys.has(key) || savingKeys.has(key)) {
+    const { trackId } = result
+    if (isResultSaved(result) || savingIds.has(trackId)) {
       return
     }
 
-    setSavingKeys((current) => new Set(current).add(key))
+    setSavingIds((current) => new Set(current).add(trackId))
     setSaveError(null)
 
     try {
@@ -136,8 +151,9 @@ export function SongSearch({
         title: result.title,
         artist: result.artist,
         coverUrl: result.coverUrl,
+        sourceId: trackId,
       })
-      setSavedKeys((current) => new Set(current).add(key))
+      setSavedIds((current) => new Set(current).add(trackId))
     } catch (saveFailure) {
       setSaveError(
         saveFailure instanceof Error
@@ -145,9 +161,9 @@ export function SongSearch({
           : 'Không lưu được bài. Thử lại.',
       )
     } finally {
-      setSavingKeys((current) => {
+      setSavingIds((current) => {
         const next = new Set(current)
-        next.delete(key)
+        next.delete(trackId)
         return next
       })
     }
@@ -191,18 +207,15 @@ export function SongSearch({
           <NoResults onSwitchToManual={onSwitchToManual} />
         ) : (
           <ul className="flex flex-col">
-            {data.map((result, index) => {
-              const key = getSongKey(result.title, result.artist)
-              return (
-                <SearchResultRow
-                  key={`${key}-${index}`}
-                  result={result}
-                  isSaved={isResultSaved(result)}
-                  isSaving={savingKeys.has(key)}
-                  onSave={() => void handleSave(result)}
-                />
-              )
-            })}
+            {data.map((result) => (
+              <SearchResultRow
+                key={result.trackId}
+                result={result}
+                isSaved={isResultSaved(result)}
+                isSaving={savingIds.has(result.trackId)}
+                onSave={() => void handleSave(result)}
+              />
+            ))}
           </ul>
         )}
       </div>

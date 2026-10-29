@@ -26,6 +26,7 @@ function toSong(id: string, data: DocumentData): Song {
     title: typeof data.title === 'string' ? data.title : '',
     artist: typeof data.artist === 'string' ? data.artist : '',
     coverUrl: typeof data.coverUrl === 'string' ? data.coverUrl : '',
+    sourceId: typeof data.sourceId === 'number' ? data.sourceId : undefined,
     createdAt,
     updatedAt,
   }
@@ -52,13 +53,16 @@ export const songsApi: MusimobApi['songs'] = {
   },
 
   async add(uid, song) {
-    await addDoc(collection(firebaseFirestore, 'users', uid, 'songs'), {
+    const data: DocumentData = {
       title: song.title.trim(),
       artist: song.artist.trim(),
       coverUrl: song.coverUrl.trim(),
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
-    })
+    }
+    if (song.sourceId !== undefined) data.sourceId = song.sourceId
+
+    await addDoc(collection(firebaseFirestore, 'users', uid, 'songs'), data)
   },
 
   async update(uid, id, patch) {

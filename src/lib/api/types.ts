@@ -10,6 +10,7 @@ export type Song = {
   title: string
   artist: string
   coverUrl: string
+  sourceId?: number
   createdAt: Timestamp
   updatedAt: Timestamp
 }
@@ -19,6 +20,7 @@ export type NewSong = Omit<Song, 'id' | 'createdAt' | 'updatedAt'>
 export type SongPatch = Partial<Pick<Song, 'title' | 'artist' | 'coverUrl'>>
 
 export type SearchResult = {
+  trackId: number
   title: string
   artist: string
   coverUrl: string
