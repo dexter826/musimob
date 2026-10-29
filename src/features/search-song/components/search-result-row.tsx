@@ -1,7 +1,9 @@
+import { PreviewButton } from '@/components/preview-button'
 import { SongCover } from '@/components/song-cover'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 import type { SearchResult } from '@/lib/api/types'
+import { itunesPreviewKey } from '@/lib/preview-key'
 import { AlreadySavedBadge } from './already-saved-badge'
 
 type SearchResultRowProps = {
@@ -19,7 +21,16 @@ export function SearchResultRow({
 }: SearchResultRowProps) {
   return (
     <li className="flex items-center gap-3 py-2.5">
-      <SongCover src={result.coverUrl} className="size-[50px]" />
+      <div className="relative size-[50px] shrink-0">
+        <SongCover src={result.coverUrl} className="size-[50px]" />
+        <PreviewButton
+          previewUrl={result.previewUrl}
+          playKey={itunesPreviewKey(result.trackId)}
+          title={result.title}
+          artist={result.artist}
+          className="absolute inset-0 m-auto"
+        />
+      </div>
       <div className="min-w-0 flex-1">
         <p className="truncate text-[14.5px] leading-[1.35] font-semibold">
           {result.title}

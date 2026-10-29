@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react'
 import { cn } from 'cn'
+import { PreviewButton } from '@/components/preview-button'
 import { SongCover } from '@/components/song-cover'
 import type { Song } from '@/lib/api/types'
+import { songPreviewKey } from '@/lib/preview-key'
 import { SongActionsMenu } from './song-actions-menu'
 
 type SongRowProps = {
@@ -34,16 +36,25 @@ export function SongRow({
 
   return (
     <li ref={rowRef} className="flex items-center gap-3 px-3 py-2.5">
-      <SongCover
-        src={song.coverUrl}
-        loading={isFirst ? 'eager' : 'lazy'}
-        fetchPriority={isFirst ? 'high' : 'auto'}
-        className={cn(
-          'size-[50px]',
-          isFlashing &&
-            'ring-2 ring-primary ring-offset-2 ring-offset-background',
-        )}
-      />
+      <div className="relative size-[50px] shrink-0">
+        <SongCover
+          src={song.coverUrl}
+          loading={isFirst ? 'eager' : 'lazy'}
+          fetchPriority={isFirst ? 'high' : 'auto'}
+          className={cn(
+            'size-[50px]',
+            isFlashing &&
+              'ring-2 ring-primary ring-offset-2 ring-offset-background',
+          )}
+        />
+        <PreviewButton
+          previewUrl={song.previewUrl}
+          playKey={songPreviewKey(song.id)}
+          title={song.title}
+          artist={song.artist}
+          className="absolute inset-0 m-auto"
+        />
+      </div>
       <div className="min-w-0 flex-1">
         <p className="truncate text-[14.5px] leading-[1.35] font-semibold">
           {song.title}

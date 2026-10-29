@@ -10,6 +10,7 @@ export type Song = {
   title: string
   artist: string
   coverUrl: string
+  previewUrl: string
   sourceId?: number
   createdAt: Timestamp
   updatedAt: Timestamp
@@ -24,6 +25,7 @@ export type SearchResult = {
   title: string
   artist: string
   coverUrl: string
+  previewUrl: string
 }
 
 export type MusimobApi = {

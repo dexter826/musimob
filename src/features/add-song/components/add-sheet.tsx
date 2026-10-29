@@ -1,6 +1,7 @@
-import { useLayoutEffect, useState, type ReactNode } from 'react'
+import { useEffect, useLayoutEffect, useState, type ReactNode } from 'react'
 import { ResponsivePanel } from '@/components/responsive-panel'
 import { Button } from '@/components/ui/button'
+import { useAudioPreview } from '@/lib/audio-preview-context'
 import { useIsMobile } from '@/hooks/use-mobile'
 import type { NewSong, Song } from '@/lib/api/types'
 import { ManualForm } from './manual-form'
@@ -38,6 +39,7 @@ export function AddSheet({
   renderSearch,
 }: AddSheetProps) {
   const isMobile = useIsMobile()
+  const { stop } = useAudioPreview()
   const [mode, setMode] = useState<AddMode>('search')
   const [searchTerm, setSearchTerm] = useState(initialTerm)
   const [manualSeed, setManualSeed] = useState<ManualSeed | null>(null)
@@ -52,7 +54,12 @@ export function AddSheet({
     setManualSeed(null)
   }, [open, initialTerm])
 
+  useEffect(() => {
+    if (!open) stop()
+  }, [open, stop])
+
   function openManualWithTerm(term: string) {
+    stop()
     const nextTerm = term.trim()
     setMode('manual')
     if (nextTerm) {

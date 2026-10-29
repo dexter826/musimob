@@ -100,7 +100,7 @@ components:
 
 **Creative North Star: "The Night Sleeve"**
 
-musimob là một kệ đĩa than trong phòng tối: bìa đĩa là vật thể duy nhất bắt sáng, còn giá đỡ, nhãn và nút bấm lùi về màu than. Giao diện không gợi không khí "đang nghe nhạc" — không player, không sóng nhạc, không hàng chờ — mà gợi cảm giác sở hữu: mở app ra là thấy đúng những bìa mình đã chọn, xếp trên một mặt phẳng yên tĩnh.
+musimob là một kệ đĩa than trong phòng tối: bìa đĩa là vật thể duy nhất bắt sáng, còn giá đỡ, nhãn và nút bấm lùi về màu than. Giao diện không gợi không khí "đang nghe nhạc" — không player, không sóng nhạc, không hàng chờ, chỉ một nút nghe thử 30 giây trên ảnh bìa — mà gợi cảm giác sở hữu: mở app ra là thấy đúng những bìa mình đã chọn, xếp trên một mặt phẳng yên tĩnh.
 
 Sự ấm áp đến từ đúng một nguồn: Ember Coral, dùng như ngọn đèn nhỏ trong phòng — một hành động chính, một focus ring, chữ "mob" trong wordmark, chiếc đĩa coral trên màn đăng nhập. Mọi thứ còn lại là Vinyl Charcoal nhiều tầng với Soft White và Ash. Bề mặt phẳng, viền sáng 1px thay bóng đổ; chỉ nút thêm bài được phép nổi.
 
@@ -225,6 +225,10 @@ Hàng phẳng cao ~70px: cover 50px bo 6px, cách chữ 12px; tên bài 14.5px s
 
 Ô vuông bo 12px, cover phủ kín, scrim đen 90% → 40% → trong suốt từ đáy; tên bài trắng 12.5px semibold, ca sĩ trắng 60% 11px; menu ellipsis nổi góc trên phải trên nền đen 65%.
 
+### Preview control
+
+Nút tròn 28px đặt giữa artwork, vùng chạm 36px: list dùng trên cover 50px, grid dùng giữa tile. Nền đen 65%, icon trắng 14px. Đang phát: nền Ember Coral, icon Ember Ink. Đang tải: spinner thay icon. Không có bản nghe thử: giữ nút với icon loa gạch, chữ mờ 70%, kèm tooltip và toast nêu lý do — không ẩn nút. Không progress, không seek, không volume.
+
 ### Floating add (signature)
 
 Nút tròn 56px Ember Coral, icon plus 24px Ember Ink, bóng "Floating action"; cố định đáy phải với safe-area. Đây là vật thể nổi duy nhất của app.
@@ -251,7 +255,7 @@ Một tấm Vinyl Card bo 8px (ngoại lệ có chủ đích của surface 12px)
 
 ### Don't:
 
-- **Don't** thêm player, nút play, progress bar, hàng chờ hay bất kỳ affordance phát nhạc nào.
+- **Don't** thêm player, progress bar, hàng chờ hay điều khiển phát toàn bài; chỉ có nút nghe thử 30 giây trên ảnh bìa.
 - **Don't** thêm thẻ số liệu, chart, hay chrome dashboard nhiều khu vực.
 - **Don't** thêm accent hue thứ hai; gradient chỉ được dùng cho scrim của tile và quầng đăng nhập.
 - **Don't** bo tròn mọi thứ thành pill; pill chỉ cho tìm kiếm và hành động lưu.

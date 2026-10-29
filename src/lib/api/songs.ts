@@ -27,6 +27,7 @@ function toSong(id: string, data: DocumentData): Song {
     title: typeof data.title === 'string' ? data.title : '',
     artist: typeof data.artist === 'string' ? data.artist : '',
     coverUrl: typeof data.coverUrl === 'string' ? data.coverUrl : '',
+    previewUrl: typeof data.previewUrl === 'string' ? data.previewUrl : '',
     sourceId: typeof data.sourceId === 'number' ? data.sourceId : undefined,
     createdAt,
     updatedAt,
@@ -58,6 +59,7 @@ export const songsApi: MusimobApi['songs'] = {
       title: song.title.trim(),
       artist: song.artist.trim(),
       coverUrl: song.coverUrl.trim(),
+      previewUrl: song.previewUrl.trim(),
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
     }
@@ -75,6 +77,7 @@ export const songsApi: MusimobApi['songs'] = {
       title: song.title,
       artist: song.artist,
       coverUrl: song.coverUrl,
+      previewUrl: song.previewUrl,
       createdAt: song.createdAt,
       updatedAt: serverTimestamp(),
     }

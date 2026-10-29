@@ -11,6 +11,8 @@ import { SongList } from '@/features/songs/components/song-list'
 import { useSongs } from '@/features/songs/hooks/use-songs'
 import { useViewMode } from '@/features/songs/hooks/use-view-mode'
 import type { NewSong, Song, User } from '@/lib/api/types'
+import { useAudioPreview } from '@/lib/audio-preview-context'
+import { songPreviewKey } from '@/lib/preview-key'
 import { useAuthContext } from './auth-context'
 import { AppHeader } from './app-header'
 import { AppLoading } from './app-loading'
@@ -30,6 +32,7 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
   const [filterQuery, setFilterQuery] = useState('')
   const [flashId, setFlashId] = useState<string | null>(null)
   const { viewMode, toggleViewMode } = useViewMode()
+  const { activeKey, stop } = useAudioPreview()
   const {
     songs,
     isLoading,
@@ -47,6 +50,8 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
     const timer = window.setTimeout(() => setFlashId(null), 2000)
     return () => window.clearTimeout(timer)
   }, [flashId])
+
+  useEffect(() => () => stop(), [stop])
 
   function openAdd(term = '') {
     setAddSeed(term)
@@ -94,6 +99,7 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
   }
 
   async function handleRemove(song: Song) {
+    if (activeKey === songPreviewKey(song.id)) stop()
     await removeSong(song.id)
     toast('Đã xoá bài', {
       description: song.title,

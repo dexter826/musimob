@@ -1,7 +1,9 @@
 import type { ReactNode } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from '@/components/ui/sonner'
+import { TooltipProvider } from '@/components/ui/tooltip'
 import { useAuth } from '@/features/auth/hooks/use-auth'
+import { AudioPreviewProvider } from '@/components/audio-preview-provider'
 import { AuthContext } from './auth-context'
 
 type AppProviderProps = {
@@ -15,7 +17,11 @@ export function AppProvider({ children }: AppProviderProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>
+      <TooltipProvider>
+        <AudioPreviewProvider>
+          <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>
+        </AudioPreviewProvider>
+      </TooltipProvider>
       <Toaster
         theme="dark"
         position="bottom-center"

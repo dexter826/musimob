@@ -3,6 +3,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Spinner } from '@/components/ui/spinner'
+import { useAudioPreview } from '@/lib/audio-preview-context'
 import type { NewSong, SearchResult, Song } from '@/lib/api/types'
 import { RateLimitError } from '@/lib/api/itunes'
 import { getSongKey } from '@/lib/song-key'
@@ -98,6 +99,7 @@ export function SongSearch({
 }: SongSearchProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const lastFocusToken = useRef(focusToken)
+  const { stop } = useAudioPreview()
   const [savedIds, setSavedIds] = useState<Set<number>>(() => new Set())
   const [savingIds, setSavingIds] = useState<Set<number>>(() => new Set())
   const [saveError, setSaveError] = useState<string | null>(null)
@@ -156,6 +158,7 @@ export function SongSearch({
     existingKeys.has(getSongKey(result.title, result.artist))
 
   function handleTermChange(value: string) {
+    if (value !== term) stop()
     onTermChange(value)
     setSaveError(null)
   }
@@ -174,6 +177,7 @@ export function SongSearch({
         title: result.title,
         artist: result.artist,
         coverUrl: result.coverUrl,
+        previewUrl: result.previewUrl,
         sourceId: trackId,
       })
       setSavedIds((current) => new Set(current).add(trackId))

@@ -16,7 +16,7 @@ musimob lưu lại những bài hát người dùng yêu thích và đồng bộ
 
 ## Positioning
 
-Một sổ lưu nhạc, không phải trình phát: bài hát được lưu nguyên văn từ nguồn nhạc ngoài hoặc nhập tay, không phát, không xếp thứ tự, không chia sẻ. Danh tính bài hát lấy theo id của nguồn (bài nhập tay theo tên bài + nghệ sĩ sau chuẩn hoá), nên cách viết tên hay tên nghệ sĩ đổi vẫn là một bài.
+Một sổ lưu nhạc, không phải trình phát: bài hát được lưu nguyên văn từ nguồn nhạc ngoài hoặc nhập tay, chỉ nghe thử 30 giây bản xem trước từ nguồn, không phát toàn bài, không xếp thứ tự, không chia sẻ. Danh tính bài hát lấy theo id của nguồn (bài nhập tay theo tên bài + nghệ sĩ sau chuẩn hoá), nên cách viết tên hay tên nghệ sĩ đổi vẫn là một bài.
 
 ## Operating Context
 
@@ -30,9 +30,9 @@ Một sổ lưu nhạc, không phải trình phát: bài hát được lưu nguy
 ## Capabilities and Constraints
 
 - Một tài khoản ↔ một thư viện riêng tư; Firestore rules chỉ cho chủ tài khoản đọc/ghi `users/{uid}/songs`.
-- Sản phẩm cố định: không phát nhạc, không playlist/thứ tự, không chia sẻ, không social.
+- Sản phẩm cố định: không phát toàn bài, chỉ nghe thử 30 giây từ nguồn; không playlist/thứ tự, không chia sẻ, không social.
 - Nguồn nhạc duy nhất hiện tại là iTunes Search API, gọi trực tiếp từ client; lỗi giới hạn tần suất được xử lý và hiển thị.
-- Bài lưu từ nguồn mang `sourceId` (trackId); bài nhập tay không có. Sửa tay chỉ đổi được title/artist/coverUrl.
+- Bài lưu từ nguồn mang `sourceId` (trackId) và `previewUrl`; bài nhập tay không có bản nghe thử. Sửa tay chỉ đổi được title/artist/coverUrl.
 - Nền tảng: chỉ web/PWA (manifest và icon đã có), không có kế hoạch app native.
 - Ngôn ngữ UI: tiếng Việt là ràng buộc lâu dài, không làm i18n.
 - Chưa chốt: có làm offline app shell (service worker) lâu dài hay không — ticket 07 đã loại trừ khỏi phạm vi bàn giao hiện tại.
@@ -53,7 +53,7 @@ Một sổ lưu nhạc, không phải trình phát: bài hát được lưu nguy
 
 ## Product Principles
 
-1. Lưu là hành động duy nhất: mọi tính năng phục vụ việc lưu, tìm và giữ bài hát; phát nhạc, thứ tự và chia sẻ nằm ngoài sản phẩm.
+1. Lưu là hành động duy nhất: mọi tính năng phục vụ việc lưu, tìm và giữ bài hát; phát toàn bài, thứ tự và chia sẻ nằm ngoài sản phẩm; nghe thử chỉ để xác nhận đúng bài trước khi lưu.
 2. Riêng tư tuyệt đối: không ai thấy hay đếm được thư viện của người khác.
 3. Ổn định trước mới lạ: đồng bộ đa thiết bị đáng tin cậy và thao tác hằng ngày mượt quan trọng hơn tính năng mới.
 4. Tiếng Việt là ngôn ngữ gốc: copy, định dạng ngày giờ và thông báo viết cho người Việt, không phải bản dịch.

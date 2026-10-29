@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react'
 import { cn } from 'cn'
+import { PreviewButton } from '@/components/preview-button'
 import { SongCover } from '@/components/song-cover'
 import type { Song } from '@/lib/api/types'
+import { songPreviewKey } from '@/lib/preview-key'
 import { SongActionsMenu } from './song-actions-menu'
 
 type SongGridProps = {
@@ -52,6 +54,13 @@ export function SongGrid({ songs, flashId, onEdit, onDelete }: SongGridProps) {
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent"
+          />
+          <PreviewButton
+            previewUrl={song.previewUrl}
+            playKey={songPreviewKey(song.id)}
+            title={song.title}
+            artist={song.artist}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
           />
           <div className="absolute inset-x-0 bottom-0 p-2.5">
             <p className="truncate text-[12.5px] leading-[1.3] font-semibold text-white">

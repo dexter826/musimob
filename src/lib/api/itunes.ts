@@ -7,6 +7,7 @@ type ItunesTrack = {
   trackName?: unknown
   artistName?: unknown
   artworkUrl100?: unknown
+  previewUrl?: unknown
 }
 
 type ItunesResponse = {
@@ -38,6 +39,8 @@ export function normalizeItunesTrack(track: ItunesTrack): SearchResult | null {
     title: typeof track.trackName === 'string' ? track.trackName.trim() : '',
     artist: typeof track.artistName === 'string' ? track.artistName.trim() : '',
     coverUrl: artworkUrl.replace('100x100bb', '600x600bb'),
+    previewUrl:
+      typeof track.previewUrl === 'string' ? track.previewUrl.trim() : '',
   }
 }
 

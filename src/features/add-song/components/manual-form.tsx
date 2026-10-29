@@ -35,7 +35,7 @@ export function ManualForm({
       }
       submitLabel="Lưu bài"
       pendingLabel="Đang lưu…"
-      onSubmit={onAdd}
+      onSubmit={(values) => onAdd({ ...values, previewUrl: '' })}
       onSuccess={onDone}
     />
   )
