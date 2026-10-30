@@ -71,6 +71,6 @@ Không dùng fixture/auth bypass. Không sửa app code trong ticket này.
 - Agent: A1 (768/1440 light+dark), A4 dark — pass.
 - User: B1–B15 + C1–C10 — **pass** (2026-10-30).
 - Fix pass 2026-10-30: B2 grid re-run — **pass**.
-- Rename pass D1–D4: chưa chạy (user QA).
+- Rename pass D1–D4: **pass** (user, 2026-10-30).
 - A2/A3/A5: chưa trigger; code-checked.
 - Signed-in visual: **đạt** (user-run).

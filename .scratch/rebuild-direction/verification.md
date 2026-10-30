@@ -73,10 +73,9 @@ npm run lint    # pass
   PNG brand, app-icon 1024 và preview. Tổng 24 file.
 - Build/lint/format: pass. Static: loading + wordmark 1440 light/dark; OG 1200×630;
   Twitter 1200×600; lockup PNG RGBA đúng kích thước.
-- Chưa xác minh: header signed-in và màn sign-in (auth); user QA 390/1440.
-- Nhánh `rebrand/musimob`, chưa commit.
+- Signed-in QA D1–D4 (header, sign-in, title/PWA, share): **pass** (user, 2026-10-30).
+- Nhánh `rebrand/musimob`, commit `896d1b7`.
 
 ## Next
 
-- User QA header/sign-in 390/1440; commit + PR khi duyệt.
-- Non-blocking flags: dead deps, `components.json` alias, title/OG, no test harness, chunk warning.
+- Push + PR; non-blocking flags: dead deps, `components.json` alias, title/OG, no test harness, chunk warning.
