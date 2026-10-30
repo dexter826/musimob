@@ -57,13 +57,13 @@ export function SignInScreen({
         </div>
 
         <section className="relative z-10 mx-auto mt-24 w-full max-w-[350px] rounded-sm border border-rule bg-surface p-6 shadow-[6px_6px_0_0_var(--surface-2),6px_6px_0_1px_var(--rule)] sm:mx-0 sm:mt-[120px] sm:max-w-[360px] sm:p-8">
-          <Wordmark className="h-7" />
+          <Wordmark className="h-7 text-[15.5px]" />
 
           <h1 className="mt-10 font-serif text-[38px] leading-[1.08] font-medium tracking-[-0.02em] text-foreground max-md:text-[30px]">
             Thư viện riêng của bạn
           </h1>
           <p className="mt-3 max-w-[28ch] text-[15px] leading-[1.6] text-muted-foreground max-md:text-sm">
-            Lưu và đồng bộ danh sách bài hát trên mọi thiết bị.
+            Thư viện bài hát riêng của bạn.
           </p>
 
           <Button
@@ -87,10 +87,6 @@ export function SignInScreen({
           </Button>
 
           {error ? <ErrorAlert message={error} className="mt-3" /> : null}
-
-          <p className="mt-3.5 text-xs leading-[1.5] text-muted-foreground">
-            Chỉ bạn thấy thư viện của mình.
-          </p>
         </section>
       </div>
     </main>

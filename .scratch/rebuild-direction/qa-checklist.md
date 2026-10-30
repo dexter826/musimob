@@ -57,10 +57,20 @@ Không dùng fixture/auth bypass. Không sửa app code trong ticket này.
 | C9 | Toasts/errors `role="status"`/`alert`; aria-live |
 | C10 | 30s preview: nghe được, pause/resume, stop đúng; không progress/seek |
 
+## D. Rename MusiMOB
+
+| # | State | Kiểm |
+|---|-------|------|
+| D1 | Header | Wordmark `MusiMOB`, `Musi` foreground + `MOB` coral, symbol khớp; 390/768/1440 light/dark |
+| D2 | Sign-in | h1 + lede `Thư viện bài hát riêng của bạn.`; không còn fine print; lỗi đăng nhập |
+| D3 | Title/PWA | Tab `MusiMOB` / `MusiMOB: Thư viện`; tên cài PWA `MusiMOB` |
+| D4 | Share | OG/Twitter title + description; ảnh 1200×630/1200×600 |
+
 ## Kết quả
 
 - Agent: A1 (768/1440 light+dark), A4 dark — pass.
 - User: B1–B15 + C1–C10 — **pass** (2026-10-30).
 - Fix pass 2026-10-30: B2 grid re-run — **pass**.
+- Rename pass D1–D4: **pass** (user, 2026-10-30).
 - A2/A3/A5: chưa trigger; code-checked.
 - Signed-in visual: **đạt** (user-run).
