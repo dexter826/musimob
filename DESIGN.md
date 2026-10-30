@@ -230,7 +230,7 @@ thứ khác là Be Vietnam Pro. Không trộn thêm family thứ ba.
 
 ```
 Desktop ≥768
-┌ logo                              [view] [avatar] ┐  64px
+┌ logo                       [view] [theme] [avatar] ┐  64px
 │ Thư viện                        [tìm…] [+ Thêm bài] │
 │ 12 bài                                             │
 │ ▣  Tên bài                              ⋯          │
@@ -238,7 +238,7 @@ Desktop ≥768
 └────────────────────────────────────────────────────┘
 
 Mobile <768
-┌ logo                         [view] [avatar] ┐  60px
+┌ logo                [view] [theme] [avatar] ┐  60px
 │ Thư viện                                    │
 │ 12 bài                                      │
 │ [tìm…]                                      │
@@ -248,7 +248,7 @@ Mobile <768
 ```
 
 - Content max 1120px; gutter `clamp(20px, 5vw, 64px)`; topbar 64/60.
-- Desktop: search 280×44; add primary 44; view toggle 36 visual/44 hit; avatar 32/44.
+- Desktop: search 280×44; add primary 44; view toggle và theme toggle 36 visual/44 hit; avatar 32/44.
 - Mobile: search full width; add chỉ còn FAB 56×64; FAB cách đáy
   `20px + env(safe-area-inset-bottom)`.
 - List là view mặc định. Grid là view thứ hai.
@@ -318,11 +318,11 @@ preview được tròn.
 ### Navigation and account
 
 - Topbar: logo ngang (symbol + wordmark 14.5/700) cao 26; h1 34/28; count 12 `fg-muted`; search/add;
-  view toggle; avatar 32 visual/44 hit.
+  view toggle; theme toggle; avatar 32 visual/44 hit.
 - Avatar: ảnh Google nếu có; fallback chữ cái đầu trên `surface-2`, chữ `foreground` 12/600;
   viền 1px `control-border`; aria “Mở tài khoản của {name}”.
-- Account menu: surface, radius 8, border `rule`; name label; “Giao diện” radio
-  (Theo hệ thống / Sáng / Tối); separator; “Đăng xuất”. Trigger/focus/keyboard theo Radix.
+- Account menu: surface, radius 8, border `rule`; name label; separator; “Đăng xuất”.
+  Trigger/focus/keyboard theo Radix.
 
 ### Song row (signature)
 
@@ -408,8 +408,11 @@ trong empty state và ẩn cả add ở title row lẫn FAB; có bài thì dùng
 
 ### Theme
 
-- Light-native; dark đầy đủ. Mặc định theo `prefers-color-scheme`; chọn trong account menu:
-  “Theo hệ thống / Sáng / Tối”; lưu `musimob:theme`.
+- Light-native; dark đầy đủ. Mặc định theo `prefers-color-scheme`; “Theo hệ thống” chỉ là
+  điểm khởi đầu, sau lần chọn đầu tiên người dùng điều khiển bằng nút theme. Lưu `musimob:theme`.
+- Theme toggle ở topbar: một nút icon 36 visual/44 hit; icon thể hiện hành động (đang sáng →
+  `Moon`, đang tối → `Sun`); aria “Chuyển sang giao diện tối” / “Chuyển sang giao diện sáng”;
+  bấm chuyển Sáng ↔ Tối.
 - `.dark` trên `<html>` + `color-scheme` + meta theme-color (`#F4F3EE` / `#11130F`);
   no-flash; Toaster theo theme.
 - Không chỉ đổi màu accent; phải đổi toàn bộ semantic set.

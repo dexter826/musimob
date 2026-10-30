@@ -159,19 +159,17 @@ Một khái niệm dùng một thuật ngữ. Không đổi sang từ đồng ng
 
 ### Tài khoản và giao diện
 
-| Chuỗi                                                           | Dùng ở             |
-| --------------------------------------------------------------- | ------------------ |
-| `Mở tài khoản của {name}`                                       | aria trigger       |
-| `Giao diện`                                                     | Account menu label |
-| `Theo hệ thống`                                                 | Theme option       |
-| `Sáng`                                                          | Theme option       |
-| `Tối`                                                           | Theme option       |
-| `Đăng xuất`                                                     | Account menu item  |
-| `Đang đăng xuất…`                                               | Sign-out pending   |
-| `Đăng xuất?`                                                    | Confirm title      |
-| `Bạn sẽ rời khỏi tài khoản này. Thư viện bài hát vẫn được giữ.` | Confirm body       |
-| `Huỷ`                                                           | Confirm cancel     |
-| `Không đăng xuất được. Thử lại.`                                | Sign-out error     |
+| Chuỗi                                                           | Dùng ở                          |
+| --------------------------------------------------------------- | ------------------------------- |
+| `Mở tài khoản của {name}`                                       | aria trigger                    |
+| `Chuyển sang giao diện tối`                                     | aria theme toggle khi đang sáng |
+| `Chuyển sang giao diện sáng`                                    | aria theme toggle khi đang tối  |
+| `Đăng xuất`                                                     | Account menu item               |
+| `Đang đăng xuất…`                                               | Sign-out pending                |
+| `Đăng xuất?`                                                    | Confirm title                   |
+| `Bạn sẽ rời khỏi tài khoản này. Thư viện bài hát vẫn được giữ.` | Confirm body                    |
+| `Huỷ`                                                           | Confirm cancel                  |
+| `Không đăng xuất được. Thử lại.`                                | Sign-out error                  |
 
 ### Toast
 

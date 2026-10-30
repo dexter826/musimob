@@ -1,5 +1,4 @@
 import { useState, type MouseEvent } from 'react'
-import { useTheme } from 'next-themes'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,8 +15,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
@@ -34,7 +31,6 @@ export function AvatarMenu({
   photoURL,
   onSignOut,
 }: AvatarMenuProps) {
-  const { theme, setTheme } = useTheme()
   const [isConfirmOpen, setIsConfirmOpen] = useState(false)
   const [isSigningOut, setIsSigningOut] = useState(false)
   const initial = displayName.trim().charAt(0).toUpperCase() || 'B'
@@ -78,33 +74,6 @@ export function AvatarMenu({
           <DropdownMenuLabel className="truncate text-xs font-normal text-muted-foreground">
             {displayName}
           </DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuLabel className="text-xs font-normal text-muted-foreground">
-            Giao diện
-          </DropdownMenuLabel>
-          <DropdownMenuRadioGroup
-            value={theme ?? 'system'}
-            onValueChange={setTheme}
-          >
-            <DropdownMenuRadioItem
-              value="system"
-              className="min-h-11 py-2 text-sm"
-            >
-              Theo hệ thống
-            </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem
-              value="light"
-              className="min-h-11 py-2 text-sm"
-            >
-              Sáng
-            </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem
-              value="dark"
-              className="min-h-11 py-2 text-sm"
-            >
-              Tối
-            </DropdownMenuRadioItem>
-          </DropdownMenuRadioGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onSelect={() => setIsConfirmOpen(true)}
