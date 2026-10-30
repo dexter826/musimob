@@ -1,4 +1,4 @@
-# musimob
+# MusiMOB
 
 Ứng dụng lưu trữ bộ sưu tập bài hát cá nhân: mỗi người dùng đánh dấu những bài mình yêu
 thích, tìm từ một nguồn nhạc bên ngoài hoặc nhập tay, và lưu vào thư viện riêng. Không phát
@@ -7,7 +7,7 @@ toàn bài, không xếp thứ tự, không chia sẻ.
 ## Language
 
 **Người dùng (User)**:
-Một người dùng musimob, đăng nhập bằng Google và sở hữu đúng một Thư viện riêng tư.
+Một người dùng MusiMOB, đăng nhập bằng Google và sở hữu đúng một Thư viện riêng tư.
 UI gọi danh tính đăng nhập là “tài khoản”, không dùng “người dùng” trong nhãn.
 _Avoid_: Khách, Account trong UI
 
@@ -73,4 +73,5 @@ _Avoid_: So khớp theo tiêu đề trần, Dedupe theo URL ảnh bìa
 - Sản phẩm không có playlist, thứ tự, phát toàn bài, chia sẻ hay social.
 - Nghe thử chỉ 30 giây từ Nguồn nhạc; một bài tại một thời điểm.
 - Xóa có Hoàn tác trong 10 giây; không xóa ngầm, không soft delete.
-- Tên viết của sản phẩm là `musimob`; wordmark dùng chữ `musi` + `mob`.
+- Tên viết của sản phẩm là `MusiMOB`; wordmark dùng chữ `Musi` + `MOB`. `musimob` lowercase
+  chỉ dùng cho ID kỹ thuật, package, repo và URL.

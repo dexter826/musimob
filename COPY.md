@@ -26,8 +26,8 @@ Một khái niệm dùng một thuật ngữ. Không đổi sang từ đồng ng
 
 | Dùng                 | Nghĩa                                                    | Tránh dùng                          |
 | -------------------- | -------------------------------------------------------- | ----------------------------------- |
-| `musimob`            | Tên viết của sản phẩm                                    | `Musimob`, `CineMOB`, tên khác      |
-| `musi` + `mob`       | Chỉ chữ trong wordmark                                   | Dùng làm tên viết trong câu         |
+| `MusiMOB`            | Tên viết của sản phẩm                                    | `musimob`, `Musimob`, `CineMOB`     |
+| `Musi` + `MOB`       | Chỉ chữ trong wordmark                                   | Dùng làm tên viết trong câu         |
 | `bài`                | Một mục đã lưu trong thư viện; dùng trong nhãn, nút, đếm | `track` trong UI                    |
 | `bài hát`            | Dạng đầy đủ trong câu giải thích                         | Dùng khi nhãn đã đủ ngắn bằng `bài` |
 | `nghệ sĩ`            | Người thể hiện bài hát                                   | `ca sĩ` trong UI                    |
@@ -41,7 +41,8 @@ Một khái niệm dùng một thuật ngữ. Không đổi sang từ đồng ng
 | `hoàn tác`           | Hành động khôi phục bài vừa xóa                          | `undo` trong UI                     |
 | `danh sách` / `lưới` | Kiểu xem thư viện                                        | `view` trong UI                     |
 
-- Giữ nguyên tên riêng và dịch vụ: `musimob`, `Google`.
+- Giữ nguyên tên riêng và dịch vụ: `MusiMOB`, `Google`.
+- `musimob` lowercase chỉ dùng cho ID kỹ thuật, package, repo và URL; không dùng trong UI.
 - Không nêu tên nguồn nhạc trong UI. Nói hành động, không nói nơi lấy dữ liệu:
   “Tìm bài có sẵn”, không “Tìm trên iTunes”.
 - Không dùng `playlist`, `wishlist`, `album`, `đánh giá`, `đã xem`, `track` cho khái niệm
@@ -188,28 +189,36 @@ Một khái niệm dùng một thuật ngữ. Không đổi sang từ đồng ng
 
 ### Đăng nhập
 
-| Chuỗi                                                 | Dùng ở        |
-| ----------------------------------------------------- | ------------- |
-| `Thư viện riêng của bạn`                              | h1            |
-| `Lưu và đồng bộ danh sách bài hát trên mọi thiết bị.` | Lede          |
-| `Đăng nhập bằng Google`                               | Nút sign-in   |
-| `Đang đăng nhập…`                                     | Nút pending   |
-| `Chỉ bạn thấy thư viện của mình.`                     | Fine print    |
-| `Bạn đã đóng cửa sổ đăng nhập.`                       | Auth error    |
-| `Mất kết nối. Kiểm tra mạng rồi thử lại.`             | Auth error    |
-| `Quá nhiều lần thử. Đợi một lát rồi thử lại.`         | Auth error    |
-| `Tên miền này chưa được phép đăng nhập.`              | Auth error    |
-| `Đăng nhập Google chưa được bật cho ứng dụng này.`    | Auth error    |
-| `Tài khoản này đã bị khoá.`                           | Auth error    |
-| `Email này đã dùng một cách đăng nhập khác.`          | Auth error    |
-| `Không đăng nhập được. Thử lại.`                      | Auth fallback |
+| Chuỗi                                              | Dùng ở        |
+| -------------------------------------------------- | ------------- |
+| `Thư viện riêng của bạn`                           | h1            |
+| `Thư viện bài hát riêng của bạn.`                  | Lede          |
+| `Đăng nhập bằng Google`                            | Nút sign-in   |
+| `Đang đăng nhập…`                                  | Nút pending   |
+| `Bạn đã đóng cửa sổ đăng nhập.`                    | Auth error    |
+| `Mất kết nối. Kiểm tra mạng rồi thử lại.`          | Auth error    |
+| `Quá nhiều lần thử. Đợi một lát rồi thử lại.`      | Auth error    |
+| `Tên miền này chưa được phép đăng nhập.`           | Auth error    |
+| `Đăng nhập Google chưa được bật cho ứng dụng này.` | Auth error    |
+| `Tài khoản này đã bị khoá.`                        | Auth error    |
+| `Email này đã dùng một cách đăng nhập khác.`       | Auth error    |
+| `Không đăng nhập được. Thử lại.`                   | Auth fallback |
+
+### Tiêu đề và chia sẻ
+
+| Chuỗi                                      | Dùng ở                                            |
+| ------------------------------------------ | ------------------------------------------------- |
+| `MusiMOB`                                  | title đăng xuất, OG/Twitter title, site name      |
+| `MusiMOB: Thư viện`                        | title đăng nhập                                   |
+| `Thư viện bài hát riêng của bạn.`          | meta description, OG/Twitter description, sign-in |
+| `MusiMOB: Thư viện bài hát riêng của bạn.` | alt ảnh OG/Twitter                                |
 
 ### Điều hướng phụ
 
 | Chuỗi                 | Dùng ở             |
 | --------------------- | ------------------ |
 | `Chuyển đến nội dung` | Skip link          |
-| `musimob`             | alt logo, tên viết |
+| `MusiMOB`             | alt logo, tên viết |
 
 ## 4. Mẫu theo tình huống
 

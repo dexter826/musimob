@@ -63,7 +63,20 @@ npm run lint    # pass
 - Static: app-loading 1440 dark aligned; theme-color dark resolves `#11130f`.
 - Chưa commit.
 
+## Rename pass (MusiMOB)
+
+- Tên hiển thị: `MusiMOB`; `musimob` chỉ còn trong ID kỹ thuật, package, repo, URL và hồ sơ cũ.
+- Đã đổi: `index.html`, `site.webmanifest`, title app, `Wordmark` (symbol + text
+  Be Vietnam Pro 700), lede sign-in, bỏ fine print; COPY/DESIGN/GLOSSARY, brand README/preview.
+- Asset (C): `public/` 15 file runtime; `assets/brand` còn 9 file gồm `symbol.svg`, 4 biến
+  thể logo ngang, nguồn OG/Twitter, README và OFL. Bỏ logo dọc, wordmark-only, symbol mono,
+  PNG brand, app-icon 1024 và preview. Tổng 24 file.
+- Build/lint/format: pass. Static: loading + wordmark 1440 light/dark; OG 1200×630;
+  Twitter 1200×600; lockup PNG RGBA đúng kích thước.
+- Chưa xác minh: header signed-in và màn sign-in (auth); user QA 390/1440.
+- Nhánh `rebrand/musimob`, chưa commit.
+
 ## Next
 
-- Commit fix pass; re-run remaining affected QA states; open PR when ready.
+- User QA header/sign-in 390/1440; commit + PR khi duyệt.
 - Non-blocking flags: dead deps, `components.json` alias, title/OG, no test harness, chunk warning.

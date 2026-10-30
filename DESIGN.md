@@ -1,5 +1,5 @@
 ---
-name: musimob
+name: MusiMOB
 description: Sổ lưu bài hát riêng tư — sáng, giấy, mực, một dấu sách coral.
 colors:
   paper-50: '#FAF9F5'
@@ -115,13 +115,13 @@ components:
     height: '64px'
 ---
 
-# Design System: musimob
+# Design System: MusiMOB
 
 ## Overview
 
 **Creative North Star: "Sổ lưu"**
 
-musimob là một cuốn sổ lưu riêng, không phải trình phát nhạc. Trang giấy là nền; bìa đĩa là
+MusiMOB là một cuốn sổ lưu riêng, không phải trình phát nhạc. Trang giấy là nền; bìa đĩa là
 màu; mực là chữ; và đúng một dấu sách coral đánh dấu bài đang nghe thử. Cảm giác là sở hữu
 riêng tư, yên tĩnh, được sắp bằng tay — không phải dashboard, không phải landing page,
 không phải player.
@@ -213,6 +213,8 @@ và viền 1px; độ sâu chỉ đến từ tấm bookplate và FAB.
   mobile 28/30.
 - **UI — Be Vietnam Pro 400/500/600.** Song title 14.5/1.35 (600); artist/meta 12.5/1.4;
   body 14/1.6; label 12/1.4 (500); button 13/1 (600); input 16 mobile, 15 desktop.
+- **Wordmark — Be Vietnam Pro 700.** `Musi` màu foreground, `MOB` coral; cao 26; đặt cạnh
+  symbol, không dùng asset wordmark cũ.
 - **Section — Lora 500 24/1.2** cho empty/error; **panel — Lora 500 18/1.2** cho sheet header.
 - Sentence case cho heading, nút, nhãn. Không all-caps labels, không mono labels, không
   middle-dot meta, không numbered markers.
@@ -315,7 +317,7 @@ preview được tròn.
 
 ### Navigation and account
 
-- Topbar: logo ngang (asset brand) cao 26; h1 34/28; count 12 `fg-muted`; search/add;
+- Topbar: logo ngang (symbol + wordmark 14.5/700) cao 26; h1 34/28; count 12 `fg-muted`; search/add;
   view toggle; avatar 32 visual/44 hit.
 - Avatar: ảnh Google nếu có; fallback chữ cái đầu trên `surface-2`, chữ `foreground` 12/600;
   viền 1px `control-border`; aria “Mở tài khoản của {name}”.
@@ -418,7 +420,7 @@ trong empty state và ẩn cả add ở title row lẫn FAB; có bài thì dùng
 - Hit target ≥44×44; icon 36/32 visual được phép nếu hit 44.
 - `:focus-visible` 2px `focus`, offset 2; focus không bị sticky/overlay che.
 - `<label>` hoặc `aria-label` cho mọi control; icon-only có nhãn; decorative icon
-  `aria-hidden`; cover trong row/card `alt=""`; logo `alt="musimob"`.
+  `aria-hidden`; cover trong row/card `alt=""`; logo `alt="MusiMOB"`.
 - Heading hierarchy: h1 “Thư viện” hoặc “Thư viện riêng của bạn”; section/panel dùng h2/h3.
 - `role="status"` cho loading; `role="alert"` cho lỗi; `aria-live` cho toast.
 - `prefers-reduced-motion` tắt transition/scroll mượt; `touch-action: manipulation`;
