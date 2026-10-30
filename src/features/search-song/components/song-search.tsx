@@ -44,7 +44,7 @@ function NoResults({ onSwitchToManual }: { onSwitchToManual: () => void }) {
   return (
     <div className="flex flex-col items-center gap-3 py-10 text-center">
       <p className="max-w-[300px] text-sm leading-[1.6] text-muted-foreground">
-        Không tìm thấy bài nào. Thử từ khoá khác hoặc nhập tay.
+        Không tìm thấy bài nào. Thử từ khoá khác hoặc nhập thủ công.
       </p>
       <Button
         type="button"
@@ -52,7 +52,7 @@ function NoResults({ onSwitchToManual }: { onSwitchToManual: () => void }) {
         onClick={onSwitchToManual}
         className="h-11 px-4 text-[13px] font-semibold"
       >
-        Nhập tay
+        Nhập thủ công
       </Button>
     </div>
   )

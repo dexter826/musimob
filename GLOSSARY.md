@@ -1,7 +1,7 @@
 # MusiMOB
 
 Ứng dụng lưu trữ bộ sưu tập bài hát cá nhân: mỗi người dùng đánh dấu những bài mình yêu
-thích, tìm từ một nguồn nhạc bên ngoài hoặc nhập tay, và lưu vào thư viện riêng. Không phát
+thích, tìm từ một nguồn nhạc bên ngoài hoặc nhập thủ công, và lưu vào thư viện riêng. Không phát
 toàn bài, không xếp thứ tự, không chia sẻ.
 
 ## Language
@@ -29,7 +29,7 @@ _Avoid_: Track, Favorite, Bài hát (khi chưa được lưu)
 
 **Nguồn nhạc (Catalog source)**:
 Hệ thống bên ngoài cung cấp kết quả tìm kiếm. Bài hát chỉ có thể được lưu nguyên văn từ
-nguồn hoặc nhập tay.
+nguồn hoặc nhập thủ công.
 _Avoid_: iTunes (tên riêng của nguồn hiện tại, không phải khái niệm), API trong UI
 
 **Kết quả tìm kiếm (Search Result)**:
@@ -42,7 +42,7 @@ chính Người dùng đang xem. Không xét Thư viện của người khác.
 _Avoid_: Yêu thích, Favorite trong UI
 
 **Nghệ sĩ (Artist)**:
-Người hoặc nhóm được nguồn ghi công cho bài hát; với bài nhập tay, do Người dùng nhập.
+Người hoặc nhóm được nguồn ghi công cho bài hát; với bài nhập thủ công, do Người dùng nhập.
 UI dùng “nghệ sĩ”, không dùng “ca sĩ”.
 _Avoid_: Ca sĩ trong UI, Performer
 
@@ -63,7 +63,7 @@ _Avoid_: Thùng rác, Soft delete, Khôi phục từ server
 
 **Danh tính bài hát (Song identity)**:
 Bài lưu từ Nguồn nhạc được nhận diện bằng id của nguồn — cách viết tên hay tên nghệ sĩ có
-đổi vẫn là một bài. Bài nhập tay nhận diện bằng tên bài và tên nghệ sĩ sau chuẩn hóa
+đổi vẫn là một bài. Bài nhập thủ công nhận diện bằng tên bài và tên nghệ sĩ sau chuẩn hóa
 (trim, bỏ hoa/thường).
 _Avoid_: So khớp theo tiêu đề trần, Dedupe theo URL ảnh bìa
 

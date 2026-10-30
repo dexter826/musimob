@@ -24,10 +24,10 @@ validation, prefill, dedupe.
 
 - Mobile <768: drawer; desktop: dialog; max 560, 85dvh; surface, `--radius-sheet`,
   border rule; header 18px; close/back 44 hit; focus trap/Escape/overscroll contain.
-- Search mode: title “Thêm bài”; desc theo COPY.md; action “Nhập tay”; input 44/16
+- Search mode: title “Thêm bài”; desc theo COPY.md; action “Nhập thủ công”; input 44/16
   (placeholder/aria theo COPY.md); states: <2 chars, loading, empty, error/rate-limit/timeout,
   retry; result rows với “Lưu”/“Đang lưu”, “Đã lưu”, save error; cover 48.
-- Manual mode: title “Nhập tay”; back; fields “Tên bài”, “Nghệ sĩ”, “URL ảnh bìa”;
+- Manual mode: title “Nhập thủ công”; back; fields “Tên bài”, “Nghệ sĩ”, “URL ảnh bìa”;
   validation/duplicate/cover hint; submit “Lưu bài”/“Đang lưu…”; prefill từ filter;
   Enter/IME behavior giữ nguyên.
 - Lỗi cạnh field; pending disabled + nhãn; không mất dữ liệu khi đóng/mở trong flow hiện có.

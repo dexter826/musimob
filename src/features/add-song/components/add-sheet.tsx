@@ -80,11 +80,11 @@ export function AddSheet({
     <ResponsivePanel
       open={open}
       onOpenChange={onOpenChange}
-      title={mode === 'manual' ? 'Nhập tay' : 'Thêm bài'}
+      title={mode === 'manual' ? 'Nhập thủ công' : 'Thêm bài'}
       description={
         mode === 'manual'
           ? 'Nhập tên bài, nghệ sĩ và URL ảnh bìa.'
-          : 'Tìm bài có sẵn hoặc nhập tay.'
+          : 'Tìm bài có sẵn hoặc nhập thủ công.'
       }
       onBack={mode === 'manual' ? backToSearch : undefined}
       headerAction={
@@ -95,7 +95,7 @@ export function AddSheet({
             className="h-11 px-3 text-[13px] font-semibold text-muted-foreground hover:text-foreground"
             onClick={() => openManualWithTerm(searchTerm)}
           >
-            Nhập tay
+            Nhập thủ công
           </Button>
         ) : undefined
       }

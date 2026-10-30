@@ -105,46 +105,46 @@ Một khái niệm dùng một thuật ngữ. Không đổi sang từ đồng ng
 
 ### Thêm bài — tìm kiếm
 
-| Chuỗi                                                     | Dùng ở                     |
-| --------------------------------------------------------- | -------------------------- |
-| `Thêm bài`                                                | Panel title                |
-| `Tìm bài có sẵn hoặc nhập tay.`                           | Panel description          |
-| `Nhập tay`                                                | Header action              |
-| `Tìm bài hoặc nghệ sĩ…`                                   | Placeholder + label search |
-| `Nhập tên bài hoặc nghệ sĩ để tìm.`                       | Gợi ý khi <2 ký tự         |
-| `Đang tìm…`                                               | Loading                    |
-| `Không tìm thấy bài nào. Thử từ khoá khác hoặc nhập tay.` | Empty                      |
-| `Không tìm được. Kiểm tra mạng rồi thử lại.`              | Lỗi mặc định               |
-| `Tìm kiếm đang bị giới hạn. Đợi vài giây rồi thử lại.`    | Rate limit                 |
-| `Nguồn nhạc phản hồi chậm. Kiểm tra mạng rồi thử lại.`    | Timeout                    |
-| `Lưu`                                                     | Nút lưu kết quả            |
-| `Đang lưu…`                                               | Nút lưu khi pending        |
-| `Lưu {title}, {artist}`                                   | aria nút lưu               |
-| `Đang lưu {title}`                                        | aria khi pending           |
-| `Đã lưu`                                                  | Badge kết quả đã có        |
-| `Không lưu được bài. Thử lại.`                            | Lỗi lưu                    |
+| Chuỗi                                                          | Dùng ở                     |
+| -------------------------------------------------------------- | -------------------------- |
+| `Thêm bài`                                                     | Panel title                |
+| `Tìm bài có sẵn hoặc nhập thủ công.`                           | Panel description          |
+| `Nhập thủ công`                                                | Header action              |
+| `Tìm bài hoặc nghệ sĩ…`                                        | Placeholder + label search |
+| `Nhập tên bài hoặc nghệ sĩ để tìm.`                            | Gợi ý khi <2 ký tự         |
+| `Đang tìm…`                                                    | Loading                    |
+| `Không tìm thấy bài nào. Thử từ khoá khác hoặc nhập thủ công.` | Empty                      |
+| `Không tìm được. Kiểm tra mạng rồi thử lại.`                   | Lỗi mặc định               |
+| `Tìm kiếm đang bị giới hạn. Đợi vài giây rồi thử lại.`         | Rate limit                 |
+| `Nguồn nhạc phản hồi chậm. Kiểm tra mạng rồi thử lại.`         | Timeout                    |
+| `Lưu`                                                          | Nút lưu kết quả            |
+| `Đang lưu…`                                                    | Nút lưu khi pending        |
+| `Lưu {title}, {artist}`                                        | aria nút lưu               |
+| `Đang lưu {title}`                                             | aria khi pending           |
+| `Đã lưu`                                                       | Badge kết quả đã có        |
+| `Không lưu được bài. Thử lại.`                                 | Lỗi lưu                    |
 
-### Nhập tay và sửa
+### Nhập thủ công và sửa
 
-| Chuỗi                                    | Dùng ở                   |
-| ---------------------------------------- | ------------------------ |
-| `Nhập tay`                               | Panel title khi nhập tay |
-| `Nhập tên bài, nghệ sĩ và URL ảnh bìa.`  | Panel description        |
-| `Quay lại tìm kiếm`                      | aria back                |
-| `Tên bài`                                | Field label              |
-| `Nghệ sĩ`                                | Field label              |
-| `URL ảnh bìa`                            | Field label              |
-| `Nhập tên bài.`                          | Lỗi field                |
-| `Nhập tên nghệ sĩ.`                      | Lỗi field                |
-| `URL ảnh bìa không hợp lệ.`              | Lỗi field                |
-| `Bài này đã có trong thư viện.`          | Lỗi trùng                |
-| `Không bắt buộc.`                        | Cover hint               |
-| `Không tải được ảnh bìa.`                | Cover hint lỗi           |
-| `Lưu bài`                                | Submit                   |
-| `Đang lưu…`                              | Submit pending           |
-| `Sửa bài`                                | Edit title               |
-| `Sửa tên bài, nghệ sĩ hoặc URL ảnh bìa.` | Edit description         |
-| `Lưu thay đổi`                           | Edit submit              |
+| Chuỗi                                    | Dùng ở                        |
+| ---------------------------------------- | ----------------------------- |
+| `Nhập thủ công`                          | Panel title khi nhập thủ công |
+| `Nhập tên bài, nghệ sĩ và URL ảnh bìa.`  | Panel description             |
+| `Quay lại tìm kiếm`                      | aria back                     |
+| `Tên bài`                                | Field label                   |
+| `Nghệ sĩ`                                | Field label                   |
+| `URL ảnh bìa`                            | Field label                   |
+| `Nhập tên bài.`                          | Lỗi field                     |
+| `Nhập tên nghệ sĩ.`                      | Lỗi field                     |
+| `URL ảnh bìa không hợp lệ.`              | Lỗi field                     |
+| `Bài này đã có trong thư viện.`          | Lỗi trùng                     |
+| `Không bắt buộc.`                        | Cover hint                    |
+| `Không tải được ảnh bìa.`                | Cover hint lỗi                |
+| `Lưu bài`                                | Submit                        |
+| `Đang lưu…`                              | Submit pending                |
+| `Sửa bài`                                | Edit title                    |
+| `Sửa tên bài, nghệ sĩ hoặc URL ảnh bìa.` | Edit description              |
+| `Lưu thay đổi`                           | Edit submit                   |
 
 ### Xóa
 
