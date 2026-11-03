@@ -6,6 +6,90 @@
       "sourceType": "github",
       "skillPath": "skills/taste-skill/SKILL.md",
       "computedHash": "53590ee9325bee34d7888bf0d81bd3941a108b1e7850df46802d93104e3f2b90"
+    },
+    "fnl-advisor": {
+      "source": "finolabs/finolabs-vibecode",
+      "sourceType": "github",
+      "skillPath": "skills/fnl-advisor/SKILL.md",
+      "computedHash": "c630dc50fe61dcebf64a6e854b93d987d515f6a5b5468bb789a58e1eb9adfd34"
+    },
+    "fnl-ask": {
+      "source": "finolabs/finolabs-vibecode",
+      "sourceType": "github",
+      "skillPath": "skills/fnl-ask/SKILL.md",
+      "computedHash": "d2969c9142730246281cd6336c3b83fc2539cf4ee34e90d489df9eaa52627ff6"
+    },
+    "fnl-commit-messages": {
+      "source": "finolabs/finolabs-vibecode",
+      "sourceType": "github",
+      "skillPath": "skills/fnl-commit-messages/SKILL.md",
+      "computedHash": "752ac029f7674ca4c568b9ea8e11eef2c35221be706cca81f042343931d0e132"
+    },
+    "fnl-committee": {
+      "source": "finolabs/finolabs-vibecode",
+      "sourceType": "github",
+      "skillPath": "skills/fnl-committee/SKILL.md",
+      "computedHash": "51d8d6c147636c279b44181aeb332b63082f0bbd27917aacaba67b06b3942a0e"
+    },
+    "fnl-coordinator-sessions": {
+      "source": "finolabs/finolabs-vibecode",
+      "sourceType": "github",
+      "skillPath": "skills/fnl-coordinator-sessions/SKILL.md",
+      "computedHash": "b711160878ea2d8de18db0265bdcd2a6d1edb6400f4d66910c5c5a40ce1581f1"
+    },
+    "fnl-handoff": {
+      "source": "finolabs/finolabs-vibecode",
+      "sourceType": "github",
+      "skillPath": "skills/fnl-handoff/SKILL.md",
+      "computedHash": "030b26568115da493d113fd88034a0a43c1de24431e1d245906510472bd49d7d"
+    },
+    "fnl-open-source-review": {
+      "source": "finolabs/finolabs-vibecode",
+      "sourceType": "github",
+      "skillPath": "skills/fnl-open-source-review/SKILL.md",
+      "computedHash": "c84ed146c0678af6f3e71e4b6276e19746315bd312c63fdd5bb40ce791e2a7a9"
+    },
+    "fnl-plugin-packaging": {
+      "source": "finolabs/finolabs-vibecode",
+      "sourceType": "github",
+      "skillPath": "skills/fnl-plugin-packaging/SKILL.md",
+      "computedHash": "de63f4ddbf415f57bd5cbe9075bff7e9f6de65047458a3bff8cd79c1784ffa4f"
+    },
+    "fnl-review-gate": {
+      "source": "finolabs/finolabs-vibecode",
+      "sourceType": "github",
+      "skillPath": "skills/fnl-review-gate/SKILL.md",
+      "computedHash": "33d4abec8050a810250958ac07fe1b7e21e54749c954b694551a0cabb996c638"
+    },
+    "fnl-security-review-gate": {
+      "source": "finolabs/finolabs-vibecode",
+      "sourceType": "github",
+      "skillPath": "skills/fnl-security-review-gate/SKILL.md",
+      "computedHash": "8e34287859187f0986ce55937932264a9208c777760686795b0884be2a5123de"
+    },
+    "fnl-session-hygiene": {
+      "source": "finolabs/finolabs-vibecode",
+      "sourceType": "github",
+      "skillPath": "skills/fnl-session-hygiene/SKILL.md",
+      "computedHash": "eee744fb5e94c1ce6e41c8df443d1b9c63f3efdf3092e0be5ef746ad2fa32b24"
+    },
+    "fnl-setup-instructions": {
+      "source": "finolabs/finolabs-vibecode",
+      "sourceType": "github",
+      "skillPath": "skills/fnl-setup-instructions/SKILL.md",
+      "computedHash": "0092d429e70c1ec7b17eb1a9eb8b7e3e81063d3cdd7f64c00e9ce9e65f2ea2fc"
+    },
+    "fnl-verification": {
+      "source": "finolabs/finolabs-vibecode",
+      "sourceType": "github",
+      "skillPath": "skills/fnl-verification/SKILL.md",
+      "computedHash": "83af547983eb8ca936f2e5ed855dc7aa4e55005bc3f3fc1aaa9c18c0b61d6439"
+    },
+    "fnl-versioning": {
+      "source": "finolabs/finolabs-vibecode",
+      "sourceType": "github",
+      "skillPath": "skills/fnl-versioning/SKILL.md",
+      "computedHash": "e36d2c954ad3b8fd8a9a09bcc32eb8425ca3f4b1020a36576f9cd921299838b3"
     }
   }
 }

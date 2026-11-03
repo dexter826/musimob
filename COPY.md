@@ -1,281 +1,139 @@
-# COPY.md
+# UX Content Standards & Copy Guidelines (`COPY.md`)
 
-Hợp đồng cho chữ hiển thị trong UI. `DESIGN.md` quy định phần hình ảnh; file này quy định
-phần lời. Code lệch thì sửa code.
+Tài liệu quy chuẩn thiết kế nội dung giao diện (UX Writing / Content Design) dành cho ứng dụng phần mềm. Tài liệu đóng vai trò là hợp đồng nội dung độc lập, thiết lập các tiêu chuẩn viết vi nội dung (microcopy), thông báo hệ thống và tương tác người dùng, có thể áp dụng tái sử dụng xuyên suốt các dự án.
 
-Phạm vi: mọi chuỗi người dùng đọc được — nhãn, nút, tiêu đề, mô tả, lỗi, toast, trạng thái
-tải và trạng thái rỗng. Không áp dụng cho comment, log hoặc tài liệu nội bộ.
+---
 
-## 1. Giọng điệu
+## 1. Nguyên tắc cốt lõi (Core Principles)
 
-**Thân thiện, trực tiếp, cụ thể và gọn.** Nói thẳng điều người dùng cần biết; không phô diễn.
+Mọi văn bản hiển thị trên giao diện người dùng phải tuân thủ 5 nguyên tắc nền tảng:
 
-- Dùng “bạn” có chọn lọc. Ưu tiên câu không cần chủ ngữ; không lặp “bạn” máy móc.
-- Câu chủ động, ngắn. Mỗi câu một ý chính.
-- Không emoji, không viết hoa để nhấn mạnh, không đùa, không dấu chấm than.
-- Không danh từ hóa khi có thể dùng động từ: “Xóa bài”, không “Thực hiện việc xóa bài”.
-- Không chi tiết kỹ thuật trong UI: tránh `fetch`, `server`, `API`, mã HTTP, `null`,
-  `undefined`.
-- Thành công: ngắn, xác nhận kết quả.
-- Lỗi: trung tính, không đổ lỗi, có bước xử lý tiếp theo khi có thể.
-- Trạng thái rỗng: giải thích ngắn và mời hành động phù hợp; không xin lỗi nếu không có lỗi.
+1. **Rõ ràng (Clear):** Nói chính xác điều cần truyền đạt. Tránh thuật ngữ kỹ thuật trừu tượng, tránh cách hiểu nước đôi hoặc mơ hồ.
+2. **Súc tích (Concise):** Sử dụng lượng từ tối thiểu để truyền tải trọn vẹn thông tin. Cắt bỏ các hư từ, liên từ thừa và câu dẫn rỗng.
+3. **Nhất quán (Consistent):** Một khái niệm, một thao tác hoặc một đối tượng chỉ dùng một thuật ngữ định danh duy nhất xuyên suốt mọi màn hình.
+4. **Hướng hành động (Action-Oriented):** Mỗi câu chữ phải giúp người dùng hiểu rõ bước tiếp theo hoặc hoàn thành mục tiêu cụ thể.
+5. **Nhân văn & Đồng cảm (Human & Empathetic):** Diễn đạt như một người hỗ trợ tận tâm; không dùng văn phong máy móc, không phán xét hoặc quy kết lỗi cho người dùng.
 
-## 2. Thuật ngữ
+---
 
-Một khái niệm dùng một thuật ngữ. Không đổi sang từ đồng nghĩa chỉ để tránh lặp.
+## 2. Giọng điệu theo ngữ cảnh (Voice & Tone)
 
-| Dùng                 | Nghĩa                                                    | Tránh dùng                          |
-| -------------------- | -------------------------------------------------------- | ----------------------------------- |
-| `MusiMOB`            | Tên viết của sản phẩm                                    | `musimob`, `Musimob`, `CineMOB`     |
-| `Musi` + `MOB`       | Chỉ chữ trong wordmark                                   | Dùng làm tên viết trong câu         |
-| `bài`                | Một mục đã lưu trong thư viện; dùng trong nhãn, nút, đếm | `track` trong UI                    |
-| `bài hát`            | Dạng đầy đủ trong câu giải thích                         | Dùng khi nhãn đã đủ ngắn bằng `bài` |
-| `nghệ sĩ`            | Người thể hiện bài hát                                   | `ca sĩ` trong UI                    |
-| `thư viện`           | Nơi lưu bài hát của người dùng                           | `kho nhạc` nếu không có chủ ý khác  |
-| `đã lưu`             | Trạng thái có trong thư viện của chính mình              | `yêu thích` trong UI                |
-| `nghe thử`           | Nghe 30 giây bản xem trước từ nguồn                      | `phát`, `player`                    |
-| `ảnh bìa`            | Hình đại diện cho bài hát                                | `cover` trong UI                    |
-| `nguồn nhạc`         | Hệ thống bên ngoài cung cấp kết quả tìm kiếm             | `iTunes` trong UI                   |
-| `tài khoản`          | Danh tính Google đã đăng nhập                            | `account` trong UI                  |
-| `giao diện`          | Chế độ sáng/tối                                          | `theme` trong UI                    |
-| `hoàn tác`           | Hành động khôi phục bài vừa xóa                          | `undo` trong UI                     |
-| `danh sách` / `lưới` | Kiểu xem thư viện                                        | `view` trong UI                     |
+Giọng điệu tổng thể duy trì tính chuyên nghiệp, điềm đạm và đáng tin cậy. Sắc thái biểu cảm được linh hoạt điều chỉnh theo từng tình huống trải nghiệm:
 
-- Giữ nguyên tên riêng và dịch vụ: `MusiMOB`, `Google`.
-- `musimob` lowercase chỉ dùng cho ID kỹ thuật, package, repo và URL; không dùng trong UI.
-- Không nêu tên nguồn nhạc trong UI. Nói hành động, không nói nơi lấy dữ liệu:
-  “Tìm bài có sẵn”, không “Tìm trên iTunes”.
-- Không dùng `playlist`, `wishlist`, `album`, `đánh giá`, `đã xem`, `track` cho khái niệm
-  của project này.
-- UI dùng `bài`; câu giải thích dùng `bài hát`. Không trộn trong cùng một nhãn.
+| Ngữ cảnh                    | Sắc thái (Tone)        | Mục tiêu cảm xúc              | Quy tắc thể hiện                                                                              |
+| :-------------------------- | :--------------------- | :---------------------------- | :-------------------------------------------------------------------------------------------- |
+| **Thành công (Success)**    | Tích cực, vừa phải     | Xác nhận kết quả, tạo an tâm  | Ghi nhận hành động đã hoàn tất; không dùng cảm thán quá đà (tránh "Tuyệt vời!", "Xuất sắc!"). |
+| **Lỗi (Error)**             | Điềm tĩnh, đồng cảm    | Giảm thiểu lo lắng, gỡ rối    | Giải thích điều đã xảy ra mà không đổ lỗi; luôn kèm cách khắc phục hoặc lối thoát khả thi.    |
+| **Cảnh báo (Warning)**      | Rõ ràng, dứt khoát     | Thận trọng, cân nhắc rủi ro   | Nêu thẳng hậu quả của hành động trước khi người dùng đưa ra quyết định không thể đảo ngược.   |
+| **Thông tin (Informative)** | Trung tính, khách quan | Cung cấp tri thức, định hướng | Ngắn gọn, tập trung vào bản chất thông tin cần biết; không thêm thắt văn hoa.                 |
 
-## 3. Chuỗi theo màn hình
+---
 
-### Thư viện
+## 3. Quy chuẩn thành phần giao diện (Component Copy Patterns)
 
-| Chuỗi                        | Dùng ở                             |
-| ---------------------------- | ---------------------------------- |
-| `Thư viện`                   | h1 desktop/mobile                  |
-| `{n} bài`                    | Đếm mặc định                       |
-| `{x} / {y} bài`              | Đếm khi có filter                  |
-| `Tìm bài hoặc nghệ sĩ…`      | Placeholder + label search         |
-| `Xóa bộ lọc`                 | Nút clear của filter               |
-| `Thêm bài`                   | Nút primary desktop                |
-| `Chuyển sang dạng lưới`      | aria của view toggle khi đang list |
-| `Chuyển sang dạng danh sách` | aria của view toggle khi đang grid |
-| `Mở tài khoản của {name}`    | aria của avatar                    |
-| `Đang tải…`                  | Count khi đang tải                 |
-| `Không tải được`             | Count khi lỗi                      |
-| `Đang tải danh sách…`        | sr-only trạng thái skeleton        |
+### 3.1. Nút bấm & Lời kêu gọi hành động (Buttons & CTAs)
 
-### Hàng và lưới
+- **Công thức:** `[Động từ hành động] + [Đối tượng cụ thể]`
+- **Quy tắc:**
+  - Bắt đầu trực tiếp bằng động từ hành động.
+  - Phản ánh chính xác kết quả sau khi bấm (ví dụ: `Tạo tài khoản` thay vì `Gửi` hoặc `Đăng ký`; `Lưu thay đổi` thay vì `OK`).
+  - Nút đóng hoặc hủy thao tác ghi rõ hành động an toàn (`Giữ lại tệp` thay vì `Hủy`).
 
-| Chuỗi                                             | Dùng ở                          |
-| ------------------------------------------------- | ------------------------------- |
-| `Nghe thử {title}, {artist}`                      | aria preview                    |
-| `Dừng nghe thử {title}`                           | aria preview khi đang phát      |
-| `Đang nghe thử`                                   | Meta hàng active                |
-| `Tuỳ chọn cho {title}`                            | aria nút ⋯                      |
-| `Sửa`                                             | Menu hàng                       |
-| `Xóa`                                             | Menu hàng                       |
-| `Bài này không có bản nghe thử`                   | Toast/tooltip khi thiếu preview |
-| `Không nghe thử được. Kiểm tra mạng rồi thử lại.` | Toast lỗi preview               |
+### 3.2. Thông báo lỗi hệ thống (Error Messages)
 
-### Trạng thái rỗng và filter
+- **Công thức 3 phần:** `[Điều gì đã xảy ra] + [Lý do ngắn gọn] + [Hướng xử lý tiếp theo]`
+- **Quy tắc:**
+  - Phần 1 nêu hiện trạng khách quan.
+  - Phần 2 giải thích nguyên nhân nếu xác định được.
+  - Phần 3 cung cấp nút hoặc giải pháp khắc phục (Thử lại, Kiểm tra kết nối, Liên hệ hỗ trợ).
+- **Ví dụ chuẩn:** _"Không lưu được thay đổi do mất kết nối mạng. Kiểm tra đường truyền rồi thử lại."_
 
-| Chuỗi                                  | Dùng ở                        |
-| -------------------------------------- | ----------------------------- |
-| `Chưa có bài nào`                      | Empty title                   |
-| `Bài hát bạn thêm sẽ xuất hiện ở đây.` | Empty body                    |
-| `Thêm bài đầu tiên`                    | Empty CTA (duy nhất)          |
-| `Không có bài nào khớp.`               | Filter-empty title            |
-| `Xóa bộ lọc`                           | Filter-empty action           |
-| `Tìm bài này`                          | Filter-empty action, seed add |
+### 3.3. Trạng thái trống (Empty States)
 
-### Tải và lỗi
+- **Công thức 3 bước:** `[Tiêu đề hiện trạng]` + `[Mô tả mục đích / lý do]` + `[Nút dẫn lối bắt đầu]`
+- **Quy tắc:**
+  - Tiêu đề xác nhận danh sách hoặc vùng dữ liệu đang chưa có phần tử.
+  - Mô tả làm rõ giá trị của tính năng khi có dữ liệu.
+  - Nút bấm điều hướng người dùng tới hành động tạo mới hoặc khám phá.
+- **Ví dụ chuẩn:**
+  - _Tiêu đề:_ `Chưa có dự án nào`
+  - _Mô tả:_ `Tạo dự án đầu tiên để bắt đầu theo dõi tiến độ công việc cùng đội ngũ.`
+  - _CTA:_ `Tạo dự án mới`
 
-| Chuỗi                                                 | Dùng ở               |
-| ----------------------------------------------------- | -------------------- |
-| `Đang tải…`                                           | App loading          |
-| `Ứng dụng gặp sự cố`                                  | Error boundary title |
-| `Có lỗi khi hiển thị trang này. Tải lại để tiếp tục.` | Error boundary body  |
-| `Tải lại trang`                                       | Error boundary CTA   |
-| `Mất kết nối. Kiểm tra mạng rồi thử lại.`             | Lỗi mạng chung       |
-| `Thử lại`                                             | Retry                |
+### 3.4. Hộp thoại xác nhận phá hủy (Confirmation & Destruction Dialogs)
 
-### Thêm bài — tìm kiếm
+- **Quy tắc:**
+  - Tiêu đề đặt câu hỏi trực diện vào hành động: `Xóa {tên_đối_tượng}?` (tránh hỏi chung chung `Bạn có chắc chắn không?`).
+  - Phần mô tả nêu rõ hậu quả và phạm vi ảnh hưởng (ví dụ: `Hành động này không thể hoàn tác. Toàn bộ dữ liệu liên quan sẽ bị xóa vĩnh viễn.`).
+  - Nhãn nút bấm tương ứng trực tiếp với hành vi: Nút chính an toàn mang nhãn `Giữ lại`, nút hành động phá hủy mang nhãn `Xóa {đối_tượng}` với màu nguy hiểm (danger).
 
-| Chuỗi                                                          | Dùng ở                     |
-| -------------------------------------------------------------- | -------------------------- |
-| `Thêm bài`                                                     | Panel title                |
-| `Tìm bài có sẵn hoặc nhập thủ công.`                           | Panel description          |
-| `Nhập thủ công`                                                | Header action              |
-| `Tìm bài hoặc nghệ sĩ…`                                        | Placeholder + label search |
-| `Nhập tên bài hoặc nghệ sĩ để tìm.`                            | Gợi ý khi <2 ký tự         |
-| `Đang tìm…`                                                    | Loading                    |
-| `Không tìm thấy bài nào. Thử từ khoá khác hoặc nhập thủ công.` | Empty                      |
-| `Không tìm được. Kiểm tra mạng rồi thử lại.`                   | Lỗi mặc định               |
-| `Tìm kiếm đang bị giới hạn. Đợi vài giây rồi thử lại.`         | Rate limit                 |
-| `Nguồn nhạc phản hồi chậm. Kiểm tra mạng rồi thử lại.`         | Timeout                    |
-| `Lưu`                                                          | Nút lưu kết quả            |
-| `Đang lưu…`                                                    | Nút lưu khi pending        |
-| `Lưu {title}, {artist}`                                        | aria nút lưu               |
-| `Đang lưu {title}`                                             | aria khi pending           |
-| `Đã lưu`                                                       | Badge kết quả đã có        |
-| `Không lưu được bài. Thử lại.`                                 | Lỗi lưu                    |
+### 3.5. Biểu mẫu & Báo lỗi nhập liệu (Forms & Inline Validation)
 
-### Nhập thủ công và sửa
+- **Nhãn trường (Label):** Rõ ràng, đứng độc lập với placeholder; không dùng placeholder thay thế cho nhãn.
+- **Văn bản gợi ý (Placeholder):** Đưa ra ví dụ định dạng mẫu hợp lệ (ví dụ: `nguyenvana@domain.com`), không lặp lại tên nhãn.
+- **Lỗi nhập liệu (Inline Error):**
+  - Xuất hiện ngay dưới trường thông tin lỗi.
+  - Chỉ rõ điều kiện còn thiếu để trường hợp lệ (ví dụ: `Mật khẩu cần tối thiểu 8 ký tự, bao gồm chữ và số` thay vì `Mật khẩu sai`).
 
-| Chuỗi                                    | Dùng ở                        |
-| ---------------------------------------- | ----------------------------- |
-| `Nhập thủ công`                          | Panel title khi nhập thủ công |
-| `Nhập tên bài, nghệ sĩ và URL ảnh bìa.`  | Panel description             |
-| `Quay lại tìm kiếm`                      | aria back                     |
-| `Tên bài`                                | Field label                   |
-| `Nghệ sĩ`                                | Field label                   |
-| `URL ảnh bìa`                            | Field label                   |
-| `Nhập tên bài.`                          | Lỗi field                     |
-| `Nhập tên nghệ sĩ.`                      | Lỗi field                     |
-| `URL ảnh bìa không hợp lệ.`              | Lỗi field                     |
-| `Bài này đã có trong thư viện.`          | Lỗi trùng                     |
-| `Không bắt buộc.`                        | Cover hint                    |
-| `Không tải được ảnh bìa.`                | Cover hint lỗi                |
-| `Lưu bài`                                | Submit                        |
-| `Đang lưu…`                              | Submit pending                |
-| `Sửa bài`                                | Edit title                    |
-| `Sửa tên bài, nghệ sĩ hoặc URL ảnh bìa.` | Edit description              |
-| `Lưu thay đổi`                           | Edit submit                   |
+### 3.6. Chú giải công cụ (Tooltips)
 
-### Xóa
+- Ngắn gọn, chỉ bổ sung thông tin hữu ích hỗ trợ quyết định của người dùng.
+- Không lặp lại nguyên văn nhãn đã hiển thị trên màn hình.
 
-| Chuỗi                                                                 | Dùng ở          |
-| --------------------------------------------------------------------- | --------------- |
-| `Xóa bài này?`                                                        | Confirm title   |
-| `“{title}” sẽ bị xóa khỏi thư viện. Bạn có thể hoàn tác ngay sau đó.` | Confirm body    |
-| `Huỷ`                                                                 | Confirm cancel  |
-| `Xóa`                                                                 | Confirm action  |
-| `Đang xóa…`                                                           | Confirm pending |
-| `Không xóa được bài. Thử lại.`                                        | Confirm error   |
+### 3.7. Trạng thái chờ & Tiến trình (Loading & Progress States)
 
-### Tài khoản và giao diện
+- Sử dụng động từ thể hiện hành động đang diễn ra kèm dấu ba chấm đơn (ví dụ: `Đang tải dữ liệu…`, `Đang lưu…`).
+- Với các tiến trình kéo dài, cung cấp ước tính thời gian hoặc số bước để giảm bớt cảm giác sốt ruột.
 
-| Chuỗi                                                           | Dùng ở                          |
-| --------------------------------------------------------------- | ------------------------------- |
-| `Mở tài khoản của {name}`                                       | aria trigger                    |
-| `Chuyển sang giao diện tối`                                     | aria theme toggle khi đang sáng |
-| `Chuyển sang giao diện sáng`                                    | aria theme toggle khi đang tối  |
-| `Đăng xuất`                                                     | Account menu item               |
-| `Đang đăng xuất…`                                               | Sign-out pending                |
-| `Đăng xuất?`                                                    | Confirm title                   |
-| `Bạn sẽ rời khỏi tài khoản này. Thư viện bài hát vẫn được giữ.` | Confirm body                    |
-| `Huỷ`                                                           | Confirm cancel                  |
-| `Không đăng xuất được. Thử lại.`                                | Sign-out error                  |
+### 3.8. Hướng dẫn ban đầu (Onboarding & Progressive Disclosure)
 
-### Toast
+- Cung cấp thông tin theo từng bước logic; không dồn nhiều khái niệm mới vào cùng một màn hình.
+- Mỗi bước hướng dẫn chỉ tập trung vào một hành động then chốt.
 
-| Chuỗi                                             | Dùng ở          |
-| ------------------------------------------------- | --------------- |
-| `Đã lưu bài`                                      | Lưu thành công  |
-| `Đã xóa bài`                                      | Xóa thành công  |
-| `Hoàn tác`                                        | Toast action    |
-| `Đang khôi phục…`                                 | Undo pending    |
-| `Đã khôi phục bài`                                | Undo thành công |
-| `Không khôi phục được bài`                        | Undo lỗi        |
-| `Thử lại`                                         | Toast retry     |
-| `Bài này không có bản nghe thử`                   | Preview thiếu   |
-| `Không nghe thử được. Kiểm tra mạng rồi thử lại.` | Preview lỗi     |
+---
 
-### Đăng nhập
+## 4. Quy chuẩn hành văn & Cấu trúc ngữ pháp (Grammar & Style)
 
-| Chuỗi                                              | Dùng ở        |
-| -------------------------------------------------- | ------------- |
-| `Thư viện riêng của bạn`                           | h1            |
-| `Thư viện bài hát riêng của bạn.`                  | Lede          |
-| `Đăng nhập bằng Google`                            | Nút sign-in   |
-| `Đang đăng nhập…`                                  | Nút pending   |
-| `Bạn đã đóng cửa sổ đăng nhập.`                    | Auth error    |
-| `Mất kết nối. Kiểm tra mạng rồi thử lại.`          | Auth error    |
-| `Quá nhiều lần thử. Đợi một lát rồi thử lại.`      | Auth error    |
-| `Tên miền này chưa được phép đăng nhập.`           | Auth error    |
-| `Đăng nhập Google chưa được bật cho ứng dụng này.` | Auth error    |
-| `Tài khoản này đã bị khoá.`                        | Auth error    |
-| `Email này đã dùng một cách đăng nhập khác.`       | Auth error    |
-| `Không đăng nhập được. Thử lại.`                   | Auth fallback |
+1. **Ưu tiên thể chủ động:** Viết trực diện về chủ thể thực hiện hành động; tránh lối viết bị động sao chép từ cấu trúc tiếng Anh (ví dụ: viết `Hệ thống tự động lưu bản nháp mỗi phút` thay vì `Bản nháp được tự động lưu bởi hệ thống`).
+2. **Khử danh hóa thừa và động từ rỗng:**
+   - Tránh biến động từ thành cụm danh từ cồng kềnh đi kèm động từ phụ rỗng nghĩa (tránh _thực hiện việc cấu hình_, _tiến hành đồng bộ_, _đưa ra lựa chọn_).
+   - Viết trực tiếp: `cấu hình`, `đồng bộ`, `chọn`.
+3. **Cắt bỏ các chuỗi sở hữu tính chất:** Lược bỏ từ _của_ khi mối quan hệ thuộc tính giữa các danh từ đã rõ ràng (ví dụ: `cấu hình máy chủ` thay vì `cấu hình của máy chủ`).
+4. **Tránh lạm dụng số nhiều hình thức:** Tiếng Việt không bắt buộc thêm _các/những_ trước mọi danh từ khi ngữ cảnh đã ngầm hiểu số nhiều.
+5. **Cắt bỏ khung dẫn sáo rỗng:** Loại bỏ hoàn toàn các cụm từ mở đầu không mang thêm thông tin như _“Điều quan trọng cần lưu ý là…”_, _“Cần nhấn mạnh rằng…”_, _“Có thể thấy rằng…”_. Đi thẳng vào nội dung thông điệp chính.
+6. **Chuẩn hóa biến động:** Mọi biến số được điền giá trị tại thời điểm chạy (runtime) ký hiệu thống nhất theo cú pháp `{tên_biến}` (ví dụ: `{tên_tệp}`, `{số_lượng}`, `{thời_gian}`).
 
-### Tiêu đề và chia sẻ
+---
 
-| Chuỗi                                      | Dùng ở                                            |
-| ------------------------------------------ | ------------------------------------------------- |
-| `MusiMOB`                                  | title đăng xuất, OG/Twitter title, site name      |
-| `MusiMOB: Thư viện`                        | title đăng nhập                                   |
-| `Thư viện bài hát riêng của bạn.`          | meta description, OG/Twitter description, sign-in |
-| `MusiMOB: Thư viện bài hát riêng của bạn.` | alt ảnh OG/Twitter                                |
+## 5. Quy chuẩn chính tả & Định dạng ký tự tiếng Việt (Vietnamese Typography)
 
-### Điều hướng phụ
+1. **Quy tắc viết hoa tiêu đề (Sentence Case):**
+   - Chỉ viết hoa chữ cái đầu câu và các danh từ riêng hợp thức.
+   - Không áp dụng quy tắc Title Case (viết hoa chữ đầu của mọi từ) của tiếng Anh lên tiếng Việt.
+2. **Dấu ngoặc kép:** Sử dụng đồng nhất dấu ngoặc kép cong mở `“` (U+201C) và đóng `”` (U+201D) cho các trích dẫn, tên riêng hoặc giá trị tham chiếu. Tránh trộn lẫn dấu ngoặc kép thẳng `"` trong văn bản hiển thị.
+3. **Dấu ba chấm:** Sử dụng ký tự ba chấm đơn `…` (U+2026) cho các trạng thái chờ và văn bản gợi ý. Không sử dụng ba dấu chấm rời liên tiếp (`...`).
+4. **Dấu gạch ngang:**
+   - Sử dụng dấu gạch ngang en dash `–` (U+2013, có khoảng trắng hai bên) để liên kết các khoảng số lượng, niên độ hoặc nối hai địa danh/đối tượng tương đương.
+   - Không sử dụng em dash `—` (U+2014) làm dấu ngắt câu chú thích giữa câu; sử dụng dấu phẩy, dấu ngoặc đơn hoặc tách câu để tạo nhịp tự nhiên cho tiếng Việt.
+5. **Dấu phẩy trước liên từ 'và':** Không đặt dấu phẩy trước từ _và_ trong chuỗi liệt kê các phần tử đơn giản (viết `A, B và C`, không viết `A, B, và C`).
+6. **Định dạng số và thời gian:**
+   - Ngày tháng hiển thị định dạng chuẩn: `DD/MM/YYYY` hoặc `D tháng M, YYYY`.
+   - Giờ giấc định dạng 24 giờ: `HH:mm`.
+   - Dấu phân cách phần nghìn sử dụng dấu chấm (`1.000.000`), phân cách phần thập phân sử dụng dấu phẩy (`0,5`).
 
-| Chuỗi                 | Dùng ở             |
-| --------------------- | ------------------ |
-| `Chuyển đến nội dung` | Skip link          |
-| `MusiMOB`             | alt logo, tên viết |
+---
 
-## 4. Mẫu theo tình huống
+## 6. Bảng kiểm tra chất lượng nội dung (Do's and Don'ts)
 
-### Lỗi
-
-Cấu trúc: **điều gì xảy ra + bước tiếp theo**. Nêu nguyên nhân chỉ khi biết chắc. Tối đa
-hai câu ngắn. Không đổ lỗi người dùng, không mã kỹ thuật trần. Luôn có lối thoát khi có thể.
-
-Đúng: “Mất kết nối. Kiểm tra mạng rồi thử lại.”
-
-Tránh: “iTunes trả lỗi 500.”
-
-### Trạng thái rỗng
-
-Cấu trúc: **trạng thái + giá trị + hành động**. Phân biệt chưa có dữ liệu, không có kết quả
-khớp và không tải được. Một CTA chính; tối đa một hành động phụ khi có hai hướng hợp lệ.
-
-Đúng: “Chưa có bài nào” / “Bài hát bạn thêm sẽ xuất hiện ở đây.” / “Thêm bài đầu tiên”
-
-Tránh: “Không có dữ liệu.”
-
-### Xác nhận
-
-Cấu trúc: **câu hỏi + hậu quả + nút mô tả hành động**. Chỉ dùng cho hành động không thể hoàn
-tác hoặc có hậu quả đáng kể. Hành động có undo thì dùng toast, không hỏi trước.
-
-Đúng: “Xóa bài này?” / “Bạn có thể hoàn tác ngay sau đó.” / “Xóa”
-
-### Toast
-
-Cấu trúc: **kết quả + hành động nếu hoàn tác được**. Động từ quá khứ; nêu đối tượng khi có
-thể; không dấu chấm cuối. CTA là động từ: “Hoàn tác”, “Thử lại”.
-
-Đúng: “Đã xóa bài” + “Hoàn tác”
-
-### Nút
-
-Bắt đầu bằng động từ, tối đa ba từ khi có thể; mô tả kết quả, không mô tả cơ chế. Tránh
-“OK”, “Đồng ý”, “Gửi”, “Xác nhận”. Dùng “Đăng nhập bằng Google” và “Đăng xuất” đúng hành động.
-
-## 5. Định dạng
-
-- Sentence case cho heading, nút, nhãn, tiêu đề; không Title Case.
-- Không đặt dấu chấm cuối nhãn, nút, tiêu đề ngắn. Câu đầy đủ trong mô tả dùng dấu chấm.
-- Dùng `…` Unicode, không `...`; ngoặc kép cong “Nội dung”.
-- Ngày, giờ, số dùng locale `vi-VN` qua `Intl.DateTimeFormat` / `Intl.NumberFormat`.
-  Không nối chuỗi ngày thủ công.
-- `★` chỉ dùng cho rating nếu có; ngoài ra dùng icon hoặc chữ “sao”.
-- Chữ in hoa giữ đủ dấu tiếng Việt.
-- Dùng chính tả `xóa`, không dùng `xoá`.
-- Loading luôn kết thúc bằng `…`; placeholder kết thúc bằng `…`.
-- Không middle dot, không numbered marker, không emoji.
-
-## 6. Checklist review
-
-1. Thuật ngữ khớp bảng ở §2 và `GLOSSARY.md`.
-2. Nút bắt đầu bằng động từ, mô tả đúng hành động.
-3. Lỗi không lộ chi tiết kỹ thuật; có bước tiếp theo khi khả thi.
-4. Trạng thái rỗng nói rõ trạng thái/giá trị; một CTA chính.
-5. Chỉ xác nhận hành động không hoàn tác được; có undo thì dùng toast.
-6. Không emoji, không `...`, không Title Case, không dấu chấm thừa ở nhãn.
-7. Số/ngày dùng `vi-VN` qua `Intl`; `xóa` đúng chính tả.
+| Nên làm (Do)                                                                                                      | Không nên làm (Don't)                                                                                      |
+| :---------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------- |
+| Bắt đầu nút bấm bằng động từ hành động cụ thể (`Tạo dự án`, `Lưu tệp`).                                           | Không dùng các nhãn mơ hồ hoặc cộc lốc (`Gửi`, `OK`, `Tiếp tục`).                                          |
+| Cấu trúc thông báo lỗi gồm 3 phần: Điều xảy ra, Lý do và Hướng xử lý.                                             | Không hiển thị mã lỗi nội bộ hoặc thông báo cụt lủn (`Lỗi hệ thống`, `Thất bại`).                          |
+| Trạng thái trống luôn cung cấp nút hành động dẫn dắt người dùng tiếp tục.                                         | Không để màn hình trống rơi vào ngõ cụt không có lối thoát hoặc hành động gợi ý.                           |
+| Tiêu đề hộp thoại xác nhận hỏi thẳng vào hành vi cần quyết định.                                                  | Không dùng câu hỏi chung chung gây hoang mang (`Bạn có chắc không?`).                                      |
+| Nhãn nút bấm trong hộp thoại xác nhận mô tả đích danh hành động.                                                  | Không dùng cặp nút mơ hồ (`Đồng ý` / `Hủy bỏ`) cho các thao tác phá hủy dữ liệu.                           |
+| Sử dụng câu chủ động, tự nhiên và gãy gọn theo ngữ pháp tiếng Việt.                                               | Không sao chép nguyên mẫu câu bị động hoặc chuỗi giới từ dài dòng từ tiếng Anh.                            |
+| Viết hoa tiêu đề theo chuẩn Sentence Case (chỉ viết hoa chữ cái đầu câu).                                         | Không viết hoa chữ cái đầu của mọi từ (Title Case) trên tiêu đề tiếng Việt.                                |
+| Cung cấp cơ chế hoàn tác (Undo) cho các thao tác có thể khôi phục được.                                           | Không lạm dụng hộp thoại xác nhận (modal dialog) làm đứt gãy mạch thao tác thường nhật.                    |
+| Đồng nhất một thuật ngữ duy nhất cho một khái niệm trên toàn ứng dụng.                                            | Không thay đổi từ đồng nghĩa tùy tiện giữa các màn hình gây hiểu nhầm cho người dùng.                      |
+| Viết câu chữ hướng thẳng đến người dùng cuối, tập trung vào mục đích thao tác và thông tin thực tế trên màn hình. | Không đưa ghi chú nội bộ, nhật ký cập nhật hay nội dung trao đổi riêng trong cuộc hội thoại vào giao diện. |
