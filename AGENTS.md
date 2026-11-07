@@ -85,11 +85,5 @@ Mỗi ngữ cảnh chỉ có một `GLOSSARY.md` và một thư mục `docs/adr/
 
 ## 5. Tài liệu trong repo
 
-**Đọc spec trước khi sửa UI. Spec là chuẩn; code theo spec.**
-
-- `DESIGN.md` - hợp đồng thị giác: màu, chữ, layout, elevation, shape, component.
+- `DESIGN.md` - hợp đồng thị giác: tokens, quy chuẩn giao diện và rào chắn thiết kế.
 - `COPY.md` - hợp đồng copy: giọng, thuật ngữ, mẫu câu, định dạng.
-- Code lệch spec → sửa code, không sửa spec.
-- Đổi token → cập nhật `DESIGN.md` và `src/index.css` cùng lúc.
-- Đổi chữ hiển thị → đối chiếu glossary và pattern trong `COPY.md` trước.
-- Component spec trong `DESIGN.md` chỉ giữ slot; câu chữ nằm ở `COPY.md`.
