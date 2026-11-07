@@ -131,6 +131,7 @@ components:
 MusiMOB là cuốn sổ lưu bài hát riêng tư, yên tĩnh và được sắp đặt bằng tay. Thiết kế định hình theo triết lý "Sổ lưu": trang giấy là nền tảng; màu sắc đến từ bìa đĩa; mực là chữ viết; và một dấu sách màu coral duy nhất đánh dấu bài đang nghe hoặc điểm nhấn hành động. Sản phẩm không phải là trình phát nhạc, không phải dashboard quản trị và không phải trang landing page tiếp thị.
 
 Hệ thống tuân thủ ba nguyên tắc thị giác nền tảng:
+
 - **The Paper Rule:** Bề mặt phẳng tuyệt đối. Các tầng nội dung tách biệt bằng sắc độ giấy và đường viền 1px; không gradient, không kính mờ (glassmorphism), không hiệu ứng vân giấy hay giả lập nổi (skeuomorphism).
 - **The Artwork Rule:** Khi có bìa đĩa, bìa đĩa là nguồn dẫn dắt màu sắc chính. Khung chrome hệ thống chỉ dùng giấy, mực và một điểm nhấn coral, không tranh chấp thị giác với nội dung.
 - **The Answer-Only Rule:** Chuyển động (motion) chỉ xuất hiện để phản hồi tương tác tức thời (120–180ms), chỉ thay đổi màu, viền hoặc độ mờ (opacity). Tuyệt đối không có chuyển động trang trí hoặc tự động; tắt hoàn toàn khi `prefers-reduced-motion` bật.
