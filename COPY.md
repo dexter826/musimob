@@ -97,6 +97,27 @@ Giọng điệu tổng thể duy trì tính chuyên nghiệp, điềm đạm và
 - Wordmark có accessible name `MusiMOB – về Thư viện`; nhãn `aria-label` của vùng nav là `Điều hướng chính`.
 - Document title theo mẫu `MusiMOB: {tên_mục}`; trang chi tiết album dùng `MusiMOB: {tên_album}`, fallback `MusiMOB: Album`.
 - Nút back trong panel dùng nhãn theo ngữ cảnh (`Quay lại` mặc định); không hardcode tên màn hình trước đó.
+- Back link trong nội dung trang album dùng tên đích `Album`; không dùng `Quay lại`.
+
+### 3.10. Album
+
+- **Thuật ngữ:** dùng `album`, `bài hát`/`bài`, `Thư viện`. Không dùng `playlist`, `danh sách phát` hay `bộ sưu tập`.
+- **Nhãn & nút:** `Album` (nav, back link), `Tạo album`, `Tạo album đầu tiên`, `Tên album`, `Đang tạo…`, `Đã tạo album`.
+- **Count:** `{N} album`, `{N} bài`; khi tải `Đang tải…`; khi lỗi `Không tải được`.
+- **Panel tạo album:** title `Tạo album`; description `Đặt tên cho album mới.`; submit `Tạo album` / pending `Đang tạo…`.
+- **Validate tên:** rỗng hoặc toàn khoảng trắng → `Nhập tên album.`; trùng (không phân biệt hoa/thường, đã trim) → `Tên album đã tồn tại. Chọn tên khác.`
+- **Empty danh sách:** title `Chưa có album nào`; body `Tạo album để gom những bài đã lưu theo chủ đề.`; CTA `Tạo album đầu tiên`.
+- **Empty album:** title `Album chưa có bài nào`; body `Thêm bài đã lưu vào album để bắt đầu gom nhạc.`
+- **Không tìm thấy album:** title `Không tìm thấy album`; body `Album có thể đã bị xóa.`; CTA `Về danh sách album`.
+- **Lỗi tải/tạo album:** giữ đúng câu trong spec:
+  - `Không tải được danh sách album. Thử lại.`
+  - `Bạn không có quyền xem danh sách album.`
+  - `Không tạo được album. Thử lại.`
+  - `Bạn không có quyền tạo album.`
+  - `Tên album không hợp lệ.`
+  - `Mất kết nối. Kiểm tra mạng rồi thử lại.`
+- **Toast:** thành công `Đã tạo album`, description là tên album; lỗi theo công thức 3 phần.
+- **Phân biệt thao tác:** `Bỏ khỏi album` chỉ gỡ bài khỏi album, bài vẫn còn trong Thư viện; `Xóa bài` xóa bài khỏi Thư viện. Không dùng lẫn hai nhãn.
 
 ---
 

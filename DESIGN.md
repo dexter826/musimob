@@ -260,6 +260,7 @@ Mobile <768
 - List row 64px; cover 48px; gap 14px; 2px gap giữa hàng; không separator.
 - Grid: 2 cột <640; 3 cột 640–899; 4 cột 900–1199; 6 cột ≥1200. Gap 24×16 desktop,
   20×12 mobile.
+- Album grid: 2 cột <640; 3 cột 640–899; 4 cột ≥900; cùng gap với grid bài hát.
 - Sheet: mobile drawer <768; desktop dialog ≥768; rộng tối đa 560px; cao 85dvh.
 - Sign-in: composition 560px; bookplate 360px; sleeve 320px; mobile bookplate 350/100%,
   sleeve 180px.
@@ -346,6 +347,21 @@ preview được tròn.
 - Active: tab coral nhỏ trên cover, title `bookmark-text`, pause coral; không scrim,
   không gradient, không card nền.
 
+### Album card
+
+- Toàn card là link; nền `surface`, viền 1px `rule`, radius 8, padding 8; hover `surface-2`;
+  focus ring 2px `focus` quanh card.
+- Cover vuông fluid, radius 2; placeholder `Music2` 32 trên `muted` khi album rỗng hoặc bìa lỗi.
+- Tên 13.5/500 line-clamp 2, break-words; count “N bài” 12/500 `fg-muted` tabular-nums.
+- Không menu, không nút phụ, không shadow; bìa dẫn màu.
+
+### Album detail header
+
+- Back link “Album” 44 hit, icon `ArrowLeft` 16, `fg-muted` → `foreground`; nằm trong nội dung,
+  không thay topbar.
+- Cover 80/2; tên album Lora 34/28 line-clamp 2; count 12/500 `fg-muted` tabular-nums.
+- Header phẳng, không card nền, không divider; cách trên 28, dưới 20.
+
 ### Preview control
 
 - Nút tròn 26 visual/44 hit trên cover; nền `surface`, viền `rule`, icon play/pause
@@ -380,6 +396,13 @@ trong empty state và ẩn cả add ở title row lẫn FAB; có bài thì dùng
   disabled + “Đang lưu…”.
 - Không segmented tabs; chuyển mode bằng header action/back.
 
+### Album name panel
+
+- Dùng chung `ResponsivePanel`; title “Tạo album”; description “Đặt tên cho album mới.”.
+- Một field “Tên album” cao 44; label 12/500; lỗi inline 12 `danger` ngay dưới field; submit
+  full width 44 “Tạo album” / pending spinner + “Đang tạo…”.
+- Lỗi server hiện `ErrorAlert` trong panel; không đóng panel.
+
 ### Delete confirmation
 
 - AlertDialog surface, radius 12; title “Xóa bài này?”; body nêu hậu quả + undo;
@@ -399,7 +422,7 @@ trong empty state và ẩn cả add ở title row lẫn FAB; có bài thì dùng
 
 - Sonner bottom-center; nền ink/paper đảo theo theme; radius 8; chữ 13; action coral;
   mobile offset trên FAB; aria-live.
-- Save/delete/undo/restore-error/preview-error; action “Hoàn tác”/“Thử lại”; không che
+- Save/delete/undo/restore-error/preview-error/create-album; action “Hoàn tác”/“Thử lại”; không che
   control.
 
 ### Empty, loading, error
@@ -407,8 +430,13 @@ trong empty state và ẩn cả add ở title row lẫn FAB; có bài thì dùng
 - **Empty:** title 24 Lora “Chưa có bài nào”; body 14 `fg-muted`; một CTA primary
   “Thêm bài đầu tiên”; ẩn add ở header/FAB.
 - **Filter-empty:** title 20 Lora “Không có bài nào khớp.”; body; “Xóa bộ lọc” + “Tìm bài này”.
+- **Album empty:** title 24 Lora “Chưa có album nào”; body 14 `fg-muted`; CTA “Tạo album đầu
+  tiên”; ẩn nút “Tạo album” ở toolbar.
+- **Album detail empty:** title “Album chưa có bài nào”; body hướng dẫn thêm bài đã lưu vào album.
+- **Album not found:** title “Không tìm thấy album”; body “Album có thể đã bị xóa.”; CTA
+  “Về danh sách album”.
 - **Loading:** skeleton list/grid dùng `surface-2`; `role="status"` + sr-only
-  “Đang tải danh sách…”; không shimmer.
+  “Đang tải danh sách…” / “Đang tải danh sách album…” / “Đang tải album…”; không shimmer.
 - **Error:** alert nền `surface-2`, viền trái 3px `danger`, text `danger`; action “Thử lại”;
   không mã kỹ thuật.
 

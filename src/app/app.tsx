@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
+import { useAlbums } from '@/features/albums/hooks/use-albums'
 import { SignInScreen } from '@/features/auth/components/sign-in-screen'
 import { useSongs } from '@/features/songs/hooks/use-songs'
 import { useViewMode } from '@/features/songs/hooks/use-view-mode'
@@ -21,6 +22,7 @@ type SignedInAppProps = {
 
 function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
   const songsState = useSongs(user.uid)
+  const albumsState = useAlbums(user.uid)
   const { viewMode, toggleViewMode } = useViewMode()
 
   return (
@@ -46,8 +48,21 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
               />
             }
           />
-          <Route path="albums" element={<AlbumsPage />} />
-          <Route path="albums/:albumId" element={<AlbumDetailPage />} />
+          <Route
+            path="albums"
+            element={
+              <AlbumsPage albumsState={albumsState} songsState={songsState} />
+            }
+          />
+          <Route
+            path="albums/:albumId"
+            element={
+              <AlbumDetailPage
+                albumsState={albumsState}
+                songsState={songsState}
+              />
+            }
+          />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
