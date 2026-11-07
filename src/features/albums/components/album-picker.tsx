@@ -25,6 +25,7 @@ type AlbumPickerProps = {
   status: AlbumsStatus
   onRetry: () => void
   onAdd: (albumIds: string[]) => Promise<void>
+  onAdded: () => void
   onCreate: (name: string) => Promise<string>
 }
 
@@ -70,6 +71,7 @@ function AlbumPickerContent({
   status,
   onRetry,
   onAdd,
+  onAdded,
   onClose,
   onCreate,
   isCreating,
@@ -143,15 +145,18 @@ function AlbumPickerContent({
     setError(null)
     try {
       await onAdd(selectedAlbumIds)
+      if (!isActive.current) return
+      onAdded()
       onClose()
     } catch (addError) {
+      if (!isActive.current) return
       setError(
         addError instanceof Error
           ? addError.message
           : 'Không thêm được bài vào album. Thử lại.',
       )
     } finally {
-      setIsSaving(false)
+      if (isActive.current) setIsSaving(false)
     }
   }
 
@@ -210,7 +215,7 @@ function AlbumPickerContent({
                 </Button>
               </div>
             ) : (
-              <ul className="flex flex-col gap-0.5">
+              <ul className="flex flex-col gap-1">
                 <li>
                   <Button
                     ref={createButtonRef}
@@ -233,7 +238,7 @@ function AlbumPickerContent({
                       onClick={() => toggleAlbum(album.id)}
                       className={cn(
                         'flex min-h-16 items-center gap-3 rounded-lg py-2 pr-2 hover:bg-secondary',
-                        isSelected && 'bg-secondary ring-1 ring-primary/40',
+                        isSelected && 'bg-secondary ring-1 ring-control-border',
                       )}
                     >
                       <SelectionCheckbox

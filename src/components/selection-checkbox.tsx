@@ -22,7 +22,7 @@ export function SelectionCheckbox({
         checked={checked}
         onChange={onChange}
         disabled={disabled}
-        className="size-4 accent-primary"
+        className="size-4 accent-foreground"
       />
     </label>
   )

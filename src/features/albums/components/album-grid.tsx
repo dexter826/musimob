@@ -35,7 +35,7 @@ export function AlbumGridSkeleton() {
           >
             <div className="aspect-square rounded-sm bg-surface-2" />
             <div className="mt-2 h-3 w-3/4 rounded-sm bg-surface-2" />
-            <div className="mt-1.5 h-2.5 w-1/3 rounded-sm bg-surface-2" />
+            <div className="mt-2 h-2.5 w-1/3 rounded-sm bg-surface-2" />
           </div>
         ))}
       </div>

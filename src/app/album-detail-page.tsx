@@ -180,10 +180,10 @@ function AlbumDetailContent({
             iconClassName="size-6"
           />
           <div className="min-w-0 flex-1">
-            <h1 className="line-clamp-2 font-serif text-[34px] leading-[1.08] font-medium tracking-[-0.015em] break-words text-foreground max-md:text-[28px]">
+            <h1 className="line-clamp-2 font-serif text-[34px] leading-[1.08] font-medium tracking-[-0.015em] text-balance break-words text-foreground max-md:text-[28px]">
               {album.name}
             </h1>
-            <p className="mt-1.5 text-xs font-medium text-muted-foreground tabular-nums">
+            <p className="mt-2 text-xs font-medium text-muted-foreground tabular-nums">
               {countLabel}
             </p>
           </div>
@@ -242,7 +242,7 @@ function AlbumDetailContent({
                   Thêm bài
                 </Button>
               </div>
-              <ul className="flex flex-col gap-0.5">
+              <ul className="flex flex-col gap-1">
                 {albumSongs.map((song, index) => (
                   <SongRowView
                     key={song.id}

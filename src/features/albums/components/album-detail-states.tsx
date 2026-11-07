@@ -6,11 +6,11 @@ const SKELETON_ROWS = [0, 1, 2]
 
 export function AlbumSongsSkeleton() {
   return (
-    <div aria-hidden="true" className="flex flex-col gap-0.5">
+    <div aria-hidden="true" className="flex flex-col gap-1">
       {SKELETON_ROWS.map((row) => (
         <div
           key={row}
-          className="flex min-h-16 items-center gap-3.5 rounded-lg py-2 pr-2 pl-3"
+          className="flex min-h-16 items-center gap-4 rounded-lg py-2 pr-2 pl-3"
         >
           <div className="size-12 shrink-0 rounded-sm bg-surface-2" />
           <div className="flex min-w-0 flex-1 flex-col gap-2">
@@ -77,7 +77,7 @@ export function AlbumDetailNotFound() {
   return (
     <div className="flex flex-1 flex-col items-center justify-center px-6 py-16 text-center">
       <Disc3 aria-hidden="true" className="size-6 text-muted-foreground" />
-      <h1 className="mt-3 font-serif text-[24px] leading-[1.2] font-medium text-foreground">
+      <h1 className="mt-3 font-serif text-[24px] leading-[1.2] font-medium text-balance text-foreground">
         Không tìm thấy album
       </h1>
       <p className="mx-auto mt-2 max-w-[320px] text-sm leading-[1.6] text-muted-foreground">

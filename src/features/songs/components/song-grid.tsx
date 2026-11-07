@@ -48,7 +48,7 @@ function SongGridTile({
       className={cn(
         'group relative',
         isFlashing && 'outline-2 outline-offset-2 outline-primary',
-        isSelected && 'rounded-sm ring-2 ring-primary',
+        isSelected && 'rounded-sm ring-2 ring-control-border',
       )}
     >
       <div className="relative aspect-square">

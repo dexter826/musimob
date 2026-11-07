@@ -46,7 +46,7 @@ export function SongRowView({
           : 'grid-cols-[48px_minmax(0,1fr)_auto]',
         isActive ? 'bg-bookmark-soft' : 'hover:bg-secondary',
         !isActive && isSelected && 'bg-secondary',
-        isSelected && 'ring-1 ring-primary/40',
+        isSelected && 'ring-1 ring-control-border',
         isFlashing &&
           'ring-2 ring-primary ring-offset-2 ring-offset-background',
       )}

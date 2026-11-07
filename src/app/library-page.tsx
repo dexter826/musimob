@@ -101,8 +101,6 @@ export function LibraryPage({
   async function handleAddToAlbums(albumIds: string[]) {
     if (selectedSongIds.length === 0) return
     await albumsState.addSongs(albumIds, selectedSongIds)
-    setIsAlbumPickerOpen(false)
-    setSelectedIds(null)
     toast.success(
       albumIds.length === 1
         ? `Đã thêm ${selectedSongIds.length} bài vào album`
@@ -279,6 +277,7 @@ export function LibraryPage({
         status={albumsState.status}
         onRetry={albumsState.retry}
         onAdd={handleAddToAlbums}
+        onAdded={() => setSelectedIds(null)}
         onCreate={albumsState.createAlbum}
       />
 

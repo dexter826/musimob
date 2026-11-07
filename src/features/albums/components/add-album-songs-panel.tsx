@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import { ErrorAlert } from '@/components/error-alert'
 import { ResponsivePanel } from '@/components/responsive-panel'
 import { SearchField } from '@/components/search-field'
+import { SelectionCheckbox } from '@/components/selection-checkbox'
 import { SongRowView } from '@/components/song-row-view'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
@@ -191,7 +192,7 @@ function AddAlbumSongsContent({
             </Button>
           </div>
         ) : (
-          <ul className="flex flex-col gap-0.5">
+          <ul className="flex flex-col gap-1">
             {filteredSongs.map((song, index) => (
               <SongRowView
                 key={song.id}
@@ -200,16 +201,12 @@ function AddAlbumSongsContent({
                 isSelected={selectedIds.has(song.id)}
                 onActivate={() => toggleSong(song.id)}
                 leading={
-                  <label className="grid size-11 cursor-pointer place-items-center">
-                    <input
-                      type="checkbox"
-                      aria-label={`Chọn ${song.title}`}
-                      checked={selectedIds.has(song.id)}
-                      disabled={isSaving}
-                      onChange={() => toggleSong(song.id)}
-                      className="size-4 accent-primary"
-                    />
-                  </label>
+                  <SelectionCheckbox
+                    label={`Chọn ${song.title}`}
+                    checked={selectedIds.has(song.id)}
+                    disabled={isSaving}
+                    onChange={() => toggleSong(song.id)}
+                  />
                 }
               />
             ))}

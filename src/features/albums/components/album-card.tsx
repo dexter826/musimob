@@ -29,7 +29,7 @@ export function AlbumCard({ album, songsById }: AlbumCardProps) {
       <span className="mt-2 line-clamp-2 text-[13.5px] leading-[1.35] font-medium break-words text-foreground">
         {album.name}
       </span>
-      <span className="mt-0.5 text-xs leading-[1.4] text-muted-foreground tabular-nums">
+      <span className="mt-1 text-xs leading-[1.4] text-muted-foreground tabular-nums">
         {countLabel}
       </span>
     </Link>

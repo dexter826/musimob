@@ -33,7 +33,7 @@ export function AlbumActionsMenu({
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="min-w-40 rounded-lg border border-rule bg-popover p-1"
+        className="min-w-40 rounded-lg border border-rule bg-popover p-1 shadow-none duration-[160ms] data-open:animate-none data-closed:animate-none"
       >
         <DropdownMenuItem
           onSelect={onRename}

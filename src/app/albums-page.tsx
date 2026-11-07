@@ -52,10 +52,10 @@ export function AlbumsPage({ albumsState, songsState }: AlbumsPageProps) {
       <div className="flex flex-1 flex-col pb-10">
         <div className="flex items-end justify-between gap-6 pt-7 pb-5 max-md:flex-col max-md:items-stretch max-md:gap-3">
           <div className="min-w-0">
-            <h1 className="font-serif text-[34px] leading-[1.08] font-medium tracking-[-0.015em] text-foreground max-md:text-[28px]">
+            <h1 className="font-serif text-[34px] leading-[1.08] font-medium tracking-[-0.015em] text-balance text-foreground max-md:text-[28px]">
               Album
             </h1>
-            <p className="mt-1.5 text-xs font-medium text-muted-foreground tabular-nums">
+            <p className="mt-2 text-xs font-medium text-muted-foreground tabular-nums">
               {countLabel}
             </p>
           </div>
