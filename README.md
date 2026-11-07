@@ -3,7 +3,7 @@
 
 # MusiMOB
 
-_Sổ lưu bài hát cá nhân, phục vụ tra cứu và nghe thử nhanh._
+_Ứng dụng sổ tay riêng tư để lưu trữ và đánh dấu những bài hát bạn yêu thích_
 
 [![React](https://img.shields.io/badge/React-19-61dafb?style=flat-square&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
