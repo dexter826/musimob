@@ -34,8 +34,13 @@ export function AppProvider({ children }: AppProviderProps) {
         </TooltipProvider>
         <Toaster
           position="bottom-center"
-          offset={{ bottom: 24 }}
-          mobileOffset={{ bottom: 96 }}
+          offset={{
+            bottom: 'calc(var(--library-selection-height, 0px) + 24px)',
+          }}
+          mobileOffset={{
+            bottom:
+              'max(96px, calc(var(--library-selection-height, 0px) + 12px))',
+          }}
         />
       </QueryClientProvider>
     </ThemeProvider>

@@ -1,6 +1,7 @@
 import { cn } from 'cn'
 import { PreviewButton } from '@/components/preview-button'
 import { SongCover } from '@/components/song-cover'
+import { SelectionCheckbox } from '@/components/selection-checkbox'
 import { useScrollIntoViewWhenActive } from '@/hooks/use-scroll-into-view'
 import type { Song } from '@/lib/api/types'
 import { useAudioPreview } from '@/lib/audio-preview-context'
@@ -12,6 +13,8 @@ type SongGridProps = {
   flashId: string | null
   onEdit: (song: Song) => void
   onDelete: (song: Song) => void
+  selectedIds: ReadonlySet<string> | null
+  onToggleSelection: (id: string) => void
 }
 
 type SongGridTileProps = {
@@ -20,6 +23,8 @@ type SongGridTileProps = {
   isFlashing: boolean
   onEdit: () => void
   onDelete: () => void
+  isSelected: boolean
+  onToggleSelection?: () => void
 }
 
 function SongGridTile({
@@ -28,6 +33,8 @@ function SongGridTile({
   isFlashing,
   onEdit,
   onDelete,
+  isSelected,
+  onToggleSelection,
 }: SongGridTileProps) {
   const tileRef = useScrollIntoViewWhenActive<HTMLLIElement>(isFlashing)
   const { activeKey } = useAudioPreview()
@@ -36,9 +43,12 @@ function SongGridTile({
   return (
     <li
       ref={tileRef}
+      onClick={onToggleSelection}
+      data-selected={isSelected || undefined}
       className={cn(
         'group relative',
         isFlashing && 'outline-2 outline-offset-2 outline-primary',
+        isSelected && 'rounded-sm ring-2 ring-primary',
       )}
     >
       <div className="relative aspect-square">
@@ -55,21 +65,33 @@ function SongGridTile({
             className="absolute top-0 left-2.5 h-[26px] w-3.5 bg-primary [clip-path:polygon(0_0,100%_0,100%_100%,50%_78%,0_100%)]"
           />
         ) : null}
-        <PreviewButton
-          previewUrl={song.previewUrl}
-          playKey={songPreviewKey(song.id)}
-          title={song.title}
-          artist={song.artist}
-          className="absolute right-1.5 bottom-1.5 size-7"
-        />
-        <div className="absolute top-1 right-1">
-          <SongActionsMenu
-            songTitle={song.title}
-            onEdit={onEdit}
-            onDelete={onDelete}
-            className="bg-surface/90 text-foreground hover:bg-surface"
+        <span onClick={(event) => event.stopPropagation()} className="contents">
+          <PreviewButton
+            previewUrl={song.previewUrl}
+            playKey={songPreviewKey(song.id)}
+            title={song.title}
+            artist={song.artist}
+            className="absolute right-1.5 bottom-1.5 size-7"
           />
-        </div>
+        </span>
+        {onToggleSelection ? (
+          <div className="absolute top-1 right-1 rounded-lg bg-surface">
+            <SelectionCheckbox
+              label={`Chọn ${song.title}`}
+              checked={isSelected}
+              onChange={onToggleSelection}
+            />
+          </div>
+        ) : (
+          <div className="absolute top-1 right-1">
+            <SongActionsMenu
+              songTitle={song.title}
+              onEdit={onEdit}
+              onDelete={onDelete}
+              className="bg-surface/90 text-foreground hover:bg-surface"
+            />
+          </div>
+        )}
       </div>
       <p
         className={cn(
@@ -86,7 +108,14 @@ function SongGridTile({
   )
 }
 
-export function SongGrid({ songs, flashId, onEdit, onDelete }: SongGridProps) {
+export function SongGrid({
+  songs,
+  flashId,
+  onEdit,
+  onDelete,
+  selectedIds,
+  onToggleSelection,
+}: SongGridProps) {
   return (
     <ul className="grid grid-cols-2 gap-x-3 gap-y-5 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 wide:grid-cols-4 widest:grid-cols-6">
       {songs.map((song, index) => (
@@ -97,6 +126,10 @@ export function SongGrid({ songs, flashId, onEdit, onDelete }: SongGridProps) {
           isFlashing={song.id === flashId}
           onEdit={() => onEdit(song)}
           onDelete={() => onDelete(song)}
+          isSelected={selectedIds?.has(song.id) ?? false}
+          onToggleSelection={
+            selectedIds ? () => onToggleSelection(song.id) : undefined
+          }
         />
       ))}
     </ul>

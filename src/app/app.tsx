@@ -45,6 +45,7 @@ function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
                 authError={authError}
                 viewMode={viewMode}
                 songsState={songsState}
+                albumsState={albumsState}
               />
             }
           />

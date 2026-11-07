@@ -1,10 +1,12 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Plus } from 'lucide-react'
 import { toast } from 'sonner'
 import { cn } from 'cn'
 import { ErrorAlert } from '@/components/error-alert'
 import { useDocumentTitle } from '@/hooks/use-document-title'
 import { AddSheet } from '@/features/add-song/components/add-sheet'
+import { AlbumPicker } from '@/features/albums/components/album-picker'
+import type { useAlbums } from '@/features/albums/hooks/use-albums'
 import { SongSearch } from '@/features/search-song/components/song-search'
 import { LibraryToolbar } from '@/features/songs/components/library-toolbar'
 import { SongList } from '@/features/songs/components/song-list'
@@ -14,6 +16,7 @@ import { getCountLabel } from '@/features/songs/lib/count-label'
 import type { NewSong, Song } from '@/lib/api/types'
 import { useAudioPreview } from '@/lib/audio-preview-context'
 import { songPreviewKey } from '@/lib/preview-key'
+import { LibrarySelectionBar } from './library-selection-bar'
 
 const SONGS_TITLE = 'MusiMOB: Thư viện'
 
@@ -21,22 +24,91 @@ type LibraryPageProps = {
   authError: string | null
   viewMode: ViewMode
   songsState: ReturnType<typeof useSongs>
+  albumsState: ReturnType<typeof useAlbums>
 }
 
 export function LibraryPage({
   authError,
   viewMode,
   songsState,
+  albumsState,
 }: LibraryPageProps) {
   const [isAddOpen, setIsAddOpen] = useState(false)
   const [addSeed, setAddSeed] = useState('')
   const [filterQuery, setFilterQuery] = useState('')
   const [flashId, setFlashId] = useState<string | null>(null)
+  const [selectedIds, setSelectedIds] = useState<Set<string> | null>(null)
+  const [isAlbumPickerOpen, setIsAlbumPickerOpen] = useState(false)
+  const selectionToggleRef = useRef<HTMLButtonElement>(null)
+  const addToAlbumRef = useRef<HTMLButtonElement>(null)
+  const wasSelecting = useRef(false)
+  const wasAlbumPickerOpen = useRef(false)
   const { activeKey, stop } = useAudioPreview()
   const { songs, status, retry, addSong, restoreSong, updateSong, removeSong } =
     songsState
 
   useDocumentTitle(SONGS_TITLE)
+
+  const songIds = useMemo(() => new Set(songs.map((song) => song.id)), [songs])
+  const selectedSongIds = selectedIds
+    ? [...selectedIds].filter((id) => songIds.has(id))
+    : []
+  const isSelecting = selectedIds !== null
+
+  useEffect(() => {
+    if (status.state !== 'ready') return
+    setSelectedIds((current) => {
+      if (!current) return current
+      const next = new Set([...current].filter((id) => songIds.has(id)))
+      if (current.size > 0 && next.size === 0) return null
+      return next.size === current.size ? current : next
+    })
+  }, [songIds, status.state])
+
+  useEffect(() => {
+    if (!isSelecting) setIsAlbumPickerOpen(false)
+    if (wasSelecting.current && !isSelecting)
+      selectionToggleRef.current?.focus()
+    wasSelecting.current = isSelecting
+  }, [isSelecting])
+
+  useEffect(() => {
+    if (wasAlbumPickerOpen.current && !isAlbumPickerOpen && isSelecting)
+      addToAlbumRef.current?.focus()
+    wasAlbumPickerOpen.current = isAlbumPickerOpen
+  }, [isAlbumPickerOpen, isSelecting])
+
+  useEffect(() => {
+    if (!isSelecting || isAlbumPickerOpen) return
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key !== 'Escape' || event.defaultPrevented) return
+      setSelectedIds(null)
+    }
+    window.addEventListener('keydown', handleEscape)
+    return () => window.removeEventListener('keydown', handleEscape)
+  }, [isSelecting, isAlbumPickerOpen])
+
+  function toggleSongSelection(id: string) {
+    setSelectedIds((current) => {
+      if (!current) return current
+      const next = new Set(current)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  async function handleAddToAlbums(albumIds: string[]) {
+    if (selectedSongIds.length === 0) return
+    await albumsState.addSongs(albumIds, selectedSongIds)
+    setIsAlbumPickerOpen(false)
+    setSelectedIds(null)
+    toast.success(
+      albumIds.length === 1
+        ? `Đã thêm ${selectedSongIds.length} bài vào album`
+        : `Đã thêm ${selectedSongIds.length} bài vào ${albumIds.length} album`,
+    )
+  }
 
   useEffect(() => {
     if (!flashId) return
@@ -133,6 +205,14 @@ export function LibraryPage({
   return (
     <>
       <div
+        style={
+          isSelecting
+            ? {
+                paddingBottom:
+                  'calc(var(--library-selection-height, 0px) + 24px)',
+              }
+            : undefined
+        }
         className={cn(
           'flex flex-1 flex-col',
           isLibraryEmpty ? 'pb-6' : 'pb-24 md:pb-10',
@@ -144,6 +224,11 @@ export function LibraryPage({
           onFilterChange={handleFilterChange}
           onAdd={() => openAdd(filterQuery.trim())}
           isLibraryEmpty={isLibraryEmpty}
+          isSelecting={isSelecting}
+          selectionToggleRef={selectionToggleRef}
+          onToggleSelection={() =>
+            setSelectedIds((current) => (current ? null : new Set()))
+          }
         />
         {authError ? <ErrorAlert message={authError} className="mb-3" /> : null}
         <SongList
@@ -158,10 +243,12 @@ export function LibraryPage({
           onClearFilter={() => handleFilterChange('')}
           onUpdate={updateSong}
           onRemove={handleRemove}
+          selectedIds={selectedIds}
+          onToggleSelection={toggleSongSelection}
         />
       </div>
 
-      {isLibraryEmpty ? null : (
+      {isLibraryEmpty || isSelecting ? null : (
         <button
           type="button"
           aria-label="Thêm bài"
@@ -171,6 +258,28 @@ export function LibraryPage({
           <Plus aria-hidden="true" className="size-[22px]" />
         </button>
       )}
+
+      {isSelecting ? (
+        <LibrarySelectionBar
+          addButtonRef={addToAlbumRef}
+          count={selectedSongIds.length}
+          onClear={() => setSelectedIds(new Set())}
+          onAdd={() => {
+            stop()
+            setIsAlbumPickerOpen(true)
+          }}
+        />
+      ) : null}
+
+      <AlbumPicker
+        open={isSelecting && isAlbumPickerOpen && selectedSongIds.length > 0}
+        onOpenChange={setIsAlbumPickerOpen}
+        albums={albumsState.albums}
+        songs={songs}
+        status={albumsState.status}
+        onRetry={albumsState.retry}
+        onAdd={handleAddToAlbums}
+      />
 
       <AddSheet
         open={isAddOpen}
