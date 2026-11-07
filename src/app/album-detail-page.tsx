@@ -1,12 +1,16 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link, useParams } from 'react-router'
-import { ArrowLeft, Plus } from 'lucide-react'
+import { Link, useNavigate, useParams } from 'react-router'
+import { ArrowLeft, ListMinus, Plus } from 'lucide-react'
 import { toast } from 'sonner'
 import { ErrorAlert } from '@/components/error-alert'
 import { SongCover } from '@/components/song-cover'
 import { SongRowView } from '@/components/song-row-view'
 import { Button } from '@/components/ui/button'
+import { Spinner } from '@/components/ui/spinner'
 import { AddAlbumSongsPanel } from '@/features/albums/components/add-album-songs-panel'
+import { AlbumActionsMenu } from '@/features/albums/components/album-actions-menu'
+import { DeleteAlbumConfirm } from '@/features/albums/components/delete-album-confirm'
+import { RenameAlbumPanel } from '@/features/albums/components/rename-album-panel'
 import {
   AlbumDetailEmptyState,
   AlbumDetailNotFound,
@@ -21,6 +25,7 @@ import {
 } from '@/features/albums/lib/album-songs'
 import type { useSongs } from '@/features/songs/hooks/use-songs'
 import { useDocumentTitle } from '@/hooks/use-document-title'
+import type { Album, Song } from '@/lib/api/types'
 import { useAudioPreview } from '@/lib/audio-preview-context'
 import { songPreviewKey } from '@/lib/preview-key'
 
@@ -41,12 +46,22 @@ export function AlbumDetailPage({
     status: albumsStatus,
     retry: retryAlbums,
     addSongs,
+    renameAlbum,
+    removeAlbum,
+    removeSong,
   } = albumsState
   const { songs, status: songsStatus, retry: retrySongs } = songsState
   const [isAddOpen, setIsAddOpen] = useState(false)
+  const [isRenameOpen, setIsRenameOpen] = useState(false)
+  const [deleteTarget, setDeleteTarget] = useState<Album | null>(null)
+  const [removingSongIds, setRemovingSongIds] = useState<Set<string>>(new Set())
+  const navigate = useNavigate()
   const { activeKey, stop } = useAudioPreview()
 
-  const album = albums.find((item) => item.id === albumId)
+  // Keep the confirmation mounted while Firestore applies its optimistic delete.
+  const album =
+    albums.find((item) => item.id === albumId) ??
+    (deleteTarget?.id === albumId ? deleteTarget : undefined)
   const songsById = useMemo(() => getSongsById(songs), [songs])
   const albumSongs = useMemo(
     () => (album ? getAlbumSongs(album, songsById) : []),
@@ -66,6 +81,40 @@ export function AlbumDetailPage({
     if (!album) return
     await addSongs([album.id], songIds)
     toast.success(`Đã thêm ${songIds.length} bài vào album`)
+  }
+
+  async function handleRename(name: string) {
+    if (!album) return
+    await renameAlbum(album.id, name)
+    setIsRenameOpen(false)
+    toast.success('Đã đổi tên album', { description: name })
+  }
+
+  async function handleDelete(target: Album) {
+    await removeAlbum(target.id)
+    stop()
+    navigate('/albums')
+    toast.success('Đã xóa album', { description: target.name })
+  }
+
+  async function handleRemoveSong(song: Song) {
+    if (!album || removingSongIds.has(song.id)) return
+    if (activeKey === songPreviewKey(song.id)) stop()
+    setRemovingSongIds((current) => new Set(current).add(song.id))
+    try {
+      await removeSong(album.id, song.id)
+      toast.success('Đã bỏ bài khỏi album', { description: song.title })
+    } catch (error) {
+      toast.error('Không bỏ được bài khỏi album', {
+        description: error instanceof Error ? error.message : 'Thử lại.',
+      })
+    } finally {
+      setRemovingSongIds((current) => {
+        const next = new Set(current)
+        next.delete(song.id)
+        return next
+      })
+    }
   }
 
   if (albumsStatus.state === 'loading') {
@@ -116,7 +165,7 @@ export function AlbumDetailPage({
             className="size-20 shrink-0 rounded-sm"
             iconClassName="size-6"
           />
-          <div className="min-w-0">
+          <div className="min-w-0 flex-1">
             <h1 className="line-clamp-2 font-serif text-[34px] leading-[1.08] font-medium tracking-[-0.015em] break-words text-foreground max-md:text-[28px]">
               {album.name}
             </h1>
@@ -124,6 +173,11 @@ export function AlbumDetailPage({
               {countLabel}
             </p>
           </div>
+          <AlbumActionsMenu
+            albumName={album.name}
+            onRename={() => setIsRenameOpen(true)}
+            onDelete={() => setDeleteTarget(album)}
+          />
         </div>
       </div>
 
@@ -169,6 +223,27 @@ export function AlbumDetailPage({
                     key={song.id}
                     song={song}
                     isFirst={index === 0}
+                    trailing={
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        aria-label={`Bỏ ${song.title} khỏi album`}
+                        disabled={removingSongIds.has(song.id)}
+                        aria-busy={removingSongIds.has(song.id)}
+                        onClick={() => void handleRemoveSong(song)}
+                        className="size-11 shrink-0 text-muted-foreground"
+                      >
+                        {removingSongIds.has(song.id) ? (
+                          <Spinner aria-hidden="true" className="size-4" />
+                        ) : (
+                          <ListMinus
+                            aria-hidden="true"
+                            className="size-[18px]"
+                          />
+                        )}
+                      </Button>
+                    }
                   />
                 ))}
               </ul>
@@ -184,6 +259,18 @@ export function AlbumDetailPage({
           />
         </>
       )}
+      <RenameAlbumPanel
+        album={album}
+        albums={albums}
+        open={isRenameOpen}
+        onOpenChange={setIsRenameOpen}
+        onRename={handleRename}
+      />
+      <DeleteAlbumConfirm
+        album={deleteTarget}
+        onClose={() => setDeleteTarget(null)}
+        onConfirm={handleDelete}
+      />
     </div>
   )
 }

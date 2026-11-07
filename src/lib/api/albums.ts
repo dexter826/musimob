@@ -1,13 +1,16 @@
 import {
   Timestamp,
   addDoc,
+  arrayRemove,
   arrayUnion,
   collection,
+  deleteDoc,
   doc,
   onSnapshot,
   orderBy,
   query,
   serverTimestamp,
+  updateDoc,
   writeBatch,
   type DocumentData,
 } from 'firebase/firestore'
@@ -45,6 +48,24 @@ function toAlbum(id: string, data: DocumentData): Album {
 }
 
 export const albumsApi: MusimobApi['albums'] = {
+  async rename(uid, id, name) {
+    await updateDoc(doc(firebaseFirestore, 'users', uid, 'albums', id), {
+      name: name.trim(),
+      updatedAt: serverTimestamp(),
+    })
+  },
+
+  async remove(uid, id) {
+    await deleteDoc(doc(firebaseFirestore, 'users', uid, 'albums', id))
+  },
+
+  async removeSong(uid, albumId, songId) {
+    await updateDoc(doc(firebaseFirestore, 'users', uid, 'albums', albumId), {
+      songIds: arrayRemove(songId),
+      updatedAt: serverTimestamp(),
+    })
+  },
+
   async addSongs(uid, albumIds, songIds) {
     if (albumIds.length === 0 || songIds.length === 0) return
 

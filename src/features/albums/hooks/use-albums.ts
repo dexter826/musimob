@@ -8,24 +8,34 @@ export type AlbumsStatus =
   | { state: 'failed'; message: string }
   | { state: 'ready'; warning: string | null }
 
-type AlbumOperation = 'load' | 'create' | 'addSongs'
+type AlbumOperation =
+  'load' | 'create' | 'addSongs' | 'rename' | 'remove' | 'removeSong'
 
 const PERMISSION_MESSAGES: Record<AlbumOperation, string> = {
   load: 'Bạn không có quyền xem danh sách album.',
   create: 'Bạn không có quyền tạo album.',
   addSongs: 'Bạn không có quyền thêm bài vào album.',
+  rename: 'Bạn không có quyền đổi tên album.',
+  remove: 'Bạn không có quyền xóa album.',
+  removeSong: 'Bạn không có quyền bỏ bài khỏi album.',
 }
 
 const FALLBACK_MESSAGES: Record<AlbumOperation, string> = {
   load: 'Không tải được danh sách album. Thử lại.',
   create: 'Không tạo được album. Thử lại.',
   addSongs: 'Không thêm được bài vào album. Thử lại.',
+  rename: 'Không đổi được tên album. Thử lại.',
+  remove: 'Không xóa được album. Thử lại.',
+  removeSong: 'Không bỏ được bài khỏi album. Thử lại.',
 }
 
 const LOG_LABELS: Record<AlbumOperation, string> = {
   load: 'Không tải được danh sách album.',
   create: 'Không tạo được album.',
   addSongs: 'Không thêm được bài vào album.',
+  rename: 'Không đổi được tên album.',
+  remove: 'Không xóa được album.',
+  removeSong: 'Không bỏ được bài khỏi album.',
 }
 
 function albumErrorMessage(operation: AlbumOperation, error: unknown): string {
@@ -35,10 +45,13 @@ function albumErrorMessage(operation: AlbumOperation, error: unknown): string {
   if (code === 'unavailable') {
     return 'Mất kết nối. Kiểm tra mạng rồi thử lại.'
   }
-  if (operation === 'create' && code === 'invalid-argument') {
+  if (
+    (operation === 'create' || operation === 'rename') &&
+    code === 'invalid-argument'
+  ) {
     return 'Tên album không hợp lệ.'
   }
-  if (operation === 'addSongs' && code === 'not-found') {
+  if (operation !== 'load' && operation !== 'create' && code === 'not-found') {
     return 'Album này không còn trong danh sách.'
   }
 
@@ -123,11 +136,32 @@ export function useAlbums(uid: string) {
     [uid],
   )
 
+  const renameAlbum = useCallback(
+    (id: string, name: string) =>
+      runAlbumOperation('rename', () => albumsApi.rename(uid, id, name)),
+    [uid],
+  )
+  const removeAlbum = useCallback(
+    (id: string) =>
+      runAlbumOperation('remove', () => albumsApi.remove(uid, id)),
+    [uid],
+  )
+  const removeSong = useCallback(
+    (albumId: string, songId: string) =>
+      runAlbumOperation('removeSong', () =>
+        albumsApi.removeSong(uid, albumId, songId),
+      ),
+    [uid],
+  )
+
   return {
     albums,
     status,
     retry,
     createAlbum,
     addSongs,
+    renameAlbum,
+    removeAlbum,
+    removeSong,
   }
 }
