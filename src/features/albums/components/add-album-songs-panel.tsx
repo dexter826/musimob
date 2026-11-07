@@ -15,6 +15,8 @@ type AddAlbumSongsPanelProps = {
   open: boolean
   onOpenChange: (open: boolean) => void
   onAdd: (songIds: string[]) => Promise<void>
+  warning: string | null
+  onRetry: () => void
 }
 
 export function AddAlbumSongsPanel({
@@ -48,6 +50,8 @@ function AddAlbumSongsContent({
   songs,
   onAdd,
   onClose,
+  warning,
+  onRetry,
 }: Omit<AddAlbumSongsPanelProps, 'open' | 'onOpenChange'> & {
   onClose: () => void
 }) {
@@ -74,12 +78,12 @@ function AddAlbumSongsContent({
   )
 
   useEffect(() => {
-    if (isSaving) return
+    if (isSaving || error) return
     setSelectedIds((current) => {
       const next = new Set([...current].filter((id) => availableIds.has(id)))
       return next.size === current.size ? current : next
     })
-  }, [availableIds, isSaving])
+  }, [availableIds, isSaving, error])
 
   function toggleSong(id: string) {
     if (isSaving) return
@@ -114,10 +118,17 @@ function AddAlbumSongsContent({
     }
   }
 
-  if (availableSongs.length === 0) {
+  if (availableSongs.length === 0 && !isSaving && !error) {
     const isLibraryEmpty = songs.length === 0
     return (
       <div className="flex flex-col items-center px-5 py-12 text-center">
+        {warning ? (
+          <ErrorAlert
+            message={warning}
+            onRetry={onRetry}
+            className="mb-3 text-left"
+          />
+        ) : null}
         <h2 className="font-serif text-[24px] leading-[1.2] font-medium">
           {isLibraryEmpty
             ? 'Thư viện chưa có bài nào'
@@ -146,6 +157,9 @@ function AddAlbumSongsContent({
   return (
     <>
       <div className="shrink-0 px-5 pt-4 pb-3">
+        {warning ? (
+          <ErrorAlert message={warning} onRetry={onRetry} className="mb-3" />
+        ) : null}
         <SearchField
           id={searchId}
           name="album-song-filter"
@@ -155,7 +169,14 @@ function AddAlbumSongsContent({
         />
       </div>
       <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-2 pb-3">
-        {filteredSongs.length === 0 ? (
+        {filteredSongs.length === 0 && isSaving ? (
+          <p
+            role="status"
+            className="px-3 py-12 text-center text-sm text-muted-foreground"
+          >
+            Đang thêm bài vào album…
+          </p>
+        ) : filteredSongs.length === 0 ? (
           <div className="px-3 py-12 text-center">
             <h2 className="font-serif text-xl font-medium">
               Không có bài nào khớp.
@@ -202,7 +223,7 @@ function AddAlbumSongsContent({
             aria-live="polite"
             className="text-xs font-medium text-muted-foreground tabular-nums"
           >
-            Đã chọn {selectedSongIds.length} bài
+            Đã chọn {isSaving ? selectedIds.size : selectedSongIds.length} bài
           </p>
           <Button
             type="button"

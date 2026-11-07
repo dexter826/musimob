@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router'
 import { ArrowLeft, ListMinus, Plus } from 'lucide-react'
 import { toast } from 'sonner'
@@ -36,11 +36,16 @@ type AlbumDetailPageProps = {
   songsState: ReturnType<typeof useSongs>
 }
 
-export function AlbumDetailPage({
+export function AlbumDetailPage(props: AlbumDetailPageProps) {
+  const { albumId } = useParams<{ albumId: string }>()
+  return <AlbumDetailContent key={albumId} {...props} albumId={albumId} />
+}
+
+function AlbumDetailContent({
   albumsState,
   songsState,
-}: AlbumDetailPageProps) {
-  const { albumId } = useParams<{ albumId: string }>()
+  albumId,
+}: AlbumDetailPageProps & { albumId: string | undefined }) {
   const {
     albums,
     status: albumsStatus,
@@ -56,7 +61,15 @@ export function AlbumDetailPage({
   const [deleteTarget, setDeleteTarget] = useState<Album | null>(null)
   const [removingSongIds, setRemovingSongIds] = useState<Set<string>>(new Set())
   const navigate = useNavigate()
+  const isActive = useRef(true)
   const { activeKey, stop } = useAudioPreview()
+
+  useEffect(() => {
+    isActive.current = true
+    return () => {
+      isActive.current = false
+    }
+  }, [])
 
   // Keep the confirmation mounted while Firestore applies its optimistic delete.
   const album =
@@ -92,6 +105,7 @@ export function AlbumDetailPage({
 
   async function handleDelete(target: Album) {
     await removeAlbum(target.id)
+    if (!isActive.current) return
     stop()
     navigate('/albums')
     toast.success('Đã xóa album', { description: target.name })
@@ -182,11 +196,18 @@ export function AlbumDetailPage({
       </div>
 
       {albumsStatus.warning ? (
-        <ErrorAlert message={albumsStatus.warning} className="mb-3" />
+        <ErrorAlert
+          message={albumsStatus.warning}
+          onRetry={retryAlbums}
+          className="mb-3"
+        />
       ) : null}
 
       {isSongsLoading ? (
-        <AlbumSongsSkeleton />
+        <div role="status">
+          <span className="sr-only">Đang tải bài trong album…</span>
+          <AlbumSongsSkeleton />
+        </div>
       ) : isSongsFailed ? (
         <div className="flex flex-1 items-center justify-center px-6 py-16">
           <ErrorAlert
@@ -198,7 +219,11 @@ export function AlbumDetailPage({
       ) : (
         <>
           {songsStatus.warning ? (
-            <ErrorAlert message={songsStatus.warning} className="mb-3" />
+            <ErrorAlert
+              message={songsStatus.warning}
+              onRetry={retrySongs}
+              className="mb-3"
+            />
           ) : null}
           {albumSongs.length === 0 ? (
             <AlbumDetailEmptyState
@@ -256,6 +281,8 @@ export function AlbumDetailPage({
             open={isAddOpen}
             onOpenChange={setIsAddOpen}
             onAdd={handleAddSongs}
+            warning={songsStatus.warning}
+            onRetry={retrySongs}
           />
         </>
       )}

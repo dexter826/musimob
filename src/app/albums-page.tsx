@@ -83,15 +83,17 @@ export function AlbumsPage({ albumsState, songsState }: AlbumsPageProps) {
           </div>
         ) : (
           <div className="flex flex-1 flex-col gap-3">
-            {status.warning ? <ErrorAlert message={status.warning} /> : null}
+            {status.warning ? (
+              <ErrorAlert message={status.warning} onRetry={retry} />
+            ) : null}
             {songsStatus.state === 'failed' ? (
               <ErrorAlert message={songsStatus.message} onRetry={retrySongs} />
             ) : songsStatus.state === 'ready' && songsStatus.warning ? (
-              <ErrorAlert message={songsStatus.warning} />
+              <ErrorAlert message={songsStatus.warning} onRetry={retrySongs} />
             ) : null}
             {albums.length === 0 ? (
               <AlbumsEmptyState onCreate={() => setIsCreateOpen(true)} />
-            ) : (
+            ) : songsStatus.state === 'failed' ? null : (
               <AlbumGrid albums={albums} songsById={songsById} />
             )}
           </div>
