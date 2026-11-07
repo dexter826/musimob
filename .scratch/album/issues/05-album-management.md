@@ -17,4 +17,3 @@ Mỗi row trong album detail có nút “Bỏ khỏi album” chạy ngay, khôn
 - [ ] Xóa album khi đang preview bài trong album thì preview dừng và điều hướng đúng.
 - [ ] Undo xóa bài từ Thư viện khôi phục lại membership đúng vị trí (kiểm tra lại sau khi có remove).
 - [ ] `format:check`, `lint`, `build` pass.
-- [ ] Design/copy contract được cập nhật cho rename/delete/remove.

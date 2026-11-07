@@ -19,4 +19,3 @@ Selection là tập ID có thứ tự, giữ qua thay đổi bộ lọc, tự lo
 - [ ] Đóng picker giữa chừng giữ selection; lỗi thêm bài giữ panel mở.
 - [ ] Mobile 360px và desktop đều dùng được; keyboard/focus/aria đạt yêu cầu.
 - [ ] `format:check`, `lint`, `build` pass.
-- [ ] Design/copy contract được cập nhật cho selection mode, bottom bar và album picker.

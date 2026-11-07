@@ -17,4 +17,3 @@ Nút “Thêm bài” mở panel album-first: chỉ liệt kê bài đã lưu **
 - [ ] Lỗi thêm bài giữ panel mở, hiện lỗi, không mất selection.
 - [ ] Preview trong album detail hoạt động; trạng thái “Đang nghe thử” đúng.
 - [ ] `format:check`, `lint`, `build` pass.
-- [ ] Design/copy contract được cập nhật cho album detail list và album-first picker.

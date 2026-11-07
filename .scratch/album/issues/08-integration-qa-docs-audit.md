@@ -2,7 +2,7 @@
 
 **What to build:** Chạy full manual QA checklist của spec Album trên luồng hoàn chỉnh, rà toàn bộ trạng thái empty/loading/error/warning, album not-found, undo membership, selection edge cases, responsive 360px, keyboard/focus, toast so với bottom action bar, và preview khi đổi route.
 
-Rà lại design/copy contract để khớp implementation; sửa các lỗi cross-ticket phát hiện được. Không thêm tính năng mới, không thêm test runner.
+Rà implementation theo quy chuẩn giao diện và câu chữ chung; sửa các lỗi cross-ticket phát hiện được. Không thêm tính năng mới, không thêm test runner.
 
 **Blocked by:** 05 (Quản lý album: đổi tên, xóa, bỏ bài khỏi album), 07 (Tạo album inline trong album picker).
 
@@ -15,6 +15,6 @@ Rà lại design/copy contract để khớp implementation; sửa các lỗi cro
 - [ ] Selection qua filter, reset khi đổi route, Escape, đóng picker giữ selection đều đúng.
 - [ ] Mobile 360px: topbar, bottom bar, panel, toast không tràn/che nhau; desktop: grid và dialog đúng.
 - [ ] Keyboard/focus/aria được kiểm tra ở nav, card, checkbox, panel, bottom bar.
-- [ ] Design/copy contract nhất quán với implementation; không còn mâu thuẫn với spec.
+- [ ] Implementation tuân thủ quy chuẩn giao diện, câu chữ chung và spec.
 - [ ] `format:check`, `lint`, `build` pass.
 - [ ] Không thêm test runner.

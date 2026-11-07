@@ -16,5 +16,4 @@
 - [ ] Auth gate giữ nguyên: chưa đăng nhập thấy màn hình đăng nhập; sau đăng nhập router mount tại URL hiện tại.
 - [ ] Skip link dùng target chung cho mọi trang và hoạt động.
 - [ ] Keyboard/focus cho nav và wordmark đạt yêu cầu accessibility.
-- [ ] Design/copy contract được cập nhật cho topbar nav.
 - [ ] `format:check`, `lint`, `build` pass.

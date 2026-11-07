@@ -152,7 +152,7 @@ Thêm Album như một container độc lập với Thư viện:
   - Wordmark là link về `/`.
   - Desktop: logo + wordmark + nav bên trái; view toggle (chỉ ở Thư viện) + theme + avatar bên phải.
   - Mobile: wordmark thu gọn còn symbol; nav vẫn hiện đủ hai mục; view toggle chỉ hiện ở Thư viện.
-  - Active item dùng `aria-current="page"` và style active riêng (màu foreground + gạch chân coral hoặc pattern tương đương trong design contract).
+  - Active item dùng `aria-current="page"` và style active riêng (màu foreground + gạch chân coral), tuân thủ quy chuẩn giao diện chung.
   - Nav dùng `NavLink`; mục “Thư viện” chỉ active ở `/`; mục “Album” active ở `/albums` và các route con.
 - View toggle list/grid chỉ có ý nghĩa ở Thư viện. Trang Album luôn dùng grid cho danh sách album và list cho bài trong album.
 - App composition layer sở hữu cả `useSongs` và `useAlbums`, truyền data/callback xuống các trang. Lý do:
@@ -174,7 +174,7 @@ Thêm Album như một container độc lập với Thư viện:
 - Nút tạo hiện ở mọi kích thước màn hình (không có FAB riêng cho album). Khi danh sách rỗng, ẩn nút toolbar và dùng CTA trong empty state.
 - Danh sách album dạng grid card: 2 cột mobile, 3 cột từ 640px, 4 cột từ 900px; gutter theo grid bài hát hiện có.
 - Card gồm: cover vuông lấy từ bài đầu tiên còn tồn tại, tên album (tối đa 2 dòng), count “N bài”. Card là link đến `/albums/:albumId`; toàn bộ card click được, có focus ring và accessible name.
-- Card dùng surface/rule/radius theo design contract; không có menu đổi tên/xóa trên card.
+- Card dùng surface/rule/radius theo quy chuẩn giao diện chung; không có menu đổi tên/xóa trên card.
 - Album mới nhất trước, theo thứ tự subscription.
 - Loading: skeleton card.
 - Empty: tiêu đề “Chưa có album nào”, mô tả mục đích, CTA “Tạo album đầu tiên”.
@@ -262,7 +262,7 @@ Cả hai picker dùng `ResponsivePanel` hiện có: drawer dưới 768px, dialog
 - Tạo từ picker: thành công → quay lại picker, chọn album mới; toast “Đã tạo album”.
 - Copy dùng thuật ngữ glossary: “album”, “bài hát”, “Thư viện”; tránh “playlist”, “danh sách phát”, “bộ sưu tập”.
 - Các nhãn chính: “Chọn”, “Hủy”, “Bỏ chọn”, “Thêm vào album”, “Bỏ khỏi album”, “Đổi tên album”, “Xóa album”, “Giữ lại”, “Tạo album”, “Tạo album mới”, “Tạo album đầu tiên”, “Thêm bài”, “Thêm bài vào album”.
-- Toast thành công dùng động từ + đối tượng; toast lỗi nêu điều gì xảy ra và bước tiếp theo, theo copy contract.
+- Toast thành công dùng động từ + đối tượng; toast lỗi nêu điều gì xảy ra và bước tiếp theo, theo quy chuẩn câu chữ chung.
 - Destructive dialog dùng title “Xóa album?”, nút an toàn “Giữ lại”, nút phá hủy “Xóa album”; không dùng “Huỷ” cho dialog album mới.
 
 ### 11. Accessibility and responsive behavior
@@ -274,21 +274,13 @@ Cả hai picker dùng `ResponsivePanel` hiện có: drawer dưới 768px, dialog
 - Picker rows: checkbox + label; panel title/description đúng; back arrow có accessible label theo ngữ cảnh (không hardcode “Quay lại tìm kiếm” cho flow album).
 - Shared panel cần cho phép truyền accessible label cho nút back (mặc định “Quay lại”) để dùng đúng ngữ cảnh album.
 - Mobile: panel là drawer; bottom bar nằm trên safe area; toast không che bar; topbar không tràn ở 360px.
-- Desktop: panel là dialog; album grid 2/3/4 cột; bottom bar dạng floating pill hoặc full-width theo design contract.
+- Desktop: panel là dialog; album grid 2/3/4 cột; bottom bar full-width, dùng token và quy chuẩn giao diện chung.
 - Loading/empty/error states dùng pattern hiện có: `role="status"`, sr-only loading text, `ErrorAlert` với retry.
 
-### 12. Design and copy contracts
+### 12. Quy chuẩn giao diện
 
-- Cập nhật design contract (`DESIGN.md`) với:
-  - Topbar navigation pattern, active state, mobile compact wordmark.
-  - Album grid card (cover, title, count, hover/focus, radius, spacing).
-  - Album detail header (cover size, title, actions, back link).
-  - Selection mode (checkbox placement, selected row/tile state, bottom action bar).
-  - Album picker rows, footer, inline create view.
-  - Empty states cho album.
-  - Toast offset khi bottom action bar hiện.
-- Cập nhật copy contract (`COPY.md`) với các nhãn/chuỗi mới và quy tắc “Bỏ khỏi album” khác “Xóa bài”.
-- Không cần token màu mới; dùng token hiện có. Nếu phát sinh token mới, cập nhật đồng thời design contract và `src/index.css`.
+- Dùng `DESIGN.md` và `COPY.md` làm quy chuẩn chung để định hướng giao diện và câu chữ; giữ nguyên hai file này khi triển khai Album. Chi tiết tính năng nằm trong spec và ticket.
+- Dùng token màu hiện có.
 - Giữ nguyên “The One Add CTA Rule”: mỗi trạng thái chỉ có một đường thêm chính.
   - Thư viện bình thường: “Thêm bài”/FAB.
   - Thư viện đang chọn: “Thêm vào album” ở bottom bar; ẩn add bài.
@@ -304,6 +296,7 @@ Cả hai picker dùng `ResponsivePanel` hiện có: drawer dưới 768px, dialog
 
 ## Testing Decisions
 
+- Agent không chạy browser test; manual QA do người dùng thực hiện.
 - **Không thêm test runner** (quyết định Q11 = B). Không thêm Vitest/Jest/Testing Library/Playwright/Cypress.
 - Xác minh tự động bằng pipeline hiện có:
   - `npm run format:check`

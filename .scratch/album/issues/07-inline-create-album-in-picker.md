@@ -16,4 +16,3 @@ Nút back của panel dùng chung cần nhận accessible label theo ngữ cản
 - [ ] Album mới xuất hiện và được chọn đúng một lần khi subscription cập nhật; không crash/duplicate.
 - [ ] Accessible label của nút back đúng ngữ cảnh album.
 - [ ] `format:check`, `lint`, `build` pass.
-- [ ] Design/copy contract được cập nhật cho view tạo album trong picker.

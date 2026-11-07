@@ -18,4 +18,3 @@ Trang `/albums/:albumId` có shell: back link về danh sách, cover, tên, coun
 - [ ] Firestore rule cho phép owner đọc/ghi album và chặn người khác; rule file sẵn sàng để deploy.
 - [ ] Chưa hiện nút/action thêm bài, đổi tên, xóa album.
 - [ ] `format:check`, `lint`, `build` pass.
-- [ ] Design/copy contract được cập nhật cho album list/card/create/detail shell.
