@@ -42,7 +42,13 @@ export function AlbumDetailSkeleton() {
   )
 }
 
-export function AlbumDetailEmptyState() {
+export function AlbumDetailEmptyState({
+  onAdd,
+  isLibraryEmpty,
+}: {
+  onAdd: () => void
+  isLibraryEmpty: boolean
+}) {
   return (
     <div className="flex flex-1 flex-col items-center justify-center px-6 py-16 text-center">
       <Disc3 aria-hidden="true" className="size-6 text-primary" />
@@ -50,8 +56,19 @@ export function AlbumDetailEmptyState() {
         Album chưa có bài nào
       </h2>
       <p className="mx-auto mt-2 max-w-[320px] text-sm leading-[1.6] text-muted-foreground">
-        Thêm bài đã lưu vào album để bắt đầu gom nhạc.
+        {isLibraryEmpty
+          ? 'Thêm bài vào Thư viện trước khi chọn cho album.'
+          : 'Thêm bài đã lưu vào album để bắt đầu gom nhạc.'}
       </p>
+      {isLibraryEmpty ? (
+        <Button asChild className="mt-6 h-11">
+          <Link to="/">Về Thư viện</Link>
+        </Button>
+      ) : (
+        <Button type="button" onClick={onAdd} className="mt-6 h-11">
+          Thêm bài vào album
+        </Button>
+      )}
     </div>
   )
 }

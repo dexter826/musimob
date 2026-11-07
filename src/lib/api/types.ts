@@ -64,6 +64,7 @@ export type MusimobApi = {
       onError?: (error: unknown) => void,
     ): () => void
     create(uid: string, name: string): Promise<string>
+    addSongs(uid: string, albumIds: string[], songIds: string[]): Promise<void>
   }
   search: {
     query(term: string): Promise<SearchResult[]>

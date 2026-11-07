@@ -1,11 +1,14 @@
 import {
   Timestamp,
   addDoc,
+  arrayUnion,
   collection,
+  doc,
   onSnapshot,
   orderBy,
   query,
   serverTimestamp,
+  writeBatch,
   type DocumentData,
 } from 'firebase/firestore'
 import { firebaseFirestore } from './firebase'
@@ -42,6 +45,19 @@ function toAlbum(id: string, data: DocumentData): Album {
 }
 
 export const albumsApi: MusimobApi['albums'] = {
+  async addSongs(uid, albumIds, songIds) {
+    if (albumIds.length === 0 || songIds.length === 0) return
+
+    const batch = writeBatch(firebaseFirestore)
+    for (const albumId of albumIds) {
+      batch.update(doc(firebaseFirestore, 'users', uid, 'albums', albumId), {
+        songIds: arrayUnion(...songIds),
+        updatedAt: serverTimestamp(),
+      })
+    }
+    await batch.commit()
+  },
+
   subscribe(uid, callback, onError) {
     const albumsQuery = query(
       collection(firebaseFirestore, 'users', uid, 'albums'),

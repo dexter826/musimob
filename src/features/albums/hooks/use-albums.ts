@@ -8,21 +8,24 @@ export type AlbumsStatus =
   | { state: 'failed'; message: string }
   | { state: 'ready'; warning: string | null }
 
-type AlbumOperation = 'load' | 'create'
+type AlbumOperation = 'load' | 'create' | 'addSongs'
 
 const PERMISSION_MESSAGES: Record<AlbumOperation, string> = {
   load: 'Bạn không có quyền xem danh sách album.',
   create: 'Bạn không có quyền tạo album.',
+  addSongs: 'Bạn không có quyền thêm bài vào album.',
 }
 
 const FALLBACK_MESSAGES: Record<AlbumOperation, string> = {
   load: 'Không tải được danh sách album. Thử lại.',
   create: 'Không tạo được album. Thử lại.',
+  addSongs: 'Không thêm được bài vào album. Thử lại.',
 }
 
 const LOG_LABELS: Record<AlbumOperation, string> = {
   load: 'Không tải được danh sách album.',
   create: 'Không tạo được album.',
+  addSongs: 'Không thêm được bài vào album.',
 }
 
 function albumErrorMessage(operation: AlbumOperation, error: unknown): string {
@@ -34,6 +37,9 @@ function albumErrorMessage(operation: AlbumOperation, error: unknown): string {
   }
   if (operation === 'create' && code === 'invalid-argument') {
     return 'Tên album không hợp lệ.'
+  }
+  if (operation === 'addSongs' && code === 'not-found') {
+    return 'Album này không còn trong danh sách.'
   }
 
   return FALLBACK_MESSAGES[operation]
@@ -109,10 +115,19 @@ export function useAlbums(uid: string) {
     [uid],
   )
 
+  const addSongs = useCallback(
+    (albumIds: string[], songIds: string[]) =>
+      runAlbumOperation('addSongs', () =>
+        albumsApi.addSongs(uid, albumIds, songIds),
+      ),
+    [uid],
+  )
+
   return {
     albums,
     status,
     retry,
     createAlbum,
+    addSongs,
   }
 }
