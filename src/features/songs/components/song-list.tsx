@@ -22,6 +22,8 @@ type SongListProps = {
   onClearFilter: () => void
   onUpdate: (id: string, patch: SongPatch) => Promise<void>
   onRemove: (song: Song) => Promise<void>
+  selectedIds: ReadonlySet<string> | null
+  onToggleSelection: (id: string) => void
 }
 
 const SKELETON_ROWS = [0, 1, 2, 3, 4]
@@ -73,7 +75,7 @@ function FilterEmptyState({
   onSearchCatalog,
 }: {
   onClear: () => void
-  onSearchCatalog: () => void
+  onSearchCatalog?: () => void
 }) {
   return (
     <div className="flex flex-1 flex-col items-center justify-center px-6 py-16 text-center">
@@ -81,13 +83,15 @@ function FilterEmptyState({
         Không có bài nào khớp.
       </h2>
       <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-        <Button
-          type="button"
-          onClick={onSearchCatalog}
-          className="h-11 px-4 text-[13px] font-semibold"
-        >
-          Tìm bài này
-        </Button>
+        {onSearchCatalog ? (
+          <Button
+            type="button"
+            onClick={onSearchCatalog}
+            className="h-11 px-4 text-[13px] font-semibold"
+          >
+            Tìm bài này
+          </Button>
+        ) : null}
         <Button
           type="button"
           variant="ghost"
@@ -113,6 +117,8 @@ export function SongList({
   onClearFilter,
   onUpdate,
   onRemove,
+  selectedIds,
+  onToggleSelection,
 }: SongListProps) {
   const [editTarget, setEditTarget] = useState<Song | null>(null)
   const [isEditOpen, setIsEditOpen] = useState(false)
@@ -156,7 +162,7 @@ export function SongList({
       {songs.length === 0 ? (
         <FilterEmptyState
           onClear={onClearFilter}
-          onSearchCatalog={onSearchCatalog}
+          onSearchCatalog={selectedIds ? undefined : onSearchCatalog}
         />
       ) : viewMode === 'grid' ? (
         <SongGrid
@@ -164,6 +170,8 @@ export function SongList({
           flashId={flashId}
           onEdit={openEdit}
           onDelete={openDelete}
+          selectedIds={selectedIds}
+          onToggleSelection={onToggleSelection}
         />
       ) : (
         <ul className="flex flex-col gap-0.5">
@@ -175,6 +183,8 @@ export function SongList({
               isFlashing={song.id === flashId}
               onEdit={openEdit}
               onDelete={openDelete}
+              isSelected={selectedIds?.has(song.id) ?? false}
+              onToggleSelection={selectedIds ? onToggleSelection : undefined}
             />
           ))}
         </ul>

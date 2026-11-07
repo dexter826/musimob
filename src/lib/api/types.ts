@@ -21,6 +21,16 @@ export type NewSong = Omit<Song, 'id' | 'createdAt' | 'updatedAt'>
 
 export type SongPatch = Partial<Pick<Song, 'title' | 'artist' | 'coverUrl'>>
 
+export type Album = {
+  id: string
+  name: string
+  songIds: string[]
+  createdAt: Timestamp
+  updatedAt: Timestamp
+}
+
+export type NewAlbum = Pick<Album, 'name'>
+
 export type SearchResult = {
   trackId: number
   title: string
@@ -46,6 +56,18 @@ export type MusimobApi = {
     restore(uid: string, song: Song): Promise<void>
     update(uid: string, id: string, patch: SongPatch): Promise<void>
     remove(uid: string, id: string): Promise<void>
+  }
+  albums: {
+    subscribe(
+      uid: string,
+      callback: (albums: Album[]) => void,
+      onError?: (error: unknown) => void,
+    ): () => void
+    create(uid: string, name: string): Promise<string>
+    rename(uid: string, id: string, name: string): Promise<void>
+    remove(uid: string, id: string): Promise<void>
+    removeSong(uid: string, albumId: string, songId: string): Promise<void>
+    addSongs(uid: string, albumIds: string[], songIds: string[]): Promise<void>
   }
   search: {
     query(term: string): Promise<SearchResult[]>

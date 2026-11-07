@@ -21,6 +21,7 @@ type ResponsivePanelProps = {
   description: string
   headerAction?: ReactNode
   onBack?: () => void
+  backLabel?: string
   children: ReactNode
 }
 
@@ -29,6 +30,7 @@ type PanelHeaderProps = {
   description: ReactNode
   headerAction?: ReactNode
   onBack?: () => void
+  backLabel: string
   onClose: () => void
 }
 
@@ -43,6 +45,7 @@ function PanelHeader({
   description,
   headerAction,
   onBack,
+  backLabel,
   onClose,
 }: PanelHeaderProps) {
   return (
@@ -50,7 +53,7 @@ function PanelHeader({
       {onBack ? (
         <button
           type="button"
-          aria-label="Quay lại tìm kiếm"
+          aria-label={backLabel}
           onClick={onBack}
           className={headerIconClass}
         >
@@ -83,6 +86,7 @@ export function ResponsivePanel({
   description,
   headerAction,
   onBack,
+  backLabel = 'Quay lại',
   children,
 }: ResponsivePanelProps) {
   const isMobile = useIsMobile()
@@ -116,6 +120,7 @@ export function ResponsivePanel({
         description={descriptionNode}
         headerAction={headerAction}
         onBack={onBack}
+        backLabel={backLabel}
         onClose={() => onOpenChange(false)}
       />
       {children}

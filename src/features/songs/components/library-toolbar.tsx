@@ -1,3 +1,4 @@
+import type { Ref } from 'react'
 import { Plus } from 'lucide-react'
 import { SearchField } from '@/components/search-field'
 import { Button } from '@/components/ui/button'
@@ -8,6 +9,9 @@ type LibraryToolbarProps = {
   onFilterChange: (value: string) => void
   onAdd: () => void
   isLibraryEmpty: boolean
+  isSelecting: boolean
+  onToggleSelection: () => void
+  selectionToggleRef: Ref<HTMLButtonElement>
 }
 
 export function LibraryToolbar({
@@ -16,6 +20,9 @@ export function LibraryToolbar({
   onFilterChange,
   onAdd,
   isLibraryEmpty,
+  isSelecting,
+  onToggleSelection,
+  selectionToggleRef,
 }: LibraryToolbarProps) {
   return (
     <div className="flex items-end justify-between gap-6 pt-7 pb-5 max-md:flex-col max-md:items-stretch max-md:gap-3">
@@ -28,7 +35,7 @@ export function LibraryToolbar({
         </p>
       </div>
       <div className="flex shrink-0 items-center gap-2 max-md:w-full">
-        <div className="w-[280px] max-md:w-full">
+        <div className="w-[280px] min-w-0 max-md:flex-1">
           <SearchField
             id="library-filter"
             name="filter"
@@ -38,6 +45,18 @@ export function LibraryToolbar({
           />
         </div>
         {isLibraryEmpty ? null : (
+          <Button
+            type="button"
+            variant="ghost"
+            ref={selectionToggleRef}
+            onClick={onToggleSelection}
+            aria-pressed={isSelecting}
+            className="h-11 px-3 text-[13px] font-semibold"
+          >
+            {isSelecting ? 'Hủy' : 'Chọn'}
+          </Button>
+        )}
+        {isLibraryEmpty || isSelecting ? null : (
           <Button
             type="button"
             onClick={onAdd}
