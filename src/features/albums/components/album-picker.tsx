@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react'
-import { Link } from 'react-router'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { Plus } from 'lucide-react'
+import { toast } from 'sonner'
 import { cn } from 'cn'
 import { ErrorAlert } from '@/components/error-alert'
 import { ResponsivePanel } from '@/components/responsive-panel'
@@ -9,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 import type { Album, Song } from '@/lib/api/types'
 import type { AlbumsStatus } from '../hooks/use-albums'
+import { AlbumNameForm } from './album-name-form'
 import {
   getAlbumCoverUrl,
   getAlbumSongs,
@@ -23,6 +25,7 @@ type AlbumPickerProps = {
   status: AlbumsStatus
   onRetry: () => void
   onAdd: (albumIds: string[]) => Promise<void>
+  onCreate: (name: string) => Promise<string>
 }
 
 export function AlbumPicker({
@@ -30,15 +33,32 @@ export function AlbumPicker({
   onOpenChange,
   ...props
 }: AlbumPickerProps) {
+  const [isCreating, setIsCreating] = useState(false)
+
+  useEffect(() => {
+    if (!open) setIsCreating(false)
+  }, [open])
+
   return (
     <ResponsivePanel
       open={open}
       onOpenChange={onOpenChange}
-      title="Thêm vào album"
-      description="Chọn album để thêm những bài đã chọn."
+      title={isCreating ? 'Tạo album' : 'Thêm vào album'}
+      description={
+        isCreating
+          ? 'Đặt tên cho album mới.'
+          : 'Chọn album để thêm những bài đã chọn.'
+      }
+      onBack={isCreating ? () => setIsCreating(false) : undefined}
+      backLabel="Quay lại danh sách album"
     >
       {open ? (
-        <AlbumPickerContent {...props} onClose={() => onOpenChange(false)} />
+        <AlbumPickerContent
+          {...props}
+          isCreating={isCreating}
+          onCreatingChange={setIsCreating}
+          onClose={() => onOpenChange(false)}
+        />
       ) : null}
     </ResponsivePanel>
   )
@@ -51,13 +71,55 @@ function AlbumPickerContent({
   onRetry,
   onAdd,
   onClose,
-}: Omit<AlbumPickerProps, 'open' | 'onOpenChange'> & { onClose: () => void }) {
+  onCreate,
+  isCreating,
+  onCreatingChange,
+}: Omit<AlbumPickerProps, 'open' | 'onOpenChange'> & {
+  onClose: () => void
+  isCreating: boolean
+  onCreatingChange: (creating: boolean) => void
+}) {
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
   const [isSaving, setIsSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [pendingCreatedId, setPendingCreatedId] = useState<string | null>(null)
+  const createButtonRef = useRef<HTMLButtonElement>(null)
+  const isActive = useRef(true)
   const songsById = useMemo(() => getSongsById(songs), [songs])
   const albumIds = new Set(albums.map((album) => album.id))
   const selectedAlbumIds = [...selectedIds].filter((id) => albumIds.has(id))
+  const isWaitingForAlbum =
+    pendingCreatedId !== null && !albumIds.has(pendingCreatedId)
+
+  useEffect(() => {
+    isActive.current = true
+    return () => {
+      isActive.current = false
+    }
+  }, [])
+
+  useEffect(() => {
+    if (
+      pendingCreatedId &&
+      albums.some((album) => album.id === pendingCreatedId)
+    ) {
+      setPendingCreatedId(null)
+    }
+  }, [albums, pendingCreatedId])
+
+  useEffect(() => {
+    if (!isCreating) createButtonRef.current?.focus()
+  }, [isCreating])
+
+  async function handleCreate(name: string) {
+    const id = await onCreate(name)
+    toast.success('Đã tạo album', { description: name })
+    if (!isActive.current) return
+    setSelectedIds((current) => new Set(current).add(id))
+    setPendingCreatedId(id)
+    setError(null)
+    onCreatingChange(false)
+  }
 
   function toggleAlbum(id: string) {
     if (isSaving) return
@@ -70,7 +132,12 @@ function AlbumPickerContent({
   }
 
   async function handleAdd() {
-    if (isSaving || selectedAlbumIds.length === 0 || status.state !== 'ready')
+    if (
+      isSaving ||
+      isWaitingForAlbum ||
+      selectedAlbumIds.length === 0 ||
+      status.state !== 'ready'
+    )
       return
     setIsSaving(true)
     setError(null)
@@ -86,6 +153,21 @@ function AlbumPickerContent({
     } finally {
       setIsSaving(false)
     }
+  }
+
+  if (isCreating) {
+    return (
+      <div className="min-h-0 flex-1 overflow-y-auto px-5 pt-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))]">
+        <AlbumNameForm
+          albums={albums}
+          submitLabel="Tạo album"
+          pendingLabel="Đang tạo…"
+          fallbackErrorMessage="Không tạo được album. Thử lại."
+          autoFocus
+          onSubmit={handleCreate}
+        />
+      </div>
+    )
   }
 
   return (
@@ -117,14 +199,31 @@ function AlbumPickerContent({
                 <p className="mt-2 text-sm leading-[1.6] text-muted-foreground">
                   Tạo album trước khi thêm bài đã chọn.
                 </p>
-                <Button asChild className="mt-6 h-11">
-                  <Link to="/albums" onClick={onClose}>
-                    Về trang Album
-                  </Link>
+                <Button
+                  ref={createButtonRef}
+                  type="button"
+                  onClick={() => onCreatingChange(true)}
+                  disabled={isWaitingForAlbum || isSaving}
+                  className="mt-6 h-11"
+                >
+                  Tạo album mới
                 </Button>
               </div>
             ) : (
               <ul className="flex flex-col gap-0.5">
+                <li>
+                  <Button
+                    ref={createButtonRef}
+                    type="button"
+                    variant="ghost"
+                    onClick={() => onCreatingChange(true)}
+                    disabled={isSaving || isWaitingForAlbum}
+                    className="mb-2 h-11 w-full justify-start gap-2 text-[13px] font-semibold"
+                  >
+                    <Plus aria-hidden="true" className="size-4" />
+                    Tạo album mới
+                  </Button>
+                </li>
                 {albums.map((album) => {
                   const albumSongs = getAlbumSongs(album, songsById)
                   const isSelected = selectedAlbumIds.includes(album.id)
@@ -164,6 +263,15 @@ function AlbumPickerContent({
         )}
       </div>
       <div className="shrink-0 border-t border-rule px-5 pt-3 pb-[calc(1rem+env(safe-area-inset-bottom))]">
+        {isWaitingForAlbum ? (
+          <p
+            role="status"
+            className="mb-3 flex items-center gap-2 text-sm text-muted-foreground"
+          >
+            <Spinner aria-hidden="true" className="size-4" />
+            Đang tải album vừa tạo…
+          </p>
+        ) : null}
         {error ? <ErrorAlert message={error} className="mb-3" /> : null}
         <div className="flex flex-wrap items-center justify-between gap-3">
           <p
@@ -176,6 +284,7 @@ function AlbumPickerContent({
             type="button"
             disabled={
               isSaving ||
+              isWaitingForAlbum ||
               selectedAlbumIds.length === 0 ||
               status.state !== 'ready'
             }

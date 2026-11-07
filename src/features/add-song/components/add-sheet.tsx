@@ -87,6 +87,7 @@ export function AddSheet({
           : 'Tìm bài có sẵn hoặc nhập thủ công.'
       }
       onBack={mode === 'manual' ? backToSearch : undefined}
+      backLabel="Quay lại tìm kiếm"
       headerAction={
         mode === 'search' ? (
           <Button

@@ -279,6 +279,7 @@ export function LibraryPage({
         status={albumsState.status}
         onRetry={albumsState.retry}
         onAdd={handleAddToAlbums}
+        onCreate={albumsState.createAlbum}
       />
 
       <AddSheet
