@@ -14,7 +14,11 @@ _Avoid_: Tệp âm thanh, file nhạc, bản nhạc đầy đủ, track
 
 **Library (Thư viện)**:
 Tập hợp toàn bộ các bài hát đã được lưu của một người dùng cụ thể.
-_Avoid_: Playlist, danh sách phát, album, bộ sưu tập
+_Avoid_: Playlist, danh sách phát, bộ sưu tập, album
+
+**Album**:
+Nhóm bài hát đã lưu do người dùng tự tạo và gom bài vào, dùng để phân loại và tra cứu nhanh. Một bài hát có thể thuộc nhiều album.
+_Avoid_: Playlist, danh sách phát, bộ sưu tập, thư mục, folder
 
 **Catalog Track (Bản nhạc kho ngoài)**:
 Dữ liệu bài hát từ kho tìm kiếm công cộng của bên thứ ba, dùng làm nguồn tham khảo để người dùng thêm vào Thư viện.
@@ -31,6 +35,14 @@ _Avoid_: Trình phát nhạc, player, danh sách chờ phát, queue
 **Save Song (Lưu bài)**:
 Hành động tạo mới một bản ghi bài hát vào Thư viện của người dùng (từ kho tìm kiếm ngoài hoặc nhập thủ công).
 _Avoid_: Thích, yêu thích, favorite, like, tải về, download, mua
+
+**Add to Album (Thêm bài vào album)**:
+Hành động đưa một hoặc nhiều bài hát đã lưu trong Thư viện vào một hay nhiều album.
+_Avoid_: Lưu bài vào album, gán album, gắn thẻ, tag
+
+**Remove from Album (Bỏ bài khỏi album)**:
+Hành động gỡ một bài hát khỏi album mà không xóa bài hát khỏi Thư viện.
+_Avoid_: Xóa bài khỏi album, xóa bài (khi chỉ muốn gỡ khỏi album)
 
 **Remove Song (Xóa bài)**:
 Hành động gỡ bỏ một bài hát khỏi Thư viện cá nhân của người dùng.
