@@ -230,15 +230,15 @@ thứ khác là Be Vietnam Pro. Không trộn thêm family thứ ba.
 
 ```
 Desktop ≥768
-┌ logo                       [view] [theme] [avatar] ┐  64px
-│ Thư viện                        [tìm…] [+ Thêm bài] │
-│ 12 bài                                             │
-│ ▣  Tên bài                              ⋯          │
-│ ▣  Tên bài / Đang nghe thử              ⋯          │
-└────────────────────────────────────────────────────┘
+┌ logo  Thư viện · Album             [view] [theme] [avatar] ┐  64px
+│ Thư viện                        [tìm…] [+ Thêm bài]         │
+│ 12 bài                                                     │
+│ ▣  Tên bài                              ⋯                  │
+│ ▣  Tên bài / Đang nghe thử              ⋯                  │
+└────────────────────────────────────────────────────────────┘
 
 Mobile <768
-┌ logo                [view] [theme] [avatar] ┐  60px
+┌ symbol  Thư viện · Album   [view] [theme] [avatar] ┐  60px
 │ Thư viện                                    │
 │ 12 bài                                      │
 │ [tìm…]                                      │
@@ -252,8 +252,8 @@ Mobile <768
 - Mobile: search full width; add chỉ còn FAB 56×64; FAB cách đáy
   `20px + env(safe-area-inset-bottom)`.
 - List là view mặc định. Grid là view thứ hai.
-- `main` landmark; h1 luôn hiện; skip link “Chuyển đến nội dung”.
-- Không sidebar; một điểm đến.
+- `main` landmark; h1 luôn hiện; skip link “Chuyển đến nội dung” trỏ `#main-content`.
+- Không sidebar; hai điểm đến cố định trên topbar: Thư viện và Album.
 
 ### Lists and grid
 
@@ -319,6 +319,12 @@ preview được tròn.
 
 - Topbar: logo ngang (symbol + wordmark 14.5/700) cao 26; h1 34/28; count 12 `fg-muted`; search/add;
   view toggle; theme toggle; avatar 32 visual/44 hit.
+- Nav cố định “Thư viện / Album” nằm cạnh wordmark; item cao 44, chữ 14/500,
+  `fg-muted`; hover `foreground`; active `foreground` + gạch chân coral 2px và
+  `aria-current="page"`. “Thư viện” chỉ active ở `/`; “Album” active ở `/albums` và route con.
+- Wordmark là link về `/`, aria “MusiMOB – về Thư viện”. Mobile <768 ẩn phần chữ, chỉ còn
+  symbol; link giữ hit 44.
+- View toggle list/grid chỉ hiện ở Thư viện; route Album không hiện.
 - Avatar: ảnh Google nếu có; fallback chữ cái đầu trên `surface-2`, chữ `foreground` 12/600;
   viền 1px `control-border`; aria “Mở tài khoản của {name}”.
 - Account menu: surface, radius 8, border `rule`; name label; separator; “Đăng xuất”.
@@ -424,7 +430,7 @@ trong empty state và ẩn cả add ở title row lẫn FAB; có bài thì dùng
 - `:focus-visible` 2px `focus`, offset 2; focus không bị sticky/overlay che.
 - `<label>` hoặc `aria-label` cho mọi control; icon-only có nhãn; decorative icon
   `aria-hidden`; cover trong row/card `alt=""`; logo `alt="MusiMOB"`.
-- Heading hierarchy: h1 “Thư viện” hoặc “Thư viện riêng của bạn”; section/panel dùng h2/h3.
+- Heading hierarchy: h1 theo trang (“Thư viện”, “Album” hoặc tên album); section/panel dùng h2/h3.
 - `role="status"` cho loading; `role="alert"` cho lỗi; `aria-live` cho toast.
 - `prefers-reduced-motion` tắt transition/scroll mượt; `touch-action: manipulation`;
   safe-area cho FAB; không khóa zoom.

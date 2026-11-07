@@ -90,6 +90,14 @@ Giọng điệu tổng thể duy trì tính chuyên nghiệp, điềm đạm và
 - Cung cấp thông tin theo từng bước logic; không dồn nhiều khái niệm mới vào cùng một màn hình.
 - Mỗi bước hướng dẫn chỉ tập trung vào một hành động then chốt.
 
+### 3.9. Điều hướng (Navigation)
+
+- Nhãn điều hướng dùng đúng tên mục, không thêm động từ hay icon trang trí: `Thư viện`, `Album`.
+- Mục đang active dùng `aria-current="page"`; không đổi nhãn theo trạng thái.
+- Wordmark có accessible name `MusiMOB – về Thư viện`; nhãn `aria-label` của vùng nav là `Điều hướng chính`.
+- Document title theo mẫu `MusiMOB: {tên_mục}`; trang chi tiết album dùng `MusiMOB: {tên_album}`, fallback `MusiMOB: Album`.
+- Nút back trong panel dùng nhãn theo ngữ cảnh (`Quay lại` mặc định); không hardcode tên màn hình trước đó.
+
 ---
 
 ## 4. Quy chuẩn hành văn & Cấu trúc ngữ pháp (Grammar & Style)

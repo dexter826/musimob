@@ -3,9 +3,10 @@ import symbol from '../../assets/brand/symbol.svg'
 
 type WordmarkProps = {
   className?: string
+  compactOnMobile?: boolean
 }
 
-export function Wordmark({ className }: WordmarkProps) {
+export function Wordmark({ className, compactOnMobile }: WordmarkProps) {
   return (
     <span
       role="img"
@@ -25,7 +26,10 @@ export function Wordmark({ className }: WordmarkProps) {
       />
       <span
         aria-hidden="true"
-        className="font-bold leading-none tracking-[-0.015em]"
+        className={cn(
+          'font-bold leading-none tracking-[-0.015em]',
+          compactOnMobile && 'max-md:hidden',
+        )}
       >
         <span className="text-foreground">Musi</span>
         <span className="text-[var(--coral-500)]">MOB</span>
