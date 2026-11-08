@@ -3,7 +3,7 @@
 
 # MusiMOB
 
-_Ứng dụng sổ tay riêng tư để lưu trữ và đánh dấu những bài hát bạn yêu thích_
+_Sổ tay âm nhạc cá nhân: khám phá, lưu trữ và nghe thử bài hát trực tiếp trên web_
 
 [![React](https://img.shields.io/badge/React-19-61dafb?style=flat-square&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
@@ -18,14 +18,14 @@ _Ứng dụng sổ tay riêng tư để lưu trữ và đánh dấu những bài
 
 ## Tổng quan
 
-**MusiMOB** là ứng dụng web giúp lưu trữ, đánh dấu thông tin bài hát và nghe thử nhanh đoạn trích 30 giây. Ứng dụng hỗ trợ tra cứu bài hát từ iTunes API, phân loại bài hát theo album và đồng bộ dữ liệu theo thời gian thực qua Cloud Firestore.
+**MusiMOB** là ứng dụng web quản lý và lưu trữ thông tin âm nhạc cá nhân. Ứng dụng tích hợp nguồn dữ liệu iTunes để tìm kiếm bài hát, hỗ trợ nghe thử trực tiếp trên trình duyệt, tổ chức danh sách theo album và đồng bộ dữ liệu thời gian thực qua Cloud Firestore.
 
 ## Tính năng chính
 
-- **Thư viện bài hát cá nhân**: Lưu tiêu đề, nghệ sĩ, ảnh bìa và liên kết nghe thử; hỗ trợ hiển thị dạng Lưới (Grid) hoặc Hàng (Row) cùng bộ lọc tìm kiếm tức thì.
-- **Nghe thử nhanh (Active Preview)**: Nghe thử đoạn trích ngắn 30 giây, tự động dừng bài cũ khi bật bài mới.
-- **Tra cứu bài hát**: Tìm kiếm từ kho iTunes hoặc nhập thông tin thủ công; tự động nhận diện bài hát đã lưu để tránh trùng lặp.
-- **Quản lý theo album**: Gom nhóm bài hát vào các album tùy chọn, hỗ trợ chọn hàng loạt để thêm hoặc gỡ khỏi album.
+- **Thư viện bài hát cá nhân**: Quản lý danh sách bài hát với đa dạng chế độ hiển thị cùng bộ lọc tìm kiếm tức thì.
+- **Trình phát nghe thử tích hợp**: Hỗ trợ nghe thử âm thanh trực tiếp trên web, tự động chuyển tiếp mượt mà khi đổi bài.
+- **Tra cứu dữ liệu**: Tự động truy xuất thông tin từ kho iTunes hoặc thêm bài hát thủ công, tự động kiểm tra trùng lặp.
+- **Quản lý album**: Gom nhóm bài hát theo chủ đề, hỗ trợ thao tác hàng loạt.
 - **Xóa và khôi phục**: Xóa bài hát kèm thông báo hoàn tác (Undo) tức thì.
 - **Đăng nhập Google**: Xác thực qua Firebase Authentication, dữ liệu phân lập riêng theo từng người dùng.
 - **Giao diện sáng/tối**: Tự động chuyển đổi theo hệ điều hành hoặc tùy chỉnh thủ công.
