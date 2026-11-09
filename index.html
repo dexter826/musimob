@@ -30,13 +30,24 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
     <link rel="mask-icon" href="/mask-icon.svg" color="#ff6a4d" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="description" content="Thư viện bài hát riêng của bạn." />
+    <link rel="canonical" href="https://musi-mob.web.app/" />
+    <title>MusiMOB – Thư viện bài hát riêng của bạn</title>
+    <meta
+      name="description"
+      content="Thư viện bài hát riêng của bạn. MusiMOB là nơi lưu giữ, sắp xếp và thưởng thức âm nhạc yêu thích trong một không gian gọn gàng, dễ chịu."
+    />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="MusiMOB" />
     <meta property="og:locale" content="vi_VN" />
     <meta property="og:url" content="https://musi-mob.web.app/" />
-    <meta property="og:title" content="MusiMOB" />
-    <meta property="og:description" content="Thư viện bài hát riêng của bạn." />
+    <meta
+      property="og:title"
+      content="MusiMOB – Thư viện bài hát riêng của bạn"
+    />
+    <meta
+      property="og:description"
+      content="Thư viện bài hát riêng của bạn. MusiMOB là nơi lưu giữ, sắp xếp và thưởng thức âm nhạc yêu thích trong một không gian gọn gàng, dễ chịu."
+    />
     <meta
       property="og:image"
       content="https://musi-mob.web.app/opengraph.png"
@@ -49,10 +60,13 @@
       content="MusiMOB: Thư viện bài hát riêng của bạn."
     />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="MusiMOB" />
+    <meta
+      name="twitter:title"
+      content="MusiMOB – Thư viện bài hát riêng của bạn"
+    />
     <meta
       name="twitter:description"
-      content="Thư viện bài hát riêng của bạn."
+      content="Thư viện bài hát riêng của bạn. MusiMOB là nơi lưu giữ, sắp xếp và thưởng thức âm nhạc yêu thích trong một không gian gọn gàng, dễ chịu."
     />
     <meta name="twitter:image" content="https://musi-mob.web.app/twitter.png" />
     <meta
@@ -65,10 +79,29 @@
       href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <title>MusiMOB</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "MusiMOB",
+        "url": "https://musi-mob.web.app/",
+        "description": "Thư viện bài hát riêng của bạn. MusiMOB là nơi lưu giữ, sắp xếp và thưởng thức âm nhạc yêu thích trong một không gian gọn gàng, dễ chịu.",
+        "inLanguage": "vi",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "VND"
+        }
+      }
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- H1 tĩnh cho crawler; React thay thế khi mount. -->
+      <h1>Thư viện riêng của bạn</h1>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
