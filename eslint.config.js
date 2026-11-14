@@ -57,6 +57,11 @@ export default tseslint.config(
               from: './src/features',
               except: ['./search-song'],
             },
+            {
+              target: './src/features/discover',
+              from: './src/features',
+              except: ['./discover'],
+            },
             { target: './src/features', from: './src/app' },
             {
               target: [

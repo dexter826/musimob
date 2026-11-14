@@ -1,4 +1,8 @@
 import { useDocumentTitle } from '@/hooks/use-document-title'
+import { ErrorAlert } from '@/components/error-alert'
+import { DiscoverGrid } from '@/features/discover/components/discover-grid'
+import { DiscoverSkeleton } from '@/features/discover/components/discover-skeleton'
+import { useDiscover } from '@/features/discover/hooks/use-discover'
 import type { useSongs } from '@/features/songs/hooks/use-songs'
 
 const DISCOVER_TITLE = 'MusiMOB: Khám phá'
@@ -10,6 +14,8 @@ type DiscoverPageProps = {
 export function DiscoverPage({ songsState }: DiscoverPageProps) {
   useDocumentTitle(DISCOVER_TITLE)
   void songsState
+
+  const { songs, isLoading, isError, error, refetch } = useDiscover()
 
   return (
     <div className="flex flex-1 flex-col pb-10">
@@ -24,8 +30,24 @@ export function DiscoverPage({ songsState }: DiscoverPageProps) {
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col gap-3">
-        {/* Nội dung danh sách 12 bài hát sẽ được triển khai tại Ticket 02 */}
+      <div className="flex flex-1 flex-col gap-4">
+        {isLoading ? (
+          <DiscoverSkeleton />
+        ) : isError ? (
+          <div className="flex flex-1 items-center justify-center px-6 py-16">
+            <ErrorAlert
+              message={
+                error instanceof Error
+                  ? error.message
+                  : 'Không tải được danh sách bài hát khám phá.'
+              }
+              onRetry={() => refetch()}
+              className="w-full max-w-[440px]"
+            />
+          </div>
+        ) : (
+          <DiscoverGrid songs={songs} />
+        )}
       </div>
     </div>
   )
