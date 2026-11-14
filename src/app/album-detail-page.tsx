@@ -26,8 +26,7 @@ import {
 import type { useSongs } from '@/features/songs/hooks/use-songs'
 import { useDocumentTitle } from '@/hooks/use-document-title'
 import type { Album, Song } from '@/lib/api/types'
-import { useAudioPreview } from '@/lib/audio-preview-context'
-import { songPreviewKey } from '@/lib/preview-key'
+import { songPreviewKey, useAudioPreview } from '@/features/audio-preview'
 
 const ALBUMS_TITLE = 'MusiMOB: Album'
 

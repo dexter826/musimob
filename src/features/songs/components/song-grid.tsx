@@ -1,11 +1,13 @@
 import { cn } from 'cn'
-import { PreviewButton } from '@/components/preview-button'
+import {
+  PreviewButton,
+  songPreviewKey,
+  useAudioPreview,
+} from '@/features/audio-preview'
 import { SongCover } from '@/components/song-cover'
 import { SelectionCheckbox } from '@/components/selection-checkbox'
 import { useScrollIntoViewWhenActive } from '@/hooks/use-scroll-into-view'
 import type { Song } from '@/lib/api/types'
-import { useAudioPreview } from '@/lib/audio-preview-context'
-import { songPreviewKey } from '@/lib/preview-key'
 import { SongActionsMenu } from './song-actions-menu'
 
 type SongGridProps = {

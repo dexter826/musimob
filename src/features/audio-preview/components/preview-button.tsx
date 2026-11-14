@@ -7,7 +7,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import { useAudioPreview } from '@/lib/audio-preview-context'
+import { useAudioPreview } from '../context/audio-preview-context'
 
 type PreviewButtonProps = {
   previewUrl: string

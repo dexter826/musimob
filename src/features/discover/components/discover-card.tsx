@@ -1,11 +1,13 @@
 import { cn } from 'cn'
-import { PreviewButton } from '@/components/preview-button'
+import {
+  PreviewButton,
+  catalogPreviewKey,
+  useAudioPreview,
+} from '@/features/audio-preview'
 import { SongCover } from '@/components/song-cover'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 import type { SearchResult } from '@/lib/api/types'
-import { useAudioPreview } from '@/lib/audio-preview-context'
-import { catalogPreviewKey } from '@/lib/preview-key'
 
 type DiscoverCardProps = {
   song: SearchResult

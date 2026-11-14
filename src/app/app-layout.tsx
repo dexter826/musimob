@@ -3,7 +3,7 @@ import { Outlet, useLocation } from 'react-router'
 import { PageShell } from '@/components/page-shell'
 import type { ViewMode } from '@/features/songs/hooks/use-view-mode'
 import type { User } from '@/lib/api/types'
-import { useAudioPreview } from '@/lib/audio-preview-context'
+import { useAudioPreview } from '@/features/audio-preview'
 import { AppHeader } from './app-header'
 
 type AppLayoutProps = {

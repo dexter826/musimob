@@ -8,7 +8,7 @@ import { SongRowView } from '@/components/song-row-view'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 import type { Album, Song } from '@/lib/api/types'
-import { useAudioPreview } from '@/lib/audio-preview-context'
+import { useAudioPreview } from '@/features/audio-preview'
 
 type AddAlbumSongsPanelProps = {
   album: Album

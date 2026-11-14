@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useState, type ReactNode } from 'react'
 import { ResponsivePanel } from '@/components/responsive-panel'
 import { Button } from '@/components/ui/button'
-import { useAudioPreview } from '@/lib/audio-preview-context'
+import { useAudioPreview } from '@/features/audio-preview'
 import { useIsMobile } from '@/hooks/use-mobile'
 import type { NewSong, Song } from '@/lib/api/types'
 import { ManualForm } from './manual-form'

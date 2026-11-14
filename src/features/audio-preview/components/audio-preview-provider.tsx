@@ -7,7 +7,7 @@ import {
   type ReactNode,
 } from 'react'
 import { toast } from 'sonner'
-import { AudioPreviewContext } from '@/lib/audio-preview-context'
+import { AudioPreviewContext } from '../context/audio-preview-context'
 
 const PREVIEW_ERROR_MESSAGE = 'Không nghe thử được. Kiểm tra mạng rồi thử lại.'
 

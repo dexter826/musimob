@@ -4,7 +4,7 @@ import { ThemeProvider } from '@/hooks/use-theme'
 import { Toaster } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { useAuth } from '@/features/auth/hooks/use-auth'
-import { AudioPreviewProvider } from '@/components/audio-preview-provider'
+import { AudioPreviewProvider } from '@/features/audio-preview'
 import { AuthContext } from './auth-context'
 import { ThemeMeta } from './theme-meta'
 
