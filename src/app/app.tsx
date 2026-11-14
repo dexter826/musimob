@@ -133,6 +133,7 @@ function AppGate() {
 
   return (
     <SignedInApp
+      key={user.uid}
       user={user}
       authError={error}
       onAddPassword={(password) => linkPassword(user.email ?? '', password)}

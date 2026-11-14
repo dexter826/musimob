@@ -123,12 +123,19 @@ export function useAuth() {
     [run],
   )
 
-  const sendResetEmail = useCallback(
-    async (email: string) => {
-      await run('reset', () => authApi.sendPasswordResetEmail(email))
-    },
-    [run],
-  )
+  const sendResetEmail = useCallback(async (email: string) => {
+    setError(null)
+    setPending('reset')
+
+    try {
+      await authApi.sendPasswordResetEmail(email)
+    } catch (caught) {
+      setError(getErrorMessage(caught))
+      throw caught
+    } finally {
+      setPending(null)
+    }
+  }, [])
 
   const checkResetCode = useCallback(async (oobCode: string) => {
     return authApi.checkResetCode(oobCode)

@@ -10,7 +10,6 @@ type PasswordFieldProps = {
   error?: string
   autoComplete: string
   placeholder?: string
-  onEnter?: () => void
 }
 
 export function PasswordField({
@@ -20,7 +19,6 @@ export function PasswordField({
   error,
   autoComplete,
   placeholder,
-  onEnter,
 }: PasswordFieldProps) {
   const [isVisible, setIsVisible] = useState(false)
   const fieldId = useId()
@@ -41,12 +39,6 @@ export function PasswordField({
           placeholder={placeholder}
           aria-invalid={Boolean(error)}
           aria-describedby={error ? errorId : undefined}
-          onKeyDown={(event) => {
-            if (event.key === 'Enter' && !event.nativeEvent.isComposing) {
-              event.preventDefault()
-              onEnter?.()
-            }
-          }}
           className="h-11 bg-surface pr-11 text-base md:text-[15px]"
         />
         <button

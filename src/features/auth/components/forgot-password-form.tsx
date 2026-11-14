@@ -35,8 +35,12 @@ export function ForgotPasswordForm({
 
     if (nextError) return
 
-    await onSendResetEmail(email.trim())
-    setSentTo(email.trim())
+    try {
+      await onSendResetEmail(email.trim())
+      setSentTo(email.trim())
+    } catch {
+      // Lỗi hiển thị qua ErrorAlert, giữ nguyên form để gửi lại.
+    }
   }
 
   if (sentTo) {
