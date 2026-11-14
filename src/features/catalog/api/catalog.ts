@@ -1,10 +1,10 @@
-import type { MusimobApi, SearchResult } from './types'
+import type { CatalogTrack, SearchResult } from '../types'
 
 const CATALOG_SEARCH_URL = 'https://itunes.apple.com/search'
 const CATALOG_TOP_SONGS_URL = 'https://itunes.apple.com/vn/rss/topsongs'
 const REQUEST_TIMEOUT_MS = 10_000
 
-type CatalogTrack = {
+type RawCatalogTrack = {
   trackId?: unknown
   trackName?: unknown
   artistName?: unknown
@@ -38,8 +38,8 @@ export class SearchTimeoutError extends SearchError {
 }
 
 export function normalizeCatalogTrack(
-  track: CatalogTrack,
-): SearchResult | null {
+  track: RawCatalogTrack,
+): CatalogTrack | null {
   if (typeof track.trackId !== 'number') return null
 
   const artworkUrl =
@@ -55,7 +55,7 @@ export function normalizeCatalogTrack(
   }
 }
 
-function isCatalogTrack(value: unknown): value is CatalogTrack {
+function isCatalogTrack(value: unknown): value is RawCatalogTrack {
   return typeof value === 'object' && value !== null
 }
 
@@ -66,8 +66,8 @@ function isTimeout(error: unknown): boolean {
   )
 }
 
-export const searchApi: MusimobApi['search'] = {
-  async query(term) {
+export const searchApi = {
+  async query(term: string): Promise<CatalogTrack[]> {
     const params = new URLSearchParams({
       term,
       country: 'vn',
@@ -110,7 +110,7 @@ export const searchApi: MusimobApi['search'] = {
     return payload.results
       .filter(isCatalogTrack)
       .map(normalizeCatalogTrack)
-      .filter((result): result is SearchResult => result !== null)
+      .filter((result): result is CatalogTrack => result !== null)
       .filter((result) => Boolean(result.title && result.artist))
   },
 }
@@ -134,7 +134,7 @@ type RssEntry = {
   }>
 }
 
-export function normalizeRssEntry(entry: unknown): SearchResult | null {
+export function normalizeRssEntry(entry: unknown): CatalogTrack | null {
   if (typeof entry !== 'object' || entry === null) return null
   const e = entry as RssEntry
   const rawId = e.id?.attributes?.['im:id']

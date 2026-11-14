@@ -1,4 +1,5 @@
-import type { SearchResult, Song } from '@/lib/api/types'
+import type { SearchResult } from '@/features/catalog'
+import type { Song } from '@/lib/api/types'
 import { getSongKey } from '@/lib/song-key'
 
 export function isSongDuplicate(

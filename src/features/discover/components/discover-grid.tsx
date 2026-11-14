@@ -1,4 +1,4 @@
-import type { SearchResult } from '@/lib/api/types'
+import type { SearchResult } from '@/features/catalog'
 import { DiscoverCard } from './discover-card'
 
 type DiscoverGridProps = {

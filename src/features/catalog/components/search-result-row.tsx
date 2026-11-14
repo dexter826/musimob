@@ -2,7 +2,7 @@ import { PreviewButton, catalogPreviewKey } from '@/features/audio-preview'
 import { SongCover } from '@/components/song-cover'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
-import type { SearchResult } from '@/lib/api/types'
+import type { SearchResult } from '../types'
 import { AlreadySavedBadge } from './already-saved-badge'
 
 type SearchResultRowProps = {

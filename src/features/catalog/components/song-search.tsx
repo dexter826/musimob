@@ -4,10 +4,11 @@ import { SearchField } from '@/components/search-field'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 import { useAudioPreview } from '@/features/audio-preview'
-import type { NewSong, SearchResult, Song } from '@/lib/api/types'
-import { RateLimitError, SearchTimeoutError } from '@/lib/api/catalog'
+import type { NewSong, Song } from '@/lib/api/types'
 import { getSongKey } from '@/lib/song-key'
+import { RateLimitError, SearchTimeoutError } from '../api/catalog'
 import { useSongSearch } from '../hooks/use-song-search'
+import type { SearchResult } from '../types'
 import { SearchResultRow } from './search-result-row'
 
 type SongSearchProps = {

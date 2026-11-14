@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { searchApi } from '@/lib/api/catalog'
+import { searchApi } from '../api/catalog'
 
 const DEBOUNCE_MS = 400
 const MIN_TERM_LENGTH = 2
