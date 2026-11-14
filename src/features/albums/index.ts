@@ -1,7 +1,4 @@
-export {
-  AlbumGrid,
-  AlbumGridSkeleton,
-} from './components/album-grid'
+export { AlbumGrid, AlbumGridSkeleton } from './components/album-grid'
 export { AlbumCard } from './components/album-card'
 export { AlbumPicker } from './components/album-picker'
 export { AlbumNameForm } from './components/album-name-form'

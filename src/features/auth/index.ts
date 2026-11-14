@@ -22,10 +22,7 @@ export {
   getPasswordError,
   getConfirmPasswordError,
 } from './lib/validation'
-export {
-  isVerificationSkipped,
-  skipVerification,
-} from './lib/verification'
+export { isVerificationSkipped, skipVerification } from './lib/verification'
 
 export { authApi, type AuthApi } from './api/auth'
 export type { User, SignInMethod } from './types'

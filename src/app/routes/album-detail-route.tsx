@@ -5,11 +5,7 @@ import { toast } from 'sonner'
 import { ErrorAlert } from '@/components/error-alert'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
-import {
-  SongCover,
-  SongRowView,
-  type Song,
-} from '@/features/songs'
+import { SongCover, SongRowView, type Song } from '@/features/songs'
 import {
   AddAlbumSongsPanel,
   AlbumActionsMenu,
