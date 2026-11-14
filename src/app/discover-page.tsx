@@ -30,6 +30,13 @@ export function DiscoverPage({ songsState }: DiscoverPageProps) {
     onAddSong: songsState.addSong,
   })
 
+  let countLabel = `${songs.length} bài hát`
+  if (isLoading) {
+    countLabel = 'Đang tải…'
+  } else if (isError) {
+    countLabel = 'Không tải được'
+  }
+
   return (
     <div className="flex flex-1 flex-col pb-10">
       <div className="flex items-end justify-between gap-6 pt-7 pb-5 max-md:flex-col max-md:items-stretch max-md:gap-3">
@@ -38,7 +45,7 @@ export function DiscoverPage({ songsState }: DiscoverPageProps) {
             Khám phá
           </h1>
           <p className="mt-2 text-xs font-medium text-muted-foreground tabular-nums">
-            12 bản nhạc kho ngoài
+            {countLabel}
           </p>
         </div>
 
@@ -63,7 +70,7 @@ export function DiscoverPage({ songsState }: DiscoverPageProps) {
               message={
                 error instanceof Error
                   ? error.message
-                  : 'Không tải được danh sách bài hát khám phá.'
+                  : 'Không tải được danh sách bài hát. Thử lại sau.'
               }
               onRetry={() => refetch()}
               className="w-full max-w-[440px]"

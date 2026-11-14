@@ -8,7 +8,7 @@ import {
   sampleLibraryArtists,
 } from '../lib/pool-aggregator'
 
-const DISCOVER_BATCH_SIZE = 12
+const DISCOVER_BATCH_SIZE = 24
 const STALE_TIME_MS = 15 * 60 * 1000
 const GC_TIME_MS = 30 * 60 * 1000
 const ACTIVE_BATCH_KEY = ['discover', 'active-batch'] as const
@@ -23,18 +23,18 @@ export function useDiscover({ librarySongs, onAddSong }: UseDiscoverOptions) {
   const queryClient = useQueryClient()
   const [savingTrackId, setSavingTrackId] = useState<number | null>(null)
 
-  // 1. Nguồn bài hát phổ biến
+  // 1. Nguồn bài hát phổ biến (lấy tối đa 100 bài để đảm bảo kho ứng viên dồi dào cho 24 bài)
   const popularQuery = useQuery({
     queryKey: ['discover', 'top-songs'],
-    queryFn: () => discoverApi.topSongs(50),
+    queryFn: () => discoverApi.topSongs(100),
     staleTime: STALE_TIME_MS,
     gcTime: GC_TIME_MS,
     retry: 1,
   })
 
-  // 2. Lấy mẫu nghệ sĩ từ thư viện cá nhân (ổn định theo số lượng bài đã lưu)
+  // 2. Lấy mẫu nghệ sĩ từ thư viện cá nhân (thứ tự ổn định theo số lượng bài đã lưu)
   const sampledArtists = useMemo(
-    () => sampleLibraryArtists(librarySongs, 3),
+    () => sampleLibraryArtists(librarySongs, 4),
     [librarySongs],
   )
 
@@ -108,7 +108,7 @@ export function useDiscover({ librarySongs, onAddSong }: UseDiscoverOptions) {
           sourceId: song.trackId,
         })
 
-        toast.success('Đã lưu bài hát vào Thư viện', {
+        toast.success('Đã lưu vào Thư viện', {
           description: `${song.title} · ${song.artist}`,
         })
 
@@ -142,7 +142,7 @@ export function useDiscover({ librarySongs, onAddSong }: UseDiscoverOptions) {
           return next
         })
       } catch {
-        toast.error('Không lưu được bài hát. Kiểm tra mạng rồi thử lại.')
+        toast.error('Không lưu được bài hát. Thử lại sau.')
       } finally {
         setSavingTrackId(null)
       }
