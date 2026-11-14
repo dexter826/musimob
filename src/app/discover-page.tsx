@@ -14,8 +14,17 @@ type DiscoverPageProps = {
 export function DiscoverPage({ songsState }: DiscoverPageProps) {
   useDocumentTitle(DISCOVER_TITLE)
 
-  const { songs, isLoading, isError, error, refetch } = useDiscover({
+  const {
+    songs,
+    savingTrackId,
+    saveSong,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useDiscover({
     librarySongs: songsState.songs,
+    onAddSong: songsState.addSong,
   })
 
   return (
@@ -47,7 +56,11 @@ export function DiscoverPage({ songsState }: DiscoverPageProps) {
             />
           </div>
         ) : (
-          <DiscoverGrid songs={songs} />
+          <DiscoverGrid
+            songs={songs}
+            isSavingId={savingTrackId}
+            onSave={saveSong}
+          />
         )}
       </div>
     </div>

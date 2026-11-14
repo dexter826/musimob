@@ -1,7 +1,8 @@
-import { useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
+import { toast } from 'sonner'
 import { discoverApi, searchApi } from '@/lib/api/catalog'
-import type { SearchResult, Song } from '@/lib/api/types'
+import type { NewSong, SearchResult, Song } from '@/lib/api/types'
 import {
   interleaveAndDeduplicate,
   sampleLibraryArtists,
@@ -13,9 +14,16 @@ const GC_TIME_MS = 30 * 60 * 1000
 
 type UseDiscoverOptions = {
   librarySongs: Song[]
+  onAddSong?: (song: NewSong) => Promise<string | void>
 }
 
-export function useDiscover({ librarySongs }: UseDiscoverOptions) {
+export function useDiscover({ librarySongs, onAddSong }: UseDiscoverOptions) {
+  const [activeSongs, setActiveSongs] = useState<SearchResult[]>([])
+  const [savedTrackIds, setSavedTrackIds] = useState<Set<number>>(
+    () => new Set(),
+  )
+  const [savingTrackId, setSavingTrackId] = useState<number | null>(null)
+
   // 1. Nguồn bài hát phổ biến
   const popularQuery = useQuery({
     queryKey: ['discover', 'top-songs'],
@@ -33,7 +41,7 @@ export function useDiscover({ librarySongs }: UseDiscoverOptions) {
 
   const artistQueryKey = sampledArtists.slice().sort().join('|')
 
-  // 3. Nguồn bài hát theo ca sĩ đã lưu (nếu có)
+  // 3. Nguồn bài hát theo ca sĩ đã lưu
   const artistQuery = useQuery({
     queryKey: ['discover', 'artist-songs', artistQueryKey],
     queryFn: async () => {
@@ -61,9 +69,59 @@ export function useDiscover({ librarySongs }: UseDiscoverOptions) {
     return interleaveAndDeduplicate(popularSongs, artistSongs, librarySongs)
   }, [popularData, artistData, librarySongs])
 
-  const activeSongs: SearchResult[] = useMemo(() => {
-    return candidatePool.slice(0, DISCOVER_BATCH_SIZE)
+  // Khởi tạo activeSongs khi candidatePool có dữ liệu
+  useEffect(() => {
+    setActiveSongs((current) => {
+      if (current.length > 0) return current
+      return candidatePool.slice(0, DISCOVER_BATCH_SIZE)
+    })
   }, [candidatePool])
+
+  const saveSong = useCallback(
+    async (song: SearchResult) => {
+      if (!onAddSong || savingTrackId !== null) return
+
+      setSavingTrackId(song.trackId)
+      try {
+        await onAddSong({
+          title: song.title,
+          artist: song.artist,
+          coverUrl: song.coverUrl,
+          previewUrl: song.previewUrl,
+          sourceId: song.trackId,
+        })
+
+        toast.success('Đã lưu bài hát vào Thư viện', {
+          description: `${song.title} · ${song.artist}`,
+        })
+
+        setSavedTrackIds((prev) => new Set(prev).add(song.trackId))
+
+        // Bù ngay một bài mới từ candidatePool vào vị trí bài vừa lưu
+        setActiveSongs((prevActive) => {
+          const currentIds = new Set(prevActive.map((s) => s.trackId))
+          currentIds.add(song.trackId)
+
+          const replacement = candidatePool.find(
+            (candidate) =>
+              !currentIds.has(candidate.trackId) &&
+              !savedTrackIds.has(candidate.trackId),
+          )
+
+          const filtered = prevActive.filter((s) => s.trackId !== song.trackId)
+          if (replacement) {
+            return [...filtered, replacement]
+          }
+          return filtered
+        })
+      } catch {
+        toast.error('Không lưu được bài hát. Kiểm tra mạng rồi thử lại.')
+      } finally {
+        setSavingTrackId(null)
+      }
+    },
+    [onAddSong, savingTrackId, candidatePool, savedTrackIds],
+  )
 
   const isLoading =
     popularQuery.isLoading ||
@@ -72,16 +130,20 @@ export function useDiscover({ librarySongs }: UseDiscoverOptions) {
     popularQuery.isError && (!artistData || artistData.length === 0)
   const error = popularQuery.error || artistQuery.error
 
-  function refetch() {
+  const refetch = useCallback(() => {
     return Promise.all([popularQuery.refetch(), artistQuery.refetch()])
-  }
+  }, [popularQuery, artistQuery])
 
   return {
     songs: activeSongs,
     candidatePool,
-    isLoading,
+    savedTrackIds,
+    savingTrackId,
+    saveSong,
+    isLoading: isLoading && activeSongs.length === 0,
     isError,
     error,
     refetch,
+    setActiveSongs,
   }
 }
