@@ -134,12 +134,35 @@ export function useDiscover({ librarySongs, onAddSong }: UseDiscoverOptions) {
     return Promise.all([popularQuery.refetch(), artistQuery.refetch()])
   }, [popularQuery, artistQuery])
 
+  const shuffle = useCallback(() => {
+    setActiveSongs((current) => {
+      const currentIds = new Set(current.map((s) => s.trackId))
+      const availableCandidates = candidatePool.filter(
+        (c) => !currentIds.has(c.trackId) && !savedTrackIds.has(c.trackId),
+      )
+
+      if (availableCandidates.length >= DISCOVER_BATCH_SIZE) {
+        const shuffled = [...availableCandidates].sort(
+          () => Math.random() - 0.5,
+        )
+        return shuffled.slice(0, DISCOVER_BATCH_SIZE)
+      }
+
+      const allEligible = candidatePool.filter(
+        (c) => !savedTrackIds.has(c.trackId),
+      )
+      const shuffledAll = [...allEligible].sort(() => Math.random() - 0.5)
+      return shuffledAll.slice(0, DISCOVER_BATCH_SIZE)
+    })
+  }, [candidatePool, savedTrackIds])
+
   return {
     songs: activeSongs,
     candidatePool,
     savedTrackIds,
     savingTrackId,
     saveSong,
+    shuffle,
     isLoading: isLoading && activeSongs.length === 0,
     isError,
     error,

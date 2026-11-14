@@ -1,5 +1,7 @@
+import { Shuffle } from 'lucide-react'
 import { useDocumentTitle } from '@/hooks/use-document-title'
 import { ErrorAlert } from '@/components/error-alert'
+import { Button } from '@/components/ui/button'
 import { DiscoverGrid } from '@/features/discover/components/discover-grid'
 import { DiscoverSkeleton } from '@/features/discover/components/discover-skeleton'
 import { useDiscover } from '@/features/discover/hooks/use-discover'
@@ -18,6 +20,7 @@ export function DiscoverPage({ songsState }: DiscoverPageProps) {
     songs,
     savingTrackId,
     saveSong,
+    shuffle,
     isLoading,
     isError,
     error,
@@ -38,6 +41,17 @@ export function DiscoverPage({ songsState }: DiscoverPageProps) {
             Gợi ý ngẫu nhiên từ kho nhạc và ca sĩ đã lưu
           </p>
         </div>
+
+        <Button
+          type="button"
+          variant="outline"
+          onClick={shuffle}
+          disabled={isLoading || songs.length === 0}
+          className="h-11 shrink-0 gap-2 px-4 text-[13px] font-semibold max-md:w-full"
+        >
+          <Shuffle aria-hidden="true" className="size-4" />
+          Làm mới
+        </Button>
       </div>
 
       <div className="flex flex-1 flex-col gap-4">
