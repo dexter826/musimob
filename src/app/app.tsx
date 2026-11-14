@@ -19,7 +19,7 @@ const APP_TITLE = 'MusiMOB'
 type SignedInAppProps = {
   user: User
   authError: string | null
-  onAddPassword: (password: string) => Promise<void>
+  onAddPassword: (password: string) => Promise<string | null>
   onSignOut: () => Promise<void>
 }
 
@@ -143,7 +143,7 @@ function AppGate() {
 }
 
 export function App() {
-  const { pending, checkResetCode, resetPassword } = useAuthContext()
+  const { pending, error, checkResetCode, resetPassword } = useAuthContext()
 
   return (
     <BrowserRouter>
@@ -152,6 +152,7 @@ export function App() {
           path="/reset-password"
           element={
             <ResetPasswordScreen
+              error={error}
               isSubmitting={pending === 'reset'}
               onCheckCode={checkResetCode}
               onResetPassword={resetPassword}

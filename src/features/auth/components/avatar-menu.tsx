@@ -27,7 +27,7 @@ type AvatarMenuProps = {
   photoURL: string | null
   email: string | null
   hasPassword: boolean
-  onAddPassword: (password: string) => Promise<void>
+  onAddPassword: (password: string) => Promise<string | null>
   onSignOut: () => Promise<void>
 }
 
@@ -59,11 +59,16 @@ export function AvatarMenu({
     }
   }
 
-  async function handleAddPassword(password: string) {
-    await onAddPassword(password)
+  async function handleAddPassword(password: string): Promise<string | null> {
+    const message = await onAddPassword(password)
+
+    if (message) return message
+
     toast.success('Đã thêm mật khẩu', {
       description: 'Hãy đăng nhập bằng email và mật khẩu.',
     })
+
+    return null
   }
 
   return (
@@ -88,9 +93,8 @@ export function AvatarMenu({
           align="end"
           className="w-60 rounded-lg border border-rule bg-popover p-1"
         >
-          <DropdownMenuLabel className="flex flex-col gap-0.5 text-xs font-normal text-muted-foreground">
-            <span className="truncate text-foreground">{displayName}</span>
-            {email ? <span className="truncate">{email}</span> : null}
+          <DropdownMenuLabel className="truncate text-xs font-normal text-muted-foreground">
+            {displayName}
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           {canAddPassword ? (

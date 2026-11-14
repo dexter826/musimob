@@ -5,7 +5,19 @@ import type { User } from '@/lib/api/types'
 import { isVerificationSkipped, skipVerification } from '../lib/verification'
 
 export type PendingAction =
-  'google' | 'email' | 'signUp' | 'reset' | 'verification' | 'link' | null
+  | 'google'
+  | 'email'
+  | 'signUp'
+  | 'reset'
+  | 'verification'
+  | 'addPassword'
+  | null
+
+export type SignUpValues = {
+  displayName: string
+  email: string
+  password: string
+}
 
 function getErrorMessage(error: unknown): string {
   return error instanceof Error
@@ -67,21 +79,24 @@ export function useAuth() {
     if (!user) return false
     if (user.emailVerified) return false
     if (!user.signInMethods.includes('password')) return false
-    if (user.signInMethods.includes('google')) return false
     if (skippedUid === user.uid) return false
 
     return !isVerificationSkipped(user.uid)
   }, [user, skippedUid])
 
-  const run = useCallback(
-    async (action: PendingAction, task: () => Promise<void>) => {
-      setError(null)
+  // Trả về thông điệp lỗi, null nghĩa là thành công.
+  const runAction = useCallback(
+    async (
+      action: PendingAction,
+      task: () => Promise<void>,
+    ): Promise<string | null> => {
       setPending(action)
 
       try {
         await task()
+        return null
       } catch (caught) {
-        setError(getErrorMessage(caught))
+        return getErrorMessage(caught)
       } finally {
         setPending(null)
       }
@@ -90,92 +105,104 @@ export function useAuth() {
   )
 
   const signInWithGoogle = useCallback(async () => {
-    await run('google', () => authApi.signInWithGoogle())
-  }, [run])
+    setError(await runAction('google', () => authApi.signInWithGoogle()))
+  }, [runAction])
 
   const signInWithEmail = useCallback(
     async (email: string, password: string) => {
-      await run('email', () =>
-        authApi.signInWithEmailAndPassword(email, password),
+      setError(
+        await runAction('email', () =>
+          authApi.signInWithEmailAndPassword(email, password),
+        ),
       )
     },
-    [run],
+    [runAction],
   )
 
   const createAccount = useCallback(
-    async (email: string, password: string, displayName: string) => {
-      await run('signUp', async () => {
-        const uid = await authApi.createAccount(email, password, displayName)
+    async (values: SignUpValues) => {
+      setError(
+        await runAction('signUp', async () => {
+          const uid = await authApi.createAccount(
+            values.email,
+            values.password,
+            values.displayName,
+          )
 
-        try {
-          await authApi.sendVerificationEmail()
-        } catch {
-          // Không gửi được email xác minh thì không kẹt người dùng ngoài Thư viện.
-          skipVerification(uid)
-          setSkippedUid(uid)
-          toast.error('Không gửi được email xác minh', {
-            description:
-              'Bạn vẫn dùng được Thư viện. Hãy kiểm tra lại địa chỉ email sau.',
-          })
-        }
-      })
+          try {
+            await authApi.sendVerificationEmail()
+          } catch {
+            // Không gửi được email xác minh thì không kẹt người dùng ngoài Thư viện.
+            skipVerification(uid)
+            setSkippedUid(uid)
+            toast.error('Không gửi được email xác minh', {
+              description:
+                'Bạn vẫn dùng được Thư viện. Hãy kiểm tra lại địa chỉ email sau.',
+            })
+          }
+        }),
+      )
     },
-    [run],
+    [runAction],
   )
 
-  const sendResetEmail = useCallback(async (email: string) => {
-    setError(null)
-    setPending('reset')
+  const sendResetEmail = useCallback(
+    async (email: string) => {
+      const message = await runAction('reset', () =>
+        authApi.sendPasswordResetEmail(email),
+      )
+      setError(message)
 
-    try {
-      await authApi.sendPasswordResetEmail(email)
-    } catch (caught) {
-      setError(getErrorMessage(caught))
-      throw caught
-    } finally {
-      setPending(null)
-    }
-  }, [])
-
-  const checkResetCode = useCallback(async (oobCode: string) => {
-    return authApi.checkResetCode(oobCode)
-  }, [])
-
-  const resetPassword = useCallback(
-    async (oobCode: string, newPassword: string) => {
-      setError(null)
-      setPending('reset')
-
-      try {
-        await authApi.resetPassword(oobCode, newPassword)
-      } finally {
-        setPending(null)
-      }
+      return message
     },
+    [runAction],
+  )
+
+  const checkResetCode = useCallback(
+    (oobCode: string) => authApi.checkResetCode(oobCode),
     [],
   )
 
+  const resetPassword = useCallback(
+    async (oobCode: string, newPassword: string) => {
+      const message = await runAction('reset', () =>
+        authApi.resetPassword(oobCode, newPassword),
+      )
+      setError(message)
+
+      return message
+    },
+    [runAction],
+  )
+
   const resendVerification = useCallback(async () => {
-    await run('verification', () => authApi.sendVerificationEmail())
-  }, [run])
+    setError(
+      await runAction('verification', () => authApi.sendVerificationEmail()),
+    )
+  }, [runAction])
 
   const reloadUser = useCallback(async () => {
-    await run('verification', async () => {
-      const refreshed = await authApi.reloadUser()
-      if (refreshed) setUser(refreshed)
-    })
-  }, [run])
+    setError(
+      await runAction('verification', async () => {
+        const refreshed = await authApi.reloadUser()
+        if (refreshed) setUser(refreshed)
+      }),
+    )
+  }, [runAction])
 
-  const linkPassword = useCallback(async (email: string, password: string) => {
-    setError(null)
-    setPending('link')
+  const linkPassword = useCallback(
+    async (email: string, password: string) => {
+      setError(null)
 
-    try {
-      await authApi.linkPassword(email, password)
-    } finally {
-      setPending(null)
-    }
-  }, [])
+      return runAction('addPassword', async () => {
+        await authApi.linkPassword(email, password)
+
+        const refreshed = await authApi.reloadUser().catch(() => null)
+        if (refreshed) setUser(refreshed)
+      })
+    },
+    [runAction],
+  )
 
   const signOut = useCallback(async () => {
     setError(null)

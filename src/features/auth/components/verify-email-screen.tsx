@@ -36,11 +36,11 @@ export function VerifyEmailScreen({
       description={
         email ? (
           <>
-            Đã gửi link xác minh tới <strong>{email}</strong>. Mở link đó để vào
-            thư viện.
+            Mở link xác minh trong email gửi tới <strong>{email}</strong> để vào
+            thư viện bài hát của bạn.
           </>
         ) : (
-          'Đã gửi link xác minh tới email của bạn. Mở link đó để vào thư viện.'
+          'Mở link xác minh trong email của bạn để vào thư viện bài hát.'
         )
       }
     >
@@ -48,7 +48,7 @@ export function VerifyEmailScreen({
 
       {isChecked ? (
         <p className="mb-4 text-xs leading-[1.5] text-muted-foreground">
-          Chưa thấy xác nhận. Hãy kiểm tra lại link trong email hoặc gửi lại.
+          Chưa thấy xác nhận. Hãy mở lại link trong email hoặc gửi lại bên dưới.
         </p>
       ) : null}
 
@@ -65,7 +65,7 @@ export function VerifyEmailScreen({
             Đang kiểm tra…
           </>
         ) : (
-          'Tôi đã xác minh'
+          'Kiểm tra xác minh'
         )}
       </Button>
 
@@ -79,11 +79,11 @@ export function VerifyEmailScreen({
         Gửi lại email xác minh
       </Button>
 
-      <div className="mt-6 text-center">
+      <div className="mt-3 text-center">
         <button
           type="button"
           onClick={() => void onSignOut()}
-          className="text-xs font-medium text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground"
+          className="inline-flex items-center py-1 text-xs font-medium text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground"
         >
           Đăng xuất
         </button>

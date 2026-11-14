@@ -40,7 +40,7 @@ function getAuthErrorMessage(error: unknown, fallback: string): string {
     case 'auth/unauthorized-domain':
       return 'Tên miền này chưa được phép đăng nhập.'
     case 'auth/operation-not-allowed':
-      return 'Đăng nhập bằng email chưa được bật cho ứng dụng này.'
+      return 'Cách đăng nhập này chưa được bật cho ứng dụng.'
     case 'auth/user-disabled':
       return 'Tài khoản này đã bị khoá.'
     case 'auth/account-exists-with-different-credential':
@@ -52,7 +52,7 @@ function getAuthErrorMessage(error: unknown, fallback: string): string {
     case 'auth/missing-password':
       return 'Chưa nhập mật khẩu.'
     case 'auth/weak-password':
-      return 'Mật khẩu quá yếu. Dùng ít nhất 8 ký tự.'
+      return 'Mật khẩu quá yếu. Cần tối thiểu 8 ký tự.'
     case 'auth/invalid-credential':
     case 'auth/invalid-login-credentials':
     case 'auth/user-not-found':
@@ -61,7 +61,7 @@ function getAuthErrorMessage(error: unknown, fallback: string): string {
     case 'auth/requires-recent-login':
       return 'Phiên đăng nhập đã cũ. Hãy đăng nhập lại rồi thử.'
     case 'auth/credential-already-in-use':
-      return 'Mật khẩu này đã gắn với một tài khoản khác.'
+      return 'Mật khẩu này đã gắn với một tài khoản khác. Hãy chọn mật khẩu khác.'
     case 'auth/missing-action-code':
     case 'auth/invalid-action-code':
       return 'Link này không còn dùng được. Hãy yêu cầu link mới.'
@@ -76,7 +76,7 @@ function getLinkPasswordErrorMessage(error: unknown): string {
   switch (getErrorCode(error)) {
     case 'auth/email-already-in-use':
     case 'auth/credential-already-in-use':
-      return 'Email này đã gắn với một tài khoản khác.'
+      return 'Email này đã gắn với một tài khoản khác. Hãy đăng nhập bằng tài khoản đó.'
     default:
       return getAuthErrorMessage(error, 'Không thêm được mật khẩu. Thử lại.')
   }

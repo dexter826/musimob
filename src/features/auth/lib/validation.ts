@@ -27,3 +27,18 @@ export function getPasswordError(password: string): string | null {
 
   return null
 }
+
+export function getConfirmPasswordError(
+  password: string,
+  confirmPassword: string,
+): string | null {
+  if (!confirmPassword) {
+    return 'Nhập lại mật khẩu.'
+  }
+
+  if (password !== confirmPassword) {
+    return 'Hai mật khẩu không khớp. Nhập lại mật khẩu mới.'
+  }
+
+  return null
+}

@@ -13,7 +13,7 @@ type AppHeaderProps = {
   hasPassword: boolean
   viewMode: ViewMode
   onToggleView: () => void
-  onAddPassword: (password: string) => Promise<void>
+  onAddPassword: (password: string) => Promise<string | null>
   onSignOut: () => Promise<void>
 }
 

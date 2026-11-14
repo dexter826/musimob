@@ -1,16 +1,15 @@
-import { useId, useState, type FormEvent } from 'react'
+import { useState, type FormEvent } from 'react'
 import { ErrorAlert } from '@/components/error-alert'
 import { Button } from '@/components/ui/button'
-import { Field, FieldError, FieldLabel } from '@/components/ui/field'
-import { Input } from '@/components/ui/input'
 import { Spinner } from '@/components/ui/spinner'
 import type { PendingAction } from '../hooks/use-auth'
 import { getEmailError } from '../lib/validation'
+import { EmailField } from './email-field'
 
 type ForgotPasswordFormProps = {
   pending: PendingAction
   error: string | null
-  onSendResetEmail: (email: string) => Promise<void>
+  onSendResetEmail: (email: string) => Promise<string | null>
 }
 
 export function ForgotPasswordForm({
@@ -22,8 +21,6 @@ export function ForgotPasswordForm({
   const [emailError, setEmailError] = useState<string | null>(null)
   const [sentTo, setSentTo] = useState<string | null>(null)
   const isPending = pending === 'reset'
-  const fieldId = useId()
-  const emailErrorId = `${fieldId}-email-error`
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -35,22 +32,22 @@ export function ForgotPasswordForm({
 
     if (nextError) return
 
-    try {
-      await onSendResetEmail(email.trim())
-      setSentTo(email.trim())
-    } catch {
-      // Lỗi hiển thị qua ErrorAlert, giữ nguyên form để gửi lại.
-    }
+    const message = await onSendResetEmail(email.trim())
+
+    if (message) return
+
+    setSentTo(email.trim())
   }
 
   if (sentTo) {
     return (
       <div className="border-l-[3px] border-primary bg-surface-2 px-3 py-2.5">
         <p className="text-sm leading-[1.6] text-foreground">
-          Đã gửi link đặt lại mật khẩu tới {sentTo}.
+          Nếu {sentTo} đã có tài khoản, link đặt lại mật khẩu đã được gửi tới
+          địa chỉ đó.
         </p>
         <p className="mt-1 text-xs leading-[1.5] text-muted-foreground">
-          Nếu chưa thấy, hãy kiểm tra thư mục spam hoặc đợi ít phút.
+          Chưa thấy? Kiểm tra thư mục spam hoặc đợi ít phút.
         </p>
       </div>
     )
@@ -58,31 +55,14 @@ export function ForgotPasswordForm({
 
   return (
     <form onSubmit={handleSubmit} noValidate>
-      <Field data-invalid={Boolean(emailError)}>
-        <FieldLabel htmlFor={fieldId} className="text-xs font-medium">
-          Email
-        </FieldLabel>
-        <Input
-          id={fieldId}
-          type="email"
-          inputMode="email"
-          value={email}
-          onChange={(event) => {
-            setEmail(event.target.value)
-            setEmailError(null)
-          }}
-          autoComplete="email"
-          placeholder="nguyenvana@domain.com"
-          aria-invalid={Boolean(emailError)}
-          aria-describedby={emailError ? emailErrorId : undefined}
-          className="h-11 bg-surface text-base md:text-[15px]"
-        />
-        {emailError ? (
-          <FieldError id={emailErrorId} className="text-xs">
-            {emailError}
-          </FieldError>
-        ) : null}
-      </Field>
+      <EmailField
+        value={email}
+        onChange={(value) => {
+          setEmail(value)
+          setEmailError(null)
+        }}
+        error={emailError ?? undefined}
+      />
 
       {error ? <ErrorAlert message={error} className="mt-3" /> : null}
 

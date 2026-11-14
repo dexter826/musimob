@@ -9,14 +9,14 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Spinner } from '@/components/ui/spinner'
-import { getPasswordError } from '../lib/validation'
+import { getConfirmPasswordError, getPasswordError } from '../lib/validation'
 import { PasswordField } from './password-field'
 
 type AddPasswordDialogProps = {
   open: boolean
   email: string
   onOpenChange: (open: boolean) => void
-  onSubmit: (password: string) => Promise<void>
+  onSubmit: (password: string) => Promise<string | null>
 }
 
 export function AddPasswordDialog({
@@ -46,8 +46,7 @@ export function AddPasswordDialog({
     if (isSaving) return
 
     const nextPasswordError = getPasswordError(password)
-    const nextConfirmError =
-      password === confirmPassword ? null : 'Mật khẩu không khớp.'
+    const nextConfirmError = getConfirmPasswordError(password, confirmPassword)
 
     setPasswordError(nextPasswordError)
     setConfirmError(nextConfirmError)
@@ -56,19 +55,17 @@ export function AddPasswordDialog({
 
     setIsSaving(true)
 
-    try {
-      await onSubmit(password)
-      resetForm()
-      onOpenChange(false)
-    } catch (caught) {
-      setSubmitError(
-        caught instanceof Error
-          ? caught.message
-          : 'Không thêm được mật khẩu. Thử lại.',
-      )
-    } finally {
+    const message = await onSubmit(password)
+
+    if (message) {
+      setSubmitError(message)
       setIsSaving(false)
+      return
     }
+
+    resetForm()
+    onOpenChange(false)
+    setIsSaving(false)
   }
 
   return (
@@ -100,6 +97,7 @@ export function AddPasswordDialog({
             }}
             error={passwordError ?? undefined}
             autoComplete="new-password"
+            placeholder="••••••••"
           />
 
           <div className="mt-4">
@@ -112,6 +110,7 @@ export function AddPasswordDialog({
               }}
               error={confirmError ?? undefined}
               autoComplete="new-password"
+              placeholder="••••••••"
             />
           </div>
 

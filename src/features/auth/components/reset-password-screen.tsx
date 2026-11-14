@@ -1,19 +1,24 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { useNavigate, useSearchParams } from 'react-router'
-import { Button } from '@/components/ui/button'
 import { ErrorAlert } from '@/components/error-alert'
+import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
-import { getPasswordError } from '../lib/validation'
+import { getConfirmPasswordError, getPasswordError } from '../lib/validation'
 import { AuthLayout } from './auth-layout'
 import { PasswordField } from './password-field'
 
 type ResetPasswordScreenProps = {
+  error: string | null
   isSubmitting: boolean
   onCheckCode: (oobCode: string) => Promise<string>
-  onResetPassword: (oobCode: string, newPassword: string) => Promise<void>
+  onResetPassword: (
+    oobCode: string,
+    newPassword: string,
+  ) => Promise<string | null>
 }
 
 export function ResetPasswordScreen({
+  error,
   isSubmitting,
   onCheckCode,
   onResetPassword,
@@ -26,7 +31,6 @@ export function ResetPasswordScreen({
   const [confirmPassword, setConfirmPassword] = useState('')
   const [passwordError, setPasswordError] = useState<string | null>(null)
   const [confirmError, setConfirmError] = useState<string | null>(null)
-  const [error, setError] = useState<string | null>(null)
   const [isInvalidLink, setIsInvalidLink] = useState(false)
   const [isDone, setIsDone] = useState(false)
   const [isChecking, setIsChecking] = useState(true)
@@ -62,24 +66,18 @@ export function ResetPasswordScreen({
     if (isSubmitting || !oobCode) return
 
     const nextPasswordError = getPasswordError(password)
-    const nextConfirmError =
-      password === confirmPassword ? null : 'Mật khẩu không khớp.'
+    const nextConfirmError = getConfirmPasswordError(password, confirmPassword)
 
     setPasswordError(nextPasswordError)
     setConfirmError(nextConfirmError)
 
     if (nextPasswordError || nextConfirmError) return
 
-    try {
-      await onResetPassword(oobCode, password)
-      setIsDone(true)
-    } catch (caught) {
-      setError(
-        caught instanceof Error
-          ? caught.message
-          : 'Không đặt lại được mật khẩu. Thử lại.',
-      )
-    }
+    const message = await onResetPassword(oobCode, password)
+
+    if (message) return
+
+    setIsDone(true)
   }
 
   if (isInvalidLink) {
@@ -145,6 +143,7 @@ export function ResetPasswordScreen({
             }}
             error={passwordError ?? undefined}
             autoComplete="new-password"
+            placeholder="••••••••"
           />
 
           <div className="mt-4">
@@ -157,6 +156,7 @@ export function ResetPasswordScreen({
               }}
               error={confirmError ?? undefined}
               autoComplete="new-password"
+              placeholder="••••••••"
             />
           </div>
 

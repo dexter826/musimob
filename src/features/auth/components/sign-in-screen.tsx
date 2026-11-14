@@ -1,7 +1,7 @@
 import { useState, type ComponentProps } from 'react'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
-import type { PendingAction } from '../hooks/use-auth'
+import type { PendingAction, SignUpValues } from '../hooks/use-auth'
 import { AuthLayout } from './auth-layout'
 import { EmailAuthForm } from './email-auth-form'
 import { ForgotPasswordForm } from './forgot-password-form'
@@ -13,12 +13,8 @@ type SignInScreenProps = {
   error: string | null
   onSignInWithGoogle: () => Promise<void>
   onSignInWithEmail: (email: string, password: string) => Promise<void>
-  onCreateAccount: (
-    displayName: string,
-    email: string,
-    password: string,
-  ) => Promise<void>
-  onSendResetEmail: (email: string) => Promise<void>
+  onCreateAccount: (values: SignUpValues) => Promise<void>
+  onSendResetEmail: (email: string) => Promise<string | null>
   onClearError: () => void
 }
 
@@ -92,20 +88,11 @@ export function SignInScreen({
           error={error}
           onSignIn={onSignInWithEmail}
           onSignUp={onCreateAccount}
+          onForgotPassword={
+            mode === 'sign-in' ? () => switchMode('reset') : undefined
+          }
         />
       )}
-
-      {mode === 'sign-in' ? (
-        <div className="mt-4 text-right">
-          <button
-            type="button"
-            onClick={() => switchMode('reset')}
-            className="text-xs font-medium text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground"
-          >
-            Quên mật khẩu?
-          </button>
-        </div>
-      ) : null}
 
       {mode !== 'reset' ? (
         <>
@@ -137,14 +124,14 @@ export function SignInScreen({
         </>
       ) : null}
 
-      <div className="mt-6 text-center text-xs text-muted-foreground">
+      <div className="mt-2 text-center text-xs text-muted-foreground">
         {mode === 'sign-up' ? (
           <>
             Đã có tài khoản?{' '}
             <button
               type="button"
               onClick={() => switchMode('sign-in')}
-              className="font-semibold text-foreground underline underline-offset-4"
+              className="inline-flex items-center py-1 font-semibold text-foreground underline underline-offset-4"
             >
               Đăng nhập
             </button>
@@ -153,7 +140,7 @@ export function SignInScreen({
           <button
             type="button"
             onClick={() => switchMode('sign-in')}
-            className="font-semibold text-foreground underline underline-offset-4"
+            className="inline-flex items-center py-1 font-semibold text-foreground underline underline-offset-4"
           >
             Quay lại đăng nhập
           </button>
@@ -163,7 +150,7 @@ export function SignInScreen({
             <button
               type="button"
               onClick={() => switchMode('sign-up')}
-              className="font-semibold text-foreground underline underline-offset-4"
+              className="inline-flex items-center py-1 font-semibold text-foreground underline underline-offset-4"
             >
               Tạo tài khoản
             </button>

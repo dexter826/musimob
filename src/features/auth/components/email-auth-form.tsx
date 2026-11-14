@@ -1,4 +1,4 @@
-import { useId, useState, type FormEvent } from 'react'
+import { useState, type FormEvent } from 'react'
 import { ErrorAlert } from '@/components/error-alert'
 import { Button } from '@/components/ui/button'
 import {
@@ -9,8 +9,9 @@ import {
 } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { Spinner } from '@/components/ui/spinner'
-import type { PendingAction } from '../hooks/use-auth'
+import type { PendingAction, SignUpValues } from '../hooks/use-auth'
 import { getEmailError, getPasswordError } from '../lib/validation'
+import { EmailField } from './email-field'
 import { PasswordField } from './password-field'
 
 type EmailAuthFormProps = {
@@ -18,11 +19,8 @@ type EmailAuthFormProps = {
   pending: PendingAction
   error: string | null
   onSignIn: (email: string, password: string) => Promise<void>
-  onSignUp: (
-    displayName: string,
-    email: string,
-    password: string,
-  ) => Promise<void>
+  onSignUp: (values: SignUpValues) => Promise<void>
+  onForgotPassword?: () => void
 }
 
 type FormErrors = {
@@ -37,6 +35,7 @@ export function EmailAuthForm({
   error,
   onSignIn,
   onSignUp,
+  onForgotPassword,
 }: EmailAuthFormProps) {
   const [displayName, setDisplayName] = useState('')
   const [email, setEmail] = useState('')
@@ -44,9 +43,7 @@ export function EmailAuthForm({
   const [errors, setErrors] = useState<FormErrors>({})
   const isSignUp = mode === 'sign-up'
   const isPending = pending === (isSignUp ? 'signUp' : 'email')
-  const fieldId = useId()
-  const emailId = `${fieldId}-email`
-  const emailErrorId = `${fieldId}-email-error`
+  const nameFieldId = 'auth-display-name'
 
   function clearFieldError(field: keyof FormErrors) {
     setErrors((current) => ({ ...current, [field]: undefined }))
@@ -74,7 +71,11 @@ export function EmailAuthForm({
     }
 
     if (isSignUp) {
-      await onSignUp(displayName.trim(), email.trim(), password)
+      await onSignUp({
+        displayName: displayName.trim(),
+        email: email.trim(),
+        password,
+      })
       return
     }
 
@@ -86,14 +87,11 @@ export function EmailAuthForm({
       <FieldGroup className="gap-4">
         {isSignUp ? (
           <Field data-invalid={Boolean(errors.displayName)}>
-            <FieldLabel
-              htmlFor={`${fieldId}-name`}
-              className="text-xs font-medium"
-            >
+            <FieldLabel htmlFor={nameFieldId} className="text-xs font-medium">
               Tên hiển thị
             </FieldLabel>
             <Input
-              id={`${fieldId}-name`}
+              id={nameFieldId}
               value={displayName}
               onChange={(event) => {
                 setDisplayName(event.target.value)
@@ -109,31 +107,14 @@ export function EmailAuthForm({
           </Field>
         ) : null}
 
-        <Field data-invalid={Boolean(errors.email)}>
-          <FieldLabel htmlFor={emailId} className="text-xs font-medium">
-            Email
-          </FieldLabel>
-          <Input
-            id={emailId}
-            type="email"
-            inputMode="email"
-            value={email}
-            onChange={(event) => {
-              setEmail(event.target.value)
-              clearFieldError('email')
-            }}
-            autoComplete="email"
-            placeholder="nguyenvana@domain.com"
-            aria-invalid={Boolean(errors.email)}
-            aria-describedby={errors.email ? emailErrorId : undefined}
-            className="h-11 bg-surface text-base md:text-[15px]"
-          />
-          {errors.email ? (
-            <FieldError id={emailErrorId} className="text-xs">
-              {errors.email}
-            </FieldError>
-          ) : null}
-        </Field>
+        <EmailField
+          value={email}
+          onChange={(value) => {
+            setEmail(value)
+            clearFieldError('email')
+          }}
+          error={errors.email}
+        />
 
         <PasswordField
           label="Mật khẩu"
@@ -144,16 +125,29 @@ export function EmailAuthForm({
           }}
           error={errors.password}
           autoComplete={isSignUp ? 'new-password' : 'current-password'}
+          placeholder="••••••••"
         />
       </FieldGroup>
 
       {error ? <ErrorAlert message={error} className="mt-3" /> : null}
 
+      {onForgotPassword ? (
+        <div className="mt-1 flex justify-end">
+          <button
+            type="button"
+            onClick={onForgotPassword}
+            className="inline-flex items-center py-1 text-xs font-medium text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground"
+          >
+            Quên mật khẩu?
+          </button>
+        </div>
+      ) : null}
+
       <Button
         type="submit"
         disabled={isPending}
         aria-busy={isPending}
-        className="mt-6 h-11 w-full gap-2 text-[13px] font-semibold"
+        className="mt-4 h-11 w-full gap-2 text-[13px] font-semibold"
       >
         {isPending ? (
           <>
