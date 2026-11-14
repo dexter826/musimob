@@ -9,8 +9,11 @@ import { ThemeToggle } from './theme-toggle'
 type AppHeaderProps = {
   displayName: string
   photoURL: string | null
+  email: string | null
+  hasPassword: boolean
   viewMode: ViewMode
   onToggleView: () => void
+  onAddPassword: (password: string) => Promise<void>
   onSignOut: () => Promise<void>
 }
 
@@ -26,8 +29,11 @@ function navLinkClassName({ isActive }: { isActive: boolean }) {
 export function AppHeader({
   displayName,
   photoURL,
+  email,
+  hasPassword,
   viewMode,
   onToggleView,
+  onAddPassword,
   onSignOut,
 }: AppHeaderProps) {
   const { pathname } = useLocation()
@@ -60,6 +66,9 @@ export function AppHeader({
         <AvatarMenu
           displayName={displayName}
           photoURL={photoURL}
+          email={email}
+          hasPassword={hasPassword}
+          onAddPassword={onAddPassword}
           onSignOut={onSignOut}
         />
       </div>

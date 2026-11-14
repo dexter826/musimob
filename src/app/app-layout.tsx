@@ -10,6 +10,7 @@ type AppLayoutProps = {
   user: User
   viewMode: ViewMode
   onToggleView: () => void
+  onAddPassword: (password: string) => Promise<void>
   onSignOut: () => Promise<void>
 }
 
@@ -17,6 +18,7 @@ export function AppLayout({
   user,
   viewMode,
   onToggleView,
+  onAddPassword,
   onSignOut,
 }: AppLayoutProps) {
   const { pathname } = useLocation()
@@ -34,8 +36,11 @@ export function AppLayout({
       <AppHeader
         displayName={user.displayName}
         photoURL={user.photoURL}
+        email={user.email}
+        hasPassword={user.signInMethods.includes('password')}
         viewMode={viewMode}
         onToggleView={onToggleView}
+        onAddPassword={onAddPassword}
         onSignOut={onSignOut}
       />
       <main id="main-content" tabIndex={-1} className="flex flex-1 flex-col">

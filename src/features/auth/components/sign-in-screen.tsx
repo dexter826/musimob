@@ -1,14 +1,40 @@
-import type { ComponentProps } from 'react'
-import symbol from '../../../../assets/brand/symbol.svg'
-import { ErrorAlert } from '@/components/error-alert'
+import { useState, type ComponentProps } from 'react'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
-import { Wordmark } from '@/components/wordmark'
+import type { PendingAction } from '../hooks/use-auth'
+import { AuthLayout } from './auth-layout'
+import { EmailAuthForm } from './email-auth-form'
+import { ForgotPasswordForm } from './forgot-password-form'
+
+type AuthMode = 'sign-in' | 'sign-up' | 'reset'
 
 type SignInScreenProps = {
-  isSigningIn: boolean
+  pending: PendingAction
   error: string | null
-  onSignIn: () => Promise<void>
+  onSignInWithGoogle: () => Promise<void>
+  onSignInWithEmail: (email: string, password: string) => Promise<void>
+  onCreateAccount: (
+    displayName: string,
+    email: string,
+    password: string,
+  ) => Promise<void>
+  onSendResetEmail: (email: string) => Promise<void>
+  onClearError: () => void
+}
+
+const MODE_COPY: Record<AuthMode, { title: string; description: string }> = {
+  'sign-in': {
+    title: 'Thư viện riêng của bạn',
+    description: 'Đăng nhập để vào thư viện bài hát của bạn.',
+  },
+  'sign-up': {
+    title: 'Tạo tài khoản',
+    description: 'Một tài khoản cho thư viện bài hát riêng của bạn.',
+  },
+  reset: {
+    title: 'Đặt lại mật khẩu',
+    description: 'Nhập email đã đăng ký để nhận link đặt lại mật khẩu.',
+  },
 }
 
 function GoogleIcon(props: ComponentProps<'svg'>) {
@@ -35,45 +61,68 @@ function GoogleIcon(props: ComponentProps<'svg'>) {
 }
 
 export function SignInScreen({
-  isSigningIn,
+  pending,
   error,
-  onSignIn,
+  onSignInWithGoogle,
+  onSignInWithEmail,
+  onCreateAccount,
+  onSendResetEmail,
+  onClearError,
 }: SignInScreenProps) {
+  const [mode, setMode] = useState<AuthMode>('sign-in')
+  const copy = MODE_COPY[mode]
+
+  function switchMode(nextMode: AuthMode) {
+    onClearError()
+    setMode(nextMode)
+  }
+
   return (
-    <main className="flex min-h-dvh w-full items-center justify-center bg-background px-5 py-10 sm:px-8">
-      <div className="relative w-full max-w-[560px]">
-        <div
-          aria-hidden="true"
-          className="absolute top-0 right-0 aspect-square w-[180px] rounded-sm bg-[var(--night-900)] sm:w-[320px]"
-        >
-          <img
-            src={symbol}
-            alt=""
-            width={96}
-            height={96}
-            className="absolute top-1/2 left-1/2 w-20 -translate-x-1/2 -translate-y-1/2 sm:w-24"
-          />
-          <span className="absolute -top-2 right-8 h-12 w-4 bg-primary [clip-path:polygon(0_0,100%_0,100%_100%,50%_82%,0_100%)]" />
+    <AuthLayout title={copy.title} description={copy.description}>
+      {mode === 'reset' ? (
+        <ForgotPasswordForm
+          pending={pending}
+          error={error}
+          onSendResetEmail={onSendResetEmail}
+        />
+      ) : (
+        <EmailAuthForm
+          mode={mode}
+          pending={pending}
+          error={error}
+          onSignIn={onSignInWithEmail}
+          onSignUp={onCreateAccount}
+        />
+      )}
+
+      {mode === 'sign-in' ? (
+        <div className="mt-4 text-right">
+          <button
+            type="button"
+            onClick={() => switchMode('reset')}
+            className="text-xs font-medium text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground"
+          >
+            Quên mật khẩu?
+          </button>
         </div>
+      ) : null}
 
-        <section className="relative z-10 mx-auto mt-24 w-full max-w-[350px] rounded-sm border border-rule bg-surface p-6 shadow-[6px_6px_0_0_var(--surface-2),6px_6px_0_1px_var(--rule)] sm:mx-0 sm:mt-[120px] sm:max-w-[360px] sm:p-8">
-          <Wordmark className="h-7 text-[15.5px]" />
-
-          <h1 className="mt-10 font-serif text-[38px] leading-[1.08] font-medium tracking-[-0.02em] text-foreground max-md:text-[30px]">
-            Thư viện riêng của bạn
-          </h1>
-          <p className="mt-3 max-w-[28ch] text-[15px] leading-[1.6] text-muted-foreground max-md:text-sm">
-            Thư viện bài hát riêng của bạn.
-          </p>
+      {mode !== 'reset' ? (
+        <>
+          <div className="my-6 flex items-center gap-3">
+            <span className="h-px flex-1 bg-rule" />
+            <span className="text-xs text-muted-foreground">hoặc</span>
+            <span className="h-px flex-1 bg-rule" />
+          </div>
 
           <Button
             type="button"
-            onClick={() => void onSignIn()}
-            disabled={isSigningIn}
-            aria-busy={isSigningIn}
-            className="mt-7 h-11 w-full gap-2 bg-ink-action text-[13px] font-semibold text-ink-action-foreground hover:bg-ink-action-hover"
+            onClick={() => void onSignInWithGoogle()}
+            disabled={pending !== null}
+            aria-busy={pending === 'google'}
+            className="h-11 w-full gap-2 border border-control-border bg-surface text-[13px] font-semibold text-foreground hover:bg-surface-2"
           >
-            {isSigningIn ? (
+            {pending === 'google' ? (
               <>
                 <Spinner aria-hidden="true" className="size-4" />
                 Đang đăng nhập…
@@ -85,10 +134,42 @@ export function SignInScreen({
               </>
             )}
           </Button>
+        </>
+      ) : null}
 
-          {error ? <ErrorAlert message={error} className="mt-3" /> : null}
-        </section>
+      <div className="mt-6 text-center text-xs text-muted-foreground">
+        {mode === 'sign-up' ? (
+          <>
+            Đã có tài khoản?{' '}
+            <button
+              type="button"
+              onClick={() => switchMode('sign-in')}
+              className="font-semibold text-foreground underline underline-offset-4"
+            >
+              Đăng nhập
+            </button>
+          </>
+        ) : mode === 'reset' ? (
+          <button
+            type="button"
+            onClick={() => switchMode('sign-in')}
+            className="font-semibold text-foreground underline underline-offset-4"
+          >
+            Quay lại đăng nhập
+          </button>
+        ) : (
+          <>
+            Chưa có tài khoản?{' '}
+            <button
+              type="button"
+              onClick={() => switchMode('sign-up')}
+              className="font-semibold text-foreground underline underline-offset-4"
+            >
+              Tạo tài khoản
+            </button>
+          </>
+        )}
       </div>
-    </main>
+    </AuthLayout>
   )
 }
