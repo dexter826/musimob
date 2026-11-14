@@ -12,6 +12,7 @@ import { AlbumsPage } from './albums-page'
 import { AppLayout } from './app-layout'
 import { AppLoading } from './app-loading'
 import { useAuthContext } from './auth-context'
+import { DiscoverPage } from './discover-page'
 import { LibraryPage } from './library-page'
 
 const APP_TITLE = 'MusiMOB'
@@ -56,6 +57,10 @@ function SignedInApp({
               albumsState={albumsState}
             />
           }
+        />
+        <Route
+          path="discover"
+          element={<DiscoverPage songsState={songsState} />}
         />
         <Route
           path="albums"
