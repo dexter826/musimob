@@ -53,6 +53,9 @@ export function AppHeader({
           <NavLink to="/" end className={navLinkClassName}>
             Thư viện
           </NavLink>
+          <NavLink to="/discover" className={navLinkClassName}>
+            Khám phá
+          </NavLink>
           <NavLink to="/albums" className={navLinkClassName}>
             Album
           </NavLink>
