@@ -8,7 +8,7 @@ import type { NewSong, Song } from '@/features/songs'
 import { getSongKey } from '@/lib/song-key'
 import { RateLimitError, SearchTimeoutError } from '../api/catalog'
 import { useSongSearch } from '../hooks/use-song-search'
-import type { SearchResult } from '../types'
+import type { CatalogTrack } from '../types'
 import { SearchResultRow } from './search-result-row'
 
 type SongSearchProps = {
@@ -123,7 +123,7 @@ export function SongSearch({
   const trimmedTerm = term.trim()
   const hasQuery = debouncedTerm.length >= 2
   const isSearching = trimmedTerm.length >= 2 && (isFetching || isDebouncing)
-  const isResultSaved = (result: SearchResult) =>
+  const isResultSaved = (result: CatalogTrack) =>
     existingIds.has(result.trackId) ||
     savedIds.has(result.trackId) ||
     existingKeys.has(getSongKey(result.title, result.artist))
@@ -134,7 +134,7 @@ export function SongSearch({
     setSaveError(null)
   }
 
-  async function handleSave(result: SearchResult) {
+  async function handleSave(result: CatalogTrack) {
     const { trackId } = result
     if (isResultSaved(result) || savingIds.has(trackId)) {
       return

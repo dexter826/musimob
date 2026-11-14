@@ -7,13 +7,13 @@ import {
 import { SongCover } from '@/features/songs'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
-import type { SearchResult } from '@/features/catalog'
+import type { CatalogTrack } from '@/features/catalog'
 
 type DiscoverCardProps = {
-  song: SearchResult
+  song: CatalogTrack
   index: number
   isSaving?: boolean
-  onSave?: (song: SearchResult) => void
+  onSave?: (song: CatalogTrack) => void
 }
 
 export function DiscoverCard({

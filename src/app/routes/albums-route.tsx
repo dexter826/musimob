@@ -13,7 +13,7 @@ import {
   getSongsById,
 } from '@/features/albums'
 import { useDocumentTitle } from '@/hooks/use-document-title'
-import { useAppOutletContext } from './app-outlet-context'
+import { useAppOutletContext } from '../app-outlet-context'
 
 const ALBUMS_TITLE = 'MusiMOB: Album'
 

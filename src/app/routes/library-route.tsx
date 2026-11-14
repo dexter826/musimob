@@ -16,7 +16,7 @@ import {
 import { AlbumPicker } from '@/features/albums'
 import { SongSearch } from '@/features/catalog'
 import { songPreviewKey, useAudioPreview } from '@/features/audio-preview'
-import { useAppOutletContext } from './app-outlet-context'
+import { useAppOutletContext } from '../app-outlet-context'
 
 const SONGS_TITLE = 'MusiMOB: Thư viện'
 

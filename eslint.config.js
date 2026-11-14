@@ -50,7 +50,7 @@ export default tseslint.config(
             {
               target: './src/features/songs',
               from: './src/features',
-              except: ['./songs', './audio-preview', './catalog'],
+              except: ['./songs', './audio-preview'],
             },
             {
               target: './src/features/catalog',

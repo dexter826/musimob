@@ -48,28 +48,28 @@ export function LibrarySelectionBar({
       <div className="mx-auto flex max-w-[1120px] flex-wrap items-center justify-between gap-2">
         <p
           aria-live="polite"
-          className="text-sm leading-[1.35] font-semibold text-foreground"
+          className="text-xs font-medium text-muted-foreground tabular-nums max-md:w-full"
         >
           Đã chọn {count} bài
         </p>
-
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 max-md:w-full">
           <Button
             type="button"
             variant="ghost"
+            disabled={count === 0}
             onClick={onClear}
-            className="h-11 rounded-lg px-3 text-[13px] font-semibold text-muted-foreground hover:bg-secondary hover:text-foreground"
+            className="h-11 px-3 text-[13px] font-semibold"
           >
             Bỏ chọn
           </Button>
-
           <Button
             type="button"
-            ref={addButtonRef}
+            disabled={count === 0}
             onClick={onAdd}
-            className="h-11 rounded-lg px-4 text-[13px] font-semibold"
+            ref={addButtonRef}
+            className="h-11 px-4 text-[13px] font-semibold max-md:flex-1"
           >
-            Thêm vào album…
+            Thêm vào album
           </Button>
         </div>
       </div>

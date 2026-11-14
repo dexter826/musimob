@@ -26,7 +26,7 @@ import {
 } from '@/features/albums'
 import { useDocumentTitle } from '@/hooks/use-document-title'
 import { songPreviewKey, useAudioPreview } from '@/features/audio-preview'
-import { useAppOutletContext } from './app-outlet-context'
+import { useAppOutletContext } from '../app-outlet-context'
 
 const ALBUMS_TITLE = 'MusiMOB: Album'
 

@@ -7,7 +7,7 @@ import {
   DiscoverSkeleton,
   useDiscover,
 } from '@/features/discover'
-import { useAppOutletContext } from './app-outlet-context'
+import { useAppOutletContext } from '../app-outlet-context'
 
 const DISCOVER_TITLE = 'MusiMOB: Khám phá'
 

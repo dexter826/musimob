@@ -1,4 +1,4 @@
-import type { CatalogTrack, SearchResult } from '../types'
+import type { CatalogTrack } from '../types'
 
 const CATALOG_SEARCH_URL = 'https://itunes.apple.com/search'
 const CATALOG_TOP_SONGS_URL = 'https://itunes.apple.com/vn/rss/topsongs'
@@ -177,7 +177,7 @@ export function normalizeRssEntry(entry: unknown): CatalogTrack | null {
 }
 
 export const discoverApi = {
-  async topSongs(limit = 50): Promise<SearchResult[]> {
+  async topSongs(limit = 50): Promise<CatalogTrack[]> {
     let response: Response
     try {
       response = await fetch(`${CATALOG_TOP_SONGS_URL}/limit=${limit}/json`, {
@@ -214,7 +214,7 @@ export const discoverApi = {
 
     return entries
       .map(normalizeRssEntry)
-      .filter((result): result is SearchResult => result !== null)
+      .filter((result): result is CatalogTrack => result !== null)
       .filter((result) => Boolean(result.title && result.artist))
   },
 }

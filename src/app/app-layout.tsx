@@ -5,7 +5,7 @@ import { useAudioPreview } from '@/features/audio-preview'
 import type { User } from '@/features/auth'
 import type { useSongs, ViewMode } from '@/features/songs'
 import type { useAlbums } from '@/features/albums'
-import { AppHeader } from '../app-header'
+import { AppHeader } from './app-header'
 import type { AppOutletContext } from './app-outlet-context'
 
 type AppLayoutProps = {
@@ -33,7 +33,7 @@ export function AppLayout({
   const { stop } = useAudioPreview()
 
   useEffect(() => {
-    stop()
+    return stop
   }, [pathname, stop])
 
   const contextValue: AppOutletContext = {
@@ -45,7 +45,10 @@ export function AppLayout({
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-background font-sans text-foreground antialiased selection:bg-coral-200">
+    <PageShell>
+      <a href="#main-content" className="skip-link">
+        Chuyển đến nội dung
+      </a>
       <AppHeader
         displayName={user.displayName}
         photoURL={user.photoURL}
@@ -56,11 +59,9 @@ export function AppLayout({
         onAddPassword={onAddPassword}
         onSignOut={onSignOut}
       />
-      <main className="flex flex-1 flex-col">
-        <PageShell>
-          <Outlet context={contextValue} />
-        </PageShell>
+      <main id="main-content" tabIndex={-1} className="flex flex-1 flex-col">
+        <Outlet context={contextValue} />
       </main>
-    </div>
+    </PageShell>
   )
 }

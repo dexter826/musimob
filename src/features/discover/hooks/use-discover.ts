@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { discoverApi, searchApi, type SearchResult } from '@/features/catalog'
+import { discoverApi, searchApi, type CatalogTrack } from '@/features/catalog'
 import type { NewSong, Song } from '@/features/songs'
 import {
   interleaveAndDeduplicate,
@@ -68,13 +68,13 @@ export function useDiscover({ librarySongs, onAddSong }: UseDiscoverOptions) {
 
   // Lấy activeSongs và savedTrackIds từ cache để giữ nguyên trạng thái khi chuyển tab
   const cachedActive =
-    queryClient.getQueryData<SearchResult[]>(ACTIVE_BATCH_KEY)
-  const [activeSongs, setActiveSongsState] = useState<SearchResult[]>(
+    queryClient.getQueryData<CatalogTrack[]>(ACTIVE_BATCH_KEY)
+  const [activeSongs, setActiveSongsState] = useState<CatalogTrack[]>(
     () => cachedActive ?? [],
   )
 
   const setActiveSongs = useCallback(
-    (updater: (prev: SearchResult[]) => SearchResult[]) => {
+    (updater: (prev: CatalogTrack[]) => CatalogTrack[]) => {
       setActiveSongsState((prev) => {
         const next = updater(prev)
         queryClient.setQueryData(ACTIVE_BATCH_KEY, next)
@@ -94,7 +94,7 @@ export function useDiscover({ librarySongs, onAddSong }: UseDiscoverOptions) {
   }, [activeSongs.length, candidatePool, setActiveSongs])
 
   const saveSong = useCallback(
-    async (song: SearchResult) => {
+    async (song: CatalogTrack) => {
       if (!onAddSong || savingTrackId !== null) return
 
       setSavingTrackId(song.trackId)
