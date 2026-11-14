@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
 import { SongCover, type Song } from '@/features/songs'
-import type { Album } from '@/lib/api/types'
+import type { Album } from '../types'
 import { getAlbumCoverUrl, getAlbumSongs } from '../lib/album-songs'
 
 type AlbumCardProps = {

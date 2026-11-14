@@ -17,9 +17,9 @@ import {
   updateProfile,
   type User as FirebaseUser,
 } from 'firebase/auth'
-import { getErrorCode } from '../errors'
-import { firebaseAuth } from './firebase'
-import type { MusimobApi, SignInMethod, User } from './types'
+import { getErrorCode } from '@/lib/errors'
+import { firebaseAuth } from '@/lib/api/firebase'
+import type { SignInMethod, User } from '../types'
 
 const googleProvider = new GoogleAuthProvider()
 googleProvider.setCustomParameters({ prompt: 'select_account' })
@@ -131,7 +131,26 @@ async function reauthenticateWithGoogle(user: FirebaseUser): Promise<void> {
   }
 }
 
-export const authApi: MusimobApi['auth'] = {
+export type AuthApi = {
+  signInWithGoogle(): Promise<void>
+  signInWithEmailAndPassword(email: string, password: string): Promise<void>
+  createAccount(
+    email: string,
+    password: string,
+    displayName: string,
+  ): Promise<string>
+  sendPasswordResetEmail(email: string): Promise<void>
+  checkResetCode(oobCode: string): Promise<string>
+  resetPassword(oobCode: string, newPassword: string): Promise<void>
+  sendVerificationEmail(): Promise<void>
+  reloadUser(): Promise<User | null>
+  linkPassword(email: string, password: string): Promise<void>
+  signOut(): Promise<void>
+  onUserChanged(callback: (user: User | null) => void): () => void
+  resolveRedirect(): Promise<void>
+}
+
+export const authApi: AuthApi = {
   async signInWithGoogle() {
     try {
       await signInWithPopup(firebaseAuth, googleProvider)

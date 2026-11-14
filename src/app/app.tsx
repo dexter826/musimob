@@ -1,11 +1,13 @@
 import { useEffect } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
-import { useAlbums } from '@/features/albums/hooks/use-albums'
-import { ResetPasswordScreen } from '@/features/auth/components/reset-password-screen'
-import { SignInScreen } from '@/features/auth/components/sign-in-screen'
-import { VerifyEmailScreen } from '@/features/auth/components/verify-email-screen'
+import { useAlbums } from '@/features/albums'
+import {
+  ResetPasswordScreen,
+  SignInScreen,
+  VerifyEmailScreen,
+  type User,
+} from '@/features/auth'
 import { useSongs, useViewMode } from '@/features/songs'
-import type { User } from '@/lib/api/types'
 import { AlbumDetailPage } from './album-detail-page'
 import { AlbumsPage } from './albums-page'
 import { AppLayout } from './app-layout'

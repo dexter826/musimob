@@ -1,5 +1,5 @@
 import { ResponsivePanel } from '@/components/responsive-panel'
-import type { Album } from '@/lib/api/types'
+import type { Album } from '../types'
 import { AlbumNameForm } from './album-name-form'
 
 type CreateAlbumPanelProps = {

@@ -4,15 +4,15 @@ import { Plus } from 'lucide-react'
 import { toast } from 'sonner'
 import { ErrorAlert } from '@/components/error-alert'
 import { Button } from '@/components/ui/button'
-import type { useAlbums } from '@/features/albums/hooks/use-albums'
 import {
   AlbumGrid,
   AlbumGridSkeleton,
-} from '@/features/albums/components/album-grid'
-import { AlbumsEmptyState } from '@/features/albums/components/albums-empty-state'
-import { CreateAlbumPanel } from '@/features/albums/components/create-album-panel'
-import { getAlbumCountLabel } from '@/features/albums/lib/count-label'
-import { getSongsById } from '@/features/albums/lib/album-songs'
+  AlbumsEmptyState,
+  CreateAlbumPanel,
+  getAlbumCountLabel,
+  getSongsById,
+  type useAlbums,
+} from '@/features/albums'
 import type { useSongs } from '@/features/songs'
 import { useDocumentTitle } from '@/hooks/use-document-title'
 

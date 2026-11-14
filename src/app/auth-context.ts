@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react'
-import type { AuthState } from '@/features/auth/hooks/use-auth'
+import type { AuthState } from '@/features/auth'
 
 export const AuthContext = createContext<AuthState | null>(null)
 

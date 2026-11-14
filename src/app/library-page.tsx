@@ -14,8 +14,7 @@ import {
   type useSongs,
   type ViewMode,
 } from '@/features/songs'
-import { AlbumPicker } from '@/features/albums/components/album-picker'
-import type { useAlbums } from '@/features/albums/hooks/use-albums'
+import { AlbumPicker, type useAlbums } from '@/features/albums'
 import { SongSearch } from '@/features/catalog'
 import { songPreviewKey, useAudioPreview } from '@/features/audio-preview'
 import { LibrarySelectionBar } from './library-selection-bar'

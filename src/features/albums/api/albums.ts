@@ -13,9 +13,10 @@ import {
   updateDoc,
   writeBatch,
   type DocumentData,
+  type Unsubscribe,
 } from 'firebase/firestore'
-import { firebaseFirestore } from './firebase'
-import type { Album, MusimobApi } from './types'
+import { firebaseFirestore } from '@/lib/api/firebase'
+import type { Album } from '../types'
 
 function toSongIds(value: unknown): string[] {
   if (!Array.isArray(value)) return []
@@ -47,7 +48,20 @@ function toAlbum(id: string, data: DocumentData): Album {
   }
 }
 
-export const albumsApi: MusimobApi['albums'] = {
+export type AlbumsApi = {
+  subscribe(
+    uid: string,
+    callback: (albums: Album[]) => void,
+    onError?: (error: unknown) => void,
+  ): Unsubscribe
+  create(uid: string, name: string): Promise<string>
+  rename(uid: string, id: string, name: string): Promise<void>
+  remove(uid: string, id: string): Promise<void>
+  removeSong(uid: string, albumId: string, songId: string): Promise<void>
+  addSongs(uid: string, albumIds: string[], songIds: string[]): Promise<void>
+}
+
+export const albumsApi: AlbumsApi = {
   async rename(uid, id, name) {
     await updateDoc(doc(firebaseFirestore, 'users', uid, 'albums', id), {
       name: name.trim(),

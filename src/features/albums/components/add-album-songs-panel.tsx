@@ -7,7 +7,7 @@ import { SelectionCheckbox } from '@/components/selection-checkbox'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 import { SongRowView, type Song } from '@/features/songs'
-import type { Album } from '@/lib/api/types'
+import type { Album } from '../types'
 import { useAudioPreview } from '@/features/audio-preview'
 
 type AddAlbumSongsPanelProps = {

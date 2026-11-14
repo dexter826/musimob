@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router'
 import { PageShell } from '@/components/page-shell'
 import type { ViewMode } from '@/features/songs'
-import type { User } from '@/lib/api/types'
+import type { User } from '@/features/auth'
 import { useAudioPreview } from '@/features/audio-preview'
 import { AppHeader } from './app-header'
 

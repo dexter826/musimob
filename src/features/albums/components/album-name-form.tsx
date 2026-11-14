@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { Spinner } from '@/components/ui/spinner'
-import type { Album } from '@/lib/api/types'
+import type { Album } from '../types'
 import { getAlbumNameError, normalizeAlbumName } from '../lib/album-name'
 
 type AlbumNameFormProps = {

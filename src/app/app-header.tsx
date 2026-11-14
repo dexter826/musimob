@@ -1,7 +1,7 @@
 import { Link, NavLink, useLocation } from 'react-router'
 import { cn } from 'cn'
 import { Wordmark } from '@/components/wordmark'
-import { AvatarMenu } from '@/features/auth/components/avatar-menu'
+import { AvatarMenu } from '@/features/auth'
 import { ViewToggle, type ViewMode } from '@/features/songs'
 import { ThemeToggle } from './theme-toggle'
 

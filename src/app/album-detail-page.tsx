@@ -11,24 +11,22 @@ import {
   type Song,
   type useSongs,
 } from '@/features/songs'
-import { AddAlbumSongsPanel } from '@/features/albums/components/add-album-songs-panel'
-import { AlbumActionsMenu } from '@/features/albums/components/album-actions-menu'
-import { DeleteAlbumConfirm } from '@/features/albums/components/delete-album-confirm'
-import { RenameAlbumPanel } from '@/features/albums/components/rename-album-panel'
 import {
+  AddAlbumSongsPanel,
+  AlbumActionsMenu,
   AlbumDetailEmptyState,
   AlbumDetailNotFound,
   AlbumDetailSkeleton,
   AlbumSongsSkeleton,
-} from '@/features/albums/components/album-detail-states'
-import type { useAlbums } from '@/features/albums/hooks/use-albums'
-import {
+  DeleteAlbumConfirm,
   getAlbumCoverUrl,
   getAlbumSongs,
   getSongsById,
-} from '@/features/albums/lib/album-songs'
+  RenameAlbumPanel,
+  type Album,
+  type useAlbums,
+} from '@/features/albums'
 import { useDocumentTitle } from '@/hooks/use-document-title'
-import type { Album } from '@/lib/api/types'
 import { songPreviewKey, useAudioPreview } from '@/features/audio-preview'
 
 const ALBUMS_TITLE = 'MusiMOB: Album'

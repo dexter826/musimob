@@ -1,4 +1,4 @@
-import type { Album } from '@/lib/api/types'
+import type { Album } from '../types'
 
 export function normalizeAlbumName(name: string): string {
   return name.trim()

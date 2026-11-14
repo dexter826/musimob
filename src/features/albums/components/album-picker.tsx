@@ -8,7 +8,7 @@ import { SelectionCheckbox } from '@/components/selection-checkbox'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 import { SongCover, type Song } from '@/features/songs'
-import type { Album } from '@/lib/api/types'
+import type { Album } from '../types'
 import type { AlbumsStatus } from '../hooks/use-albums'
 import { AlbumNameForm } from './album-name-form'
 import {
