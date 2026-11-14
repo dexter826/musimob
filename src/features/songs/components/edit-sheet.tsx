@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { ResponsivePanel } from '@/components/responsive-panel'
-import { SongForm } from '@/components/song-form'
-import type { Song, SongPatch } from '@/lib/api/types'
+import { SongForm } from './song-form'
+import type { Song, SongPatch } from '../types'
 import { getSongKey } from '@/lib/song-key'
 
 type EditSheetProps = {

@@ -3,7 +3,7 @@ import { ResponsivePanel } from '@/components/responsive-panel'
 import { Button } from '@/components/ui/button'
 import { useAudioPreview } from '@/features/audio-preview'
 import { useIsMobile } from '@/hooks/use-mobile'
-import type { NewSong, Song } from '@/lib/api/types'
+import type { NewSong, Song } from '../types'
 import { ManualForm } from './manual-form'
 
 type SearchPanelProps = {

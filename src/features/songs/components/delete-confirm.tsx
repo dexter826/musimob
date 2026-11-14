@@ -11,7 +11,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
 import { Spinner } from '@/components/ui/spinner'
-import type { Song } from '@/lib/api/types'
+import type { Song } from '../types'
 
 type DeleteConfirmProps = {
   song: Song | null

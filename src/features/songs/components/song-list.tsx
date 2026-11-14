@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ErrorAlert } from '@/components/error-alert'
 import { Button } from '@/components/ui/button'
-import type { Song, SongPatch } from '@/lib/api/types'
+import type { Song, SongPatch } from '../types'
 import type { SongsStatus } from '../hooks/use-songs'
 import type { ViewMode } from '../hooks/use-view-mode'
 import { DeleteConfirm } from './delete-confirm'

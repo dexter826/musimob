@@ -1,4 +1,3 @@
-/* eslint-disable import/no-restricted-paths -- domain component to be moved to features/songs in ticket 03 */
 import type { MouseEvent, ReactNode } from 'react'
 import { cn } from 'cn'
 import {
@@ -6,9 +5,9 @@ import {
   songPreviewKey,
   useAudioPreview,
 } from '@/features/audio-preview'
-import { SongCover } from '@/components/song-cover'
 import { useScrollIntoViewWhenActive } from '@/hooks/use-scroll-into-view'
-import type { Song } from '@/lib/api/types'
+import type { Song } from '../types'
+import { SongCover } from './song-cover'
 
 type SongRowViewProps = {
   song: Song

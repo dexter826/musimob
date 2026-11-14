@@ -4,16 +4,19 @@ import { toast } from 'sonner'
 import { cn } from 'cn'
 import { ErrorAlert } from '@/components/error-alert'
 import { useDocumentTitle } from '@/hooks/use-document-title'
-import { AddSheet } from '@/features/add-song/components/add-sheet'
+import {
+  AddSheet,
+  getCountLabel,
+  LibraryToolbar,
+  SongList,
+  type NewSong,
+  type Song,
+  type useSongs,
+  type ViewMode,
+} from '@/features/songs'
 import { AlbumPicker } from '@/features/albums/components/album-picker'
 import type { useAlbums } from '@/features/albums/hooks/use-albums'
 import { SongSearch } from '@/features/catalog'
-import { LibraryToolbar } from '@/features/songs/components/library-toolbar'
-import { SongList } from '@/features/songs/components/song-list'
-import type { useSongs } from '@/features/songs/hooks/use-songs'
-import type { ViewMode } from '@/features/songs/hooks/use-view-mode'
-import { getCountLabel } from '@/features/songs/lib/count-label'
-import type { NewSong, Song } from '@/lib/api/types'
 import { songPreviewKey, useAudioPreview } from '@/features/audio-preview'
 import { LibrarySelectionBar } from './library-selection-bar'
 

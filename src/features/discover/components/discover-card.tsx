@@ -4,7 +4,7 @@ import {
   catalogPreviewKey,
   useAudioPreview,
 } from '@/features/audio-preview'
-import { SongCover } from '@/components/song-cover'
+import { SongCover } from '@/features/songs'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 import type { SearchResult } from '@/features/catalog'

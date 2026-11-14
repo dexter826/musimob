@@ -4,10 +4,10 @@ import {
   songPreviewKey,
   useAudioPreview,
 } from '@/features/audio-preview'
-import { SongCover } from '@/components/song-cover'
 import { SelectionCheckbox } from '@/components/selection-checkbox'
 import { useScrollIntoViewWhenActive } from '@/hooks/use-scroll-into-view'
-import type { Song } from '@/lib/api/types'
+import type { Song } from '../types'
+import { SongCover } from './song-cover'
 import { SongActionsMenu } from './song-actions-menu'
 
 type SongGridProps = {

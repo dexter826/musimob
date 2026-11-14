@@ -13,7 +13,7 @@ import { AlbumsEmptyState } from '@/features/albums/components/albums-empty-stat
 import { CreateAlbumPanel } from '@/features/albums/components/create-album-panel'
 import { getAlbumCountLabel } from '@/features/albums/lib/count-label'
 import { getSongsById } from '@/features/albums/lib/album-songs'
-import type { useSongs } from '@/features/songs/hooks/use-songs'
+import type { useSongs } from '@/features/songs'
 import { useDocumentTitle } from '@/hooks/use-document-title'
 
 const ALBUMS_TITLE = 'MusiMOB: Album'

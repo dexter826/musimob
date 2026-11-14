@@ -11,20 +11,6 @@ export type User = {
   signInMethods: SignInMethod[]
 }
 
-export type Song = {
-  id: string
-  title: string
-  artist: string
-  coverUrl: string
-  previewUrl: string
-  sourceId?: number
-  createdAt: Timestamp
-  updatedAt: Timestamp
-}
-
-export type NewSong = Omit<Song, 'id' | 'createdAt' | 'updatedAt'>
-
-export type SongPatch = Partial<Pick<Song, 'title' | 'artist' | 'coverUrl'>>
 
 export type Album = {
   id: string
@@ -62,17 +48,6 @@ export type MusimobApi = {
     signOut(): Promise<void>
     onUserChanged(callback: (user: User | null) => void): () => void
     resolveRedirect(): Promise<void>
-  }
-  songs: {
-    subscribe(
-      uid: string,
-      callback: (songs: Song[]) => void,
-      onError?: (error: unknown) => void,
-    ): () => void
-    add(uid: string, song: NewSong): Promise<string>
-    restore(uid: string, song: Song): Promise<void>
-    update(uid: string, id: string, patch: SongPatch): Promise<void>
-    remove(uid: string, id: string): Promise<void>
   }
   albums: {
     subscribe(

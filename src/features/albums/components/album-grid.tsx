@@ -1,4 +1,5 @@
-import type { Album, Song } from '@/lib/api/types'
+import type { Song } from '@/features/songs'
+import type { Album } from '@/lib/api/types'
 import { AlbumCard } from './album-card'
 
 type AlbumGridProps = {

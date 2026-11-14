@@ -3,10 +3,14 @@ import { Link, useNavigate, useParams } from 'react-router'
 import { ArrowLeft, ListMinus, Plus } from 'lucide-react'
 import { toast } from 'sonner'
 import { ErrorAlert } from '@/components/error-alert'
-import { SongCover } from '@/components/song-cover'
-import { SongRowView } from '@/components/song-row-view'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
+import {
+  SongCover,
+  SongRowView,
+  type Song,
+  type useSongs,
+} from '@/features/songs'
 import { AddAlbumSongsPanel } from '@/features/albums/components/add-album-songs-panel'
 import { AlbumActionsMenu } from '@/features/albums/components/album-actions-menu'
 import { DeleteAlbumConfirm } from '@/features/albums/components/delete-album-confirm'
@@ -23,9 +27,8 @@ import {
   getAlbumSongs,
   getSongsById,
 } from '@/features/albums/lib/album-songs'
-import type { useSongs } from '@/features/songs/hooks/use-songs'
 import { useDocumentTitle } from '@/hooks/use-document-title'
-import type { Album, Song } from '@/lib/api/types'
+import type { Album } from '@/lib/api/types'
 import { songPreviewKey, useAudioPreview } from '@/features/audio-preview'
 
 const ALBUMS_TITLE = 'MusiMOB: Album'

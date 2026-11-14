@@ -1,6 +1,5 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from 'react'
 import { ErrorAlert } from '@/components/error-alert'
-import { SongCover } from '@/components/song-cover'
 import { Button } from '@/components/ui/button'
 import {
   Field,
@@ -10,6 +9,7 @@ import {
 } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { Spinner } from '@/components/ui/spinner'
+import { SongCover } from './song-cover'
 
 export type SongFormValues = {
   title: string

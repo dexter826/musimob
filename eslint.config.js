@@ -53,19 +53,19 @@ export default tseslint.config(
               except: ['./songs', './audio-preview', './catalog'],
             },
             {
-              target: './src/features/add-song',
-              from: './src/features',
-              except: ['./add-song', './audio-preview', './catalog'],
-            },
-            {
               target: './src/features/catalog',
               from: './src/features',
-              except: ['./catalog', './audio-preview'],
+              except: ['./catalog', './audio-preview', './songs'],
             },
             {
               target: './src/features/discover',
               from: './src/features',
-              except: ['./discover', './audio-preview', './catalog'],
+              except: ['./discover', './audio-preview', './catalog', './songs'],
+            },
+            {
+              target: './src/features/albums',
+              from: './src/features',
+              except: ['./albums', './audio-preview', './songs'],
             },
             { target: './src/features', from: './src/app' },
             {

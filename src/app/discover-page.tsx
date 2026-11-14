@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { DiscoverGrid } from '@/features/discover/components/discover-grid'
 import { DiscoverSkeleton } from '@/features/discover/components/discover-skeleton'
 import { useDiscover } from '@/features/discover/hooks/use-discover'
-import type { useSongs } from '@/features/songs/hooks/use-songs'
+import type { useSongs } from '@/features/songs'
 
 const DISCOVER_TITLE = 'MusiMOB: Khám phá'
 

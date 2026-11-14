@@ -11,10 +11,11 @@ import {
   setDoc,
   updateDoc,
   type DocumentData,
+  type Unsubscribe,
   type UpdateData,
 } from 'firebase/firestore'
-import { firebaseFirestore } from './firebase'
-import type { MusimobApi, Song } from './types'
+import { firebaseFirestore } from '@/lib/api/firebase'
+import type { NewSong, Song, SongPatch } from '../types'
 
 function toSong(id: string, data: DocumentData): Song {
   const createdAt =
@@ -34,7 +35,19 @@ function toSong(id: string, data: DocumentData): Song {
   }
 }
 
-export const songsApi: MusimobApi['songs'] = {
+export type SongsApi = {
+  subscribe(
+    uid: string,
+    callback: (songs: Song[]) => void,
+    onError?: (error: unknown) => void,
+  ): Unsubscribe
+  add(uid: string, song: NewSong): Promise<string>
+  restore(uid: string, song: Song): Promise<void>
+  update(uid: string, id: string, patch: SongPatch): Promise<void>
+  remove(uid: string, id: string): Promise<void>
+}
+
+export const songsApi: SongsApi = {
   subscribe(uid, callback, onError) {
     const songsQuery = query(
       collection(firebaseFirestore, 'users', uid, 'songs'),

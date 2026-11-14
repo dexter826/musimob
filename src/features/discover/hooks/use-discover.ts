@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { discoverApi, searchApi, type SearchResult } from '@/features/catalog'
-import type { NewSong, Song } from '@/lib/api/types'
+import type { NewSong, Song } from '@/features/songs'
 import {
   interleaveAndDeduplicate,
   sampleLibraryArtists,

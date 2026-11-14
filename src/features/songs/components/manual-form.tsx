@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
-import { SongForm } from '@/components/song-form'
-import type { NewSong, Song } from '@/lib/api/types'
 import { getSongKey } from '@/lib/song-key'
+import type { NewSong, Song } from '../types'
+import { SongForm } from './song-form'
 
 type ManualFormProps = {
   initialTitle: string
