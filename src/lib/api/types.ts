@@ -1,9 +1,14 @@
 import type { Timestamp } from 'firebase/firestore'
 
+export type SignInMethod = 'google' | 'password'
+
 export type User = {
   uid: string
   displayName: string
   photoURL: string | null
+  email: string | null
+  emailVerified: boolean
+  signInMethods: SignInMethod[]
 }
 
 export type Song = {
@@ -42,6 +47,18 @@ export type SearchResult = {
 export type MusimobApi = {
   auth: {
     signInWithGoogle(): Promise<void>
+    signInWithEmailAndPassword(email: string, password: string): Promise<void>
+    createAccount(
+      email: string,
+      password: string,
+      displayName: string,
+    ): Promise<string>
+    sendPasswordResetEmail(email: string): Promise<void>
+    checkResetCode(oobCode: string): Promise<string>
+    resetPassword(oobCode: string, newPassword: string): Promise<void>
+    sendVerificationEmail(): Promise<void>
+    reloadUser(): Promise<User | null>
+    linkPassword(email: string, password: string): Promise<void>
     signOut(): Promise<void>
     onUserChanged(callback: (user: User | null) => void): () => void
     resolveRedirect(): Promise<void>

@@ -38,7 +38,7 @@ _Sổ tay âm nhạc cá nhân: tra cứu, lưu trữ và nghe thử bài hát t
 - **Tra cứu và lưu bài**: Tìm kiếm bản nhạc từ iTunes Search API hoặc nhập thủ công; tự động kiểm tra bài đã có trong Thư viện để ngăn lưu trùng lặp.
 - **Quản lý Album**: Gom nhóm bài hát theo chủ đề; hỗ trợ chọn nhiều bài hát (bulk selection) để thêm vào hoặc gỡ khỏi Album.
 - **Xóa và khôi phục**: Gỡ bỏ bài hát khỏi Thư viện kèm thông báo thông tin với nút hoàn tác (Undo) khôi phục bài ngay lập tức.
-- **Xác thực người dùng**: Đăng nhập qua tài khoản Google với Firebase Authentication; phân lập dữ liệu Thư viện và Album theo từng người dùng.
+- **Xác thực người dùng**: Đăng nhập bằng Google hoặc bằng Email và Mật khẩu với Firebase Authentication; phân lập dữ liệu Thư viện và Album theo từng người dùng.
 - **Bộ nhớ đệm ngoại tuyến**: Cấu hình `persistentLocalCache` và quản lý đa tab (`persistentMultipleTabManager`) trên Cloud Firestore, duy trì trạng thái dữ liệu khi chuyển tab hoặc mất kết nối tạm thời.
 - **Giao diện sáng / tối**: Chuyển đổi linh hoạt giữa giao diện Sáng (Light), Tối (Dark) hoặc tự động theo cấu hình hệ điều hành.
 
@@ -54,7 +54,7 @@ flowchart LR
 
     subgraph External["Dịch vụ ngoài & Backend"]
         iTunes["iTunes Search API\n(Tra cứu & URL nghe thử)"]
-        Auth["Firebase Authentication\n(Xác thực Google)"]
+        Auth["Firebase Authentication\n(Xác thực Google, Email/Mật khẩu)"]
         Firestore[("Cloud Firestore\n(Thư viện, Album, Cache đa tab)")]
     end
 
@@ -70,7 +70,7 @@ flowchart LR
 - **Frontend core**: React 19, TypeScript 5.9, Vite 8, Tailwind CSS v4.
 - **Định tuyến & Dữ liệu**: React Router v7, TanStack React Query v5.
 - **Thành phần giao diện**: Radix UI, Base UI, Lucide React, Sonner (toast), Vaul (drawer), CMDK.
-- **Backend & Lưu trữ**: Firebase Authentication (Google Auth), Cloud Firestore (Persistent Cache), Firebase Hosting.
+- **Backend & Lưu trữ**: Firebase Authentication (Google Auth, Email/Password), Cloud Firestore (Persistent Cache), Firebase Hosting.
 - **Nguồn dữ liệu ngoài**: iTunes Search API.
 
 ## Bắt đầu nhanh

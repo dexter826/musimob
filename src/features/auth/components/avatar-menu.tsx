@@ -1,4 +1,5 @@
 import { useState, type MouseEvent } from 'react'
+import { toast } from 'sonner'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,21 +20,30 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Spinner } from '@/components/ui/spinner'
+import { AddPasswordDialog } from './add-password-dialog'
 
 type AvatarMenuProps = {
   displayName: string
   photoURL: string | null
+  email: string | null
+  hasPassword: boolean
+  onAddPassword: (password: string) => Promise<string | null>
   onSignOut: () => Promise<void>
 }
 
 export function AvatarMenu({
   displayName,
   photoURL,
+  email,
+  hasPassword,
+  onAddPassword,
   onSignOut,
 }: AvatarMenuProps) {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false)
   const [isSigningOut, setIsSigningOut] = useState(false)
+  const [isPasswordOpen, setIsPasswordOpen] = useState(false)
   const initial = displayName.trim().charAt(0).toUpperCase() || 'B'
+  const canAddPassword = Boolean(email) && !hasPassword
 
   async function handleSignOut(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
@@ -47,6 +57,18 @@ export function AvatarMenu({
     } finally {
       setIsSigningOut(false)
     }
+  }
+
+  async function handleAddPassword(password: string): Promise<string | null> {
+    const message = await onAddPassword(password)
+
+    if (message) return message
+
+    toast.success('Đã thêm mật khẩu', {
+      description: 'Hãy đăng nhập bằng email và mật khẩu.',
+    })
+
+    return null
   }
 
   return (
@@ -75,6 +97,14 @@ export function AvatarMenu({
             {displayName}
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
+          {canAddPassword ? (
+            <DropdownMenuItem
+              onSelect={() => setIsPasswordOpen(true)}
+              className="min-h-11 py-2 text-sm font-medium"
+            >
+              Thêm mật khẩu
+            </DropdownMenuItem>
+          ) : null}
           <DropdownMenuItem
             onSelect={() => setIsConfirmOpen(true)}
             className="min-h-11 py-2 text-sm font-medium"
@@ -83,6 +113,15 @@ export function AvatarMenu({
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+
+      {canAddPassword ? (
+        <AddPasswordDialog
+          open={isPasswordOpen}
+          email={email ?? ''}
+          onOpenChange={setIsPasswordOpen}
+          onSubmit={handleAddPassword}
+        />
+      ) : null}
 
       <AlertDialog
         open={isConfirmOpen}

@@ -1,7 +1,9 @@
 import { useEffect } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
 import { useAlbums } from '@/features/albums/hooks/use-albums'
+import { ResetPasswordScreen } from '@/features/auth/components/reset-password-screen'
 import { SignInScreen } from '@/features/auth/components/sign-in-screen'
+import { VerifyEmailScreen } from '@/features/auth/components/verify-email-screen'
 import { useSongs } from '@/features/songs/hooks/use-songs'
 import { useViewMode } from '@/features/songs/hooks/use-view-mode'
 import type { User } from '@/lib/api/types'
@@ -17,63 +19,82 @@ const APP_TITLE = 'MusiMOB'
 type SignedInAppProps = {
   user: User
   authError: string | null
+  onAddPassword: (password: string) => Promise<string | null>
   onSignOut: () => Promise<void>
 }
 
-function SignedInApp({ user, authError, onSignOut }: SignedInAppProps) {
+function SignedInApp({
+  user,
+  authError,
+  onAddPassword,
+  onSignOut,
+}: SignedInAppProps) {
   const songsState = useSongs(user.uid)
   const albumsState = useAlbums(user.uid)
   const { viewMode, toggleViewMode } = useViewMode()
 
   return (
-    <BrowserRouter>
-      <Routes>
+    <Routes>
+      <Route
+        element={
+          <AppLayout
+            user={user}
+            viewMode={viewMode}
+            onToggleView={toggleViewMode}
+            onAddPassword={onAddPassword}
+            onSignOut={onSignOut}
+          />
+        }
+      >
         <Route
+          index
           element={
-            <AppLayout
-              user={user}
+            <LibraryPage
+              authError={authError}
               viewMode={viewMode}
-              onToggleView={toggleViewMode}
-              onSignOut={onSignOut}
+              songsState={songsState}
+              albumsState={albumsState}
             />
           }
-        >
-          <Route
-            index
-            element={
-              <LibraryPage
-                authError={authError}
-                viewMode={viewMode}
-                songsState={songsState}
-                albumsState={albumsState}
-              />
-            }
-          />
-          <Route
-            path="albums"
-            element={
-              <AlbumsPage albumsState={albumsState} songsState={songsState} />
-            }
-          />
-          <Route
-            path="albums/:albumId"
-            element={
-              <AlbumDetailPage
-                albumsState={albumsState}
-                songsState={songsState}
-              />
-            }
-          />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        />
+        <Route
+          path="albums"
+          element={
+            <AlbumsPage albumsState={albumsState} songsState={songsState} />
+          }
+        />
+        <Route
+          path="albums/:albumId"
+          element={
+            <AlbumDetailPage
+              albumsState={albumsState}
+              songsState={songsState}
+            />
+          }
+        />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Route>
+    </Routes>
   )
 }
 
-export function App() {
-  const { user, isAuthLoading, isSigningIn, error, signIn, signOut } =
-    useAuthContext()
+function AppGate() {
+  const {
+    user,
+    isAuthLoading,
+    pending,
+    error,
+    needsVerification,
+    signInWithGoogle,
+    signInWithEmail,
+    createAccount,
+    sendResetEmail,
+    resendVerification,
+    reloadUser,
+    linkPassword,
+    signOut,
+    clearError,
+  } = useAuthContext()
 
   useEffect(() => {
     if (!user) document.title = APP_TITLE
@@ -85,7 +106,28 @@ export function App() {
 
   if (!user) {
     return (
-      <SignInScreen isSigningIn={isSigningIn} error={error} onSignIn={signIn} />
+      <SignInScreen
+        pending={pending}
+        error={error}
+        onSignInWithGoogle={signInWithGoogle}
+        onSignInWithEmail={signInWithEmail}
+        onCreateAccount={createAccount}
+        onSendResetEmail={sendResetEmail}
+        onClearError={clearError}
+      />
+    )
+  }
+
+  if (needsVerification) {
+    return (
+      <VerifyEmailScreen
+        email={user.email}
+        pending={pending}
+        error={error}
+        onResend={resendVerification}
+        onCheck={reloadUser}
+        onSignOut={signOut}
+      />
     )
   }
 
@@ -94,7 +136,31 @@ export function App() {
       key={user.uid}
       user={user}
       authError={error}
+      onAddPassword={(password) => linkPassword(user.email ?? '', password)}
       onSignOut={signOut}
     />
+  )
+}
+
+export function App() {
+  const { pending, error, checkResetCode, resetPassword } = useAuthContext()
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/reset-password"
+          element={
+            <ResetPasswordScreen
+              error={error}
+              isSubmitting={pending === 'reset'}
+              onCheckCode={checkResetCode}
+              onResetPassword={resetPassword}
+            />
+          }
+        />
+        <Route path="*" element={<AppGate />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
