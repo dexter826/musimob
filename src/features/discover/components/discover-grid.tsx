@@ -3,14 +3,12 @@ import { DiscoverCard } from './discover-card'
 
 type DiscoverGridProps = {
   songs: SearchResult[]
-  isSaved?: (song: SearchResult) => boolean
   isSavingId?: number | null
   onSave?: (song: SearchResult) => void
 }
 
 export function DiscoverGrid({
   songs,
-  isSaved,
   isSavingId,
   onSave,
 }: DiscoverGridProps) {
@@ -21,7 +19,6 @@ export function DiscoverGrid({
           key={`${song.trackId}-${index}`}
           song={song}
           index={index}
-          isSaved={isSaved ? isSaved(song) : false}
           isSaving={isSavingId === song.trackId}
           onSave={onSave}
         />

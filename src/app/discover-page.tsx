@@ -38,7 +38,7 @@ export function DiscoverPage({ songsState }: DiscoverPageProps) {
             Khám phá
           </h1>
           <p className="mt-2 text-xs font-medium text-muted-foreground tabular-nums">
-            Gợi ý ngẫu nhiên từ kho nhạc và ca sĩ đã lưu
+            12 bản nhạc kho ngoài
           </p>
         </div>
 

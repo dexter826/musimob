@@ -1,20 +1,17 @@
 import type { SearchResult, Song } from '@/lib/api/types'
+import { getSongKey } from '@/lib/song-key'
 
 export function isSongDuplicate(
   candidate: SearchResult,
   librarySongs: Song[],
 ): boolean {
-  const normTitle = candidate.title.toLowerCase().trim()
-  const normArtist = candidate.artist.toLowerCase().trim()
+  const candidateKey = getSongKey(candidate.title, candidate.artist)
 
   return librarySongs.some((libSong) => {
     if (libSong.sourceId && libSong.sourceId === candidate.trackId) {
       return true
     }
-    return (
-      libSong.title.toLowerCase().trim() === normTitle &&
-      libSong.artist.toLowerCase().trim() === normArtist
-    )
+    return getSongKey(libSong.title, libSong.artist) === candidateKey
   })
 }
 
@@ -25,9 +22,32 @@ export function sampleLibraryArtists(songs: Song[], maxArtists = 3): string[] {
   if (uniqueArtists.length <= maxArtists) {
     return uniqueArtists
   }
-  // Xáo trộn ngẫu nhiên và chọn tối đa maxArtists
-  const shuffled = [...uniqueArtists].sort(() => Math.random() - 0.5)
-  return shuffled.slice(0, maxArtists)
+
+  // Lấy các nghệ sĩ có nhiều bài hát nhất trong thư viện (thứ tự ổn định, tránh đổi query key liên tục)
+  const artistCounts = new Map<string, number>()
+  for (const song of songs) {
+    const artist = song.artist.trim()
+    if (artist) {
+      artistCounts.set(artist, (artistCounts.get(artist) ?? 0) + 1)
+    }
+  }
+
+  return Array.from(artistCounts.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, maxArtists)
+    .map(([artist]) => artist)
+}
+
+function tryAddCandidate(
+  item: SearchResult,
+  seenTrackIds: Set<number>,
+  librarySongs: Song[],
+  destination: SearchResult[],
+) {
+  if (!seenTrackIds.has(item.trackId) && !isSongDuplicate(item, librarySongs)) {
+    seenTrackIds.add(item.trackId)
+    destination.push(item)
+  }
 }
 
 export function interleaveAndDeduplicate(
@@ -38,42 +58,20 @@ export function interleaveAndDeduplicate(
   const seenTrackIds = new Set<number>()
   const result: SearchResult[] = []
 
-  // Nếu không có bài theo ca sĩ (ví dụ thư viện trống), duyệt hoàn toàn từ bài phổ biến
   if (artistSongs.length === 0) {
     for (const item of popularSongs) {
-      if (
-        !seenTrackIds.has(item.trackId) &&
-        !isSongDuplicate(item, librarySongs)
-      ) {
-        seenTrackIds.add(item.trackId)
-        result.push(item)
-      }
+      tryAddCandidate(item, seenTrackIds, librarySongs, result)
     }
     return result
   }
 
-  // Nếu có cả 2 nguồn, xen kẽ 1 bài theo ca sĩ và 1 bài phổ biến
   const maxLen = Math.max(popularSongs.length, artistSongs.length)
   for (let i = 0; i < maxLen; i++) {
     if (i < artistSongs.length) {
-      const item = artistSongs[i]
-      if (
-        !seenTrackIds.has(item.trackId) &&
-        !isSongDuplicate(item, librarySongs)
-      ) {
-        seenTrackIds.add(item.trackId)
-        result.push(item)
-      }
+      tryAddCandidate(artistSongs[i], seenTrackIds, librarySongs, result)
     }
     if (i < popularSongs.length) {
-      const item = popularSongs[i]
-      if (
-        !seenTrackIds.has(item.trackId) &&
-        !isSongDuplicate(item, librarySongs)
-      ) {
-        seenTrackIds.add(item.trackId)
-        result.push(item)
-      }
+      tryAddCandidate(popularSongs[i], seenTrackIds, librarySongs, result)
     }
   }
 

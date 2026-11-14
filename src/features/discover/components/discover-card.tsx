@@ -10,7 +10,6 @@ import { catalogPreviewKey } from '@/lib/preview-key'
 type DiscoverCardProps = {
   song: SearchResult
   index: number
-  isSaved?: boolean
   isSaving?: boolean
   onSave?: (song: SearchResult) => void
 }
@@ -18,7 +17,6 @@ type DiscoverCardProps = {
 export function DiscoverCard({
   song,
   index,
-  isSaved = false,
   isSaving = false,
   onSave,
 }: DiscoverCardProps) {
@@ -39,7 +37,7 @@ export function DiscoverCard({
         {isActive ? (
           <span
             aria-hidden="true"
-            className="absolute top-0 left-2.5 h-[26px] w-3.5 bg-primary [clip-path:polygon(0_0,100%_0,100%_100%,50%_78%,0_100%)] shadow-sm"
+            className="absolute top-0 left-2.5 h-[26px] w-3.5 bg-primary [clip-path:polygon(0_0,100%_0,100%_100%,50%_78%,0_100%)]"
           />
         ) : null}
 
@@ -52,7 +50,7 @@ export function DiscoverCard({
             playKey={catalogPreviewKey(song.trackId)}
             title={song.title}
             artist={song.artist}
-            className="absolute right-1.5 bottom-1.5 size-7 shadow-md"
+            className="absolute right-1.5 bottom-1.5 size-7"
           />
         </span>
 
@@ -61,26 +59,12 @@ export function DiscoverCard({
             <Button
               type="button"
               size="sm"
-              variant={isSaved ? 'outline' : 'default'}
-              disabled={isSaved || isSaving}
+              disabled={isSaving}
               onClick={() => onSave(song)}
-              aria-label={
-                isSaved
-                  ? `Đã lưu ${song.title}`
-                  : `Lưu ${song.title}, ${song.artist}`
-              }
-              className={cn(
-                'h-7 px-2 text-xs font-semibold shadow-sm transition-transform active:scale-95',
-                isSaved && 'bg-surface/90 text-muted-foreground',
-              )}
+              aria-label={`Lưu ${song.title}, ${song.artist}`}
+              className="h-8 min-w-11 px-2.5 text-xs font-semibold"
             >
-              {isSaving ? (
-                <Spinner className="size-3" />
-              ) : isSaved ? (
-                'Đã lưu'
-              ) : (
-                'Lưu bài'
-              )}
+              {isSaving ? <Spinner className="size-3" /> : 'Lưu bài'}
             </Button>
           </div>
         ) : null}

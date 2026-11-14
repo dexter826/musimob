@@ -91,7 +91,7 @@ export const searchApi: MusimobApi['search'] = {
     }
 
     if (!response.ok) {
-      throw new SearchError(`Nguồn nhạc trả lỗi ${response.status}.`)
+      throw new SearchError('Không thể tải bài hát từ nguồn nhạc. Thử lại sau.')
     }
 
     let payload: CatalogResponse
@@ -195,7 +195,7 @@ export const discoverApi = {
     }
 
     if (!response.ok) {
-      throw new SearchError(`Nguồn nhạc trả lỗi ${response.status}.`)
+      throw new SearchError('Không thể tải bài hát từ nguồn nhạc. Thử lại sau.')
     }
 
     let payload: { feed?: { entry?: unknown } }
