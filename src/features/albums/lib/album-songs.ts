@@ -1,4 +1,5 @@
-import type { Album, Song } from '@/lib/api/types'
+import type { Song } from '@/features/songs'
+import type { Album } from '../types'
 
 export function getSongsById(songs: Song[]): Map<string, Song> {
   return new Map(songs.map((song) => [song.id, song]))

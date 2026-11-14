@@ -4,11 +4,11 @@ import { ErrorAlert } from '@/components/error-alert'
 import { ResponsivePanel } from '@/components/responsive-panel'
 import { SearchField } from '@/components/search-field'
 import { SelectionCheckbox } from '@/components/selection-checkbox'
-import { SongRowView } from '@/components/song-row-view'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
-import type { Album, Song } from '@/lib/api/types'
-import { useAudioPreview } from '@/lib/audio-preview-context'
+import { SongRowView, type Song } from '@/features/songs'
+import type { Album } from '../types'
+import { useAudioPreview } from '@/features/audio-preview'
 
 type AddAlbumSongsPanelProps = {
   album: Album

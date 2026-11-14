@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { albumsApi } from '@/lib/api/albums'
-import type { Album } from '@/lib/api/types'
+import { albumsApi } from '../api/albums'
+import type { Album } from '../types'
 import { getErrorCode } from '@/lib/errors'
 
 export type AlbumsStatus =

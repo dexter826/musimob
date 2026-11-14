@@ -1,17 +1,19 @@
 import { cn } from 'cn'
-import { PreviewButton } from '@/components/preview-button'
-import { SongCover } from '@/components/song-cover'
+import {
+  PreviewButton,
+  catalogPreviewKey,
+  useAudioPreview,
+} from '@/features/audio-preview'
+import { SongCover } from '@/features/songs'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
-import type { SearchResult } from '@/lib/api/types'
-import { useAudioPreview } from '@/lib/audio-preview-context'
-import { catalogPreviewKey } from '@/lib/preview-key'
+import type { CatalogTrack } from '@/features/catalog'
 
 type DiscoverCardProps = {
-  song: SearchResult
+  song: CatalogTrack
   index: number
   isSaving?: boolean
-  onSave?: (song: SearchResult) => void
+  onSave?: (song: CatalogTrack) => void
 }
 
 export function DiscoverCard({

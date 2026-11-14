@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { toast } from 'sonner'
-import { authApi } from '@/lib/api/auth'
-import type { User } from '@/lib/api/types'
+import { authApi } from '../api/auth'
+import type { User } from '../types'
 import { isVerificationSkipped, skipVerification } from '../lib/verification'
 
 export type PendingAction =

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { songsApi } from '@/lib/api/songs'
-import type { NewSong, Song, SongPatch } from '@/lib/api/types'
+import { songsApi } from '../api/songs'
+import type { NewSong, Song, SongPatch } from '../types'
 import { getErrorCode } from '@/lib/errors'
 
 export type SongsStatus =

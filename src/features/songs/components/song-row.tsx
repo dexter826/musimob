@@ -1,6 +1,6 @@
-import { SongRowView } from '@/components/song-row-view'
 import { SelectionCheckbox } from '@/components/selection-checkbox'
-import type { Song } from '@/lib/api/types'
+import type { Song } from '../types'
+import { SongRowView } from './song-row-view'
 import { SongActionsMenu } from './song-actions-menu'
 
 type SongRowProps = {

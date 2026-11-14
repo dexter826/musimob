@@ -1,10 +1,10 @@
-import type { SearchResult } from '@/lib/api/types'
+import type { CatalogTrack } from '@/features/catalog'
 import { DiscoverCard } from './discover-card'
 
 type DiscoverGridProps = {
-  songs: SearchResult[]
+  songs: CatalogTrack[]
   isSavingId?: number | null
-  onSave?: (song: SearchResult) => void
+  onSave?: (song: CatalogTrack) => void
 }
 
 export function DiscoverGrid({ songs, isSavingId, onSave }: DiscoverGridProps) {

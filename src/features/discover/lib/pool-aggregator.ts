@@ -1,8 +1,9 @@
-import type { SearchResult, Song } from '@/lib/api/types'
+import type { CatalogTrack } from '@/features/catalog'
+import type { Song } from '@/features/songs'
 import { getSongKey } from '@/lib/song-key'
 
 export function isSongDuplicate(
-  candidate: SearchResult,
+  candidate: CatalogTrack,
   librarySongs: Song[],
 ): boolean {
   const candidateKey = getSongKey(candidate.title, candidate.artist)
@@ -39,10 +40,10 @@ export function sampleLibraryArtists(songs: Song[], maxArtists = 3): string[] {
 }
 
 function tryAddCandidate(
-  item: SearchResult,
+  item: CatalogTrack,
   seenTrackIds: Set<number>,
   librarySongs: Song[],
-  destination: SearchResult[],
+  destination: CatalogTrack[],
 ) {
   if (!seenTrackIds.has(item.trackId) && !isSongDuplicate(item, librarySongs)) {
     seenTrackIds.add(item.trackId)
@@ -51,12 +52,12 @@ function tryAddCandidate(
 }
 
 export function interleaveAndDeduplicate(
-  popularSongs: SearchResult[],
-  artistSongs: SearchResult[],
+  popularSongs: CatalogTrack[],
+  artistSongs: CatalogTrack[],
   librarySongs: Song[],
-): SearchResult[] {
+): CatalogTrack[] {
   const seenTrackIds = new Set<number>()
-  const result: SearchResult[] = []
+  const result: CatalogTrack[] = []
 
   if (artistSongs.length === 0) {
     for (const item of popularSongs) {

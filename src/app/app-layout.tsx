@@ -1,25 +1,33 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router'
 import { PageShell } from '@/components/page-shell'
-import type { ViewMode } from '@/features/songs/hooks/use-view-mode'
-import type { User } from '@/lib/api/types'
-import { useAudioPreview } from '@/lib/audio-preview-context'
+import { useAudioPreview } from '@/features/audio-preview'
+import type { User } from '@/features/auth'
+import type { useSongs, ViewMode } from '@/features/songs'
+import type { useAlbums } from '@/features/albums'
 import { AppHeader } from './app-header'
+import type { AppOutletContext } from './app-outlet-context'
 
 type AppLayoutProps = {
   user: User
+  authError: string | null
   viewMode: ViewMode
   onToggleView: () => void
   onAddPassword: (password: string) => Promise<string | null>
   onSignOut: () => Promise<void>
+  songsState: ReturnType<typeof useSongs>
+  albumsState: ReturnType<typeof useAlbums>
 }
 
 export function AppLayout({
   user,
+  authError,
   viewMode,
   onToggleView,
   onAddPassword,
   onSignOut,
+  songsState,
+  albumsState,
 }: AppLayoutProps) {
   const { pathname } = useLocation()
   const { stop } = useAudioPreview()
@@ -27,6 +35,14 @@ export function AppLayout({
   useEffect(() => {
     return stop
   }, [pathname, stop])
+
+  const contextValue: AppOutletContext = {
+    user,
+    authError,
+    viewMode,
+    songsState,
+    albumsState,
+  }
 
   return (
     <PageShell>
@@ -44,7 +60,7 @@ export function AppLayout({
         onSignOut={onSignOut}
       />
       <main id="main-content" tabIndex={-1} className="flex flex-1 flex-col">
-        <Outlet />
+        <Outlet context={contextValue} />
       </main>
     </PageShell>
   )
