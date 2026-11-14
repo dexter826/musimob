@@ -7,33 +7,21 @@ import { useDocumentTitle } from '@/hooks/use-document-title'
 import {
   AddSheet,
   getCountLabel,
+  LibrarySelectionBar,
   LibraryToolbar,
   SongList,
   type NewSong,
   type Song,
-  type useSongs,
-  type ViewMode,
 } from '@/features/songs'
-import { AlbumPicker, type useAlbums } from '@/features/albums'
+import { AlbumPicker } from '@/features/albums'
 import { SongSearch } from '@/features/catalog'
 import { songPreviewKey, useAudioPreview } from '@/features/audio-preview'
-import { LibrarySelectionBar } from './library-selection-bar'
+import { useAppOutletContext } from './app-outlet-context'
 
 const SONGS_TITLE = 'MusiMOB: Thư viện'
 
-type LibraryPageProps = {
-  authError: string | null
-  viewMode: ViewMode
-  songsState: ReturnType<typeof useSongs>
-  albumsState: ReturnType<typeof useAlbums>
-}
-
-export function LibraryPage({
-  authError,
-  viewMode,
-  songsState,
-  albumsState,
-}: LibraryPageProps) {
+export function LibraryRoute() {
+  const { authError, viewMode, songsState, albumsState } = useAppOutletContext()
   const [isAddOpen, setIsAddOpen] = useState(false)
   const [addSeed, setAddSeed] = useState('')
   const [filterQuery, setFilterQuery] = useState('')

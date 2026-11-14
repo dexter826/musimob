@@ -8,6 +8,7 @@ export { AddSheet } from './components/add-sheet'
 export { EditSheet } from './components/edit-sheet'
 export { DeleteConfirm } from './components/delete-confirm'
 export { LibraryToolbar } from './components/library-toolbar'
+export { LibrarySelectionBar } from './components/library-selection-bar'
 export { EmptyState } from './components/empty-state'
 export { ViewToggle } from './components/view-toggle'
 

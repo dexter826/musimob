@@ -9,7 +9,6 @@ import {
   SongCover,
   SongRowView,
   type Song,
-  type useSongs,
 } from '@/features/songs'
 import {
   AddAlbumSongsPanel,
@@ -24,28 +23,20 @@ import {
   getSongsById,
   RenameAlbumPanel,
   type Album,
-  type useAlbums,
 } from '@/features/albums'
 import { useDocumentTitle } from '@/hooks/use-document-title'
 import { songPreviewKey, useAudioPreview } from '@/features/audio-preview'
+import { useAppOutletContext } from './app-outlet-context'
 
 const ALBUMS_TITLE = 'MusiMOB: Album'
 
-type AlbumDetailPageProps = {
-  albumsState: ReturnType<typeof useAlbums>
-  songsState: ReturnType<typeof useSongs>
-}
-
-export function AlbumDetailPage(props: AlbumDetailPageProps) {
+export function AlbumDetailRoute() {
   const { albumId } = useParams<{ albumId: string }>()
-  return <AlbumDetailContent key={albumId} {...props} albumId={albumId} />
+  return <AlbumDetailContent key={albumId} albumId={albumId} />
 }
 
-function AlbumDetailContent({
-  albumsState,
-  songsState,
-  albumId,
-}: AlbumDetailPageProps & { albumId: string | undefined }) {
+function AlbumDetailContent({ albumId }: { albumId: string | undefined }) {
+  const { albumsState, songsState } = useAppOutletContext()
   const {
     albums,
     status: albumsStatus,

@@ -11,21 +11,16 @@ import {
   CreateAlbumPanel,
   getAlbumCountLabel,
   getSongsById,
-  type useAlbums,
 } from '@/features/albums'
-import type { useSongs } from '@/features/songs'
 import { useDocumentTitle } from '@/hooks/use-document-title'
+import { useAppOutletContext } from './app-outlet-context'
 
 const ALBUMS_TITLE = 'MusiMOB: Album'
 
-type AlbumsPageProps = {
-  albumsState: ReturnType<typeof useAlbums>
-  songsState: ReturnType<typeof useSongs>
-}
-
-export function AlbumsPage({ albumsState, songsState }: AlbumsPageProps) {
+export function AlbumsRoute() {
   const [isCreateOpen, setIsCreateOpen] = useState(false)
   const navigate = useNavigate()
+  const { albumsState, songsState } = useAppOutletContext()
   const { albums, status, retry, createAlbum } = albumsState
   const { songs, status: songsStatus, retry: retrySongs } = songsState
 

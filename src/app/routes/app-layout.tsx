@@ -1,38 +1,51 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router'
 import { PageShell } from '@/components/page-shell'
-import type { ViewMode } from '@/features/songs'
-import type { User } from '@/features/auth'
 import { useAudioPreview } from '@/features/audio-preview'
-import { AppHeader } from './app-header'
+import type { User } from '@/features/auth'
+import type { useSongs, ViewMode } from '@/features/songs'
+import type { useAlbums } from '@/features/albums'
+import { AppHeader } from '../app-header'
+import type { AppOutletContext } from './app-outlet-context'
 
 type AppLayoutProps = {
   user: User
+  authError: string | null
   viewMode: ViewMode
   onToggleView: () => void
   onAddPassword: (password: string) => Promise<string | null>
   onSignOut: () => Promise<void>
+  songsState: ReturnType<typeof useSongs>
+  albumsState: ReturnType<typeof useAlbums>
 }
 
 export function AppLayout({
   user,
+  authError,
   viewMode,
   onToggleView,
   onAddPassword,
   onSignOut,
+  songsState,
+  albumsState,
 }: AppLayoutProps) {
   const { pathname } = useLocation()
   const { stop } = useAudioPreview()
 
   useEffect(() => {
-    return stop
+    stop()
   }, [pathname, stop])
 
+  const contextValue: AppOutletContext = {
+    user,
+    authError,
+    viewMode,
+    songsState,
+    albumsState,
+  }
+
   return (
-    <PageShell>
-      <a href="#main-content" className="skip-link">
-        Chuyển đến nội dung
-      </a>
+    <div className="flex min-h-screen flex-col bg-background font-sans text-foreground antialiased selection:bg-coral-200">
       <AppHeader
         displayName={user.displayName}
         photoURL={user.photoURL}
@@ -43,9 +56,11 @@ export function AppLayout({
         onAddPassword={onAddPassword}
         onSignOut={onSignOut}
       />
-      <main id="main-content" tabIndex={-1} className="flex flex-1 flex-col">
-        <Outlet />
+      <main className="flex flex-1 flex-col">
+        <PageShell>
+          <Outlet context={contextValue} />
+        </PageShell>
       </main>
-    </PageShell>
+    </div>
   )
 }

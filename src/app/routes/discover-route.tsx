@@ -5,16 +5,13 @@ import { Button } from '@/components/ui/button'
 import { DiscoverGrid } from '@/features/discover/components/discover-grid'
 import { DiscoverSkeleton } from '@/features/discover/components/discover-skeleton'
 import { useDiscover } from '@/features/discover/hooks/use-discover'
-import type { useSongs } from '@/features/songs'
+import { useAppOutletContext } from './app-outlet-context'
 
 const DISCOVER_TITLE = 'MusiMOB: Khám phá'
 
-type DiscoverPageProps = {
-  songsState: ReturnType<typeof useSongs>
-}
-
-export function DiscoverPage({ songsState }: DiscoverPageProps) {
+export function DiscoverRoute() {
   useDocumentTitle(DISCOVER_TITLE)
+  const { songsState } = useAppOutletContext()
 
   const {
     songs,
