@@ -7,11 +7,7 @@ type DiscoverGridProps = {
   onSave?: (song: SearchResult) => void
 }
 
-export function DiscoverGrid({
-  songs,
-  isSavingId,
-  onSave,
-}: DiscoverGridProps) {
+export function DiscoverGrid({ songs, isSavingId, onSave }: DiscoverGridProps) {
   return (
     <ul className="grid grid-cols-2 gap-x-3 gap-y-5 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-6 wide:grid-cols-4 widest:grid-cols-6">
       {songs.map((song, index) => (

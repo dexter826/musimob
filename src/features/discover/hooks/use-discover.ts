@@ -46,9 +46,7 @@ export function useDiscover({ librarySongs, onAddSong }: UseDiscoverOptions) {
     queryFn: async () => {
       if (sampledArtists.length === 0) return []
       const responses = await Promise.all(
-        sampledArtists.map((artist) =>
-          searchApi.query(artist).catch(() => []),
-        ),
+        sampledArtists.map((artist) => searchApi.query(artist).catch(() => [])),
       )
       return responses.flat()
     },
@@ -69,7 +67,8 @@ export function useDiscover({ librarySongs, onAddSong }: UseDiscoverOptions) {
   }, [popularData, artistData, librarySongs])
 
   // Lấy activeSongs và savedTrackIds từ cache để giữ nguyên trạng thái khi chuyển tab
-  const cachedActive = queryClient.getQueryData<SearchResult[]>(ACTIVE_BATCH_KEY)
+  const cachedActive =
+    queryClient.getQueryData<SearchResult[]>(ACTIVE_BATCH_KEY)
   const [activeSongs, setActiveSongsState] = useState<SearchResult[]>(
     () => cachedActive ?? [],
   )

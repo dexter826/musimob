@@ -41,10 +41,7 @@ export function DiscoverCard({
           />
         ) : null}
 
-        <span
-          onClick={(event) => event.stopPropagation()}
-          className="contents"
-        >
+        <span onClick={(event) => event.stopPropagation()} className="contents">
           <PreviewButton
             previewUrl={song.previewUrl}
             playKey={catalogPreviewKey(song.trackId)}

@@ -139,9 +139,7 @@ export function normalizeRssEntry(entry: unknown): SearchResult | null {
   const e = entry as RssEntry
   const rawId = e.id?.attributes?.['im:id']
   const trackId =
-    typeof rawId === 'string' || typeof rawId === 'number'
-      ? Number(rawId)
-      : NaN
+    typeof rawId === 'string' || typeof rawId === 'number' ? Number(rawId) : NaN
   if (Number.isNaN(trackId) || trackId <= 0) return null
 
   const title =
