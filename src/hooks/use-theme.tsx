@@ -21,7 +21,9 @@ const STORAGE_KEY = 'musimob:theme'
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined)
 
 function getSystemTheme(): ResolvedTheme {
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'dark'
+    : 'light'
 }
 
 function applyTheme(resolved: ResolvedTheme) {
