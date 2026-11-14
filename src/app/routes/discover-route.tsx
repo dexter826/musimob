@@ -2,9 +2,11 @@ import { Shuffle } from 'lucide-react'
 import { useDocumentTitle } from '@/hooks/use-document-title'
 import { ErrorAlert } from '@/components/error-alert'
 import { Button } from '@/components/ui/button'
-import { DiscoverGrid } from '@/features/discover/components/discover-grid'
-import { DiscoverSkeleton } from '@/features/discover/components/discover-skeleton'
-import { useDiscover } from '@/features/discover/hooks/use-discover'
+import {
+  DiscoverGrid,
+  DiscoverSkeleton,
+  useDiscover,
+} from '@/features/discover'
 import { useAppOutletContext } from './app-outlet-context'
 
 const DISCOVER_TITLE = 'MusiMOB: Khám phá'

@@ -14,7 +14,7 @@ import {
   type Unsubscribe,
   type UpdateData,
 } from 'firebase/firestore'
-import { firebaseFirestore } from '@/lib/api/firebase'
+import { firebaseFirestore } from '@/lib/firebase'
 import type { NewSong, Song, SongPatch } from '../types'
 
 function toSong(id: string, data: DocumentData): Song {

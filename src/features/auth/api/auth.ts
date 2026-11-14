@@ -18,7 +18,7 @@ import {
   type User as FirebaseUser,
 } from 'firebase/auth'
 import { getErrorCode } from '@/lib/errors'
-import { firebaseAuth } from '@/lib/api/firebase'
+import { firebaseAuth } from '@/lib/firebase'
 import type { SignInMethod, User } from '../types'
 
 const googleProvider = new GoogleAuthProvider()

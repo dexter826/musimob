@@ -15,7 +15,7 @@ import {
   type DocumentData,
   type Unsubscribe,
 } from 'firebase/firestore'
-import { firebaseFirestore } from '@/lib/api/firebase'
+import { firebaseFirestore } from '@/lib/firebase'
 import type { Album } from '../types'
 
 function toSongIds(value: unknown): string[] {
