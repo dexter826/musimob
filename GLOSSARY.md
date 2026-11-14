@@ -51,3 +51,7 @@ _Avoid_: Bỏ thích, unlike, ẩn bài, lưu kho
 **Restore Song (Khôi phục bài)**:
 Hành động hoàn tác đưa bài hát vừa xóa trở lại Thư viện với nguyên vẹn dữ liệu ban đầu ngay sau thao tác xóa.
 _Avoid_: Khôi phục từ thùng rác, tạo lại bài
+
+**Discover (Khám phá)**:
+Không gian hiển thị ngẫu nhiên các Bản nhạc kho ngoài được tổng hợp từ nguồn phổ biến và các nghệ sĩ trong Thư viện cá nhân của người dùng.
+_Avoid_: Đề xuất, gợi ý, trending, browse, feed, thị trường
