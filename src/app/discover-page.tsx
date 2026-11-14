@@ -13,9 +13,10 @@ type DiscoverPageProps = {
 
 export function DiscoverPage({ songsState }: DiscoverPageProps) {
   useDocumentTitle(DISCOVER_TITLE)
-  void songsState
 
-  const { songs, isLoading, isError, error, refetch } = useDiscover()
+  const { songs, isLoading, isError, error, refetch } = useDiscover({
+    librarySongs: songsState.songs,
+  })
 
   return (
     <div className="flex flex-1 flex-col pb-10">
