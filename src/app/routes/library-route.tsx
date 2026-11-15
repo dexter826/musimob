@@ -235,7 +235,6 @@ export function LibraryRoute() {
           status={status}
           flashId={flashId}
           onAdd={openManualAdd}
-          onSearchCatalog={openManualAdd}
           onRetry={retry}
           onClearFilter={() => handleFilterChange('')}
           onUpdate={updateSong}

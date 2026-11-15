@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router'
 import { ErrorAlert } from '@/components/error-alert'
 import { Button } from '@/components/ui/button'
 import type { Song, SongPatch } from '../types'
@@ -17,7 +18,6 @@ type SongListProps = {
   status: SongsStatus
   flashId: string | null
   onAdd: () => void
-  onSearchCatalog: () => void
   onRetry: () => void
   onClearFilter: () => void
   onUpdate: (id: string, patch: SongPatch) => Promise<void>
@@ -70,35 +70,26 @@ function SongListSkeleton({ viewMode }: { viewMode: ViewMode }) {
   )
 }
 
-function FilterEmptyState({
-  onClear,
-  onSearchCatalog,
-}: {
-  onClear: () => void
-  onSearchCatalog?: () => void
-}) {
+function FilterEmptyState({ onClear }: { onClear: () => void }) {
   return (
     <div className="flex flex-1 flex-col items-center justify-center px-6 py-16 text-center">
       <h2 className="font-serif text-[20px] leading-[1.2] font-medium text-foreground">
         Không có bài nào khớp.
       </h2>
+      <p className="mt-1 text-sm text-muted-foreground">
+        Bài hát bạn tìm có thể chưa được lưu vào Thư viện.
+      </p>
       <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-        {onSearchCatalog ? (
-          <Button
-            type="button"
-            onClick={onSearchCatalog}
-            className="h-11 px-4 text-[13px] font-semibold"
-          >
-            Tìm bài này
-          </Button>
-        ) : null}
         <Button
           type="button"
-          variant="ghost"
+          variant="outline"
           onClick={onClear}
-          className="h-11 px-4 text-[13px] font-semibold text-muted-foreground hover:text-foreground"
+          className="h-11 px-4 text-[13px] font-semibold"
         >
           Xóa bộ lọc
+        </Button>
+        <Button asChild className="h-11 px-4 text-[13px] font-semibold">
+          <Link to="/discover">Tìm trên Khám phá</Link>
         </Button>
       </div>
     </div>
@@ -112,7 +103,6 @@ export function SongList({
   status,
   flashId,
   onAdd,
-  onSearchCatalog,
   onRetry,
   onClearFilter,
   onUpdate,
@@ -160,10 +150,7 @@ export function SongList({
       {status.warning ? <ErrorAlert message={status.warning} /> : null}
 
       {songs.length === 0 ? (
-        <FilterEmptyState
-          onClear={onClearFilter}
-          onSearchCatalog={selectedIds ? undefined : onSearchCatalog}
-        />
+        <FilterEmptyState onClear={onClearFilter} />
       ) : viewMode === 'grid' ? (
         <SongGrid
           songs={songs}
