@@ -23,7 +23,6 @@ _Sổ tay âm nhạc cá nhân: tra cứu, lưu trữ và nghe thử bài hát t
 ## Mục lục
 
 - [Tính năng chính](#tính-năng-chính)
-- [Kiến trúc hệ thống](#kiến-trúc-hệ-thống)
 - [Công nghệ sử dụng](#công-nghệ-sử-dụng)
 - [Bắt đầu nhanh](#bắt-đầu-nhanh)
 - [Cấu hình môi trường](#cấu-hình-môi-trường)
@@ -33,44 +32,16 @@ _Sổ tay âm nhạc cá nhân: tra cứu, lưu trữ và nghe thử bài hát t
 
 ## Tính năng chính
 
-- **Thư viện bài hát cá nhân**: Lưu trữ danh sách bài hát yêu thích; lọc tức thì theo tên bài hát hoặc nghệ sĩ; chuyển đổi linh hoạt giữa chế độ xem lưới và danh sách.
-- **Khám phá bài hát**: Duyệt ngẫu nhiên 24 bài hát từ các bảng xếp hạng và nghệ sĩ trong Thư viện cá nhân; tự động loại trừ bài đã lưu; hỗ trợ làm mới danh sách hoặc lưu bài tức thì kèm cơ chế tự động bù bài tại chỗ.
-- **Nghe thử âm thanh (Audio Preview)**: Phát đoạn trích âm thanh 30 giây trực tiếp trong ứng dụng; kiểm soát trạng thái để đảm bảo chỉ phát duy nhất một bài tại một thời điểm trên toàn hệ thống.
-- **Tra cứu và thêm bài**: Tìm kiếm bài hát từ kho trực tuyến hoặc tự nhập thông tin thủ công; tự động cảnh báo nếu bài hát đã có trong Thư viện để tránh lưu trùng lặp.
-- **Quản lý Album**: Gom nhóm các bài hát đã lưu theo chủ đề; hỗ trợ chọn nhiều bài cùng lúc để thêm vào hoặc bỏ khỏi album.
-- **Xóa và khôi phục**: Gỡ bài hát khỏi Thư viện kèm thông báo hoàn tác (Undo), cho phép khôi phục nguyên vẹn dữ liệu ngay sau khi xóa.
-- **Tài khoản người dùng**: Đăng nhập bằng tài khoản Google hoặc Email và mật khẩu; phân lập Thư viện và Album độc lập cho từng người dùng.
-- **Hoạt động ngoại tuyến**: Tự động duy trì và đồng bộ dữ liệu trên thiết bị khi mất kết nối mạng tạm thời hoặc khi mở đồng thời trên nhiều tab trình duyệt.
-- **Chế độ giao diện**: Hỗ trợ giao diện Sáng (Light), Tối (Dark) và tự động đồng bộ theo cài đặt của hệ điều hành.
-
-## Kiến trúc hệ thống
-
-```mermaid
-flowchart LR
-    subgraph Client["Trình duyệt (React 19 SPA)"]
-        UI["Giao diện người dùng\n(Tailwind CSS v4 + Radix / Base UI)"]
-        State["Quản lý trạng thái & dữ liệu\n(React Router v7 + TanStack Query)"]
-        Player["Trình phát nghe thử\n(HTML5 Audio / Active Preview)"]
-    end
-
-    subgraph External["Dịch vụ ngoài & Nền tảng"]
-        iTunes["iTunes Search API & RSS Feeds\n(Tra cứu & Bảng xếp hạng)"]
-        Auth["Firebase Authentication\n(Xác thực người dùng)"]
-        Firestore[("Cloud Firestore\n(Thư viện, Album, Bộ nhớ đệm)")]
-    end
-
-    UI --> State
-    State --> iTunes
-    State --> Auth
-    State --> Firestore
-    State --> Player
-```
+- **Thư viện bài hát**: Sổ tay lưu trữ, lọc và sắp xếp các bài hát cá nhân.
+- **Khám phá âm nhạc**: Tra cứu bài hát trực tuyến và khám phá giai điệu mới theo chủ đề.
+- **Quản lý Album**: Gom nhóm và phân loại bài hát theo từng tuyển tập.
+- **Nhập bài thủ công**: Tự do ghi chép thông tin bài hát bằng tay theo ý thích riêng.
 
 ## Công nghệ sử dụng
 
 - **Frontend core**: React 19, TypeScript 5.9, Vite 8, Tailwind CSS v4.
 - **Định tuyến & Dữ liệu**: React Router v7, TanStack Query v5 (quản lý bộ nhớ đệm và đồng bộ trạng thái bất đồng bộ).
-- **Thành phần giao diện**: Radix UI, Base UI, Lucide React, Sonner (thông báo toast), Vaul (ngăn kéo bottom sheet), CMDK.
+- **Thành phần giao diện**: Radix UI, Base UI, Lucide React, Sonner (thông báo toast phẳng 0px shadow), Vaul (ngăn kéo bottom sheet).
 - **Backend & Lưu trữ**: Firebase Authentication (Google Auth, Email/Password), Cloud Firestore (cấu hình bộ nhớ đệm đa tab `persistentLocalCache` và `persistentMultipleTabManager`), Firebase Hosting.
 - **Nguồn dữ liệu kho ngoài**: iTunes Search API và iTunes RSS Feeds.
 
@@ -126,18 +97,18 @@ Khai báo các thông số kết nối Firebase trong tệp `.env.local` (tham c
 
 ```text
 src/
-├── app/              # Cấu hình router, layout chính và các trang ứng dụng
+├── app/              # Cấu hình router, AppHeader sticky, AppLayout và các trang ứng dụng
 ├── components/       # Thành phần giao diện dùng chung và UI primitives
-│   └── ui/           # Thành phần UI nguyên tử (Radix UI, Base UI)
-├── features/         # Các module nghiệp vụ theo chức năng
-│   ├── add-song/     # Biểu mẫu và tác vụ thêm bài hát thủ công
-│   ├── albums/       # Quản lý album và liên kết bài hát
+│   └── ui/           # Thành phần UI nguyên tử (Radix UI, Base UI, Sonner, Button)
+├── features/         # Các module nghiệp vụ theo tính năng
+│   ├── albums/       # Quản lý album, bộ chọn album và gom nhóm bài hát
+│   ├── audio-preview/# Nghe thử âm thanh 30s và điều phối trạng thái phát toàn cục
 │   ├── auth/         # Đăng nhập, đăng xuất và quản lý phiên người dùng
-│   ├── discover/     # Khám phá bài hát và tự động bù bài
-│   ├── search-song/  # Tìm kiếm bản nhạc từ kho trực tuyến
-│   └── songs/        # Quản lý danh sách, lọc và thao tác với bài hát
-├── hooks/            # Custom React hooks (tiêu đề, responsive, cuộn trang)
-└── lib/              # Khởi tạo Firebase SDK, kết nối iTunes API và tiện ích
+│   ├── catalog/      # Kết nối iTunes Search API, chuẩn hóa dữ liệu bài hát
+│   ├── discover/     # Khám phá bài hát, tìm kiếm trực tuyến và hàng cuộn ngang
+│   └── songs/        # Quản lý thư viện, sắp xếp, lọc, nhập bài thủ công và lưu trữ
+├── hooks/            # Custom React hooks (tiêu đề trang, responsive, chủ đề giao diện)
+└── lib/              # Khởi tạo Firebase SDK, xử lý lỗi và chuẩn hóa khóa bài hát
 ```
 
 ## Giấy phép
