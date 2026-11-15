@@ -53,5 +53,13 @@ Hành động hoàn tác đưa bài hát vừa xóa trở lại Thư viện vớ
 _Avoid_: Khôi phục từ thùng rác, tạo lại bài
 
 **Discover (Khám phá)**:
-Không gian hiển thị ngẫu nhiên các Bản nhạc kho ngoài được tổng hợp từ nguồn phổ biến và các nghệ sĩ trong Thư viện cá nhân của người dùng.
+Không gian tìm kiếm kho nhạc trực tuyến và duyệt các Bản nhạc kho ngoài theo các phân mục thịnh hành, nghệ sĩ quen thuộc và thể loại.
 _Avoid_: Đề xuất, gợi ý, trending, browse, feed, thị trường
+
+**Manual Song Entry (Nhập bài thủ công)**:
+Hành động tạo mới một bản ghi bài hát vào Thư viện bằng cách tự điền thông tin thay vì chọn từ kho tìm kiếm trực tuyến.
+_Avoid_: Thêm bài tùy chỉnh, custom song, tạo bài hát
+
+**Library Sort (Sắp xếp Thư viện)**:
+Thứ tự hiển thị danh sách bài hát trong Thư viện theo thời gian lưu gần nhất hoặc theo bảng chữ cái (tên bài hát, tên nghệ sĩ).
+_Avoid_: Lọc, filter, sắp đặt

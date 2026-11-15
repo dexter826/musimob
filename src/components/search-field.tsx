@@ -7,6 +7,7 @@ type SearchFieldProps = {
   name: string
   value: string
   onChange: (value: string) => void
+  placeholder?: string
   inputRef?: Ref<HTMLInputElement>
   isBusy?: boolean
   showClear?: boolean
@@ -17,6 +18,7 @@ export function SearchField({
   name,
   value,
   onChange,
+  placeholder = 'Tìm bài hoặc nghệ sĩ…',
   inputRef,
   isBusy = false,
   showClear = false,
@@ -36,7 +38,7 @@ export function SearchField({
         className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
       />
       <label htmlFor={id} className="sr-only">
-        Tìm bài hoặc nghệ sĩ
+        {placeholder}
       </label>
       <input
         ref={setInputRef}
@@ -45,7 +47,7 @@ export function SearchField({
         type="search"
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        placeholder="Tìm bài hoặc nghệ sĩ…"
+        placeholder={placeholder}
         aria-busy={isBusy || undefined}
         autoComplete="off"
         enterKeyHint="search"

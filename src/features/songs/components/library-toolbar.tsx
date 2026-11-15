@@ -1,13 +1,23 @@
 import type { Ref } from 'react'
-import { Plus } from 'lucide-react'
+import { ArrowUpDown, Plus } from 'lucide-react'
 import { SearchField } from '@/components/search-field'
 import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import type { LibrarySortOption } from '../lib/library-sort'
 
 type LibraryToolbarProps = {
   countLabel: string
   filterQuery: string
   onFilterChange: (value: string) => void
-  onAdd: () => void
+  sortOption: LibrarySortOption
+  onSortChange: (option: LibrarySortOption) => void
+  onManualAdd: () => void
   isLibraryEmpty: boolean
   isSelecting: boolean
   onToggleSelection: () => void
@@ -18,7 +28,9 @@ export function LibraryToolbar({
   countLabel,
   filterQuery,
   onFilterChange,
-  onAdd,
+  sortOption,
+  onSortChange,
+  onManualAdd,
   isLibraryEmpty,
   isSelecting,
   onToggleSelection,
@@ -35,15 +47,47 @@ export function LibraryToolbar({
         </p>
       </div>
       <div className="flex shrink-0 items-center gap-2 max-md:w-full">
-        <div className="w-[280px] min-w-0 max-md:flex-1">
+        <div className="w-[240px] min-w-0 max-md:flex-1">
           <SearchField
             id="library-filter"
             name="filter"
+            placeholder="Lọc bài hát…"
             value={filterQuery}
             onChange={onFilterChange}
             showClear
           />
         </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              aria-label="Sắp xếp danh sách bài hát"
+              title="Sắp xếp danh sách bài hát"
+              className="h-11 w-11 shrink-0"
+            >
+              <ArrowUpDown aria-hidden="true" className="size-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-52">
+            <DropdownMenuRadioGroup
+              value={sortOption}
+              onValueChange={(val) => onSortChange(val as LibrarySortOption)}
+            >
+              <DropdownMenuRadioItem value="newest">
+                Mới lưu gần nhất
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="title-asc">
+                Tên bài hát (A → Z)
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="artist-asc">
+                Tên nghệ sĩ (A → Z)
+              </DropdownMenuRadioItem>
+            </DropdownMenuRadioGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+
         {isLibraryEmpty ? null : (
           <Button
             type="button"
@@ -56,14 +100,14 @@ export function LibraryToolbar({
             {isSelecting ? 'Hủy' : 'Chọn'}
           </Button>
         )}
-        {isLibraryEmpty || isSelecting ? null : (
+        {isSelecting ? null : (
           <Button
             type="button"
-            onClick={onAdd}
+            onClick={onManualAdd}
             className="hidden h-11 gap-1.5 px-3.5 text-[13px] font-semibold md:inline-flex"
           >
             <Plus aria-hidden="true" className="size-4" />
-            Thêm bài
+            Nhập bài
           </Button>
         )}
       </div>
