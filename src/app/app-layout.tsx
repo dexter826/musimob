@@ -59,7 +59,11 @@ export function AppLayout({
         onAddPassword={onAddPassword}
         onSignOut={onSignOut}
       />
-      <main id="main-content" tabIndex={-1} className="flex flex-1 flex-col">
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className="flex flex-1 flex-col scroll-mt-[60px] md:scroll-mt-16"
+      >
         <Outlet context={contextValue} />
       </main>
     </PageShell>

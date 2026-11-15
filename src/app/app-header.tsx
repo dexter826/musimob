@@ -39,40 +39,42 @@ export function AppHeader({
   const showViewToggle = pathname === '/'
 
   return (
-    <header className="flex h-[60px] items-center gap-2 md:h-16 md:gap-3">
-      <div className="flex min-w-0 items-center gap-1 md:gap-5">
-        <Link
-          to="/"
-          aria-label="MusiMOB – về Thư viện"
-          className="flex h-11 min-w-11 shrink-0 items-center justify-center rounded-lg"
-        >
-          <Wordmark compactOnMobile />
-        </Link>
-        <nav aria-label="Điều hướng chính" className="flex items-center">
-          <NavLink to="/" end className={navLinkClassName}>
-            Thư viện
-          </NavLink>
-          <NavLink to="/discover" className={navLinkClassName}>
-            Khám phá
-          </NavLink>
-          <NavLink to="/albums" className={navLinkClassName}>
-            Album
-          </NavLink>
-        </nav>
-      </div>
-      <div className="ml-auto flex shrink-0 items-center gap-1 md:gap-3">
-        {showViewToggle ? (
-          <ViewToggle viewMode={viewMode} onToggle={onToggleView} />
-        ) : null}
-        <ThemeToggle />
-        <AvatarMenu
-          displayName={displayName}
-          photoURL={photoURL}
-          email={email}
-          hasPassword={hasPassword}
-          onAddPassword={onAddPassword}
-          onSignOut={onSignOut}
-        />
+    <header className="sticky top-0 z-30 -mx-[var(--gutter)] border-b border-rule bg-background px-[var(--gutter)] transition-colors duration-[160ms]">
+      <div className="mx-auto flex h-[60px] max-w-[var(--page-max)] items-center gap-2 md:h-16 md:gap-3">
+        <div className="flex min-w-0 items-center gap-1 md:gap-5">
+          <Link
+            to="/"
+            aria-label="MusiMOB – về Thư viện"
+            className="flex h-11 min-w-11 shrink-0 items-center justify-center rounded-lg"
+          >
+            <Wordmark compactOnMobile />
+          </Link>
+          <nav aria-label="Điều hướng chính" className="flex items-center">
+            <NavLink to="/" end className={navLinkClassName}>
+              Thư viện
+            </NavLink>
+            <NavLink to="/discover" className={navLinkClassName}>
+              Khám phá
+            </NavLink>
+            <NavLink to="/albums" className={navLinkClassName}>
+              Album
+            </NavLink>
+          </nav>
+        </div>
+        <div className="ml-auto flex shrink-0 items-center gap-1 md:gap-3">
+          {showViewToggle ? (
+            <ViewToggle viewMode={viewMode} onToggle={onToggleView} />
+          ) : null}
+          <ThemeToggle />
+          <AvatarMenu
+            displayName={displayName}
+            photoURL={photoURL}
+            email={email}
+            hasPassword={hasPassword}
+            onAddPassword={onAddPassword}
+            onSignOut={onSignOut}
+          />
+        </div>
       </div>
     </header>
   )
