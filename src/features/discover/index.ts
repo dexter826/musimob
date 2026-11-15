@@ -1,4 +1,5 @@
 export { DiscoverGrid } from './components/discover-grid'
 export { DiscoverSkeleton } from './components/discover-skeleton'
 export { DiscoverCard } from './components/discover-card'
+export { CatalogSearchResults } from './components/catalog-search-results'
 export { useDiscover } from './hooks/use-discover'
