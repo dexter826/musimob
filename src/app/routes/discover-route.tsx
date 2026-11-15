@@ -8,9 +8,8 @@ import { Button } from '@/components/ui/button'
 import { useSongSearch } from '@/features/catalog'
 import {
   CatalogSearchResults,
-  DiscoverGrid,
-  DiscoverSkeleton,
-  useDiscover,
+  DiscoverSections,
+  useDiscoverSections,
 } from '@/features/discover'
 import { ManualAddSheet, type NewSong } from '@/features/songs'
 import { useAppOutletContext } from '../app-outlet-context'
@@ -26,15 +25,22 @@ export function DiscoverRoute() {
   const search = useSongSearch(searchQuery)
 
   const {
-    songs,
+    trendingTracks,
+    forYouTracks,
+    hasArtistsInLibrary,
+    genreTracks,
+    genres,
+    selectedGenreId,
+    setSelectedGenreId,
+    isGenreLoading,
+    savedSet,
     savingTrackId,
     saveSong,
-    shuffle,
     isLoading,
     isError,
     error,
     refetch,
-  } = useDiscover({
+  } = useDiscoverSections({
     librarySongs: songsState.songs,
     onAddSong: songsState.addSong,
   })
@@ -63,8 +69,8 @@ export function DiscoverRoute() {
             <Button
               type="button"
               variant="outline"
-              onClick={shuffle}
-              disabled={isLoading || songs.length === 0}
+              onClick={refetch}
+              disabled={isLoading}
               className="h-11 shrink-0 gap-2 px-4 text-[13px] font-semibold max-md:w-full"
             >
               <Shuffle aria-hidden="true" className="size-4" />
@@ -97,8 +103,6 @@ export function DiscoverRoute() {
             onAddSong={songsState.addSong}
             onOpenManualAdd={() => setIsManualAddOpen(true)}
           />
-        ) : isLoading ? (
-          <DiscoverSkeleton />
         ) : isError ? (
           <div className="flex flex-1 items-center justify-center px-6 py-16">
             <ErrorAlert
@@ -112,10 +116,18 @@ export function DiscoverRoute() {
             />
           </div>
         ) : (
-          <DiscoverGrid
-            songs={songs}
-            isSavingId={savingTrackId}
-            onSave={saveSong}
+          <DiscoverSections
+            trendingTracks={trendingTracks}
+            forYouTracks={forYouTracks}
+            hasArtistsInLibrary={hasArtistsInLibrary}
+            genreTracks={genreTracks}
+            genres={genres}
+            selectedGenreId={selectedGenreId}
+            onSelectGenre={setSelectedGenreId}
+            isGenreLoading={isGenreLoading}
+            savedSet={savedSet}
+            savingTrackId={savingTrackId}
+            onSaveSong={saveSong}
           />
         )}
       </div>

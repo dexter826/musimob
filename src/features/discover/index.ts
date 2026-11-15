@@ -1,5 +1,8 @@
 export { DiscoverGrid } from './components/discover-grid'
 export { DiscoverSkeleton } from './components/discover-skeleton'
 export { DiscoverCard } from './components/discover-card'
+export { HorizontalScrollRow } from './components/horizontal-scroll-row'
+export { DiscoverSections } from './components/discover-sections'
 export { CatalogSearchResults } from './components/catalog-search-results'
 export { useDiscover } from './hooks/use-discover'
+export { useDiscoverSections } from './hooks/use-discover-sections'
