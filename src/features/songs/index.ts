@@ -15,6 +15,7 @@ export { ViewToggle } from './components/view-toggle'
 
 export { useSongs, type SongsStatus } from './hooks/use-songs'
 export { useViewMode, type ViewMode } from './hooks/use-view-mode'
+export { useLibrarySort } from './hooks/use-library-sort'
 
 export { songsApi, type SongsApi } from './api/songs'
 export type { Song, NewSong, SongPatch } from './types'

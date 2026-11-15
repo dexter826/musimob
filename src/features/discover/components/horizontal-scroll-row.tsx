@@ -21,6 +21,11 @@ export function HorizontalScrollRow({
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
 
+  const isDraggingRef = useRef(false)
+  const startXRef = useRef(0)
+  const scrollLeftRef = useRef(0)
+  const hasDraggedRef = useRef(false)
+
   function updateScrollButtons() {
     const el = scrollRef.current
     if (!el) return
@@ -55,6 +60,38 @@ export function HorizontalScrollRow({
     })
   }
 
+  function handleMouseDown(e: React.MouseEvent<HTMLUListElement>) {
+    const el = scrollRef.current
+    if (!el) return
+    isDraggingRef.current = true
+    hasDraggedRef.current = false
+    startXRef.current = e.pageX - el.offsetLeft
+    scrollLeftRef.current = el.scrollLeft
+  }
+
+  function handleMouseMove(e: React.MouseEvent<HTMLUListElement>) {
+    if (!isDraggingRef.current) return
+    const el = scrollRef.current
+    if (!el) return
+    const x = e.pageX - el.offsetLeft
+    const walk = (x - startXRef.current) * 1.2
+    if (Math.abs(walk) > 4) {
+      hasDraggedRef.current = true
+    }
+    el.scrollLeft = scrollLeftRef.current - walk
+  }
+
+  function handleMouseUpOrLeave() {
+    isDraggingRef.current = false
+  }
+
+  function handleClickCapture(e: React.MouseEvent<HTMLUListElement>) {
+    if (hasDraggedRef.current) {
+      e.stopPropagation()
+      hasDraggedRef.current = false
+    }
+  }
+
   return (
     <section className="relative flex flex-col gap-3 py-3">
       <div className="flex items-end justify-between gap-4">
@@ -79,7 +116,7 @@ export function HorizontalScrollRow({
               aria-label={`Cuộn trái danh mục ${title}`}
               disabled={!canScrollLeft}
               onClick={() => handleScroll('left')}
-              className="size-8 rounded-full"
+              className="size-11 rounded-md"
             >
               <ChevronLeft className="size-4" />
             </Button>
@@ -90,7 +127,7 @@ export function HorizontalScrollRow({
               aria-label={`Cuộn phải danh mục ${title}`}
               disabled={!canScrollRight}
               onClick={() => handleScroll('right')}
-              className="size-8 rounded-full"
+              className="size-11 rounded-md"
             >
               <ChevronRight className="size-4" />
             </Button>
@@ -103,7 +140,12 @@ export function HorizontalScrollRow({
       <div className="relative -mx-4 px-4 sm:-mx-6 sm:px-6 md:mx-0 md:px-0">
         <ul
           ref={scrollRef}
-          className="flex gap-4 overflow-x-auto scroll-smooth pb-2 pt-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUpOrLeave}
+          onMouseLeave={handleMouseUpOrLeave}
+          onClickCapture={handleClickCapture}
+          className="flex cursor-grab gap-4 overflow-x-auto scroll-smooth pb-2 pt-1 select-none active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           role="list"
         >
           {children}

@@ -1,10 +1,8 @@
 import { useState } from 'react'
-import { Shuffle } from 'lucide-react'
 import { toast } from 'sonner'
 import { useDocumentTitle } from '@/hooks/use-document-title'
 import { ErrorAlert } from '@/components/error-alert'
 import { SearchField } from '@/components/search-field'
-import { Button } from '@/components/ui/button'
 import { useSongSearch } from '@/features/catalog'
 import {
   CatalogSearchResults,
@@ -36,7 +34,6 @@ export function DiscoverRoute() {
     savedSet,
     savingTrackId,
     saveSong,
-    isLoading,
     isError,
     error,
     refetch,
@@ -55,28 +52,13 @@ export function DiscoverRoute() {
   return (
     <div className="flex flex-1 flex-col pb-12">
       <div className="flex flex-col gap-4 pt-7 pb-5">
-        <div className="flex items-end justify-between gap-6 max-md:flex-col max-md:items-stretch max-md:gap-3">
-          <div className="min-w-0">
-            <h1 className="font-serif text-[34px] leading-[1.08] font-medium tracking-[-0.015em] text-balance text-foreground max-md:text-[28px]">
-              Khám phá
-            </h1>
-            <p className="mt-1.5 text-xs font-medium text-muted-foreground">
-              Tra cứu kho nhạc trực tuyến và đón nhận giai điệu mới
-            </p>
-          </div>
-
-          {!isSearching ? (
-            <Button
-              type="button"
-              variant="outline"
-              onClick={refetch}
-              disabled={isLoading}
-              className="h-11 shrink-0 gap-2 px-4 text-[13px] font-semibold max-md:w-full"
-            >
-              <Shuffle aria-hidden="true" className="size-4" />
-              Làm mới
-            </Button>
-          ) : null}
+        <div className="min-w-0">
+          <h1 className="font-serif text-[34px] leading-[1.08] font-medium tracking-[-0.015em] text-balance text-foreground max-md:text-[28px]">
+            Khám phá
+          </h1>
+          <p className="mt-1.5 text-xs font-medium text-muted-foreground">
+            Tra cứu kho nhạc trực tuyến và đón nhận giai điệu mới
+          </p>
         </div>
 
         <div className="w-full max-w-xl">

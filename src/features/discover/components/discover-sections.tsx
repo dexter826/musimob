@@ -89,7 +89,7 @@ export function DiscoverSections({
       {hasArtistsInLibrary && forYouTracks.length > 0 ? (
         <HorizontalScrollRow
           title="Dành cho bạn"
-          subtitle="Gợi ý thêm từ các nghệ sĩ có trong Thư viện của bạn"
+          subtitle="Các bài hát khác từ nghệ sĩ có trong Thư viện của bạn"
         >
           {forYouTracks.map((song, index) => (
             <DiscoverCard
@@ -119,9 +119,9 @@ export function DiscoverSections({
                   type="button"
                   onClick={() => onSelectGenre(genre.id)}
                   className={cn(
-                    'h-8 shrink-0 rounded-full px-3.5 text-xs font-medium transition-colors select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+                    'h-11 shrink-0 rounded-md px-4 text-[13px] font-semibold transition-colors select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
                     isSelected
-                      ? 'bg-primary text-primary-foreground font-semibold'
+                      ? 'bg-primary text-primary-foreground'
                       : 'border border-rule bg-surface text-muted-foreground hover:bg-surface-2 hover:text-foreground',
                   )}
                 >

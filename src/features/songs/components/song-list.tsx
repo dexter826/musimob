@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Link } from 'react-router'
 import { ErrorAlert } from '@/components/error-alert'
 import { Button } from '@/components/ui/button'
 import type { Song, SongPatch } from '../types'
@@ -74,22 +73,20 @@ function FilterEmptyState({ onClear }: { onClear: () => void }) {
   return (
     <div className="flex flex-1 flex-col items-center justify-center px-6 py-16 text-center">
       <h2 className="font-serif text-[20px] leading-[1.2] font-medium text-foreground">
-        Không có bài nào khớp.
+        Không có bài nào khớp
       </h2>
       <p className="mt-1 text-sm text-muted-foreground">
-        Bài hát bạn tìm có thể chưa được lưu vào Thư viện.
+        Thử đổi từ khóa hoặc mở tab Khám phá trên thanh điều hướng để tra cứu
+        kho nhạc.
       </p>
-      <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
+      <div className="mt-6 flex items-center justify-center">
         <Button
           type="button"
           variant="outline"
           onClick={onClear}
-          className="h-11 px-4 text-[13px] font-semibold"
+          className="h-11 px-5 text-[13px] font-semibold"
         >
           Xóa bộ lọc
-        </Button>
-        <Button asChild className="h-11 px-4 text-[13px] font-semibold">
-          <Link to="/discover">Tìm trên Khám phá</Link>
         </Button>
       </div>
     </div>

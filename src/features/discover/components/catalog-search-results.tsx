@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Plus } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -29,9 +29,19 @@ export function CatalogSearchResults({
 }: CatalogSearchResultsProps) {
   const [savingId, setSavingId] = useState<number | null>(null)
 
-  const savedSet = new Set(
-    librarySongs.map((s) => s.sourceId ?? getSongKey(s.title, s.artist)),
-  )
+  const savedSet = useMemo(() => {
+    const set = new Set<string | number>()
+    for (const s of librarySongs) {
+      if (s.sourceId != null) {
+        set.add(s.sourceId)
+        set.add(String(s.sourceId))
+        const num = Number(s.sourceId)
+        if (!Number.isNaN(num)) set.add(num)
+      }
+      set.add(getSongKey(s.title, s.artist))
+    }
+    return set
+  }, [librarySongs])
 
   async function handleSave(track: CatalogTrack) {
     setSavingId(track.trackId)

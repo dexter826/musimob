@@ -1,5 +1,4 @@
-import { Link } from 'react-router'
-import { Bookmark, Compass, Plus } from 'lucide-react'
+import { Bookmark, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 type EmptyStateProps = {
@@ -14,21 +13,14 @@ export function EmptyState({ onAdd }: EmptyStateProps) {
         Thư viện chưa có bài nào
       </h2>
       <p className="mx-auto mt-2 max-w-[340px] text-sm leading-[1.6] text-muted-foreground">
-        Khám phá kho nhạc trực tuyến để nghe thử và lưu giai điệu yêu thích,
-        hoặc tự nhập bài hát bằng tay.
+        Tra cứu kho nhạc trên trang Khám phá để lưu bài hát về sổ tay, hoặc tự
+        nhập thông tin bằng tay.
       </p>
-      <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-        <Button asChild className="h-11 gap-2 px-5 text-[13px] font-semibold">
-          <Link to="/discover">
-            <Compass aria-hidden="true" className="size-4" />
-            Sang Khám phá
-          </Link>
-        </Button>
+      <div className="mt-6">
         <Button
           type="button"
-          variant="outline"
           onClick={onAdd}
-          className="h-11 gap-2 px-4 text-[13px] font-semibold"
+          className="h-11 gap-2 px-5 text-[13px] font-semibold"
         >
           <Plus aria-hidden="true" className="size-4" />
           Nhập bài thủ công

@@ -6,14 +6,12 @@ import { ErrorAlert } from '@/components/error-alert'
 import { useDocumentTitle } from '@/hooks/use-document-title'
 import {
   getCountLabel,
-  getSavedSortOption,
   LibrarySelectionBar,
   LibraryToolbar,
   ManualAddSheet,
   SongList,
   sortSongs,
-  SORT_STORAGE_KEY,
-  type LibrarySortOption,
+  useLibrarySort,
   type NewSong,
   type Song,
 } from '@/features/songs'
@@ -27,8 +25,7 @@ export function LibraryRoute() {
   const { authError, viewMode, songsState, albumsState } = useAppOutletContext()
   const [isAddOpen, setIsAddOpen] = useState(false)
   const [filterQuery, setFilterQuery] = useState('')
-  const [sortOption, setSortOption] =
-    useState<LibrarySortOption>(getSavedSortOption)
+  const { sortOption, setSortOption } = useLibrarySort(songsState.songs)
   const [flashId, setFlashId] = useState<string | null>(null)
   const [selectedIds, setSelectedIds] = useState<Set<string> | null>(null)
   const [isAlbumPickerOpen, setIsAlbumPickerOpen] = useState(false)
@@ -41,13 +38,6 @@ export function LibraryRoute() {
     songsState
 
   useDocumentTitle(SONGS_TITLE)
-
-  function handleSortChange(next: LibrarySortOption) {
-    setSortOption(next)
-    if (typeof window !== 'undefined') {
-      localStorage.setItem(SORT_STORAGE_KEY, next)
-    }
-  }
 
   const songIds = useMemo(() => new Set(songs.map((song) => song.id)), [songs])
   const selectedSongIds = selectedIds
@@ -218,7 +208,7 @@ export function LibraryRoute() {
           filterQuery={filterQuery}
           onFilterChange={handleFilterChange}
           sortOption={sortOption}
-          onSortChange={handleSortChange}
+          onSortChange={setSortOption}
           onManualAdd={openManualAdd}
           isLibraryEmpty={isLibraryEmpty}
           isSelecting={isSelecting}

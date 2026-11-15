@@ -70,27 +70,32 @@ export function useDiscoverSections({
       const responses = await Promise.all(
         sampledArtists.map((artist) => searchApi.query(artist).catch(() => [])),
       )
-      const tracks = responses.flat()
-      // Loại trừ các bài đã có trong Thư viện
-      const seen = new Set<number>()
-      const result: CatalogTrack[] = []
-      for (const t of tracks) {
-        if (seen.has(t.trackId)) continue
-        seen.add(t.trackId)
-        if (
-          !savedSet.has(t.trackId) &&
-          !savedSet.has(getSongKey(t.title, t.artist))
-        ) {
-          result.push(t)
-        }
-      }
-      return result
+      return responses.flat()
     },
     enabled: sampledArtists.length > 0,
     staleTime: STALE_TIME_MS,
     gcTime: GC_TIME_MS,
     retry: 1,
   })
+
+  // Lọc loại trừ bài đã có trong Thư viện theo thời gian thực (phản ứng tức thời khi savedSet thay đổi)
+  const forYouTracks = useMemo(() => {
+    const rawTracks = forYouQuery.data ?? []
+    const seen = new Set<number>()
+    const result: CatalogTrack[] = []
+    for (const t of rawTracks) {
+      if (seen.has(t.trackId)) continue
+      seen.add(t.trackId)
+      const isSaved =
+        savedSet.has(t.trackId) ||
+        savedSet.has(String(t.trackId)) ||
+        savedSet.has(getSongKey(t.title, t.artist))
+      if (!isSaved) {
+        result.push(t)
+      }
+    }
+    return result
+  }, [forYouQuery.data, savedSet])
 
   // 3. Phân mục Thể loại
   const currentGenre = useMemo(
@@ -146,7 +151,7 @@ export function useDiscoverSections({
 
   return {
     trendingTracks: trendingQuery.data ?? [],
-    forYouTracks: forYouQuery.data ?? [],
+    forYouTracks,
     hasArtistsInLibrary: sampledArtists.length > 0,
     genreTracks: genreQuery.data ?? [],
     genres: DISCOVER_GENRES,
