@@ -57,7 +57,7 @@ export function DiscoverRoute() {
             Khám phá
           </h1>
           <p className="mt-1.5 text-xs font-medium text-muted-foreground">
-            Tra cứu kho nhạc trực tuyến và đón nhận giai điệu mới
+            Tìm kiếm bài hát mới và lưu về sổ tay
           </p>
         </div>
 
@@ -65,7 +65,7 @@ export function DiscoverRoute() {
           <SearchField
             id="catalog-search"
             name="catalog-search"
-            placeholder="Tìm bài hát, nghệ sĩ từ kho trực tuyến…"
+            placeholder="Tìm bài hát, nghệ sĩ…"
             value={searchQuery}
             onChange={setSearchQuery}
             showClear
