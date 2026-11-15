@@ -10,19 +10,22 @@ export function EmptyState({ onAdd }: EmptyStateProps) {
     <div className="flex flex-1 flex-col items-center justify-center px-6 py-16 text-center">
       <Bookmark aria-hidden="true" className="size-6 text-primary" />
       <h2 className="mt-3 font-serif text-[24px] leading-[1.2] font-medium text-foreground">
-        Chưa có bài nào
+        Thư viện chưa có bài nào
       </h2>
-      <p className="mx-auto mt-2 max-w-[320px] text-sm leading-[1.6] text-muted-foreground">
-        Bài hát bạn thêm sẽ xuất hiện ở đây.
+      <p className="mx-auto mt-2 max-w-[340px] text-sm leading-[1.6] text-muted-foreground">
+        Tra cứu kho nhạc trên trang Khám phá để lưu bài hát về sổ tay, hoặc tự
+        nhập thông tin bằng tay.
       </p>
-      <Button
-        type="button"
-        onClick={onAdd}
-        className="mt-6 h-11 gap-2 px-4 text-[13px] font-semibold"
-      >
-        <Plus aria-hidden="true" className="size-4" />
-        Thêm bài đầu tiên
-      </Button>
+      <div className="mt-6">
+        <Button
+          type="button"
+          onClick={onAdd}
+          className="h-11 gap-2 px-5 text-[13px] font-semibold"
+        >
+          <Plus aria-hidden="true" className="size-4" />
+          Nhập bài thủ công
+        </Button>
+      </div>
     </div>
   )
 }

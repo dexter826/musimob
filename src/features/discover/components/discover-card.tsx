@@ -12,21 +12,25 @@ import type { CatalogTrack } from '@/features/catalog'
 type DiscoverCardProps = {
   song: CatalogTrack
   index: number
+  isSaved?: boolean
   isSaving?: boolean
   onSave?: (song: CatalogTrack) => void
+  className?: string
 }
 
 export function DiscoverCard({
   song,
   index,
+  isSaved = false,
   isSaving = false,
   onSave,
+  className,
 }: DiscoverCardProps) {
   const { activeKey } = useAudioPreview()
   const isActive = activeKey === catalogPreviewKey(song.trackId)
 
   return (
-    <li className="group relative flex flex-col">
+    <li className={cn('group relative flex flex-col', className)}>
       <div className="relative aspect-square overflow-hidden rounded-sm bg-surface-2">
         <SongCover
           src={song.coverUrl}
@@ -53,8 +57,12 @@ export function DiscoverCard({
           />
         </span>
 
-        {onSave ? (
-          <div className="absolute top-1.5 right-1.5">
+        <div className="absolute top-1.5 right-1.5">
+          {isSaved ? (
+            <span className="inline-flex h-7 items-center rounded-sm border border-rule bg-surface px-2 text-[11px] font-semibold text-success">
+              Đã lưu
+            </span>
+          ) : onSave ? (
             <Button
               type="button"
               size="sm"
@@ -65,8 +73,8 @@ export function DiscoverCard({
             >
               {isSaving ? <Spinner className="size-3" /> : 'Lưu bài'}
             </Button>
-          </div>
-        ) : null}
+          ) : null}
+        </div>
       </div>
 
       <div className="mt-2 min-w-0">

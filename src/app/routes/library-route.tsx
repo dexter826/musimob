@@ -5,16 +5,17 @@ import { cn } from 'cn'
 import { ErrorAlert } from '@/components/error-alert'
 import { useDocumentTitle } from '@/hooks/use-document-title'
 import {
-  AddSheet,
   getCountLabel,
   LibrarySelectionBar,
   LibraryToolbar,
+  ManualAddSheet,
   SongList,
+  sortSongs,
+  useLibrarySort,
   type NewSong,
   type Song,
 } from '@/features/songs'
 import { AlbumPicker } from '@/features/albums'
-import { SongSearch } from '@/features/catalog'
 import { songPreviewKey, useAudioPreview } from '@/features/audio-preview'
 import { useAppOutletContext } from '../app-outlet-context'
 
@@ -23,8 +24,8 @@ const SONGS_TITLE = 'MusiMOB: Thư viện'
 export function LibraryRoute() {
   const { authError, viewMode, songsState, albumsState } = useAppOutletContext()
   const [isAddOpen, setIsAddOpen] = useState(false)
-  const [addSeed, setAddSeed] = useState('')
   const [filterQuery, setFilterQuery] = useState('')
+  const { sortOption, setSortOption } = useLibrarySort(songsState.songs)
   const [flashId, setFlashId] = useState<string | null>(null)
   const [selectedIds, setSelectedIds] = useState<Set<string> | null>(null)
   const [isAlbumPickerOpen, setIsAlbumPickerOpen] = useState(false)
@@ -104,8 +105,7 @@ export function LibraryRoute() {
     return () => window.clearTimeout(timer)
   }, [flashId])
 
-  function openAdd(term = '') {
-    setAddSeed(term)
+  function openManualAdd() {
     setIsAddOpen(true)
   }
 
@@ -118,10 +118,6 @@ export function LibraryRoute() {
     const id = await addSong(song)
     toast.success('Đã lưu bài', { description: song.title })
     setFlashId(id)
-  }
-
-  async function handleSearchAdd(song: NewSong) {
-    await addSong(song)
   }
 
   async function undoDelete(song: Song) {
@@ -171,14 +167,16 @@ export function LibraryRoute() {
 
   const filteredSongs = useMemo(() => {
     const query = filterQuery.trim().toLowerCase()
-    if (!query) return songs
+    const matching = query
+      ? songs.filter(
+          (song) =>
+            song.title.toLowerCase().includes(query) ||
+            song.artist.toLowerCase().includes(query),
+        )
+      : songs
 
-    return songs.filter(
-      (song) =>
-        song.title.toLowerCase().includes(query) ||
-        song.artist.toLowerCase().includes(query),
-    )
-  }, [songs, filterQuery])
+    return sortSongs(matching, sortOption)
+  }, [songs, filterQuery, sortOption])
 
   const isLibraryEmpty = status.state === 'ready' && songs.length === 0
   const isFiltering = filterQuery.trim().length > 0
@@ -209,7 +207,9 @@ export function LibraryRoute() {
           countLabel={countLabel}
           filterQuery={filterQuery}
           onFilterChange={handleFilterChange}
-          onAdd={() => openAdd(filterQuery.trim())}
+          sortOption={sortOption}
+          onSortChange={setSortOption}
+          onManualAdd={openManualAdd}
           isLibraryEmpty={isLibraryEmpty}
           isSelecting={isSelecting}
           selectionToggleRef={selectionToggleRef}
@@ -224,8 +224,7 @@ export function LibraryRoute() {
           viewMode={viewMode}
           status={status}
           flashId={flashId}
-          onAdd={() => openAdd()}
-          onSearchCatalog={() => openAdd(filterQuery.trim())}
+          onAdd={openManualAdd}
           onRetry={retry}
           onClearFilter={() => handleFilterChange('')}
           onUpdate={updateSong}
@@ -238,8 +237,9 @@ export function LibraryRoute() {
       {isLibraryEmpty || isSelecting ? null : (
         <button
           type="button"
-          aria-label="Thêm bài"
-          onClick={() => openAdd(filterQuery.trim())}
+          aria-label="Nhập bài thủ công"
+          title="Nhập bài thủ công"
+          onClick={openManualAdd}
           className="bookmark-fab"
         >
           <Plus aria-hidden="true" className="size-[22px]" />
@@ -270,15 +270,11 @@ export function LibraryRoute() {
         onCreate={albumsState.createAlbum}
       />
 
-      <AddSheet
+      <ManualAddSheet
         open={isAddOpen}
         onOpenChange={setIsAddOpen}
-        initialTerm={addSeed}
         songs={songs}
         onAddManual={handleManualAdd}
-        renderSearch={(search) => (
-          <SongSearch {...search} songs={songs} onAdd={handleSearchAdd} />
-        )}
       />
     </>
   )
