@@ -42,7 +42,7 @@ _Sổ tay âm nhạc cá nhân: tra cứu, lưu trữ và nghe thử bài hát t
 - **Frontend core**: React 19, TypeScript 5.9, Vite 8, Tailwind CSS v4.
 - **Định tuyến & Dữ liệu**: React Router v7, TanStack Query v5 (quản lý bộ nhớ đệm và đồng bộ trạng thái bất đồng bộ).
 - **Thành phần giao diện**: Radix UI, Base UI, Lucide React, Sonner (thông báo toast phẳng 0px shadow), Vaul (ngăn kéo bottom sheet).
-- **Backend & Lưu trữ**: Firebase Authentication (Google Auth, Email/Password), Cloud Firestore (cấu hình bộ nhớ đệm đa tab `persistentLocalCache` và `persistentMultipleTabManager`), Firebase Hosting.
+- **Backend & Lưu trữ**: Firebase Authentication (Google Auth, Email/Password), Cloud Firestore, Firebase Hosting.
 - **Nguồn dữ liệu kho ngoài**: iTunes Search API và iTunes RSS Feeds.
 
 ## Bắt đầu nhanh
