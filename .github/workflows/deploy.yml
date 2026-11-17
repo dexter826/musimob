@@ -11,9 +11,13 @@ concurrency:
 
 jobs:
   deploy:
+    environment:
+      name: production
+      url: https://musi-mob.web.app
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      deployments: write
     steps:
       - uses: actions/checkout@v4
 
