@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>MusiMOB – Ảnh chia sẻ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+        background: #f4f3ee;
+        color: #1a1b17;
+        font-family: 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+
+      .canvas {
+        display: flex;
+        flex-direction: column;
+        width: 1200px;
+        height: 630px;
+        padding: 56px 72px 52px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .brand-mark {
+        display: block;
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+      }
+
+      .brand-name {
+        font-size: 34px;
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+
+      .brand-name strong {
+        color: #ff6a4d;
+        font-weight: 700;
+      }
+
+      .main {
+        display: grid;
+        flex: 1;
+        grid-template-columns: 552px 440px;
+        gap: 64px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0;
+        color: #5b5e55;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.015em;
+      }
+
+      .eyebrow::before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        background: #ff6a4d;
+        border-radius: 1px;
+      }
+
+      h1 {
+        max-width: 540px;
+        margin: 18px 0 0;
+        font-family: Lora, Georgia, 'Times New Roman', serif;
+        font-size: 68px;
+        font-weight: 500;
+        line-height: 1.06;
+        letter-spacing: -0.025em;
+        text-wrap: balance;
+      }
+
+      .lede {
+        max-width: 470px;
+        margin: 22px 0 0;
+        color: #5b5e55;
+        font-size: 19px;
+        line-height: 1.6;
+        text-wrap: pretty;
+      }
+
+      .domain {
+        margin: 38px 0 0;
+        color: #8a8d83;
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+      }
+
+      /* Library sheet mock */
+      .mock {
+        position: relative;
+        width: 440px;
+        height: 430px;
+      }
+
+      .sheet-offset {
+        position: absolute;
+        inset: 10px -10px -10px 10px;
+        border: 1px solid #d8d7cd;
+        border-radius: 12px;
+        background: #ecebe4;
+      }
+
+      .sheet {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        border: 1px solid #d8d7cd;
+        border-radius: 12px;
+        background: #faf9f5;
+      }
+
+      .sheet-head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 22px 24px 14px;
+      }
+
+      .sheet-title {
+        margin: 0;
+        font-family: Lora, Georgia, 'Times New Roman', serif;
+        font-size: 27px;
+        font-weight: 500;
+        line-height: 1.1;
+        letter-spacing: -0.015em;
+      }
+
+      .sheet-count {
+        margin: 5px 0 0;
+        color: #5b5e55;
+        font-size: 11.5px;
+        font-weight: 500;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .sheet-actions {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        padding-bottom: 2px;
+        color: #5b5e55;
+        font-size: 11.5px;
+        font-weight: 500;
+      }
+
+      .sheet-actions svg {
+        width: 15px;
+        height: 15px;
+      }
+
+      .search {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 40px;
+        margin: 0 24px 10px;
+        padding: 0 12px;
+        border: 1px solid #d8d7cd;
+        border-radius: 8px;
+        background: #f4f3ee;
+        color: #8a8d83;
+        font-size: 12.5px;
+        font-weight: 400;
+      }
+
+      .search svg {
+        width: 15px;
+        height: 15px;
+        flex: none;
+      }
+
+      .rows {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        padding: 0 12px 24px;
+      }
+
+      .row {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        min-height: 62px;
+        padding: 8px 12px;
+        border-radius: 8px;
+      }
+
+      .row.active {
+        background: #fce8e2;
+      }
+
+      .row.active::before {
+        content: '';
+        position: absolute;
+        top: 9px;
+        bottom: 9px;
+        left: 0;
+        width: 3px;
+        border-radius: 0 2px 2px 0;
+        background: #ff6a4d;
+      }
+
+      .cover {
+        display: grid;
+        place-items: center;
+        width: 48px;
+        height: 48px;
+        flex: none;
+        border-radius: 2px;
+        color: #8a8d83;
+      }
+
+      .cover svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .cover-1 {
+        background: #e4e3d9;
+      }
+
+      .cover-2 {
+        background: #ecebe4;
+      }
+
+      .cover-3 {
+        background: #f0e9e4;
+      }
+
+      .cover-4 {
+        background: #e7e9e2;
+      }
+
+      .song {
+        min-width: 0;
+        flex: 1;
+      }
+
+      .song-title {
+        margin: 0;
+        overflow: hidden;
+        font-size: 14.5px;
+        font-weight: 600;
+        line-height: 1.35;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .row.active .song-title {
+        color: #b23a27;
+      }
+
+      .song-artist {
+        margin: 2px 0 0;
+        overflow: hidden;
+        color: #5b5e55;
+        font-size: 12.5px;
+        line-height: 1.4;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .row.active .song-artist {
+        color: #b23a27;
+      }
+
+      .duration {
+        color: #8a8d83;
+        font-size: 12px;
+        font-weight: 500;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .bookmark-mark {
+        width: 15px;
+        height: 15px;
+        flex: none;
+        color: #ff6a4d;
+      }
+
+      .fab {
+        position: absolute;
+        right: -14px;
+        bottom: -14px;
+        display: grid;
+        place-items: center;
+        width: 56px;
+        height: 64px;
+        color: #1a1b17;
+      }
+
+      .fab::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: #ff6a4d;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 84%, 0 100%);
+        filter: drop-shadow(0 8px 18px rgb(26 27 23 / 18%));
+      }
+
+      .fab svg {
+        position: relative;
+        z-index: 1;
+        width: 22px;
+        height: 22px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="canvas">
+      <header class="brand">
+        <svg
+          class="brand-mark"
+          viewBox="0 0 256 256"
+          role="img"
+          aria-label="MusiMOB"
+        >
+          <path fill="#0a0a0b" d="M0 0h256v256H0z" />
+          <path
+            fill="#ff6a4d"
+            d="M50 40H182C196.359 40 208 51.641 208 66V118.693C205.402 118.238 202.729 118 200 118C174.595 118 154 138.595 154 164C154 189.405 174.595 210 200 210C201.766 210 203.508 209.901 205.222 209.707C200.939 218.186 192.148 224 182 224H50C35.641 224 24 212.359 24 198V66C24 51.641 35.641 40 50 40ZM41.4 165.35H62.46V122.06Q62.46 118.55 63.63 115.31Q64.8 112.07 67.32 110Q69.93 107.93 74.07 107.93Q79.47 107.93 82.17 111.44Q84.87 114.95 84.87 120.35V165.35H105.93V122.06Q105.93 118.55 107.1 115.31Q108.27 112.07 110.88 110Q113.4 107.93 117.54 107.93Q122.94 107.93 125.64 111.44Q128.34 114.95 128.34 120.35V165.35H149.4V115.13Q149.4 108.74 146.97 103.16Q144.54 97.58 139.59 94.07Q134.55 90.65 126.99 90.65Q120.87 90.65 116.37 92.63Q111.87 94.61 108.9 97.76Q105.93 100.82 104.13 104.06H103.86Q101.52 98.39 96.48 94.52Q91.35 90.65 83.07 90.65Q74.88 90.65 70.2 94.25Q65.52 97.94 63.18 101.99H62.46V92H41.4Z"
+          />
+          <path
+            fill="#f4f4f5"
+            d="M246 164C246 189.405 225.405 210 200 210C174.595 210 154 189.405 154 164C154 138.595 174.595 118 200 118C225.405 118 246 138.595 246 164ZM208 164C208 159.582 204.418 156 200 156C195.582 156 192 159.582 192 164C192 168.418 195.582 172 200 172C204.418 172 208 168.418 208 164Z"
+          />
+        </svg>
+        <span class="brand-name" translate="no"
+          >Musi<strong>MOB</strong></span
+        >
+      </header>
+
+      <main class="main">
+        <div class="copy">
+          <p class="eyebrow">Sổ lưu bài hát</p>
+          <h1>Thư viện riêng của bạn.</h1>
+          <p class="lede">
+            Lưu giữ, sắp xếp và thưởng thức âm nhạc yêu thích trong một không
+            gian gọn gàng, dễ chịu.
+          </p>
+          <p class="domain">musi-mob.web.app</p>
+        </div>
+
+        <div class="mock" aria-hidden="true">
+          <div class="sheet-offset"></div>
+          <div class="sheet">
+            <div class="sheet-head">
+              <div>
+                <p class="sheet-title">Thư viện</p>
+                <p class="sheet-count">24 bài</p>
+              </div>
+              <div class="sheet-actions">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M5 12h14" />
+                  <path d="M12 5v14" />
+                </svg>
+                Nhập bài
+              </div>
+            </div>
+
+            <div class="search">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.3-4.3" />
+              </svg>
+              Lọc bài hát…
+            </div>
+
+            <div class="rows">
+              <div class="row active">
+                <div class="cover cover-1">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="8" cy="18" r="4" />
+                    <path d="M12 18V2l7 4" />
+                  </svg>
+                </div>
+                <div class="song">
+                  <p class="song-title">Chiều trên phố</p>
+                  <p class="song-artist">Minh Anh</p>
+                </div>
+                <span class="duration">3:42</span>
+                <svg
+                  class="bookmark-mark"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
+                </svg>
+              </div>
+
+              <div class="row">
+                <div class="cover cover-2">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="8" cy="18" r="4" />
+                    <path d="M12 18V2l7 4" />
+                  </svg>
+                </div>
+                <div class="song">
+                  <p class="song-title">Mưa tháng sáu</p>
+                  <p class="song-artist">Hoàng Duy</p>
+                </div>
+                <span class="duration">4:05</span>
+              </div>
+
+              <div class="row">
+                <div class="cover cover-3">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="8" cy="18" r="4" />
+                    <path d="M12 18V2l7 4" />
+                  </svg>
+                </div>
+                <div class="song">
+                  <p class="song-title">Bài ca cũ</p>
+                  <p class="song-artist">Thảo Vy</p>
+                </div>
+                <span class="duration">2:58</span>
+              </div>
+
+              <div class="row">
+                <div class="cover cover-4">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="8" cy="18" r="4" />
+                    <path d="M12 18V2l7 4" />
+                  </svg>
+                </div>
+                <div class="song">
+                  <p class="song-title">Ngày chậm trôi</p>
+                  <p class="song-artist">Hà My</p>
+                </div>
+                <span class="duration">3:21</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="fab">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M5 12h14" />
+              <path d="M12 5v14" />
+            </svg>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

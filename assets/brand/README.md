@@ -14,10 +14,9 @@ Hướng A đã chốt: chữ **m** trên bìa coral, đĩa trắng lệch góc.
 | `favicon.ico` | Favicon đa kích thước 16/32/48 px |
 | `favicon-16x16.png`, `favicon-32x32.png`, `favicon-48x48.png` | Favicon PNG dự phòng |
 | `site.webmanifest` | Tên app, màu, chế độ standalone và khai báo icon |
-| `opengraph.png` | Ảnh chia sẻ Open Graph 1200×630 |
-| `twitter.png` | Ảnh thẻ Twitter/X 1200×600 |
+| `og-image.png` | Ảnh chia sẻ 1200×630, dùng chung cho Open Graph và Twitter/X |
 
-`index.html` đã liên kết favicon, Apple Touch Icon và manifest. Manifest/icon không thay thế service worker và không cung cấp khả năng offline. Metadata Open Graph và Twitter/X dùng URL production tuyệt đối; nguồn ảnh SVG nằm tại `opengraph.svg` và `twitter.svg`.
+`index.html` đã liên kết favicon, Apple Touch Icon và manifest. Manifest/icon không thay thế service worker và không cung cấp khả năng offline. Metadata Open Graph và Twitter/X dùng URL production tuyệt đối và cùng trỏ về `og-image.png`.
 
 ## Logo dùng ngoài ứng dụng
 
@@ -27,7 +26,7 @@ Bộ gọn gồm symbol và bốn biến thể logo ngang. Wordmark trong app l�
 - `logo-horizontal.svg`: logo ngang cho nền tối.
 - `logo-horizontal-light.svg`: logo ngang cho nền sáng.
 - `logo-horizontal-black.svg`, `logo-horizontal-white.svg`: hai bản đơn sắc.
-- `opengraph.svg`, `twitter.svg`: nguồn ảnh chia sẻ; bản PNG nằm trong `public/`.
+- `opengraph.svg`, `twitter.svg`: nguồn ảnh chia sẻ cũ, không còn dùng; ảnh chia sẻ hiện nay là `public/og-image.png`, render từ `public/og-image.html`.
 - Không có wordmark-only, logo dọc hay PNG lockup trong repo. Khi cần file ngoài app, dùng logo ngang và render PNG từ SVG.
 
 Các file SVG lockup dùng text Be Vietnam Pro 700 và import font từ Google Fonts. Khi mở trực tiếp trong trình duyệt, font sẽ tải; khi nhúng qua `<img>`, trình duyệt có thể không tải font ngoài. Bản PNG trong `public/` là bản tự chứa.
@@ -61,6 +60,10 @@ python .agents/skills/logo-design/scripts/render_png.py public/icon-maskable.svg
 python .agents/skills/logo-design/scripts/render_png.py public/favicon.svg --ico public/favicon.ico --ico-sizes 16 32 48
 ```
 
-Ảnh social và logo ngang cần Be Vietnam Pro 700; render từ `opengraph.svg`, `twitter.svg` hoặc `logo-horizontal.svg` trong trình duyệt đã có font.
+Ảnh social và logo ngang cần Be Vietnam Pro 700; render từ `opengraph.svg`, `twitter.svg` hoặc `logo-horizontal.svg` trong trình duyệt đã có font. Ảnh chia sẻ hiện hành render bằng Edge headless từ `public/og-image.html`:
+
+```powershell
+& "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=1 --window-size=1200,630 --virtual-time-budget=12000 --screenshot="<repo>\public\og-image.png" "http://localhost:5173/og-image.html"
+```
 
 Chưa thực hiện tra cứu bảo hộ nhãn hiệu; các file này không phải xác nhận pháp lý về tính độc quyền.
